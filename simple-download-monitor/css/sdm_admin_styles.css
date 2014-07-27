@@ -1,0 +1,73 @@
+/*
+** Used for sliding divs on admin settings page
+*/
+#plus_minus_email, #plus_minus_colors {
+	float:right;
+	margin-top:-3px;
+	margin-right:10px;
+}
+.slidingDiv {
+	width:60%;
+	background-color: #ECECEC;
+	padding:10px;
+	margin-top:1px;
+	border-bottom:3px solid #E1E1E1;
+		
+	-webkit-border-radius: 0 0 10px 10px;
+	-moz-border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
+}
+.sdm_sliding_div_title {
+	width:60%;
+	height:25px;
+	background-color:#E1E1E1;
+	padding:10px;
+	margin-top:10px;
+	
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
+}
+.sdm_slider_title {
+	float:left;
+	width:20%;
+	font-size:22px;
+	margin-top:5px;
+	text-shadow: 2px 2px #FFF;
+}
+.sdm_desc {
+	float:left;
+	width:60%;
+	font-size:14px;
+	margin-top:7px;
+	text-shadow: 1px 1px #FFF;
+}
+.sdm_open_close {
+	float:left;
+	width:20%;
+}
+
+
+
+/*
+** Used for AJAX Loading overlay
+*/
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('images/ajax.gif') 
+                50% 50% 
+                no-repeat;
+}
+body.loading {
+    overflow: hidden;   
+}
+body.loading .modal {
+    display: block;
+}

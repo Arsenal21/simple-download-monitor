@@ -1,0 +1,345 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-download-monitor\n"
+"POT-Creation-Date: 2013-11-01 01:22-0500\n"
+"PO-Revision-Date: 2013-11-22 11:41+0100\n"
+"Last-Translator: Franco Giambalvo <franco.giambalvo@fastwebnet.it>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../main.php:63 ../main.php:262
+msgid "Settings"
+msgstr "Imposta"
+
+#: ../main.php:134 ../main.php:135 ../main.php:140 ../main.php:146
+#: ../main.php:974
+msgid "Downloads"
+msgstr "Download"
+
+#: ../main.php:136 ../main.php:137
+msgid "Add New"
+msgstr "Nuovo"
+
+#: ../main.php:138
+msgid "Edit Download"
+msgstr "Modifica"
+
+#: ../main.php:139
+msgid "New Download"
+msgstr "Download nuovo"
+
+#: ../main.php:141
+msgid "View Download"
+msgstr "Vedi Download"
+
+#: ../main.php:142
+msgid "Search Downloads"
+msgstr "Cerca Download"
+
+#: ../main.php:143
+msgid "No Downloads found"
+msgstr "Non ci sono download"
+
+#: ../main.php:144
+msgid "No Downloads found in Trash"
+msgstr "Non ci sono download scartati"
+
+#: ../main.php:170 ../main.php:180 ../main.php:972
+msgid "Categories"
+msgstr "Categorie"
+
+#: ../main.php:171
+msgid "Category"
+msgstr "Categoria"
+
+#: ../main.php:172
+msgid "Search Categories"
+msgstr "Carca Categorie"
+
+#: ../main.php:173
+msgid "All Categories"
+msgstr "Tutte le Categorie"
+
+#: ../main.php:174
+msgid "Categories Genre"
+msgstr "Tipo Categoria"
+
+#: ../main.php:175
+msgid "Categories Genre:"
+msgstr "Tipo Categoria:"
+
+#: ../main.php:176
+msgid "Edit Category"
+msgstr "Modif.Categoria"
+
+#: ../main.php:177
+msgid "Update Category"
+msgstr "Aggiorna Categoria"
+
+#: ../main.php:178
+msgid "Add New Category"
+msgstr "Nuova Categoria"
+
+#: ../main.php:179
+msgid "New Category"
+msgstr "Nuova Categoria"
+
+#: ../main.php:195 ../main.php:205 ../main.php:973
+msgid "Tags"
+msgstr "Tag"
+
+#: ../main.php:196
+msgid "Tag"
+msgstr "Tag"
+
+#: ../main.php:197
+msgid "Search Tags"
+msgstr "Cerca Tag"
+
+#: ../main.php:198
+msgid "All Tags"
+msgstr "Tutti i Tag"
+
+#: ../main.php:199
+msgid "Tags Genre"
+msgstr "Tipo Tag"
+
+#: ../main.php:200
+msgid "Tags Genre:"
+msgstr "Tipo Tag:"
+
+#: ../main.php:201
+msgid "Edit Tag"
+msgstr "Modif. Tag"
+
+#: ../main.php:202
+msgid "Update Tag"
+msgstr "Aggiorna Tag"
+
+#: ../main.php:203
+msgid "Add New Tag"
+msgstr "Nuovo Tag"
+
+#: ../main.php:204
+msgid "New Tag"
+msgstr "Nuovo Tag"
+
+#: ../main.php:261
+msgid "Logs"
+msgstr "Stat"
+
+#: ../main.php:270
+msgid "Simple Download Monitor Settings Page"
+msgstr "Pagina Opzioni Simple Download Monito"
+
+#: ../main.php:278 ../main.php:514
+msgid "Admin Options"
+msgstr "Opzioni Amministr."
+
+#: ../main.php:281
+msgid "Control various plugin features."
+msgstr "Controlla varie funzioni del plugin"
+
+#: ../main.php:284 ../main.php:307
+msgid "Expand Option Panel"
+msgstr "EspandiPannello Opzioni"
+
+#: ../main.php:301
+msgid "Color Options"
+msgstr "Opzioni Colore"
+
+#: ../main.php:304
+msgid "Adjust color options"
+msgstr "Opzioni Controllo Colori"
+
+#: ../main.php:376
+msgid "Description"
+msgstr "Descrizione"
+
+#: ../main.php:381
+msgid "Upload File"
+msgstr "Carica File"
+
+#: ../main.php:386
+msgid "File Thumbnail"
+msgstr "Minaitura File"
+
+#: ../main.php:391
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: ../main.php:396
+msgid "Statistics"
+msgstr "Statistiche"
+
+#: ../main.php:404
+msgid "Add a description for this download item."
+msgstr "Descrizione di questo elemento di download."
+
+#: ../main.php:418
+msgid "Click \"Select File\" to upload (or choose) the file."
+msgstr "Fa click su \"Scegli File\" per caricare, o selez. il file."
+
+#: ../main.php:423
+msgid "File:"
+msgstr "File:"
+
+#: ../main.php:432
+msgid "Click \"Select Image\" to upload (or choose) the file thumbnail image."
+msgstr ""
+"Fa click su \"Scegli immagine\" per caricare, o selzionare una miniatura."
+
+#: ../main.php:434
+msgid "Recommended image size is 75px by 75px."
+msgstr "La dimensione consigliata è di 75x75 px."
+
+#: ../main.php:437
+msgid "Select Image"
+msgstr "Scegli Immagine"
+
+#: ../main.php:438
+msgid "Remove Image"
+msgstr "Elimina Immagine"
+
+#: ../main.php:453
+msgid ""
+"This is the shortcode which can used on posts or pages for this download."
+msgstr ""
+"Ecclo lo shortcode che si può usare su articoli, o pagine per fare il "
+"download."
+
+#: ../main.php:460
+msgid "These are the statistics for this download item."
+msgstr "Per questo elemento esistono delle statistiche."
+
+#: ../main.php:465
+msgid "Number of Downloads:"
+msgstr "Numero di Download:"
+
+#: ../main.php:515
+msgid "Colors"
+msgstr "Colori"
+
+#: ../main.php:517
+msgid "Remove Tinymce Button"
+msgstr "Elimina Bottone Tinymce"
+
+#: ../main.php:518
+msgid "Download Button Color"
+msgstr "Colore Bottone Download"
+
+#: ../main.php:521
+msgid "Admin options settings"
+msgstr "Imposta opzioni Admin"
+
+#: ../main.php:524
+msgid "Front End colors settings"
+msgstr "Imposta colori interfaccia"
+
+#: ../main.php:529
+msgid "Removes the SDM Downloads button from the WP content editor."
+msgstr "Elimina bottone SDM dall'editor di WP."
+
+#: ../main.php:534
+msgid "Green"
+msgstr "Verde"
+
+#: ../main.php:534
+msgid "Blue"
+msgstr "Blu"
+
+#: ../main.php:534
+msgid "Purple"
+msgstr "Violetto"
+
+#: ../main.php:534
+msgid "Teal"
+msgstr "Tortora"
+
+#: ../main.php:534
+msgid "Dark Blue"
+msgstr "Blu Scuro"
+
+#: ../main.php:534
+msgid "Black"
+msgstr "Nero"
+
+#: ../main.php:534
+msgid "Grey"
+msgstr "Grigio"
+
+#: ../main.php:534
+msgid "Pink"
+msgstr "Rosa"
+
+#: ../main.php:534
+msgid "Orange"
+msgstr "Arancione"
+
+#: ../main.php:534
+msgid "White"
+msgstr "Bianco"
+
+#: ../main.php:543
+msgid "Adjusts the color of the \"Download Now\" button."
+msgstr "Decidi il colore del Bottone \"Scaricala\"."
+
+#: ../main.php:622 ../main.php:969
+msgid "Title"
+msgstr "Titolo"
+
+#: ../main.php:623 ../main.php:971
+msgid "File"
+msgstr "File"
+
+#: ../main.php:624
+msgid "Visitor IP"
+msgstr "IP Visitatore"
+
+#: ../main.php:625
+msgid "Date"
+msgstr "Data"
+
+#: ../main.php:644
+msgid "Delete Permanently"
+msgstr "Cancella Definitivo"
+
+#: ../main.php:645
+msgid "Export All as Excel"
+msgstr "Esporta fornato Excel"
+
+#: ../main.php:773
+msgid "Download Logs"
+msgstr "Scarica Attività"
+
+#: ../main.php:776
+msgid "This page lists all tracked downloads."
+msgstr "Ecco tutti i download individuati."
+
+#: ../main.php:836
+msgid "green"
+msgstr "verde"
+
+#: ../main.php:841 ../main.php:853
+msgid "Download Now!"
+msgstr "Scaricala!"
+
+#: ../main.php:968
+msgid "Image"
+msgstr "Immagine"
+
+#: ../main.php:970
+msgid "ID"
+msgstr "ID"
+
+#: ../main.php:975
+msgid "Date Posted"
+msgstr "Data Inserim."
