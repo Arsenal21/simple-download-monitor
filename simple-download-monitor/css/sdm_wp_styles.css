@@ -1,3 +1,7 @@
+.sdm_clear_float{
+    clear: both;
+}
+
 .sdm_download_item {
 	display: block;
 	border:1px solid #E7E9EB;

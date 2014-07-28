@@ -83,9 +83,9 @@ Create a new post/page and click the "SDM Downlaods" TinyMCE button to insert a 
 
 Example Shortcode Usage:
 
-`[sdm-download id="271" fancy="1"]`  (embed a download button inside a box with other information e.g. Thumbnail, Title and Description)
+`[sdm_download id="271" fancy="1"]`  (embed a download button inside a box with other information e.g. Thumbnail, Title and Description)
 
-`[sdm-download id="271" fancy="0"]`  (embed a plain download button/link for a file)
+`[sdm_download id="271" fancy="0"]`  (embed a plain download button/link for a file)
 
 **D) Download logs**
 
@@ -129,6 +129,12 @@ For screenshots please visit the [download monitor plugin page](http://www.tipsa
 
 == Changelog ==
 
+= TODO 3.1 =
+- Added a new fancy template to display the downloads.
+- You can now show a grid display of your downloads.
+- Added some error validation in the download shortcode entry.
+- Refactored some code.
+- Added CSS classes around the download count shortcode output.
 
 = 3.0 =
 * Added an option to specify a download count offset for each download. This will allow you to set a starting download count for each item. 

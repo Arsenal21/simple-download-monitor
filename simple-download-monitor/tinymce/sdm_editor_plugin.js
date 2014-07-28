@@ -124,9 +124,9 @@ jQuery(function(){
 		post_id = jQuery('#sdm_select').find(":selected").val();  // Get selected CPT item title value (item id)
 		
 		if (jQuery('#sdm_fancy_cb').is(':checked')) {
-        	shortcode = '[sdm-download id="'+post_id+'" fancy="1"]';  // Process shortcode
+        	shortcode = '[sdm_download id="'+post_id+'" fancy="1"]';  // Process shortcode
 		} else {
-			shortcode = '[sdm-download id="'+post_id+'" fancy="0"]';  // Process shortcode
+			shortcode = '[sdm_download id="'+post_id+'" fancy="0"]';  // Process shortcode
 		}
 
         // inserts the shortcode into the active editor
