@@ -21,39 +21,24 @@ function sdm_create_download_shortcode($atts) {
         'fancy' => '0',
         'button_text' => '',
         'new_window' => '',
-    ), $atts));
+                    ), $atts));
 
     if (empty($id)) {
         return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
     }
-    
+
     // Check to see if the download link cpt is password protected
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;
-    // Get CPT thumbnail
-    $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
-    $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
-
     // Get CPT title
     $item_title = get_the_title($id);
     $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
-
-    // Get CPT description
-    $item_description = get_post_meta($id, 'sdm_description', true);
-    $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
-    $isset_item_description = do_shortcode($isset_item_description);
-
-    // Get CPT download link
-    $item_link = get_post_meta($id, 'sdm_upload', true);
-    $isset_item_link = isset($item_link) && !empty($item_link) ? $item_link : '';
 
     // See if user color option is selected
     $main_opts = get_option('sdm_downloads_options');
     $color_opt = $main_opts['download_button_color'];
     $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'sdm_lang');
 
-    //Download counter
-    //$dl_counter = sdm_create_counter_shortcode(array('id'=>$id));
     //*** Generate the download now button code ***
     $window_target = '';
     if (!empty($new_window)) {
@@ -77,22 +62,15 @@ function sdm_create_download_shortcode($atts) {
     if ($fancy == '0') {
         $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
     } else if ($fancy == '1') {
-        // Prepare shortcode
-        $output = '<div class="sdm_download_item">';
-        $output .= '<div class="sdm_download_item_top">';
-        $output .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
-        $output .= '<div class="sdm_download_title">' . $isset_item_title . '</div>';
-        $output .= '</div>'; //End of .sdm_download_item_top
-        $output .= '<div style="clear:both;"></div>';
-        $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
-        $output .= '<div class="sdm_download_link">' . $download_button_code . '</div>';
-        $output .= '</div>';
+        include_once('includes/templates/fancy1/sdm-fancy-1.php');
+        $output .= sdm_generate_fancy1_display_output($atts);
+        $output .= '<div class="sdm_clear_float"></div>';
     } else if ($fancy == '2') {
         include_once('includes/templates/fancy2/sdm-fancy-2.php');
         $output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
         $output .= sdm_generate_fancy2_display_output($atts);
         $output .= '<div class="sdm_clear_float"></div>';
-    } else {//Default output is the standard download now button
+    } else {//Default output is the standard download now button (fancy 0)
         $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
     }
 
@@ -104,18 +82,18 @@ function sdm_create_counter_shortcode($atts) {
 
     extract(shortcode_atts(array(
         'id' => ''
-    ), $atts));
+                    ), $atts));
 
     if (empty($id)) {
         return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
     }
-    
+
     $db_count = sdm_get_download_count_for_post($id);
 
     // Set string for singular/plural results
     $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
 
-    $output = '<div class="sdm_download_count"><span class="sdm_count_number">'.$db_count . '</span><span class="sdm_count_string"> ' . $string.'</span></div>';
+    $output = '<div class="sdm_download_count"><span class="sdm_count_number">' . $db_count . '</span><span class="sdm_count_string"> ' . $string . '</span></div>';
     // Return result
     return apply_filters('sdm_download_count_output', $output, $atts);
 }
@@ -223,21 +201,13 @@ function sdm_handle_category_shortcode($args) {
             // Generate download buttons            
             if ($fancy == '0') {
                 $output .= '<div class="sdm_download_link">' . $download_button_code . '</div><br />';
-            } else if ($fancy == '1') {
-                $output .= '<div class="sdm_download_item">';
-                $output .= '<div class="sdm_download_item_top">';
-                $output .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
-                $output .= '<div class="sdm_download_title">' . $isset_item_title . '</div>';
-                $output .= '</div>';  // End of .sdm_download_item_top
-                $output .= '<div style="clear:both;"></div>';
-                $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
-                $output .= '<div class="sdm_download_link">' . $download_button_code . '</div>';
-                $output .= '</div>';
-                $output .= '<br />';
             }
         }  // End foreach
-        //Fancy 2 and onwards handles the loop inside the template function
-        if ($fancy == '2') {
+        //Fancy 1 and onwards handles the loop inside the template function
+        if ($fancy == '1') {
+            include_once('includes/templates/fancy1/sdm-fancy-1.php');
+            $output .= sdm_generate_fancy1_category_display_output($get_posts, $args);
+        } else if ($fancy == '2') {
             include_once('includes/templates/fancy2/sdm-fancy-2.php');
             $output .= sdm_generate_fancy2_category_display_output($get_posts, $args);
         }

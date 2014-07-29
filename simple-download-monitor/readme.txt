@@ -1,10 +1,10 @@
 === Simple Download Monitor ===
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: http://www.tipsandtricks-hq.com
-Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax,
+Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -52,6 +52,7 @@ http://www.youtube.com/watch?v=L-mXbs7kp0s
 * Shortcode to show all the downloads from a particular category.
 * Shortcode to embed a file tree browser for your downloadable files. The file browser is ajax based and it shows the files structured by categories.
 * Ability to open the downloads in new browser window or tab. When your users click on a download button, it will open in a new window or tab.
+* Ability to show your downloads in a grid display.
 
 View more details on the [download monitor plugin](http://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
@@ -129,13 +130,15 @@ For screenshots please visit the [download monitor plugin page](http://www.tipsa
 
 == Changelog ==
 
-= TODO 3.1 =
+= 3.1 =
 - Added a new fancy template to display the downloads.
 - You can now show a grid display of your downloads.
 - Added some error validation in the download shortcode entry.
-- Refactored some code.
+- Refactored some code and added a couple of new filters.
 - Added CSS classes around the download count shortcode output.
 - Modified the styles of the simple downloads post type output.
+- The fancy 1 template now shows the download count of each item.
+- Updated the POT file for language translation.
 
 = 3.0 =
 * Added an option to specify a download count offset for each download. This will allow you to set a starting download count for each item. 
@@ -182,10 +185,6 @@ For screenshots please visit the [download monitor plugin page](http://www.tipsa
 * Complete new architecture for the download monitor plugin
 * You can download the old version with old architecture here:
 http://wordpress.org/plugins/simple-download-monitor/developers/
-
-= 0.24 and before =
-* The old architecture changelog can be found inside the zip file here:
-http://downloads.wordpress.org/plugin/simple-download-monitor.0.24.zip
 
 == Upgrade Notice ==
 
