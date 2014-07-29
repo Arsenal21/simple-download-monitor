@@ -15,7 +15,7 @@ function filter_sdm_post_type_content($content) {
         $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;
         // Get CPT thumbnail
         $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
-        $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
+        $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
 
         // Get CPT title
         $item_title = get_the_title($id);
@@ -44,16 +44,31 @@ function filter_sdm_post_type_content($content) {
             $download_button_code = sdm_get_password_entry_form($id);
         }
 
+        $db_count = sdm_get_download_count_for_post($id);
+        $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
+        $download_count_string = '<span class="sdm_post_count_number">'.$db_count . '</span><span class="sdm_post_count_string"> ' . $string.'</span>';
+                
         //TODO - make this display better with a new design
-        $content = '<div class="sdm_download_item">';
-        $content .= '<div class="sdm_download_item_top">';
-        $content .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
-        $content .= '<div class="sdm_download_title">' . $isset_item_title . '</div>';
-        $content .= '</div>'; //End of .sdm_download_item_top
-        $content .= '<div style="clear:both;"></div>';
-        $content .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
-        $content .= '<div class="sdm_download_link">' . $download_button_code . '</div>';
-        $content .= '</div>';
+        $content = '<div class="sdm_post_item">';
+        $content .= '<div class="sdm_post_item_top">';
+        
+        $content .= '<div class="sdm_post_item_top_left">';
+        $content .= '<div class="sdm_post_thumbnail">' . $isset_download_thumbnail . '</div>';
+        $content .= '</div>';//end .sdm_post_item_top_left
+        
+        $content .= '<div class="sdm_post_item_top_right">';
+        $content .= '<div class="sdm_post_title">' . $isset_item_title . '</div>';
+        $content .= '<div class="sdm_post_download_count">' . $download_count_string . '</div>';
+        $content .= '<div class="sdm_post_description">' . $isset_item_description . '</div>';
+        $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
+        //$content .= '<div class="sdm_post_meta_section"></div>';//TODO - Show post meta (category and tags)
+        $content .= '</div>';//end .sdm_post_item_top_right
+        
+        $content .= '</div>'; //end of .sdm_download_item_top
+        
+        $content .= '<div style="clear:both;"></div>';             
+        
+        $content .= '</div>';//end .sdm_post_item
 
         return $content;
     }

@@ -135,6 +135,7 @@ For screenshots please visit the [download monitor plugin page](http://www.tipsa
 - Added some error validation in the download shortcode entry.
 - Refactored some code.
 - Added CSS classes around the download count shortcode output.
+- Modified the styles of the simple downloads post type output.
 
 = 3.0 =
 * Added an option to specify a download count offset for each download. This will allow you to set a starting download count for each item. 
