@@ -1,7 +1,7 @@
 === Simple Download Monitor ===
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: http://www.tipsandtricks-hq.com
-Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid
+Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents
 Requires at least: 3.0
 Tested up to: 3.9.1
 Stable tag: 3.1.1
@@ -11,17 +11,17 @@ Easily manage downloadable files and monitor downloads of your digital files fro
 
 == Description ==
 
-I developed the Simple Download Monitor plugin because I needed a nice way to manage my digital downloads and monitor the number of downloads of my files.
+I developed the Simple Download Monitor plugin because I needed a nice way to manage my digital downloads and monitor the number of downloads of my files and documents.
 
 This plugin is very useful for managing and tracking your digital file download counts. 
 
-You can password protect your downloadable files too (visitors will require a password before downloading the file when you use this option).
+You can password protect your downloadable files and documents too (visitors will require a password before downloading the file when you use this option).
 
 There is an option to show an ajax file tree browser so your visitors can browse all your files and download the ones they want.
 
 You can configure downloadable files from your WordPress admin dashboard via an elegant user interface. Then allow your visitors to download the files and this plugin will monitor which files get downloaded how many times.
 
-The plugin will log the IP addresses of the users who download your digital files.
+The plugin will log the IP addresses of the users who download your digital files and documents. It will also log the date and time of each download.
 
 It has a very user-friendly interface for uploading, managing, monitoring and tracking file downloads.
 
@@ -30,10 +30,10 @@ http://www.youtube.com/watch?v=L-mXbs7kp0s
 = Simple Download Monitor Features =
 
 * Add, edit and remove downloads from an easy to use interface.
-* Drag and drop file uploads.
-* Assign categories and tags to your downloadable files.
-* Use shortcodes to display a download now button on a WordPress post/page.
-* Show a trackable download now button for your files anywhere on your site.
+* Drag and drop file and document uploads.
+* Assign categories and tags to your downloadable files and documents.
+* Use shortcodes to display a download now button on a WordPress post or page.
+* Show trackable download now buttons for your files anywhere on your site.
 * Download counter for each file.
 * Ability to set a download count offset for each file.
 * Track IP addresses of the users who downloaded your files.
