@@ -55,13 +55,6 @@ function sdm_generate_fancy1_display_output($args) {
         $button_text_string = $button_text;
     }
 
-    // Check to see if the download link cpt is password protected
-    $get_cpt_object = get_post($id);
-    $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
-    if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
-        $download_button_code = sdm_get_password_entry_form($id);
-    }
-
     // Get permalink
     $permalink = get_permalink($id);
 
@@ -83,6 +76,13 @@ function sdm_generate_fancy1_display_output($args) {
     $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
     $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
 
+    // Check to see if the download link cpt is password protected
+    $get_cpt_object = get_post($id);
+    $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
+    if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
+        $download_button_code = sdm_get_password_entry_form($id);
+    }
+    
     $db_count = sdm_get_download_count_for_post($id);
     $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
     $download_count_string = '<span class="sdm_item_count_number">' . $db_count . '</span><span class="sdm_item_count_string"> ' . $string . '</span>';
@@ -99,7 +99,7 @@ function sdm_generate_fancy1_display_output($args) {
     $output .= '<div style="clear:both;"></div>';
     $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
     $output .= '<div class="sdm_download_link">';
-    $output .= $download_button_code;
+    $output .= '<span class="sdm_download_button">' . $download_button_code . '</span>';
     $output .= '<span class="sdm_download_item_count">' . $download_count_string . '</span>';
     $output .= '</div>'; //end .sdm_download_link
     $output .= '</div>'; //end .sdm_download_item

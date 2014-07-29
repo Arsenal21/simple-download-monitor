@@ -37,7 +37,12 @@
     display: inline-block;
     float: right;
 }
-
+.sdm_download_link{
+    display: block;
+}
+.sdm_download_button{
+    display: inline-block;    
+}
 /********************************************/
 /*** Individual Download Item View Styles ***/
 /********************************************/

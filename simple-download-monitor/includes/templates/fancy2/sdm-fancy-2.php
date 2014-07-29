@@ -11,12 +11,15 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
     //$output .= '<ul class="sdm_fancy2_category_items">';
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
+        $button_text = isset($args['button_text'])? $args['button_text'] : '';
+        $new_window = isset($args['new_window'])? $args['new_window'] : '';
+        
         //Create a args array
         $args = array(
             'id' => $id,
             'fancy' => '2',
-            'button_text' => $args['button_text'],
-            'new_window' => $args['new_window'],
+            'button_text' => $button_text,
+            'new_window' => $new_window,
             'css_class' => 'sdm_fancy2_grid',
         );
         $output .= sdm_generate_fancy2_display_output($args);
