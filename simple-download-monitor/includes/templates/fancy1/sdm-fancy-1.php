@@ -67,10 +67,8 @@ function sdm_generate_fancy1_display_output($args) {
     $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
 
     // Get CPT description
-    $item_description = get_post_meta($id, 'sdm_description', true);
-    $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
-    $isset_item_description = do_shortcode($isset_item_description);
-
+    $isset_item_description = sdm_get_item_description_output($id);
+    
     // Get download button
     $homepage = get_bloginfo('url');
     $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;

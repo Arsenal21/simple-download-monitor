@@ -397,9 +397,9 @@ class simpleDownloadManager {
         echo '<br /><br />';
 
         $old_description = get_post_meta($post->ID, 'sdm_description', true);
-        ?>
-        <textarea id="sdm_description" name="sdm_description" style="width:60%;height:40px;"><?php echo $old_description; ?></textarea>
-        <?php
+        $sdm_description_field = array('textarea_name' => 'sdm_description');
+        wp_editor($old_description, "sdm_description_editor_content", $sdm_description_field);
+        
         wp_nonce_field('sdm_description_box_nonce', 'sdm_description_box_nonce_check');
     }
 

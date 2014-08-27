@@ -13,18 +13,18 @@ function filter_sdm_post_type_content($content) {
         // Check to see if the download link cpt is password protected
         $get_cpt_object = get_post($id);
         $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;
-        // Get CPT thumbnail
+        // Get item thumbnail
         $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
         $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
 
-        // Get CPT title
+        // Get item title
         $item_title = get_the_title($id);
         $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
 
-        // Get CPT description
-        $item_description = get_post_meta($id, 'sdm_description', true);
-        $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
-        $isset_item_description = do_shortcode($isset_item_description);
+        // Get item description
+        $isset_item_description = sdm_get_item_description_output($id);
+       
+        //$isset_item_description = apply_filters('the_content', $isset_item_description);
 
         // See if user color option is selected
         $main_opts = get_option('sdm_downloads_options');

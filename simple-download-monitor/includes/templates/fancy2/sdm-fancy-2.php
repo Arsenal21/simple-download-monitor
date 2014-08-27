@@ -72,21 +72,19 @@ function sdm_generate_fancy2_display_output($args) {
         $download_button_code = sdm_get_password_entry_form($id);
     }
 
-    // Get permalink
+    // Get item permalink
     $permalink = get_permalink($id);
 
-    // Get CPT thumbnail
+    // Get item thumbnail
     $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
     $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_fancy2_thumb_image" src="' . $item_download_thumbnail . '" />' : '';
 
-    // Get CPT title
+    // Get item title
     $item_title = get_the_title($id);
     $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
 
-    // Get CPT description
-    $item_description = get_post_meta($id, 'sdm_description', true);
-    $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
-    $isset_item_description = do_shortcode($isset_item_description);
+    // Get item description
+    $isset_item_description = sdm_get_item_description_output($id);
 
     $css_class = isset($args['css_class']) ? $args['css_class'] : '';
     $output = '';

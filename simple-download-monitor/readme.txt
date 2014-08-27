@@ -130,6 +130,11 @@ For screenshots please visit the [download monitor plugin page](http://www.tipsa
 
 == Changelog ==
 
+= 3.1.3 =
+- Added the option to use "orderby" and "order" parameters in the display downloads from a category shortcode to allow sorting the download items display list.
+- The download item description field has been converted to a rich editor. So you can customize the download description with rich text.
+- 
+
 = 3.1.2 = 
 - Removed the link from the download item name in the template 2 display.
 

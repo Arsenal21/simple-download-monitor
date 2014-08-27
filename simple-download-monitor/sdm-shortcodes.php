@@ -107,7 +107,9 @@ function sdm_handle_category_shortcode($args) {
         'fancy' => '0',
         'button_text' => '',
         'new_window' => '',
-                    ), $args));
+        'orderby' => 'post_date',
+	'order' => 'DESC',
+    ), $args));
 
     // Define vars
     $field = '';
@@ -145,7 +147,9 @@ function sdm_handle_category_shortcode($args) {
                 'field' => $field,
                 'terms' => $terms
             )
-        )
+        ),
+        'orderby' => $orderby,
+	'order' => $order,
     ));
 
     // If no cpt's are found
@@ -191,9 +195,8 @@ function sdm_handle_category_shortcode($args) {
             $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
             $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
 
-            // Get CPT description (for fancy option)
-            $item_description = get_post_meta($id, 'sdm_description', true);
-            $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
+            // Get item description (for fancy option)
+            $isset_item_description = sdm_get_item_description_output($id);
 
             // Setup download button code
             $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
