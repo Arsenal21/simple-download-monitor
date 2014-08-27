@@ -1,10 +1,10 @@
 === Simple Download Monitor ===
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
-Donate link: http://www.tipsandtricks-hq.com
+Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents
 Requires at least: 3.0
 Tested up to: 3.9.2
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -25,13 +25,14 @@ The plugin will log the IP addresses of the users who download your digital file
 
 It has a very user-friendly interface for uploading, managing, monitoring and tracking file downloads.
 
-http://www.youtube.com/watch?v=L-mXbs7kp0s
+https://www.youtube.com/watch?v=L-mXbs7kp0s
 
 = Simple Download Monitor Features =
 
 * Add, edit and remove downloads from an easy to use interface.
 * Drag and drop file and document uploads.
 * Assign categories and tags to your downloadable files and documents.
+* Rich text editor for editing your download item description.
 * Use shortcodes to display a download now button on a WordPress post or page.
 * Show trackable download now buttons for your files anywhere on your site.
 * Download counter for each file.
@@ -52,9 +53,9 @@ http://www.youtube.com/watch?v=L-mXbs7kp0s
 * Shortcode to show all the downloads from a particular category.
 * Shortcode to embed a file tree browser for your downloadable files. The file browser is ajax based and it shows the files structured by categories.
 * Ability to open the downloads in new browser window or tab. When your users click on a download button, it will open in a new window or tab.
-* Ability to show your downloads in a grid display. [View the tutorial](http://www.tipsandtricks-hq.com/show-file-downloads-in-a-nice-grid-display-7273)
+* Ability to show your downloads in a grid display. [View the tutorial](https://www.tipsandtricks-hq.com/show-file-downloads-in-a-nice-grid-display-7273)
 
-View more details on the [download monitor plugin](http://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
+View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
 = Simple Download Monitor Plugin Usage =
 
@@ -92,7 +93,7 @@ Example Shortcode Usage:
 
 You can check the download stats from the "Downloads->Logs" interface. It shows the number of downloads for each files, IP address of the user who downloaded it, date and time of the download.
 
-View more usage instructions on the [Download Monitor Plugin](http://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
+View more usage instructions on the [Download Monitor Plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
 == Installation ==
 
@@ -126,14 +127,13 @@ Yes.
 
 == Screenshots ==
 
-For screenshots please visit the [download monitor plugin page](http://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
+For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
 
 = 3.1.3 =
-- Added the option to use "orderby" and "order" parameters in the display downloads from a category shortcode to allow sorting the download items display list.
-- The download item description field has been converted to a rich editor. So you can customize the download description with rich text.
-- 
+- Added an option to use "orderby" and "order" parameters in the display downloads from a category shortcode to allow sorting the download items display list.
+- The download item description field has been converted to a rich text editor. So you can customize the download description with rich text.
 
 = 3.1.2 = 
 - Removed the link from the download item name in the template 2 display.
