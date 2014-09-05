@@ -130,7 +130,6 @@ Yes.
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
-
 = 3.1.3 =
 - Added an option to use "orderby" and "order" parameters in the display downloads from a category shortcode to allow sorting the download items display list.
 - The download item description field has been converted to a rich text editor. So you can customize the download description with rich text.
