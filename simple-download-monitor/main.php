@@ -3,22 +3,23 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.1.3
+ * Version: 3.1.4
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
  */
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.3');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.4');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
 
 global $sdm_db_version;
-$sdm_db_version = '1.1';
+$sdm_db_version = '1.2';
 
 //File includes
 include_once('includes/sdm-utility-functions.php');
@@ -43,6 +44,7 @@ function sdm_install_db_table() {
 			  visitor_ip mediumtext NOT NULL,
 			  date_time datetime DEFAULT "0000-00-00 00:00:00" NOT NULL,
 			  visitor_country mediumtext NOT NULL,
+			  visitor_name mediumtext NOT NULL,
 			  UNIQUE KEY id (id)
 		);';
 
@@ -61,6 +63,7 @@ function sdm_db_update_check() {
         }
     }
 }
+		
 
 /*
  * * Handle Plugins loaded tasks
@@ -601,6 +604,8 @@ class sdm_List_Table extends WP_List_Table {
                 return $item[$column_name];
             case 'visitor_country':
                 return $item[$column_name];
+            case 'visitor_name':
+                return $item[$column_name];
             default:
                 return print_r($item, true); //Show the whole array for troubleshooting purposes
         }
@@ -639,7 +644,8 @@ class sdm_List_Table extends WP_List_Table {
             'URL' => __('File', 'sdm_lang'),
             'visitor_ip' => __('Visitor IP', 'sdm_lang'),
             'date' => __('Date', 'sdm_lang'),
-            'visitor_country' => __('Country', 'sdm_lang')
+            'visitor_country' => __('Country', 'sdm_lang'),
+            'visitor_name' => __('Username', 'sdm_lang')
         );
         return $columns;
     }
@@ -651,7 +657,8 @@ class sdm_List_Table extends WP_List_Table {
             'URL' => array('URL', false),
             'visitor_ip' => array('visitor_ip', false),
             'date' => array('date', false),
-            'visitor_country' => array('visitor_country', false)
+            'visitor_country' => array('visitor_country', false),
+            'visitor_name' => array('visitor_name', false)
         );
         return $sortable_columns;
     }
@@ -756,7 +763,7 @@ class sdm_List_Table extends WP_List_Table {
         $data_results = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads');
         $data = array();
         foreach ($data_results as $data_result) {
-            $data[] = array('ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country);
+            $data[] = array('ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
         }
 
 
@@ -842,6 +849,15 @@ function handle_sdm_download_via_direct_post() {
         $ipaddress = $_SERVER["REMOTE_ADDR"];
         $date_time = current_time('mysql');
         $visitor_country = sdm_ip_info('Visitor', 'Country');
+		
+        if(is_user_logged_in()) {  // Get user name (if logged in)
+            global $current_user;
+            get_currentuserinfo();
+            $visitor_name = $current_user->user_login;
+        }
+        else {
+            $visitor_name = __('Not Logged In','sdm_lang');
+        }
 
         global $wpdb;
         $table = $wpdb->prefix . 'sdm_downloads';
@@ -851,7 +867,8 @@ function handle_sdm_download_via_direct_post() {
             'file_url' => $download_link,
             'visitor_ip' => $ipaddress,
             'date_time' => $date_time,
-            'visitor_country' => $visitor_country
+            'visitor_country' => $visitor_country,
+            'visitor_name' => $visitor_name
         );
 
         $insert_table = $wpdb->insert($table, $data);
@@ -950,6 +967,15 @@ function sdm_check_pass_ajax_call() {
         $ipaddress = $_SERVER["REMOTE_ADDR"];
         $date_time = current_time('mysql');
         $visitor_country = sdm_ip_info('Visitor', 'Country');
+		
+        if(is_user_logged_in()) {  // Get user name (if logged in)
+            global $current_user;
+            get_currentuserinfo();
+            $visitor_name = $current_user->user_login;
+        }
+        else {
+            $visitor_name = __('Not Logged In','sdm_lang');
+        }
 
         global $wpdb;
         $table = $wpdb->prefix . 'sdm_downloads';
@@ -959,7 +985,8 @@ function sdm_check_pass_ajax_call() {
             'file_url' => $download_link,
             'visitor_ip' => $ipaddress,
             'date_time' => $date_time,
-            'visitor_country' => $visitor_country
+            'visitor_country' => $visitor_country,
+            'visitor_name' => $visitor_name
         );
 
         $insert_table = $wpdb->insert($table, $data);
@@ -1023,7 +1050,6 @@ function sdm_create_columns($cols) {
     unset($cols['taxonomy-sdm_tags']);
     unset($cols['taxonomy-sdm_categories']);
     unset($cols['date']);
-    unset($cols['visitor_country']);
 
     $cols['sdm_downloads_thumbnail'] = __('Image', 'sdm_lang');
     $cols['title'] = __('Title', 'sdm_lang');
@@ -1033,7 +1059,6 @@ function sdm_create_columns($cols) {
     $cols['taxonomy-sdm_tags'] = __('Tags', 'sdm_lang');
     $cols['sdm_downloads_count'] = __('Downloads', 'sdm_lang');
     $cols['date'] = __('Date Posted', 'sdm_lang');
-    $cols['visitor_country'] = __('Visitor Country', 'sdm_lang');
     return $cols;
 }
 
@@ -1115,70 +1140,4 @@ if ($tiny_button_option != true) {
         return $buttons;
     }
 
-}
-
-// Helper function to get visitor country (or other info)
-function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
-    $output = NULL;
-    if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
-        $ip = $_SERVER["REMOTE_ADDR"];
-        if ($deep_detect) {
-            if (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP))
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            if (filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP))
-                $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }
-    }
-    $purpose = str_replace(array("name", "\n", "\t", " ", "-", "_"), NULL, strtolower(trim($purpose)));
-    $support = array("country", "countrycode", "state", "region", "city", "location", "address");
-    $continents = array(
-        "AF" => "Africa",
-        "AN" => "Antarctica",
-        "AS" => "Asia",
-        "EU" => "Europe",
-        "OC" => "Australia (Oceania)",
-        "NA" => "North America",
-        "SA" => "South America"
-    );
-    if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-        $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-        if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
-            switch ($purpose) {
-                case "location":
-                    $output = array(
-                        "city" => @$ipdat->geoplugin_city,
-                        "state" => @$ipdat->geoplugin_regionName,
-                        "country" => @$ipdat->geoplugin_countryName,
-                        "country_code" => @$ipdat->geoplugin_countryCode,
-                        "continent" => @$continents[strtoupper($ipdat->geoplugin_continentCode)],
-                        "continent_code" => @$ipdat->geoplugin_continentCode
-                    );
-                    break;
-                case "address":
-                    $address = array($ipdat->geoplugin_countryName);
-                    if (@strlen($ipdat->geoplugin_regionName) >= 1)
-                        $address[] = $ipdat->geoplugin_regionName;
-                    if (@strlen($ipdat->geoplugin_city) >= 1)
-                        $address[] = $ipdat->geoplugin_city;
-                    $output = implode(", ", array_reverse($address));
-                    break;
-                case "city":
-                    $output = @$ipdat->geoplugin_city;
-                    break;
-                case "state":
-                    $output = @$ipdat->geoplugin_regionName;
-                    break;
-                case "region":
-                    $output = @$ipdat->geoplugin_regionName;
-                    break;
-                case "country":
-                    $output = @$ipdat->geoplugin_countryName;
-                    break;
-                case "countrycode":
-                    $output = @$ipdat->geoplugin_countryCode;
-                    break;
-            }
-        }
-    }
-    return $output;
 }
