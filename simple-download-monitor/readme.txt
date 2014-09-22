@@ -135,6 +135,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = 3.1.4 = 
 - New feature to track the usernames of the WP Users downloading the files. You can view the username info in the "Logs" menu.
+- Enabled the "View" link in the all downloads list table.
+- Some refactoring work to move the admin menu handling code to a separate file.
 
 = 3.1.3 =
 - Added an option to use "orderby" and "order" parameters in the display downloads from a category shortcode to allow sorting the download items display list.

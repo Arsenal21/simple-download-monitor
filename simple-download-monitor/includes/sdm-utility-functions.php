@@ -34,6 +34,25 @@ function sdm_get_item_description_output($id){
     return $isset_item_description;
 }
 
+//Use this function to redirect to a URL
+function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
+    $url = apply_filters('sdm_before_redirect_to_url',$url);
+    if (empty($url)) {
+        echo '<strong>';
+        _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'sdm_lang');
+        echo '</strong>';
+        exit;
+    }
+    if (!headers_sent()) {
+        header('Location: ' . $url);
+    } else {
+        echo '<meta http-equiv="refresh" content="' . $delay . ';url=' . $url . '" />';
+    }
+    if ($exit == '1') {//exit
+        exit;
+    }
+}
+
 // Helper function to get visitor country (or other info)
 function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     $output = NULL;

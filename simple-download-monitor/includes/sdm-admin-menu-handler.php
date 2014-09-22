@@ -1,0 +1,152 @@
+<?php
+
+function sdm_handle_admin_menu() {
+    //*****  If user clicked to download the bulk export log
+    if (isset($_GET['download_log'])) {
+        global $wpdb;
+        $csv_output = '';
+        $table = $wpdb->prefix . 'sdm_downloads';
+
+        $result = mysql_query("SHOW COLUMNS FROM " . $table . "");
+
+        $i = 0;
+        if (mysql_num_rows($result) > 0) {
+            while ($row = mysql_fetch_assoc($result)) {
+                $csv_output = $csv_output . $row['Field'] . ",";
+                $i++;
+            }
+        }
+        $csv_output .= "\n";
+
+        $values = mysql_query("SELECT * FROM " . $table . "");
+        while ($rowr = mysql_fetch_row($values)) {
+            for ($j = 0; $j < $i; $j++) {
+                $csv_output .= $rowr[$j] . ",";
+            }
+            $csv_output .= "\n";
+        }
+
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: private", false);
+        header("Content-Type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=\"report.csv\";");
+        header("Content-Transfer-Encoding: binary");
+
+        echo $csv_output;
+        exit;
+    }
+
+    //*****
+    //*****  Create the 'logs' and 'settings' submenu pages
+    $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'sdm_lang'), __('Logs', 'sdm_lang'), 'manage_options', 'logs', 'sdm_create_logs_page');
+    $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'sdm_lang'), __('Settings', 'sdm_lang'), 'manage_options', 'settings', 'sdm_create_settings_page');
+}
+
+/*
+ * Settings page
+ */
+function sdm_create_settings_page() {
+    echo '<div class="wrap">';
+    echo '<div id="poststuff"><div id="post-body">';
+    ?>
+    <h2><?php _e('Simple Download Monitor Settings Page', 'sdm_lang') ?></h2>
+
+    <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
+        Read the full plugin usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.
+        You can also <a href="http://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('follow us', 'sdm_lang'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'sdm_lang'); ?>
+    </div>
+
+    <!-- settings page form -->
+    <form method="post" action="options.php">
+
+        <!-- BEGIN ADMIN OPTIONS DIV -->	    
+        <div id="sdm_admin_opts_div" class="sdm_sliding_div_title">
+            <div class="sdm_slider_title">
+    <?php _e('Admin Options', 'sdm_lang') ?>
+            </div>
+            <div class="sdm_desc">
+    <?php _e("Control various plugin features.", 'sdm_lang') ?>
+            </div>
+        </div>
+        <div id="sliding_div1" class="slidingDiv">
+            <?php
+            // This prints out all hidden setting fields
+            do_settings_sections('admin_options_section');
+            settings_fields('sdm_downloads_options');
+
+            submit_button();
+            ?>
+        </div>
+        <!-- END ADMIN OPTIONS DIV -->
+
+        <!-- BEGIN COLORS DIV -->
+        <div id="sdm_color_opts_div" class="sdm_sliding_div_title">
+            <div class="sdm_slider_title">
+    <?php _e('Color Options', 'sdm_lang') ?>
+            </div>
+            <div class="sdm_desc">
+    <?php _e("Adjust color options", 'sdm_lang') ?>
+            </div>
+        </div>
+        <div id="sliding_div2" class="slidingDiv">
+            <?php
+            // This prints out all hidden setting fields
+            do_settings_sections('sdm_colors_section');
+            settings_fields('sdm_downloads_options');
+
+            submit_button();
+            ?>
+        </div>
+        <!-- END COLORS OPTIONS DIV -->
+
+        <!-- End of settings page form -->
+    </form>
+
+    <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">	
+        <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'sdm_lang'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'sdm_lang'); ?></a>
+        </p>
+    </div>
+
+    <?php
+    echo '</div></div>'; //end of post-stuff
+    echo '</div>'; //end of wrap
+}
+
+/*
+ * * Logs Page
+ */
+function sdm_create_logs_page() {
+
+    //Create an instance of our package class...
+    $sdmListTable = new sdm_List_Table();
+    //Fetch, prepare, sort, and filter our data...
+    $sdmListTable->prepare_items();
+    ?>
+    <div class="wrap">
+
+        <div id="icon-users" class="icon32"><br/></div>
+        <h2><?php _e('Download Logs', 'sdm_lang'); ?></h2>
+
+        <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
+            <p><?php _e('This page lists all tracked downloads.', 'sdm_lang'); ?></p>
+        </div>
+
+        <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
+        <form id="sdm_downloads-filter" method="post">
+            <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+            <!-- Now we can render the completed list table -->
+            <?php $sdmListTable->display() ?>
+        </form>
+
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('.fade').click(function() {
+                $(this).fadeOut('slow');
+            });
+        });
+    </script>
+    <?php
+}

@@ -23,6 +23,7 @@ $sdm_db_version = '1.2';
 
 //File includes
 include_once('includes/sdm-utility-functions.php');
+include_once('includes/sdm-logs-list-table.php');
 include_once('sdm-shortcodes.php');
 include_once('sdm-post-type-content-handler.php');
 
@@ -63,7 +64,6 @@ function sdm_db_update_check() {
         }
     }
 }
-		
 
 /*
  * * Handle Plugins loaded tasks
@@ -121,7 +121,7 @@ class simpleDownloadManager {
 
             add_action('admin_init', array(&$this, 'sdm_register_options'));  // Register admin options
 
-            add_filter('post_row_actions', array(&$this, 'sdm_remove_view_link_cpt'), 10, 2);  // Remove 'View' link in CPT view
+            //add_filter('post_row_actions', array(&$this, 'sdm_remove_view_link_cpt'), 10, 2);  // Remove 'View' link in all downloads list view
         }
     }
 
@@ -268,115 +268,9 @@ class simpleDownloadManager {
     }
 
     public function sdm_create_menu_pages() {
+        include_once('includes/sdm-admin-menu-handler.php');
+        sdm_handle_admin_menu();
 
-        //*****
-        //*****  If user clicked to download the bulk export log
-        if (isset($_GET['download_log'])) {
-            global $wpdb;
-            $csv_output = '';
-            $table = $wpdb->prefix . 'sdm_downloads';
-
-            $result = mysql_query("SHOW COLUMNS FROM " . $table . "");
-
-            $i = 0;
-            if (mysql_num_rows($result) > 0) {
-                while ($row = mysql_fetch_assoc($result)) {
-                    $csv_output = $csv_output . $row['Field'] . ",";
-                    $i++;
-                }
-            }
-            $csv_output .= "\n";
-
-            $values = mysql_query("SELECT * FROM " . $table . "");
-            while ($rowr = mysql_fetch_row($values)) {
-                for ($j = 0; $j < $i; $j++) {
-                    $csv_output .= $rowr[$j] . ",";
-                }
-                $csv_output .= "\n";
-            }
-
-            header("Pragma: public");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: private", false);
-            header("Content-Type: application/octet-stream");
-            header("Content-Disposition: attachment; filename=\"report.csv\";");
-            header("Content-Transfer-Encoding: binary");
-
-            echo $csv_output;
-            exit;
-        }
-
-        //*****
-        //*****  Create the 'logs' and 'settings' submenu pages
-        $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'sdm_lang'), __('Logs', 'sdm_lang'), 'manage_options', 'logs', 'sdm_create_logs_page');
-        $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'sdm_lang'), __('Settings', 'sdm_lang'), 'manage_options', 'settings', array(&$this, 'sdm_create_settings_page'));
-    }
-
-    public function sdm_create_settings_page() {
-        echo '<div class="wrap">';
-        echo '<div id="poststuff"><div id="post-body">';
-        ?>
-        <h2><?php _e('Simple Download Monitor Settings Page', 'sdm_lang') ?></h2>
-
-        <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
-            <a href="http://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('Follow us', 'sdm_lang'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'sdm_lang'); ?>
-        </div>
-
-        <!-- settings page form -->
-        <form method="post" action="options.php">
-
-            <!-- BEGIN ADMIN OPTIONS DIV -->	    
-            <div id="sdm_admin_opts_div" class="sdm_sliding_div_title">
-                <div class="sdm_slider_title">
-                    <?php _e('Admin Options', 'sdm_lang') ?>
-                </div>
-                <div class="sdm_desc">
-                    <?php _e("Control various plugin features.", 'sdm_lang') ?>
-                </div>
-            </div>
-            <div id="sliding_div1" class="slidingDiv">
-                <?php
-                // This prints out all hidden setting fields
-                do_settings_sections('admin_options_section');
-                settings_fields('sdm_downloads_options');
-
-                submit_button();
-                ?>
-            </div>
-            <!-- END ADMIN OPTIONS DIV -->
-
-            <!-- BEGIN COLORS DIV -->
-            <div id="sdm_color_opts_div" class="sdm_sliding_div_title">
-                <div class="sdm_slider_title">
-                    <?php _e('Color Options', 'sdm_lang') ?>
-                </div>
-                <div class="sdm_desc">
-                    <?php _e("Adjust color options", 'sdm_lang') ?>
-                </div>
-            </div>
-            <div id="sliding_div2" class="slidingDiv">
-                <?php
-                // This prints out all hidden setting fields
-                do_settings_sections('sdm_colors_section');
-                settings_fields('sdm_downloads_options');
-
-                submit_button();
-                ?>
-            </div>
-            <!-- END COLORS OPTIONS DIV -->
-
-            <!-- End of settings page form -->
-        </form>
-
-        <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">	
-            <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'sdm_lang'); ?> <a href="http://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'sdm_lang'); ?></a>
-            </p>
-        </div>
-
-        <?php
-        echo '</div></div>'; //end of post-stuff
-        echo '</div>'; //end of wrap
     }
 
     public function sdm_create_upload_metabox() {
@@ -568,254 +462,6 @@ class simpleDownloadManager {
 
 $simpleDownloadManager = new simpleDownloadManager();
 
-/*
- * *
- * * Logs Page
- * *
- */
-//*****
-//*****  Check WP_List_Table exists
-if (!class_exists('WP_List_Table')) {
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
-}
-
-//*****
-//*****  Define our new Table
-class sdm_List_Table extends WP_List_Table {
-
-    function __construct() {
-
-        global $status, $page;
-
-        //Set parent defaults
-        parent::__construct(array(
-            'singular' => __('Download', 'sdm_lang'), //singular name of the listed records
-            'plural' => __('Downloads', 'sdm_lang'), //plural name of the listed records
-            'ajax' => false        //does this table support ajax?
-        ));
-    }
-
-    function column_default($item, $column_name) {
-
-        switch ($column_name) {
-            case 'URL':
-            case 'visitor_ip':
-            case 'date':
-                return $item[$column_name];
-            case 'visitor_country':
-                return $item[$column_name];
-            case 'visitor_name':
-                return $item[$column_name];
-            default:
-                return print_r($item, true); //Show the whole array for troubleshooting purposes
-        }
-    }
-
-    function column_title($item) {
-
-        //Build row actions
-        $actions = array(
-            'edit' => sprintf('<a href="' . admin_url('post.php?post=' . $item['ID'] . '&action=edit') . '">' . __('Edit', 'sdm_lang') . '</a>'),
-            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=%s&action=%s&download=%s&datetime=%s">' . __('Delete', 'sdm_lang') . '</a>', $_REQUEST['page'], 'delete', $item['ID'], $item['date'])
-        );
-
-        //Return the title contents
-        return sprintf('%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-                /* $1%s */ $item['title'],
-                /* $2%s */ $item['ID'],
-                /* $3%s */ $this->row_actions($actions)
-        );
-    }
-
-    function column_cb($item) {
-
-        return sprintf(
-                '<input type="checkbox" name="%1$s[]" value="%2$s" />',
-                /* $1%s */ $this->_args['singular'], //Let's simply repurpose the table's singular label ("Download")
-                /* $2%s */ $item['ID'] . '|' . $item['date']            //The value of the checkbox should be the record's id
-        );
-    }
-
-    function get_columns() {
-
-        $columns = array(
-            'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
-            'title' => __('Title', 'sdm_lang'),
-            'URL' => __('File', 'sdm_lang'),
-            'visitor_ip' => __('Visitor IP', 'sdm_lang'),
-            'date' => __('Date', 'sdm_lang'),
-            'visitor_country' => __('Country', 'sdm_lang'),
-            'visitor_name' => __('Username', 'sdm_lang')
-        );
-        return $columns;
-    }
-
-    function get_sortable_columns() {
-
-        $sortable_columns = array(
-            'title' => array('title', false), //true means it's already sorted
-            'URL' => array('URL', false),
-            'visitor_ip' => array('visitor_ip', false),
-            'date' => array('date', false),
-            'visitor_country' => array('visitor_country', false),
-            'visitor_name' => array('visitor_name', false)
-        );
-        return $sortable_columns;
-    }
-
-    function get_bulk_actions() {
-
-        $actions = array();
-        $actions['delete2'] = __('Delete Permanently', 'sdm_lang');
-        $actions['export_all'] = __('Export All as Excel', 'sdm_lang');
-        //$actions['export-selected'] = __( 'Export Selected', 'sdm_lang' );
-
-        return $actions;
-    }
-
-    function process_bulk_action() {
-
-        // security check!
-        if (isset($_POST['_wpnonce']) && !empty($_POST['_wpnonce'])) {
-
-            $nonce = filter_input(INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING);
-            $action = 'bulk-' . $this->_args['plural'];
-
-            if (!wp_verify_nonce($nonce, $action))
-                wp_die(__('Nope! Security check failed!', 'sdm_lang'));
-        }
-
-        $action = $this->current_action();
-
-        // If bulk 'Export All' was clicked
-        if ('export_all' === $this->current_action()) {
-
-            echo '<div id="message" class="updated"><p><strong><a id="sdm_download_export" href="?post_type=sdm_downloads&page=logs&download_log">' . __('Download Export File', 'sdm_lang') . '</a></strong></p></div>';
-        }
-
-        // if bulk 'Delete Permanently' was clicked
-        if ('delete2' === $this->current_action()) {
-
-            if (!isset($_POST['download']) || $_POST['download'] == null) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('No entries were selected.', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
-                return;
-            }
-
-            foreach ($_POST['download'] as $item) {
-                $str_tok_id = substr($item, 0, strpos($item, '|'));
-                $str_tok_datetime = substr($item, strpos($item, '|') + 1);
-
-                global $wpdb;
-                $del_row = $wpdb->query(
-                        'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads
-									WHERE post_id = "' . $str_tok_id . '"
-									AND date_time = "' . $str_tok_datetime . '"'
-                );
-            }
-            if ($del_row) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Entries Deleted!', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
-            } else {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
-            }
-        }
-
-        // If single entry 'Delete' was clicked
-        if ('delete' === $this->current_action()) {
-
-            $item_id = isset($_GET['download']) ? strtok($_GET['download'], '|') : '';
-            $item_datetime = isset($_GET['datetime']) ? $_GET['datetime'] : '';
-
-            global $wpdb;
-            $del_row = $wpdb->query(
-                    'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads
-								WHERE post_id = "' . $item_id . '"
-								AND date_time = "' . $item_datetime . '"'
-            );
-            if ($del_row) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Entry Deleted!', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
-            } else {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
-            }
-        }
-    }
-
-    function prepare_items() {
-
-        global $wpdb; //This is used only if making any database queries
-        $per_page = 10;
-        $columns = $this->get_columns();
-        $hidden = array();
-        $sortable = $this->get_sortable_columns();
-
-
-        $this->_column_headers = array($columns, $hidden, $sortable);
-        $this->process_bulk_action();
-
-        //$data = $this->example_data;
-
-        function usort_reorder($a, $b) {
-            $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'title'; //If no sort, default to title
-            $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
-            $result = strcmp($a[$orderby], $b[$orderby]); //Determine sort order
-            return ($order === 'asc') ? $result : -$result; //Send final sort direction to usort
-        }
-
-        $data_results = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads');
-        $data = array();
-        foreach ($data_results as $data_result) {
-            $data[] = array('ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
-        }
-
-
-        usort($data, 'usort_reorder');
-        $current_page = $this->get_pagenum();
-        $total_items = count($data);
-        $data = array_slice($data, (($current_page - 1) * $per_page), $per_page);
-
-        $this->items = $data;
-        $this->set_pagination_args(array(
-            'total_items' => $total_items, //WE have to calculate the total number of items
-            'per_page' => $per_page, //WE have to determine how many items to show on a page
-            'total_pages' => ceil($total_items / $per_page)   //WE have to calculate the total number of pages
-        ));
-    }
-
-}
-
-function sdm_create_logs_page() {
-
-    //Create an instance of our package class...
-    $sdmListTable = new sdm_List_Table();
-    //Fetch, prepare, sort, and filter our data...
-    $sdmListTable->prepare_items();
-    ?>
-    <div class="wrap">
-
-        <div id="icon-users" class="icon32"><br/></div>
-        <h2><?php _e('Download Logs', 'sdm_lang'); ?></h2>
-
-        <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-            <p><?php _e('This page lists all tracked downloads.', 'sdm_lang'); ?></p>
-        </div>
-
-        <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
-        <form id="sdm_downloads-filter" method="post">
-            <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-            <!-- Now we can render the completed list table -->
-            <?php $sdmListTable->display() ?>
-        </form>
-
-    </div>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('.fade').click(function() {
-                $(this).fadeOut('slow');
-            });
-        });
-    </script>
-    <?php
-}
-
 function sdm_get_password_entry_form($id) {
     $data = __('Enter Password to Download:', 'sdm_lang');
     $data .= '<form method="post">';
@@ -878,23 +524,6 @@ function handle_sdm_download_via_direct_post() {
         } else {//Failed to log the download request
             wp_die(__('Error! Failed to log the download request in the database table', 'sdm_lang'));
         }
-        exit;
-    }
-}
-
-function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
-    if (empty($url)) {
-        echo '<strong>';
-        _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'sdm_lang');
-        echo '</strong>';
-        exit;
-    }
-    if (!headers_sent()) {
-        header('Location: ' . $url);
-    } else {
-        echo '<meta http-equiv="refresh" content="' . $delay . ';url=' . $url . '" />';
-    }
-    if ($exit == '1') {//exit
         exit;
     }
 }
