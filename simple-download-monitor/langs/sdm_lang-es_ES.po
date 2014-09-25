@@ -1,0 +1,533 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SDM 3.1\n"
+"POT-Creation-Date: 2014-07-29 12:06+1000\n"
+"PO-Revision-Date: 2014-09-25 07:43+1000\n"
+"Last-Translator: Manuel  <mbruiz1967@mbrsolution.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+"X-Poedit-SearchPath-0: C:\\Users\\amin\\Desktop\\simple-download-monitor\n"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:91
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:310
+msgid "Settings"
+msgstr "Configuración"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:145
+msgid "Image Successfully Removed"
+msgstr "Imagen Eliminado Con Éxito"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:146
+msgid "Error with AJAX"
+msgstr "Error con AJAX"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
+msgid "Please select a Download Item:"
+msgstr "Por favor seleccione una Descarga De Artículo:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
+msgid "Download Title"
+msgstr "Titulo Descarga"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
+msgid "Include Fancy Box"
+msgstr "Incluya Caja de Visión"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
+msgid "Insert SDM Shortcode"
+msgstr "Inserte Código Corto De SDM"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:166
+msgid "Incorrect Password"
+msgstr "Clave Incorrecta"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:182
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:183
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:188
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:194
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:590
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1034
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:48
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:94
+#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:87
+msgid "Downloads"
+msgstr "Descarga"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:184
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:185
+msgid "Add New"
+msgstr "Agregar Nuevo"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:186
+msgid "Edit Download"
+msgstr "Editar la Bajada"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:187
+msgid "New Download"
+msgstr "Nueva Descarga"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:189
+msgid "View Download"
+msgstr "Ver Descarga"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:190
+msgid "Search Downloads"
+msgstr "Buscar En Las Bajadas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:191
+msgid "No Downloads found"
+msgstr "Ninguna Descarga Encontrada"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:192
+msgid "No Downloads found in Trash"
+msgstr "Ninguna Descarga Encontrada En La Papelera"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:193
+msgid "Parent Download"
+msgstr "El Padre De La Descarga "
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:221
+msgid "Search Categories"
+msgstr "Buscar Categorías"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:222
+msgid "All Categories"
+msgstr "Todas Las Categorías"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:223
+msgid "Categories Genre"
+msgstr "Género De Categorías"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:224
+msgid "Categories Genre:"
+msgstr "Género De Categorías:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:225
+msgid "Edit Category"
+msgstr "Editar Categoría"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:226
+msgid "Update Category"
+msgstr "Actualizar Categoría"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:227
+msgid "Add New Category"
+msgstr "Añade Una Categorías"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:228
+msgid "New Category"
+msgstr "Nueva Categoría"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:229
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1032
+msgid "Categories"
+msgstr "Categorías"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:246
+msgid "Search Tags"
+msgstr "Buscar Etiquetas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:247
+msgid "All Tags"
+msgstr "Todas Las Etiquetas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:248
+msgid "Tags Genre"
+msgstr "Género De Etiquetas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:249
+msgid "Tags Genre:"
+msgstr "Género De Etiquetas:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:250
+msgid "Edit Tag"
+msgstr "Editar Etiqueta"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:251
+msgid "Update Tag"
+msgstr "Actualizar La Etiqueta"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:252
+msgid "Add New Tag"
+msgstr "Agrega Nueva Etiqueta"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:253
+msgid "New Tag"
+msgstr "Nueva Etiqueta"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:254
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1033
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:309
+msgid "Logs"
+msgstr "Registros"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:317
+msgid "Simple Download Monitor Settings Page"
+msgstr "Simple Configuración De Descarga De La Pagina Del Monitor"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:320
+msgid "Follow us"
+msgstr "Síganos"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:320
+msgid ""
+"on Twitter, Google+ or via Email to stay upto date about the new features of "
+"this plugin."
+msgstr ""
+"en Twitter, Google+ o vía correo electrónico estar acutalizado hasta la "
+"fecha de hoy de las nuevas características de este plugin."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:329
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:528
+msgid "Admin Options"
+msgstr "Opciones Del Administrador"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:332
+msgid "Control various plugin features."
+msgstr "Controla varias funciones del plugin."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:349
+msgid "Color Options"
+msgstr "Opciones De Color"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:352
+msgid "Adjust color options"
+msgstr "Ajuste Las Opciones Del Color"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:370
+msgid ""
+"If you need a feature rich and supported plugin for selling your digital "
+"items then checkout our"
+msgstr ""
+"Si usted necesita una característica rica y un plugin compatible para la "
+"venta de sus artículos digitales entonces echa un vistazo a nuestra"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:370
+msgid "WP eStore Plugin"
+msgstr "WP eStore Plugin"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:383
+msgid "Description"
+msgstr "Descripción"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:385
+msgid "Upload File"
+msgstr "Subir Archivo"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:387
+msgid "File Thumbnail (Optional)"
+msgstr "Archivo Miniatura (Opcional)"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:389
+msgid "Shortcodes"
+msgstr "Código Corto"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:391
+msgid "Statistics"
+msgstr "Estadísticas"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:396
+msgid "Add a description for this download item."
+msgstr "Añadir una descripción para este articulo de descarga."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:409
+msgid "Click \"Select File\" to upload (or choose) the file."
+msgstr ""
+"Haga clic en \"Seleccione Archivo\" para cargar (o seleccione) el archivo."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:412
+msgid "Select File"
+msgstr "Selecciona Archivo"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:414
+msgid "File URL:"
+msgstr "Archivo URL:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:422
+msgid ""
+"Click \"Select Image\" to upload (or choose) the file thumbnail image. This "
+"thumbnail image will be used to create a fancy file download box if you want "
+"to use it."
+msgstr ""
+"Haga clic en \"Seleccionar Imagen\" para subir (o seleccione) la imagen en "
+"miniatura del archivo. Esta imagen en miniatura se utiliza para crear un "
+"cuadro de descarga de archivo de visión si usted desea utilizarlo."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:427
+msgid "Select Image"
+msgstr "Selecciona Imagen"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:428
+msgid "Remove Image"
+msgstr "Eliminar Imagen"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:442
+msgid ""
+"This is the shortcode which can used on posts or pages to embed a download "
+"now button for this file. You can also use the shortcode inserter to add "
+"this shortcode to a post or page."
+msgstr ""
+"Este es el código abreviado que puede utilizar en los mensajes o páginas "
+"para incrustar un botón Descargar ahora para este archivo. También puede "
+"utilizar el código corto de inserción para agregar este código corto para "
+"una entrada o página."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:447
+msgid "This shortcode may be used as a download counter."
+msgstr "Este código corto puede ser utilizado como un contador de descarga."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:456
+msgid "These are the statistics for this download item."
+msgstr "Estas son las estadísticas sobre este articulo descarga."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:461
+msgid "Number of Downloads:"
+msgstr "Numero de Descargas:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:464
+msgid "Offset Count"
+msgstr "Cuenta De Desplazamiento"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:529
+msgid "Colors"
+msgstr "Colores"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:531
+msgid "Remove Tinymce Button"
+msgstr "Eliminar El Botón Tinymce"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:532
+msgid "Download Button Color"
+msgstr "Color Del Botón De Descarga"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:536
+msgid "Admin options settings"
+msgstr "Configuración de las opciones administrador"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:540
+msgid "Front End colors settings"
+msgstr "Ajustes de colores parte Delantera"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:546
+msgid "Removes the SDM Downloads button from the WP content editor."
+msgstr "Elimina el botón Descargas SDM del editor del contenido WP."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Green"
+msgstr "Verde"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Blue"
+msgstr "Azul"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Purple"
+msgstr "Púrpura"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Teal"
+msgstr "Verde Azulado"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Dark Blue"
+msgstr "Azul Oscuro"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Black"
+msgstr "Negro"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Grey"
+msgstr "Gris"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Pink"
+msgstr "Rosa"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "Orange"
+msgstr "Naranja"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
+msgid "White"
+msgstr "Blanco"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:555
+msgid "current"
+msgstr "al corriente"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:561
+msgid "Adjusts the color of the \"Download Now\" button."
+msgstr "Ajusta el color del botón de la \"Descargar Ahora\"."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:589
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:48
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:94
+#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:87
+msgid "Download"
+msgstr "Bajada"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:613
+msgid "Edit"
+msgstr "Editar"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:614
+msgid "Delete"
+msgstr "Borrar"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:638
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1029
+msgid "Title"
+msgstr "Titulo"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:639
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1031
+msgid "File"
+msgstr "Archivo"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:640
+msgid "Visitor IP"
+msgstr "IP del Visitante"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:641
+msgid "Date"
+msgstr "Fecha"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:642
+msgid "Country"
+msgstr "País"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:662
+msgid "Delete Permanently"
+msgstr "Borrar Permanente"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:663
+msgid "Export All as Excel"
+msgstr "Exportar todo como Excel"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:678
+msgid "Nope! Security check failed!"
+msgstr "¡No! ¡Control de seguridad falló!"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:686
+msgid "Download Export File"
+msgstr "Descarga de archivo de exportación"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:693
+msgid "No entries were selected."
+msgstr "No se seleccionaron entradas."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:693
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:709
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:711
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:728
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:730
+msgid "Click to Dismiss"
+msgstr "Haga clic para Descartar"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:709
+msgid "Entries Deleted!"
+msgstr "¡Entradas Eliminadas!"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:711
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:730
+msgid "Error"
+msgstr "Error"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:728
+msgid "Entry Deleted!"
+msgstr "¡Entrada Eliminada!"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:788
+msgid "Download Logs"
+msgstr "Descargar Registros"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:791
+msgid "This page lists all tracked downloads."
+msgstr "Esta página muestra todas las descargas de rastreadores."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:813
+msgid "Enter Password to Download:"
+msgstr "Introduzca La Contraseña Para Descargar:"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:816
+msgid "Submit"
+msgstr "Enviar"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:862
+msgid "Error! Failed to log the download request in the database table"
+msgstr ""
+"¡Error! No se pudo registrar la solicitud de descarga en la tabla de base de "
+"datos"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:871
+msgid ""
+"Error! The URL value is empty. Please specify a correct URL value to "
+"redirect to!"
+msgstr ""
+"¡Error ! El valor URL está vacío. ¡Por favor, especifique un valor URL "
+"correcto para redirigir a!"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1028
+msgid "Image"
+msgstr "Imagen"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1030
+msgid "ID"
+msgstr "ID"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1035
+msgid "Date Posted"
+msgstr "Fecha de Publicación"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1036
+msgid "Visitor Country"
+msgstr "País del Usuario"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:32
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:40
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:166
+#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:42
+msgid "green"
+msgstr "verde"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:37
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:48
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:174
+#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:53
+#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy2/sdm-fancy-2.php:57
+msgid "Download Now!"
+msgstr "Bajar Ahora!"
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:27
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:88
+msgid "Error! Please enter an ID value with this shortcode."
+msgstr "¡Error! Por favor, introduzca un valor de ID con este código corto."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:118
+msgid ""
+"Error! You must enter a category slug OR a category id with this shortcode. "
+"Refer to the documentation for usage instructions."
+msgstr ""
+"¡Error! Debe introducir una categoría slug o la identificación de la "
+"categoría con este código corto. Consulte la documentación para obtener "
+"instrucciones de uso."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:122
+msgid "Error! Please enter a category slug OR id; not both."
+msgstr "¡Error! Por favor introduce una categoría slug O id; no ambos."
+
+#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:153
+msgid "There are no download items matching this category criteria."
+msgstr ""
+"No hay elementos que coincidan con este criterio de categoría de descarga."

@@ -133,6 +133,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.1.5 =
+- Added Spanish language translation. Translation file submitted by Manuel.
+
 = 3.1.4 = 
 - New feature to track the usernames of the WP Users downloading the files. You can view the username info in the "Logs" menu.
 - Enabled the "View" link in the all downloads list table.
