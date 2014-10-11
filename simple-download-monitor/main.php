@@ -53,6 +53,9 @@ function sdm_install_db_table() {
     dbDelta($sql);
 
     update_option('sdm_db_version', $sdm_db_version);
+    
+    // Flush rules after install/activation
+    flush_rewrite_rules();
 }
 
 function sdm_db_update_check() {
@@ -214,7 +217,8 @@ class simpleDownloadManager {
             'menu_icon' => 'dashicons-download',
             'supports' => array('title')
         );
-        register_post_type('sdm_downloads', $args);
+        register_post_type('sdm_downloads', $args);        
+
     }
 
     public function sdm_create_taxonomies() {
