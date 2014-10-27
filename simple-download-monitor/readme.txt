@@ -59,6 +59,16 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
+= Language Translations =
+
+The following language translations are already available for the download monitor plugin:
+
+* English
+* German
+* Spanish
+* Italian
+* Russian
+
 = Simple Download Monitor Plugin Usage =
 
 Once you have installed the plugin, go to "Downloads -> Settings" interface to configure some options
@@ -135,6 +145,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = TODO 3.1.5 =
 - Added Spanish language translation. Translation file submitted by Manuel.
+- Added Russian language translation. Translation file submitted by Балашов Алекс.
 
 = 3.1.4 = 
 - New feature to track the usernames of the WP Users downloading the files. You can view the username info in the "Logs" menu.
