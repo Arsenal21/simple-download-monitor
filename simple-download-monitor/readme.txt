@@ -68,6 +68,7 @@ The following language translations are already available for the download monit
 * Spanish
 * Italian
 * Russian
+* Dutch
 
 = Simple Download Monitor Plugin Usage =
 
@@ -146,6 +147,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = TODO 3.1.5 =
 - Added Spanish language translation. Translation file submitted by Manuel.
 - Added Russian language translation. Translation file submitted by Балашов Алекс.
+- Added Dutch language translation. Translation file submitted by Paul Tuinman.
 
 = 3.1.4 = 
 - New feature to track the usernames of the WP Users downloading the files. You can view the username info in the "Logs" menu.
