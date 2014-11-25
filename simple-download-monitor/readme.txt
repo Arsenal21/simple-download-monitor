@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents
 Requires at least: 3.0
 Tested up to: 4.0
-Stable tag: 3.1.4
+Stable tag: 3.1.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -56,6 +56,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Ability to open the downloads in new browser window or tab. When your users click on a download button, it will open in a new window or tab.
 * Ability to show your downloads in a grid display. [View the tutorial](https://www.tipsandtricks-hq.com/show-file-downloads-in-a-nice-grid-display-7273)
 * Export all the file download logs to a CSV file.
+* Shortcode to show a number of latest downloads to your visitors.
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
@@ -138,16 +139,20 @@ Yes.
 = Can I show an ajax file tree browser using this plugin? =
 Yes.
 
+= Can I show a number of latest downloads to my usrs? =
+Yes.
+
 == Screenshots ==
 
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
 
-= TODO 3.1.5 =
+= 3.1.5 =
 - Added Spanish language translation. Translation file submitted by Manuel.
 - Added Russian language translation. Translation file submitted by Балашов Алекс.
 - Added Dutch language translation. Translation file submitted by Paul Tuinman.
+- Added a new feature to show X number of latest downloads.
 
 = 3.1.4 = 
 - New feature to track the usernames of the WP Users downloading the files. You can view the username info in the "Logs" menu.

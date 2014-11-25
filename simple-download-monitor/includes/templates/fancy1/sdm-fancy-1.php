@@ -1,5 +1,23 @@
 <?php
 
+function sdm_generate_fancy1_latest_downloads_display_output($get_posts, $args) {
+
+    $output = "";
+    foreach ($get_posts as $item) {
+        $id = $item->ID;  //Get the post ID
+        //Create a args array
+        $args = array(
+            'id' => $id,
+            'fancy' => '1',
+            'button_text' => $args['button_text'],
+            'new_window' => $args['new_window'],
+        );
+        $output .= sdm_generate_fancy1_display_output($args);
+    }
+    $output .= '<div class="sdm_clear_float"></div>';
+    return $output;
+}
+
 function sdm_generate_fancy1_category_display_output($get_posts, $args) {
 
     $output = "";

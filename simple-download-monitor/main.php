@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.1.4
+ * Version: 3.1.5
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,10 +13,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.4');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.5');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
+define('WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url());
 
 global $sdm_db_version;
 $sdm_db_version = '1.2';
@@ -24,6 +25,7 @@ $sdm_db_version = '1.2';
 //File includes
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-logs-list-table.php');
+include_once('includes/sdm-latest-downloads.php');
 include_once('sdm-shortcodes.php');
 include_once('sdm-post-type-content-handler.php');
 

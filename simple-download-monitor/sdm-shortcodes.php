@@ -8,9 +8,10 @@ function sdm_register_shortcodes() {
     add_shortcode('sdm_download', 'sdm_create_download_shortcode');  // For download shortcode (underscores)
     add_shortcode('sdm-download', 'sdm_create_download_shortcode');  // For download shortcode (for backwards compatibility)
     add_shortcode('sdm_download_counter', 'sdm_create_counter_shortcode');  // For counter shortcode (underscores)
-    add_shortcode('sdm-download-counter', 'sdm_create_counter_shortcode');  // For counter shortcode (for backwards compatibility)    
+    add_shortcode('sdm-download-counter', 'sdm_create_counter_shortcode');  // For counter shortcode (for backwards compatibility)
     add_shortcode('sdm_show_dl_from_category', 'sdm_handle_category_shortcode'); //For category shortcode
     add_shortcode('sdm_download_categories', 'sdm_download_categories_shortcode'); // Ajax file tree browser
+    add_shortcode('sdm-latest-downloads', 'sdm_show_latest_downloads');  // For showing X number of latest downloads
 }
 
 // Create Download Shortcode
@@ -234,7 +235,7 @@ function sdm_download_categories_shortcode() {
             $out = '<ul>';
             // Cycle though the terms
             foreach ($terms as $term) {
-                // Secret sauce.  Function calls itself to display child elements, if any
+                // Secret sauce. Function calls itself to display child elements, if any
                 $out .= '<li class="sdm_cat" id="' . $term->slug . '"><span id="' . $term->term_id . '" class="sdm_cat_title" style="cursor:pointer;">' . $term->name . '</span>';
                 $out .= '<p class="sdm_placeholder" style="margin-bottom:0;"></p>' . custom_taxonomy_walker($taxonomy, $term->term_id);
                 $out .= '</li>';

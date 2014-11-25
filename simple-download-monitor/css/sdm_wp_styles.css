@@ -43,6 +43,9 @@
 .sdm_download_button{
     display: inline-block;    
 }
+.sdm_download_button_box_default{
+    margin: 10px 0;    
+}
 /********************************************/
 /*** Individual Download Item View Styles ***/
 /********************************************/
