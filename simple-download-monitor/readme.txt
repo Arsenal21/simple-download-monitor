@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents
 Requires at least: 3.0
-Tested up to: 4.0
-Stable tag: 3.1.5
+Tested up to: 4.1
+Stable tag: 3.1.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -56,6 +56,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Ability to open the downloads in new browser window or tab. When your users click on a download button, it will open in a new window or tab.
 * Ability to show your downloads in a grid display. [View the tutorial](https://www.tipsandtricks-hq.com/show-file-downloads-in-a-nice-grid-display-7273)
 * Export all the file download logs to a CSV file.
+* Ability to reset the log entries.
 * Shortcode to show a number of latest downloads to your visitors.
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
@@ -147,6 +148,10 @@ Yes.
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.1.6 =
+- Improved the queries in the "Logs" interface to be more efficient.
+- Added a new feature to reset/empty the download log entries. You can find it in the "Logs" menu of the plugin.
 
 = 3.1.5 =
 - Added Spanish language translation. Translation file submitted by Manuel.

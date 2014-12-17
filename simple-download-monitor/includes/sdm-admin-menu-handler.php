@@ -118,14 +118,26 @@ function sdm_create_settings_page() {
  * * Logs Page
  */
 function sdm_create_logs_page() {
-
+    global $wpdb;
+    
+    if (isset($_POST['sdm_reset_log_entries'])) {
+        //reset log entries
+	$table_name = $wpdb->prefix . 'sdm_downloads';	
+	$query = "TRUNCATE $table_name";
+	$result = $wpdb->query($query);
+        echo '<div id="message" class="updated fade"><p>';
+        _e('Download log entries deleted!', 'sdm_lang');
+        echo '</p></div>';        
+    }
+    
+    /*** Display the logs table ***/
     //Create an instance of our package class...
     $sdmListTable = new sdm_List_Table();
     //Fetch, prepare, sort, and filter our data...
     $sdmListTable->prepare_items();
     ?>
     <div class="wrap">
-
+    
         <div id="icon-users" class="icon32"><br/></div>
         <h2><?php _e('Download Logs', 'sdm_lang'); ?></h2>
 
@@ -133,6 +145,21 @@ function sdm_create_logs_page() {
             <p><?php _e('This page lists all tracked downloads.', 'sdm_lang'); ?></p>
         </div>
 
+        <div id="poststuff"><div id="post-body">
+            <!-- Log reset button -->
+            <div class="postbox">
+            <h3><label for="title"><?php _e('Reset Download Log Entries', 'sdm_lang'); ?></label></h3>
+            <div class="inside">
+
+            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >    
+                <div class="submit">
+                    <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'sdm_lang'); ?>" />
+                </div>    
+            </form> 
+
+            </div></div>
+        </div></div>
+        
         <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
         <form id="sdm_downloads-filter" method="post">
             <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
@@ -140,7 +167,8 @@ function sdm_create_logs_page() {
             <?php $sdmListTable->display() ?>
         </form>
 
-    </div>
+    
+    </div><!-- end of wrap -->
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $('.fade').click(function() {
