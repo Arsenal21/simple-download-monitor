@@ -71,6 +71,7 @@ The following language translations are already available for the download monit
 * Italian
 * Russian
 * Dutch
+* Portuguese (Brasil)
 
 = Simple Download Monitor Plugin Usage =
 
@@ -148,6 +149,9 @@ Yes.
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= TODO 3.1.7 =
+- Added Portuguese language translation. Translation file submitted by Visto Marketing.
 
 = 3.1.6 =
 - Improved the queries in the "Logs" interface to be more efficient.
