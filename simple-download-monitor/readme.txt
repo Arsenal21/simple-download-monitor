@@ -1,10 +1,10 @@
 === Simple Download Monitor ===
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: https://www.tipsandtricks-hq.com
-Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents
+Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -58,6 +58,8 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Export all the file download logs to a CSV file.
 * Ability to reset the log entries.
 * Shortcode to show a number of latest downloads to your visitors.
+* Ability to disable the download monitoring (logging) for certain items (or all items).
+* You can also choose to only monitor downloads from unique IP address only.
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
@@ -144,14 +146,19 @@ Yes.
 = Can I show a number of latest downloads to my usrs? =
 Yes.
 
+= Can I track downloads from unique IP address only? =
+Yes
+
 == Screenshots ==
 
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
 
-= TODO 3.1.7 =
+= 3.1.7 =
 - Added Portuguese language translation. Translation file submitted by Visto Marketing.
+- New feature to disable the download monitoring (logging) for certain items (or all items).
+- New option to only monitor downloads from unique IP address only.
 
 = 3.1.6 =
 - Improved the queries in the "Logs" interface to be more efficient.

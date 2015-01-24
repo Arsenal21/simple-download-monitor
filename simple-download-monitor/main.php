@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.1.6
+ * Version: 3.1.7
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.6');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.7');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -358,6 +358,10 @@ class simpleDownloadManager {
     public function display_sdm_stats_meta_box($post) {  // Stats metabox
         $old_count = get_post_meta($post->ID, 'sdm_count_offset', true);
         $value = isset($old_count) && $old_count != '' ? $old_count : '0';
+        
+        // Get checkbox for "disable download logging"
+        $no_logs = get_post_meta($post->ID, 'sdm_item_no_log', true);
+        $checked = isset($no_logs) && $no_logs === 'on' ? 'checked="checked"' : '';
 
         _e('These are the statistics for this download item.', 'sdm_lang');
         echo '<br /><br />';
@@ -370,6 +374,12 @@ class simpleDownloadManager {
         _e('Offset Count', 'sdm_lang');
         echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
         echo ' <img src="' . WP_SIMPLE_DL_MONITOR_URL . '/css/images/info.png" style="margin-left:10px;" title="Enter any positive or negative numerical value; to offset the download count shown, when using the download counter shortcode." />';
+        
+        echo '<br /><br />';
+        echo '<input type="checkbox" name="sdm_item_no_log" '.$checked.' />';
+        echo '<span style="margin-left: 5px;"></span>';
+        _e('Disable download logging for this item.', 'sdm_lang');
+        
         wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
     }
 
@@ -406,7 +416,7 @@ class simpleDownloadManager {
         }
     }
 
-    public function sdm_save_statistics_meta_data($post_id) {  // Save Thumbnail Upload metabox
+    public function sdm_save_statistics_meta_data($post_id) {  // Save Statistics Upload metabox
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return;
         if (!isset($_POST['sdm_count_offset_nonce_check']) || !wp_verify_nonce($_POST['sdm_count_offset_nonce_check'], 'sdm_count_offset_nonce'))
@@ -415,6 +425,14 @@ class simpleDownloadManager {
         if (isset($_POST['sdm_count_offset']) && is_numeric($_POST['sdm_count_offset'])) {
 
             update_post_meta($post_id, 'sdm_count_offset', $_POST['sdm_count_offset']);
+        }
+        
+        // Checkbox for disabling download logging for this item
+        if(isset($_POST['sdm_item_no_log'])) {
+            update_post_meta($post_id, 'sdm_item_no_log', $_POST['sdm_item_no_log']);
+        }
+        else {
+            delete_post_meta($post_id, 'sdm_item_no_log');
         }
     }
 
@@ -435,6 +453,8 @@ class simpleDownloadManager {
         add_settings_section('sdm_colors', __('Colors', 'sdm_lang'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'sdm_lang'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_log_unique', __('Log Unique IP', 'sdm_lang'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_no_logs', __('Disable Download Logs', 'sdm_lang'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('download_button_color', __('Download Button Color', 'sdm_lang'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
     }
 
@@ -451,6 +471,18 @@ class simpleDownloadManager {
         echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';
         _e('Removes the SDM Downloads button from the WP content editor.', 'sdm_lang');
     }
+    
+    public function admin_log_unique() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[admin_log_unique]" id="admin_log_unique" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_log_unique']), false) . ' /> ';
+        _e('Only logs downloads from unique IP addresses.', 'sdm_lang');
+    }
+    
+    public function admin_no_logs_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_no_logs']), false) . ' /> ';
+        _e('Disables all download logs. (This global option overrides the individual download item option.)', 'sdm_lang');
+    }
 
     public function download_button_color_cb() {
         $main_opts = get_option('sdm_downloads_options');
@@ -461,7 +493,7 @@ class simpleDownloadManager {
             echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'sdm_lang') . ')</option>';
         }
         foreach ($color_opts as $color) {
-            echo '<option value="' . $color . '" ' . $sel_color . '>' . $color . '</option>';
+            echo '<option value="' . $color . '">' . $color . '</option>';
         }
         echo '</select> ';
         _e('Adjusts the color of the "Download Now" button.', 'sdm_lang');
@@ -498,6 +530,7 @@ function sdm_wp_scripts() {
 
 function handle_sdm_download_via_direct_post() {
     if (isset($_REQUEST['smd_process_download']) && $_REQUEST['smd_process_download'] == '1') {
+        global $wpdb;
         $download_id = strip_tags($_REQUEST['download_id']);
         $download_title = get_the_title($download_id);
         $download_link = get_post_meta($download_id, 'sdm_upload', true);
@@ -513,26 +546,60 @@ function handle_sdm_download_via_direct_post() {
         else {
             $visitor_name = __('Not Logged In','sdm_lang');
         }
-
-        global $wpdb;
-        $table = $wpdb->prefix . 'sdm_downloads';
-        $data = array(
-            'post_id' => $download_id,
-            'post_title' => $download_title,
-            'file_url' => $download_link,
-            'visitor_ip' => $ipaddress,
-            'date_time' => $date_time,
-            'visitor_country' => $visitor_country,
-            'visitor_name' => $visitor_name
-        );
-
-        $insert_table = $wpdb->insert($table, $data);
-
-        if ($insert_table) {//Download request was logged successfully
-            sdm_redirect_to_url($download_link);
-        } else {//Failed to log the download request
-            wp_die(__('Error! Failed to log the download request in the database table', 'sdm_lang'));
+        
+        // Get option for global disabling of download logging
+        $main_option = get_option('sdm_downloads_options');
+        $no_logs = isset($main_option['admin_no_logs']);
+        
+        // Get optoin for logging only unique IPs
+        $unique_ips = isset($main_option['admin_log_unique']);
+        
+        // Get post meta for individual disabling of download logging
+        $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
+        $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
+        
+        $dl_logging_needed = true;
+        
+        // Check if download logs have been disabled (globally or per download item)
+        if ($no_logs === true || $item_logging_checked === 'on') {
+            $dl_logging_needed = false;            
         }
+
+        // Check if we are only logging unique ips
+        if($unique_ips === true) {
+            $check_ip = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'sdm_downloads WHERE post_id="'.$download_id.'" AND visitor_ip = "'.$ipaddress.'"');
+
+            //This IP is already logged for this download item. No need to log it again.
+            if($check_ip){
+                $dl_logging_needed = false;
+            }
+        }
+                
+        if($dl_logging_needed){
+            // We need to log this download.
+            $table = $wpdb->prefix . 'sdm_downloads';
+            $data = array(
+                'post_id' => $download_id,
+                'post_title' => $download_title,
+                'file_url' => $download_link,
+                'visitor_ip' => $ipaddress,
+                'date_time' => $date_time,
+                'visitor_country' => $visitor_country,
+                'visitor_name' => $visitor_name
+            );
+
+            $insert_table = $wpdb->insert($table, $data);
+
+            if ($insert_table) {
+                //Download request was logged successfully
+            } else {
+                //Failed to log the download request
+                wp_die(__('Error! Failed to log the download request in the database table', 'sdm_lang'));
+            }
+        }
+        
+        //Downoad the item
+        sdm_redirect_to_url($download_link);
         exit;
     }
 }
@@ -583,6 +650,7 @@ add_action('wp_ajax_sdm_check_pass', 'sdm_check_pass_ajax_call');
 
 function sdm_check_pass_ajax_call() {
 
+    global $wpdb;
     $button_id = $_POST['button_id'];  // Get button cpt id
     $pass_val = $_POST['pass_val'];  // Get password attempt
     $success = '';
@@ -614,20 +682,48 @@ function sdm_check_pass_ajax_call() {
         else {
             $visitor_name = __('Not Logged In','sdm_lang');
         }
+        
+        // Get option for global disabling of download logging
+        $main_option = get_option('sdm_downloads_options');
+        $no_logs = isset($main_option['admin_no_logs']);
+        
+        // Get optoin for logging only unique IPs
+        $unique_ips = isset($main_option['admin_log_unique']);
+        
+        // Get post meta for individual disabling of download logging
+        $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
+        $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
+        
+        $dl_logging_needed = true;
+        
+        // Check if download logs have been disabled (globally or per download item)
+        if ($no_logs === true || $item_logging_checked === 'on') {
+            $dl_logging_needed = false;            
+        }
 
-        global $wpdb;
-        $table = $wpdb->prefix . 'sdm_downloads';
-        $data = array(
-            'post_id' => $download_id,
-            'post_title' => $download_title,
-            'file_url' => $download_link,
-            'visitor_ip' => $ipaddress,
-            'date_time' => $date_time,
-            'visitor_country' => $visitor_country,
-            'visitor_name' => $visitor_name
-        );
+        // Check if we are only logging unique ips
+        if($unique_ips === true) {
+            $check_ip = $wpdb->get_results('SELECT * FROM '.$wpdb->prefix.'sdm_downloads WHERE post_id="'.$download_id.'" AND visitor_ip = "'.$ipaddress.'"');
 
-        $insert_table = $wpdb->insert($table, $data);
+            //This IP is already logged for this download item. No need to log it again.
+            if($check_ip){
+                $dl_logging_needed = false;
+            }
+        }
+        
+        if($dl_logging_needed){
+            $table = $wpdb->prefix . 'sdm_downloads';
+            $data = array(
+                'post_id' => $download_id,
+                'post_title' => $download_title,
+                'file_url' => $download_link,
+                'visitor_ip' => $ipaddress,
+                'date_time' => $date_time,
+                'visitor_country' => $visitor_country,
+                'visitor_name' => $visitor_name
+            );
+            $insert_table = $wpdb->insert($table, $data);
+        }
     }
 
     // Generate ajax response
