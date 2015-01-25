@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.1.7
+ * Version: 3.1.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.7');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.8');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -26,6 +26,7 @@ $sdm_db_version = '1.2';
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-logs-list-table.php');
 include_once('includes/sdm-latest-downloads.php');
+include_once('sdm-post-type-and-taxonomy.php');
 include_once('sdm-shortcodes.php');
 include_once('sdm-post-type-content-handler.php');
 
@@ -36,7 +37,6 @@ function sdm_install_db_table() {
 
     global $wpdb;
     global $sdm_db_version;
-
     $table_name = $wpdb->prefix . 'sdm_downloads';
 
     $sql = 'CREATE TABLE ' . $table_name . ' (
@@ -56,9 +56,28 @@ function sdm_install_db_table() {
 
     update_option('sdm_db_version', $sdm_db_version);
     
+    //Register the post type so you can flush the rewrite rules
+    sdm_register_post_type();
+    
     // Flush rules after install/activation
     flush_rewrite_rules();
 }
+
+/*
+ * * Handle Plugins loaded tasks
+ */
+add_action('plugins_loaded', 'sdm_plugins_loaded_tasks');
+function sdm_plugins_loaded_tasks() {
+    //Load language
+    load_plugin_textdomain('sdm_lang', false, dirname(plugin_basename(__FILE__)) . '/langs/');
+
+    //Handle db upgrade stuff
+    sdm_db_update_check();
+
+    //Handle download request if any
+    handle_sdm_download_via_direct_post();
+}
+
 
 function sdm_db_update_check() {
     if (is_admin()) {//Check if DB needs to be upgraded
@@ -71,26 +90,9 @@ function sdm_db_update_check() {
 }
 
 /*
- * * Handle Plugins loaded tasks
- */
-add_action('plugins_loaded', 'sdm_plugins_loaded_tasks');
-
-function sdm_plugins_loaded_tasks() {
-    //Load language
-    load_plugin_textdomain('sdm_lang', false, dirname(plugin_basename(__FILE__)) . '/langs/');
-
-    //Handle db upgrade stuff
-    sdm_db_update_check();
-
-    //Handle download request if any
-    handle_sdm_download_via_direct_post();
-}
-
-/*
  * * Add a 'Settings' link to plugins list page
  */
 add_filter('plugin_action_links', 'sdm_settings_link', 10, 2);
-
 function sdm_settings_link($links, $file) {
     static $this_plugin;
     if (!$this_plugin)
@@ -107,8 +109,8 @@ class simpleDownloadManager {
 
     public function __construct() {
 
-        add_action('init', array(&$this, 'sdm_register_post_type'));  // Create 'sdm_downloads' custom post type
-        add_action('init', array(&$this, 'sdm_create_taxonomies'));  // Register 'tags' and 'categories' taxonomies
+        add_action('init', 'sdm_register_post_type');  // Create 'sdm_downloads' custom post type
+        add_action('init', 'sdm_create_taxonomies');  // Register 'tags' and 'categories' taxonomies
         add_action('init', 'sdm_register_shortcodes'); //Register the shortcodes
         add_action('wp_enqueue_scripts', array(&$this, 'sdm_frontend_scripts'));  // Register frontend scripts
 
@@ -180,100 +182,6 @@ class simpleDownloadManager {
 
         wp_enqueue_style('thickbox');  // Needed for media upload thickbox
         wp_enqueue_style('sdm_admin_styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_admin_styles.css');  // Needed for media upload thickbox
-    }
-
-    public function sdm_register_post_type() {
-
-        //*****
-        //*****  Create 'sdm_downloads' Custom Post Type
-        $labels = array(
-            'name' => __('Downloads', 'sdm_lang'),
-            'singular_name' => __('Downloads', 'sdm_lang'),
-            'add_new' => __('Add New', 'sdm_lang'),
-            'add_new_item' => __('Add New', 'sdm_lang'),
-            'edit_item' => __('Edit Download', 'sdm_lang'),
-            'new_item' => __('New Download', 'sdm_lang'),
-            'all_items' => __('Downloads', 'sdm_lang'),
-            'view_item' => __('View Download', 'sdm_lang'),
-            'search_items' => __('Search Downloads', 'sdm_lang'),
-            'not_found' => __('No Downloads found', 'sdm_lang'),
-            'not_found_in_trash' => __('No Downloads found in Trash', 'sdm_lang'),
-            'parent_item_colon' => __('Parent Download', 'sdm_lang'),
-            'menu_name' => __('Downloads', 'sdm_lang')
-        );
-        
-        $sdm_permalink_base = 'sdm_downloads';//TODO - add an option to configure in the settings maybe?
-        $sdm_slug = untrailingslashit( $sdm_permalink_base );
-        $args = array(
-            'labels' => $labels,
-            'public' => true,
-            'publicly_queryable' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => $sdm_slug),
-            'capability_type' => 'post',
-            'has_archive' => true,
-            'hierarchical' => false,
-            'menu_position' => null,
-            'menu_icon' => 'dashicons-download',
-            'supports' => array('title')
-        );
-        register_post_type('sdm_downloads', $args);        
-
-    }
-
-    public function sdm_create_taxonomies() {
-
-        //*****
-        //*****  Create CATEGORIES Taxonomy
-        $labels_tags = array(
-            'name' => _x('Categories', 'sdm_lang'),
-            'singular_name' => _x('Category', 'sdm_lang'),
-            'search_items' => __('Search Categories', 'sdm_lang'),
-            'all_items' => __('All Categories', 'sdm_lang'),
-            'parent_item' => __('Categories Genre', 'sdm_lang'),
-            'parent_item_colon' => __('Categories Genre:', 'sdm_lang'),
-            'edit_item' => __('Edit Category', 'sdm_lang'),
-            'update_item' => __('Update Category', 'sdm_lang'),
-            'add_new_item' => __('Add New Category', 'sdm_lang'),
-            'new_item_name' => __('New Category', 'sdm_lang'),
-            'menu_name' => __('Categories', 'sdm_lang')
-        );
-        $args_tags = array(
-            'hierarchical' => true,
-            'labels' => $labels_tags,
-            'show_ui' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => 'sdm_categories'),
-            'show_admin_column' => true
-        );
-        register_taxonomy('sdm_categories', array('sdm_downloads'), $args_tags);
-
-        //*****
-        //*****  Create TAGS Taxonomy
-        $labels_tags = array(
-            'name' => _x('Tags', 'sdm_lang'),
-            'singular_name' => _x('Tag', 'sdm_lang'),
-            'search_items' => __('Search Tags', 'sdm_lang'),
-            'all_items' => __('All Tags', 'sdm_lang'),
-            'parent_item' => __('Tags Genre', 'sdm_lang'),
-            'parent_item_colon' => __('Tags Genre:', 'sdm_lang'),
-            'edit_item' => __('Edit Tag', 'sdm_lang'),
-            'update_item' => __('Update Tag', 'sdm_lang'),
-            'add_new_item' => __('Add New Tag', 'sdm_lang'),
-            'new_item_name' => __('New Tag', 'sdm_lang'),
-            'menu_name' => __('Tags', 'sdm_lang')
-        );
-        $args_tags = array(
-            'hierarchical' => false,
-            'labels' => $labels_tags,
-            'show_ui' => true,
-            'query_var' => true,
-            'rewrite' => array('slug' => 'sdm_tags'),
-            'show_admin_column' => true
-        );
-        register_taxonomy('sdm_tags', array('sdm_downloads'), $args_tags);
     }
 
     public function sdm_create_menu_pages() {

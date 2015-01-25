@@ -1,5 +1,7 @@
 <?php
 
+add_filter('widget_text', 'do_shortcode'); //Enable shortcode filtering in standard text widget
+
 /*
  * * Register and handle Shortcode
  */

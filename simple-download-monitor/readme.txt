@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 3.1.7
+Stable tag: 3.1.8
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -154,6 +154,10 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= TODO 3.1.8 =
+- Enabled shortcode filtering in standard text widget.
+- Fixed an intermittend issue with the rewrite rules flushing.
 
 = 3.1.7 =
 - Added Portuguese language translation. Translation file submitted by Visto Marketing.
