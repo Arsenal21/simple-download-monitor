@@ -155,9 +155,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.1.8 =
+= 3.1.8 =
 - Enabled shortcode filtering in standard text widget.
-- Fixed an intermittend issue with the rewrite rules flushing.
+- Fixed an intermittent issue with the rewrite rules flushing.
 
 = 3.1.7 =
 - Added Portuguese language translation. Translation file submitted by Visto Marketing.
