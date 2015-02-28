@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 
 			imgurl = $(html).attr('href');
 			$('#sdm_thumbnail_image').remove();
-			$('#sdm_get_thumb').append('<img id="sdm_thumbnail_image" src="'+imgurl+'" />');
+                        $('#sdm_admin_thumb_preview').html('<img id="sdm_thumbnail_image" src="'+imgurl+'" style="max-width:200px;" />');
 			
 			$('#sdm_upload_thumbnail').val(imgurl);
 			tb_remove();

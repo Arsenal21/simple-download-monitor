@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.1.9
+ * Version: 3.2.0
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.1.9');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.0');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -231,7 +231,7 @@ class simpleDownloadManager {
         <br /><br />
         <input id="upload_image_button" type="button" class="button-primary" value="<?php _e('Select File', 'sdm_lang'); ?>" />
         <span style="margin-left:40px;"></span>
-        <?php _e('File URL:', 'sdm_lang') ?> <input id="sdm_upload" type="text" size="70" name="sdm_upload" value="<?php echo $old_value; ?>" />
+        <?php _e('File URL:', 'sdm_lang') ?> <input id="sdm_upload" type="text" size="70" name="sdm_upload" value="<?php echo $old_value; ?>" placeholder="http://..." />
         <?php
         wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
     }
@@ -239,22 +239,24 @@ class simpleDownloadManager {
     public function display_sdm_thumbnail_meta_box($post) {  // Thumbnail upload metabox
         $old_thumbnail = get_post_meta($post->ID, 'sdm_upload_thumbnail', true);
         $old_value = isset($old_thumbnail) ? $old_thumbnail : '';
-        _e('Click "Select Image" to upload (or choose) the file thumbnail image. This thumbnail image will be used to create a fancy file download box if you want to use it.', 'sdm_lang');
+        _e('Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'sdm_lang');
         echo '<br />';
-        //_e('Recommended image size is 75px by 75px.', 'sdm_lang');
-        ?>
+	_e('This thumbnail image will be used to create a fancy file download box if you want to use it.', 'sdm_lang');
+        ?>        
         <br /><br />
-        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'sdm_lang'); ?>" />
+        <input id="sdm_upload_thumbnail" type="text" size="70" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" placeholder="http://..." />
+        <br />
+        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'sdm_lang'); ?>" />        
         <input id="remove_thumbnail_button" type="button" class="button" value="<?php _e('Remove Image', 'sdm_lang'); ?>" />
-        <span style="margin-left:40px;"></span>
-        <input id="sdm_upload_thumbnail" type="hidden" size="70" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" />
-        <span id="sdm_get_thumb">
+        <br /><br />
+        
+        <span id="sdm_admin_thumb_preview">
+        <?php
+        if (!empty($old_value)) {
+            ?><img id="sdm_thumbnail_image" src="<?php echo $old_value; ?>" style="max-width:200px;" />
             <?php
-            if ($old_value != '') {
-                ?><img id="sdm_thumbnail_image" src="<?php echo $old_value; ?>" style="width:75px;height:75px;" />
-                <?php
-            }
-            ?></span><?php
+        }
+        ?></span><?php
         wp_nonce_field('sdm_thumbnail_box_nonce', 'sdm_thumbnail_box_nonce_check');
     }
 
