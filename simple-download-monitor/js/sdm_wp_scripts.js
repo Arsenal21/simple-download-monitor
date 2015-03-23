@@ -25,15 +25,14 @@ jQuery(document).ready(function($) {
 					// Populate each matched post title and permalink
 					$this.children('.sdm_placeholder').append('<a href="'+value['permalink']+'"><span class="sdm_post_title" style="cursor:pointer;">'+value['title']+'</span></a>');
 				});
+				
+				$this.children('span').append('<span style="margin-left:5px;" class="sdm_arrow">&#8616</span>');
 			}
 		);
 	});
 	
 	// Hide results on page load
 	$('li.sdm_cat').children('.sdm_placeholder').hide();
-	//$('li.sdm_cat').children('ul').hide();
-	//$('.sdm_cat ul').children().hide();
-	$('.sdm_cat ul').css('display', 'none');
 	
 	// Slide toggle for each list item
 	$('body').on('click', '.sdm_cat_title', function(e) {
@@ -41,10 +40,7 @@ jQuery(document).ready(function($) {
 		// If there is any html.. then we have more elements
 		if($(this).next().html() != '') {
 			
-			e.stopPropagation(); // prevetn climbing dom tree
 			$(this).next().slideToggle(); // toggle div titles
-			$(this).next().next().slideToggle(); // toggle next elements
-			$(this).next().next().find('ul').slideToggle();  // toggle all child ul elements
 		}
 	});
 		

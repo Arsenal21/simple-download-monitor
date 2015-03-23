@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.2.0
+ * Version: 3.2.1
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.0');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.1');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -657,15 +657,16 @@ function sdm_pop_cats_ajax_call() {
 
     $cat_slug = $_POST['cat_slug'];  // Get button cpt slug
     $parent_id = $_POST['parent_id'];  // Get button cpt id
+	
     // Query custom posts based on taxonomy slug
-    $posts = query_posts(array(
+    $posts = get_posts(array(
         'post_type' => 'sdm_downloads',
-        //'showposts' => -1,
+        'numberposts' => -1,
         'tax_query' => array(
             array(
                 'taxonomy' => 'sdm_categories',
-                'terms' => $cat_slug,
                 'field' => 'slug',
+                'terms' => $cat_slug,
                 'include_children' => 0
             )
         ),
