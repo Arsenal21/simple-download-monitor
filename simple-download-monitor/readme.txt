@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
 Tested up to: 4.2
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -35,6 +35,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Rich text editor for editing your download item description.
 * Use shortcodes to display a download now button on a WordPress post or page.
 * Show trackable download now buttons for your files anywhere on your site.
+* Shortcode to create a direct download link for a file. Useful for hotlinking.
 * Download counter for each file.
 * Ability to set a download count offset for each file.
 * Track IP addresses of the users who downloaded your files.
@@ -154,6 +155,10 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.2.2 =
+- Added a new shortcode to create a direct download link for the file. Useful if you want to create a custom download link.
+- WordPress 4.2 compatibility.
 
 = 3.2.1 =
 - Fixed an issue with the ajax category browser shortcode.

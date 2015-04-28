@@ -11,9 +11,14 @@ function sdm_register_shortcodes() {
     add_shortcode('sdm-download', 'sdm_create_download_shortcode');  // For download shortcode (for backwards compatibility)
     add_shortcode('sdm_download_counter', 'sdm_create_counter_shortcode');  // For counter shortcode (underscores)
     add_shortcode('sdm-download-counter', 'sdm_create_counter_shortcode');  // For counter shortcode (for backwards compatibility)
+    add_shortcode('sdm_latest_downloads', 'sdm_show_latest_downloads'); // For showing X number of latest downloads
+    add_shortcode('sdm-latest-downloads', 'sdm_show_latest_downloads');  // For showing X number of latest downloads(for backwards compatibility)
+    
+    add_shortcode('sdm_download_link', 'sdm_create_simple_download_link');
+    
     add_shortcode('sdm_show_dl_from_category', 'sdm_handle_category_shortcode'); //For category shortcode
     add_shortcode('sdm_download_categories', 'sdm_download_categories_shortcode'); // Ajax file tree browser
-    add_shortcode('sdm-latest-downloads', 'sdm_show_latest_downloads');  // For showing X number of latest downloads
+    
 }
 
 // Create Download Shortcode
@@ -78,6 +83,19 @@ function sdm_create_download_shortcode($atts) {
     }
 
     return apply_filters('sdm_download_shortcode_output', $output);
+}
+
+function sdm_create_simple_download_link($atts){
+    extract(shortcode_atts(array(
+        'id' => 'id',
+    ), $atts));
+
+    if (empty($id)) {
+        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
+    }
+    
+    $download_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
+    return $download_url;
 }
 
 // Create Counter Shortcode
