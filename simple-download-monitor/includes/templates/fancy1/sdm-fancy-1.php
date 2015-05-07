@@ -3,14 +3,16 @@
 function sdm_generate_fancy1_latest_downloads_display_output($get_posts, $args) {
 
     $output = "";
+    isset($args['button_text']) ? $button_text = $args['button_text'] : $button_text = '';
+    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
         //Create a args array
         $args = array(
             'id' => $id,
             'fancy' => '1',
-            'button_text' => $args['button_text'],
-            'new_window' => $args['new_window'],
+            'button_text' => $button_text,
+            'new_window' => $new_window,
         );
         $output .= sdm_generate_fancy1_display_output($args);
     }
@@ -25,14 +27,16 @@ function sdm_generate_fancy1_category_display_output($get_posts, $args) {
     //TODO - when the CSS file is moved to the fancy1 folder, change it here
     //$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy1/sdm-fancy-1-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
     
+    isset($args['button_text']) ? $button_text = $args['button_text'] : $button_text = '';
+    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';    
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
         //Create a args array
         $args = array(
             'id' => $id,
             'fancy' => '1',
-            'button_text' => $args['button_text'],
-            'new_window' => $args['new_window'],
+            'button_text' => $button_text,
+            'new_window' => $new_window,
         );
         $output .= sdm_generate_fancy1_display_output($args);
     }
