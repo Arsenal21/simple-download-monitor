@@ -156,6 +156,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.2.4 =
+- Added a new feature to show pagination in the display all downloads from a category shortcode.
+
 = 3.2.3 =
 - Addressed some warning/notice messages that shows when debug is enabled.
 

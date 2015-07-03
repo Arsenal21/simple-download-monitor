@@ -130,6 +130,7 @@ function sdm_handle_category_shortcode($args) {
         'new_window' => '',
         'orderby' => 'post_date',
 	'order' => 'DESC',
+        'pagination' => '',
     ), $args));
 
     // Define vars
@@ -157,11 +158,23 @@ function sdm_handle_category_shortcode($args) {
         $terms = $category_id;
     }
 
+    // For pagination
+    $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+    if(isset($args['pagination'])){
+        if(!is_numeric($args['pagination'])){
+            return '<p style="color: red;">' . __('Error! You must enter a numeric number for the "pagination" parameter of the shortcode. Refer to the usage documentation.', 'sdm_lang') . '</p>';
+        }
+        $posts_per_page = $args['pagination'];
+    } else {
+        $posts_per_page = 9999;
+    }
+    
+        
     // Query cpt's based on arguments above
     $get_posts = get_posts(array(
         'post_type' => 'sdm_downloads',
         'show_posts' => -1,
-        'posts_per_page' => 9999,
+        'posts_per_page' => $posts_per_page,
         'tax_query' => array(
             array(
                 'taxonomy' => 'sdm_categories',
@@ -171,6 +184,7 @@ function sdm_handle_category_shortcode($args) {
         ),
         'orderby' => $orderby,
 	'order' => $order,
+        'paged' => $paged,
     ));
 
     // If no cpt's are found
@@ -236,6 +250,26 @@ function sdm_handle_category_shortcode($args) {
             $output .= sdm_generate_fancy2_category_display_output($get_posts, $args);
         }
 
+        // Pagination related
+        if(isset($args['pagination'])){
+            $posts_per_page = $args['pagination'];
+            $count_sdm_posts = wp_count_posts('sdm_downloads');
+            $published_sdm_posts = $count_sdm_posts->publish;            
+            $total_pages = ceil($published_sdm_posts / $posts_per_page);
+            
+            $big = 999999999; // Need an unlikely integer
+            $pagination = paginate_links( array(
+			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+			'format'       => '',
+			'add_args'     => '',
+			'current'      => max( 1, get_query_var( 'paged' ) ),
+			'total'        => $total_pages,
+			'prev_text'    => '&larr;',
+			'next_text'    => '&rarr;',
+		) );
+            $output .= '<div class="sdm_pagination">'.$pagination.'</div>';
+        }
+    
         // Return results
         return apply_filters('sdm_category_download_items_shortcode_output', $output, $args, $get_posts);
     }  // End else iterate cpt's
