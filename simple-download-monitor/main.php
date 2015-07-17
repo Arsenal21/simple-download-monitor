@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.2.3
+ * Version: 3.2.4
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.3');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.4');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -450,6 +450,15 @@ function handle_sdm_download_via_direct_post() {
         $download_id = strip_tags($_REQUEST['download_id']);
         $download_title = get_the_title($download_id);
         $download_link = get_post_meta($download_id, 'sdm_upload', true);
+        
+        //Do some validation checks
+        if(empty($download_id)){
+            wp_die(__('Error! Incorrect download item id.', 'sdm_lang'));
+        }
+        if(empty($download_link)){
+            wp_die(__('Error! This download item ('.$download_id.') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'sdm_lang'));
+        }
+        
         $ipaddress = $_SERVER["REMOTE_ADDR"];
         $date_time = current_time('mysql');
         $visitor_country = sdm_ip_info('Visitor', 'Country');
