@@ -82,7 +82,7 @@ function sdm_create_download_shortcode($atts) {
         $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
     }
 
-    return apply_filters('sdm_download_shortcode_output', $output);
+    return apply_filters('sdm_download_shortcode_output', $output, $atts);
 }
 
 function sdm_create_simple_download_link($atts){

@@ -156,6 +156,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.2.5 =
+- Modified the 'sdm_download_shortcode_output' filter to pass the arguments array also (allows greater customization option via this filter).
+
 = 3.2.4 =
 - Added a new feature to show pagination in the display all downloads from a category shortcode.
 - Added validation checks while processing a download request to make sure the download item ID is valid and the item has a download link.
