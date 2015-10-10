@@ -9,17 +9,34 @@ function sdm_show_latest_downloads($args){
         'new_window' => '',
         'orderby' => 'post_date',
 	'order' => 'DESC',
+        'category_slug' => '',
     ), $args));
     
-    
-    // Query cpt's based on arguments above
-    $get_posts = get_posts(array(
+    $query_args = array(
         'post_type' => 'sdm_downloads',
         'show_posts' => -1,
         'posts_per_page' => $number,
         'orderby' => $orderby,
 	'order' => $order,
-    ));
+    );
+    
+    //Check if the query needs to be for a category
+    if (!empty($category_slug)) {
+        $field = 'slug';
+        $terms = $category_slug;
+        
+        //Add the category slug parameters for the query args
+        $query_args['tax_query'] = array(
+            array(
+                'taxonomy' => 'sdm_categories',
+                'field' => $field,
+                'terms' => $terms
+            )
+        );
+    }
+    
+    // Query cpt's based on arguments above
+    $get_posts = get_posts($query_args);
 
     // If no cpt's are found
     if (!$get_posts) {

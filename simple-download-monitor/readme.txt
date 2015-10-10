@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
 Tested up to: 4.3
-Stable tag: 3.2.4
+Stable tag: 3.2.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -156,8 +156,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.2.5 =
+= 3.2.5 =
 - Modified the 'sdm_download_shortcode_output' filter to pass the arguments array also (allows greater customization option via this filter).
+- Added a new option to show X number of latest downloads from a specified category.
 
 = 3.2.4 =
 - Added a new feature to show pagination in the display all downloads from a category shortcode.
