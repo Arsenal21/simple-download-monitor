@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.2.5
+ * Version: 3.2.6
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -69,7 +69,7 @@ function sdm_install_db_table() {
 add_action('plugins_loaded', 'sdm_plugins_loaded_tasks');
 function sdm_plugins_loaded_tasks() {
     //Load language
-    load_plugin_textdomain('sdm_lang', false, dirname(plugin_basename(__FILE__)) . '/langs/');
+    load_plugin_textdomain('simple-download-monitor', false, dirname(plugin_basename(__FILE__)) . '/langs/');
 
     //Handle db upgrade stuff
     sdm_db_update_check();
@@ -104,7 +104,7 @@ function sdm_settings_link($links, $file) {
     if (!$this_plugin)
         $this_plugin = plugin_basename(__FILE__);
     if ($file == $this_plugin) {
-        $settings_link = '<a href="edit.php?post_type=sdm_downloads&page=settings" title="SDM Settings Page">' . __("Settings", 'sdm_lang') . '</a>';
+        $settings_link = '<a href="edit.php?post_type=sdm_downloads&page=settings" title="SDM Settings Page">' . __("Settings", 'simple-download-monitor') . '</a>';
         array_unshift($links, $settings_link);
     }
     return $links;
@@ -158,8 +158,8 @@ class simpleDownloadManager {
             <?php
             // Localize langauge strings used in js file
             $sdmTranslations = array(
-                'image_removed' => __('Image Successfully Removed', 'sdm_lang'),
-                'ajax_error' => __('Error with AJAX', 'sdm_lang')
+                'image_removed' => __('Image Successfully Removed', 'simple-download-monitor'),
+                'ajax_error' => __('Error with AJAX', 'simple-download-monitor')
             );
             wp_localize_script('sdm-upload', 'sdm_translations', $sdmTranslations);
         }
@@ -169,7 +169,7 @@ class simpleDownloadManager {
         <script type="text/javascript">
             var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url('admin-ajax.php?action=ajax'); ?>'};
             var sdm_plugin_url = '<?php echo plugins_url(); ?>';
-            var tinymce_langs = {select_download_item: '<?php _e('Please select a Download Item:', 'sdm_lang') ?>', download_title: '<?php _e('Download Title', 'sdm_lang') ?>', include_fancy: '<?php _e('Include Fancy Box', 'sdm_lang') ?>', insert_shortcode: '<?php _e('Insert SDM Shortcode', 'sdm_lang') ?>'};
+            var tinymce_langs = {select_download_item: '<?php _e('Please select a Download Item:', 'simple-download-monitor') ?>', download_title: '<?php _e('Download Title', 'simple-download-monitor') ?>', include_fancy: '<?php _e('Include Fancy Box', 'simple-download-monitor') ?>', insert_shortcode: '<?php _e('Insert SDM Shortcode', 'simple-download-monitor') ?>'};
         </script>
         <?php
     }
@@ -179,7 +179,7 @@ class simpleDownloadManager {
         // Pass language strings to frontend of WP for js usage
         ?>
         <script type="text/javascript">
-            var sdm_frontend_translations = {incorrect_password: '<?php _e('Incorrect Password', 'sdm_lang') ?>'};
+            var sdm_frontend_translations = {incorrect_password: '<?php _e('Incorrect Password', 'simple-download-monitor') ?>'};
         </script>
         <?php
     }
@@ -200,20 +200,20 @@ class simpleDownloadManager {
 
         //*****
         //*****  Create metaboxes for the custom post type
-        add_meta_box('sdm_description_meta_box', __('Description', 'sdm_lang'), array(&$this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default'
+        add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array(&$this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default'
         );
-        add_meta_box('sdm_upload_meta_box', __('Upload File', 'sdm_lang'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default'
+        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default'
         );
-        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'sdm_lang'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default'
+        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default'
         );
-        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'sdm_lang'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default'
+        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default'
         );
-        add_meta_box('sdm_stats_meta_box', __('Statistics', 'sdm_lang'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default'
+        add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default'
         );
     }
 
     public function display_sdm_description_meta_box($post) {  // Description metabox
-        _e('Add a description for this download item.', 'sdm_lang');
+        _e('Add a description for this download item.', 'simple-download-monitor');
         echo '<br /><br />';
 
         $old_description = get_post_meta($post->ID, 'sdm_description', true);
@@ -226,12 +226,12 @@ class simpleDownloadManager {
     public function display_sdm_upload_meta_box($post) {  // File Upload metabox
         $old_upload = get_post_meta($post->ID, 'sdm_upload', true);
         $old_value = isset($old_upload) ? $old_upload : '';
-        _e('Click "Select File" to upload (or choose) the file.', 'sdm_lang');
+        _e('Click "Select File" to upload (or choose) the file.', 'simple-download-monitor');
         ?>
         <br /><br />
-        <input id="upload_image_button" type="button" class="button-primary" value="<?php _e('Select File', 'sdm_lang'); ?>" />
+        <input id="upload_image_button" type="button" class="button-primary" value="<?php _e('Select File', 'simple-download-monitor'); ?>" />
         <span style="margin-left:40px;"></span>
-        <?php _e('File URL:', 'sdm_lang') ?> <input id="sdm_upload" type="text" size="70" name="sdm_upload" value="<?php echo $old_value; ?>" placeholder="http://..." />
+        <?php _e('File URL:', 'simple-download-monitor') ?> <input id="sdm_upload" type="text" size="70" name="sdm_upload" value="<?php echo $old_value; ?>" placeholder="http://..." />
         <?php
         wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
     }
@@ -239,15 +239,15 @@ class simpleDownloadManager {
     public function display_sdm_thumbnail_meta_box($post) {  // Thumbnail upload metabox
         $old_thumbnail = get_post_meta($post->ID, 'sdm_upload_thumbnail', true);
         $old_value = isset($old_thumbnail) ? $old_thumbnail : '';
-        _e('Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'sdm_lang');
+        _e('Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'simple-download-monitor');
         echo '<br />';
-	_e('This thumbnail image will be used to create a fancy file download box if you want to use it.', 'sdm_lang');
+	_e('This thumbnail image will be used to create a fancy file download box if you want to use it.', 'simple-download-monitor');
         ?>        
         <br /><br />
         <input id="sdm_upload_thumbnail" type="text" size="70" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" placeholder="http://..." />
         <br />
-        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'sdm_lang'); ?>" />        
-        <input id="remove_thumbnail_button" type="button" class="button" value="<?php _e('Remove Image', 'sdm_lang'); ?>" />
+        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'simple-download-monitor'); ?>" />        
+        <input id="remove_thumbnail_button" type="button" class="button" value="<?php _e('Remove Image', 'simple-download-monitor'); ?>" />
         <br /><br />
         
         <span id="sdm_admin_thumb_preview">
@@ -261,12 +261,12 @@ class simpleDownloadManager {
     }
 
     public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
-        _e('This is the shortcode which can used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter to add this shortcode to a post or page.', 'sdm_lang');
+        _e('This is the shortcode which can used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
         echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
         echo '<br /><br />';
 
-        _e('This shortcode may be used as a download counter.', 'sdm_lang');
+        _e('This shortcode may be used as a download counter.', 'simple-download-monitor');
         echo '<br />';
         echo '[sdm_download_counter id="' . $post->ID . '"]';
     }
@@ -279,22 +279,22 @@ class simpleDownloadManager {
         $no_logs = get_post_meta($post->ID, 'sdm_item_no_log', true);
         $checked = isset($no_logs) && $no_logs === 'on' ? 'checked="checked"' : '';
 
-        _e('These are the statistics for this download item.', 'sdm_lang');
+        _e('These are the statistics for this download item.', 'simple-download-monitor');
         echo '<br /><br />';
 
         global $wpdb;
         $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID));
-        _e('Number of Downloads:', 'sdm_lang');
+        _e('Number of Downloads:', 'simple-download-monitor');
         echo ' <strong>' . $wpdb->num_rows . '</strong>';
         echo '<span style="margin-left: 20px;"></span>';
-        _e('Offset Count', 'sdm_lang');
+        _e('Offset Count', 'simple-download-monitor');
         echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
         echo ' <img src="' . WP_SIMPLE_DL_MONITOR_URL . '/css/images/info.png" style="margin-left:10px;" title="Enter any positive or negative numerical value; to offset the download count shown, when using the download counter shortcode." />';
         
         echo '<br /><br />';
         echo '<input type="checkbox" name="sdm_item_no_log" '.$checked.' />';
         echo '<span style="margin-left: 5px;"></span>';
-        _e('Disable download logging for this item.', 'sdm_lang');
+        _e('Disable download logging for this item.', 'simple-download-monitor');
         
         wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
     }
@@ -365,54 +365,54 @@ class simpleDownloadManager {
     public function sdm_register_options() {
 
         register_setting('sdm_downloads_options', 'sdm_downloads_options');
-        add_settings_section('admin_options', __('Admin Options', 'sdm_lang'), array($this, 'admin_options_cb'), 'admin_options_section');
-        add_settings_section('sdm_colors', __('Colors', 'sdm_lang'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
+        add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
+        add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 
-        add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'sdm_lang'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
-        add_settings_field('admin_log_unique', __('Log Unique IP', 'sdm_lang'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
-        add_settings_field('admin_no_logs', __('Disable Download Logs', 'sdm_lang'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
-        add_settings_field('download_button_color', __('Download Button Color', 'sdm_lang'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
+        add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_no_logs', __('Disable Download Logs', 'simple-download-monitor'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
+        add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
     }
 
     public function admin_options_cb() {
-        _e('Admin options settings', 'sdm_lang');
+        _e('Admin options settings', 'simple-download-monitor');
     }
 
     public function sdm_colors_cb() {
-        _e('Front End colors settings', 'sdm_lang');
+        _e('Front End colors settings', 'simple-download-monitor');
     }
 
     public function admin_tinymce_button_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';
-        _e('Removes the SDM Downloads button from the WP content editor.', 'sdm_lang');
+        _e('Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor');
     }
     
     public function admin_log_unique() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_log_unique]" id="admin_log_unique" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_log_unique']), false) . ' /> ';
-        _e('Only logs downloads from unique IP addresses.', 'sdm_lang');
+        _e('Only logs downloads from unique IP addresses.', 'simple-download-monitor');
     }
     
     public function admin_no_logs_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_no_logs']), false) . ' /> ';
-        _e('Disables all download logs. (This global option overrides the individual download item option.)', 'sdm_lang');
+        _e('Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor');
     }
 
     public function download_button_color_cb() {
         $main_opts = get_option('sdm_downloads_options');
         $color_opt = $main_opts['download_button_color'];
-        $color_opts = array(__('Green', 'sdm_lang'), __('Blue', 'sdm_lang'), __('Purple', 'sdm_lang'), __('Teal', 'sdm_lang'), __('Dark Blue', 'sdm_lang'), __('Black', 'sdm_lang'), __('Grey', 'sdm_lang'), __('Pink', 'sdm_lang'), __('Orange', 'sdm_lang'), __('White', 'sdm_lang'));
+        $color_opts = array(__('Green', 'simple-download-monitor'), __('Blue', 'simple-download-monitor'), __('Purple', 'simple-download-monitor'), __('Teal', 'simple-download-monitor'), __('Dark Blue', 'simple-download-monitor'), __('Black', 'simple-download-monitor'), __('Grey', 'simple-download-monitor'), __('Pink', 'simple-download-monitor'), __('Orange', 'simple-download-monitor'), __('White', 'simple-download-monitor'));
         echo '<select name="sdm_downloads_options[download_button_color]" id="download_button_color" class="sdm_opts_ajax_dropdowns">';
         if (isset($color_opt)) {
-            echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'sdm_lang') . ')</option>';
+            echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'simple-download-monitor') . ')</option>';
         }
         foreach ($color_opts as $color) {
             echo '<option value="' . $color . '">' . $color . '</option>';
         }
         echo '</select> ';
-        _e('Adjusts the color of the "Download Now" button.', 'sdm_lang');
+        _e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
     }
 
 }
@@ -420,10 +420,10 @@ class simpleDownloadManager {
 $simpleDownloadManager = new simpleDownloadManager();
 
 function sdm_get_password_entry_form($id) {
-    $data = __('Enter Password to Download:', 'sdm_lang');
+    $data = __('Enter Password to Download:', 'simple-download-monitor');
     $data .= '<form method="post">';
     $data .= '<input type="password" class="pass_text" value="" /> ';
-    $data .= '<input type="button" class="pass_sumbit" value="' . __('Submit', 'sdm_lang') . '" />';
+    $data .= '<input type="button" class="pass_sumbit" value="' . __('Submit', 'simple-download-monitor') . '" />';
     $data .= '<input type="hidden" value="' . $id . '" />';
     $data .= '</form>';
     return $data;
@@ -453,10 +453,10 @@ function handle_sdm_download_via_direct_post() {
         
         //Do some validation checks
         if(empty($download_id)){
-            wp_die(__('Error! Incorrect download item id.', 'sdm_lang'));
+            wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
         }
         if(empty($download_link)){
-            wp_die(__('Error! This download item ('.$download_id.') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'sdm_lang'));
+            wp_die(__('Error! This download item ('.$download_id.') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'));
         }
         
         $ipaddress = $_SERVER["REMOTE_ADDR"];
@@ -469,7 +469,7 @@ function handle_sdm_download_via_direct_post() {
             $visitor_name = $current_user->user_login;
         }
         else {
-            $visitor_name = __('Not Logged In','sdm_lang');
+            $visitor_name = __('Not Logged In','simple-download-monitor');
         }
         
         // Get option for global disabling of download logging
@@ -519,7 +519,7 @@ function handle_sdm_download_via_direct_post() {
                 //Download request was logged successfully
             } else {
                 //Failed to log the download request
-                wp_die(__('Error! Failed to log the download request in the database table', 'sdm_lang'));
+                wp_die(__('Error! Failed to log the download request in the database table', 'simple-download-monitor'));
             }
         }
         
@@ -605,7 +605,7 @@ function sdm_check_pass_ajax_call() {
             $visitor_name = $current_user->user_login;
         }
         else {
-            $visitor_name = __('Not Logged In','sdm_lang');
+            $visitor_name = __('Not Logged In','simple-download-monitor');
         }
         
         // Get option for global disabling of download logging
@@ -711,14 +711,14 @@ function sdm_create_columns($cols) {
     unset($cols['taxonomy-sdm_categories']);
     unset($cols['date']);
 
-    $cols['sdm_downloads_thumbnail'] = __('Image', 'sdm_lang');
-    $cols['title'] = __('Title', 'sdm_lang');
-    $cols['sdm_downloads_id'] = __('ID', 'sdm_lang');
-    $cols['sdm_downloads_file'] = __('File', 'sdm_lang');
-    $cols['taxonomy-sdm_categories'] = __('Categories', 'sdm_lang');
-    $cols['taxonomy-sdm_tags'] = __('Tags', 'sdm_lang');
-    $cols['sdm_downloads_count'] = __('Downloads', 'sdm_lang');
-    $cols['date'] = __('Date Posted', 'sdm_lang');
+    $cols['sdm_downloads_thumbnail'] = __('Image', 'simple-download-monitor');
+    $cols['title'] = __('Title', 'simple-download-monitor');
+    $cols['sdm_downloads_id'] = __('ID', 'simple-download-monitor');
+    $cols['sdm_downloads_file'] = __('File', 'simple-download-monitor');
+    $cols['taxonomy-sdm_categories'] = __('Categories', 'simple-download-monitor');
+    $cols['taxonomy-sdm_tags'] = __('Tags', 'simple-download-monitor');
+    $cols['sdm_downloads_count'] = __('Downloads', 'simple-download-monitor');
+    $cols['date'] = __('Date Posted', 'simple-download-monitor');
     return $cols;
 }
 

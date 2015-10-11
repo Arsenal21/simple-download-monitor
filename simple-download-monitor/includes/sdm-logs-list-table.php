@@ -16,8 +16,8 @@ class sdm_List_Table extends WP_List_Table {
 
         //Set parent defaults
         parent::__construct(array(
-            'singular' => __('Download', 'sdm_lang'), //singular name of the listed records
-            'plural' => __('Downloads', 'sdm_lang'), //plural name of the listed records
+            'singular' => __('Download', 'simple-download-monitor'), //singular name of the listed records
+            'plural' => __('Downloads', 'simple-download-monitor'), //plural name of the listed records
             'ajax' => false        //does this table support ajax?
         ));
     }
@@ -42,8 +42,8 @@ class sdm_List_Table extends WP_List_Table {
 
         //Build row actions
         $actions = array(
-            'edit' => sprintf('<a href="' . admin_url('post.php?post=' . $item['ID'] . '&action=edit') . '">' . __('Edit', 'sdm_lang') . '</a>'),
-            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=%s&action=%s&download=%s&datetime=%s">' . __('Delete', 'sdm_lang') . '</a>', $_REQUEST['page'], 'delete', $item['ID'], $item['date'])
+            'edit' => sprintf('<a href="' . admin_url('post.php?post=' . $item['ID'] . '&action=edit') . '">' . __('Edit', 'simple-download-monitor') . '</a>'),
+            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=%s&action=%s&download=%s&datetime=%s">' . __('Delete', 'simple-download-monitor') . '</a>', $_REQUEST['page'], 'delete', $item['ID'], $item['date'])
         );
 
         //Return the title contents
@@ -67,12 +67,12 @@ class sdm_List_Table extends WP_List_Table {
 
         $columns = array(
             'cb' => '<input type="checkbox" />', //Render a checkbox instead of text
-            'title' => __('Title', 'sdm_lang'),
-            'URL' => __('File', 'sdm_lang'),
-            'visitor_ip' => __('Visitor IP', 'sdm_lang'),
-            'date' => __('Date', 'sdm_lang'),
-            'visitor_country' => __('Country', 'sdm_lang'),
-            'visitor_name' => __('Username', 'sdm_lang')
+            'title' => __('Title', 'simple-download-monitor'),
+            'URL' => __('File', 'simple-download-monitor'),
+            'visitor_ip' => __('Visitor IP', 'simple-download-monitor'),
+            'date' => __('Date', 'simple-download-monitor'),
+            'visitor_country' => __('Country', 'simple-download-monitor'),
+            'visitor_name' => __('Username', 'simple-download-monitor')
         );
         return $columns;
     }
@@ -93,9 +93,9 @@ class sdm_List_Table extends WP_List_Table {
     function get_bulk_actions() {
 
         $actions = array();
-        $actions['delete2'] = __('Delete Permanently', 'sdm_lang');
-        $actions['export_all'] = __('Export All as Excel', 'sdm_lang');
-        //$actions['export-selected'] = __( 'Export Selected', 'sdm_lang' );
+        $actions['delete2'] = __('Delete Permanently', 'simple-download-monitor');
+        $actions['export_all'] = __('Export All as Excel', 'simple-download-monitor');
+        //$actions['export-selected'] = __( 'Export Selected', 'simple-download-monitor' );
 
         return $actions;
     }
@@ -109,7 +109,7 @@ class sdm_List_Table extends WP_List_Table {
             $action = 'bulk-' . $this->_args['plural'];
 
             if (!wp_verify_nonce($nonce, $action))
-                wp_die(__('Nope! Security check failed!', 'sdm_lang'));
+                wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
         }
 
         $action = $this->current_action();
@@ -117,14 +117,14 @@ class sdm_List_Table extends WP_List_Table {
         // If bulk 'Export All' was clicked
         if ('export_all' === $this->current_action()) {
 
-            echo '<div id="message" class="updated"><p><strong><a id="sdm_download_export" href="?post_type=sdm_downloads&page=logs&download_log">' . __('Download Export File', 'sdm_lang') . '</a></strong></p></div>';
+            echo '<div id="message" class="updated"><p><strong><a id="sdm_download_export" href="?post_type=sdm_downloads&page=logs&download_log">' . __('Download Export File', 'simple-download-monitor') . '</a></strong></p></div>';
         }
 
         // if bulk 'Delete Permanently' was clicked
         if ('delete2' === $this->current_action()) {
 
             if (!isset($_POST['download']) || $_POST['download'] == null) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('No entries were selected.', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
+                echo '<div id="message" class="updated fade"><p><strong>' . __('No entries were selected.', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
                 return;
             }
 
@@ -140,9 +140,9 @@ class sdm_List_Table extends WP_List_Table {
                 );
             }
             if ($del_row) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Entries Deleted!', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
+                echo '<div id="message" class="updated fade"><p><strong>' . __('Entries Deleted!', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             } else {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
+                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             }
         }
 
@@ -159,9 +159,9 @@ class sdm_List_Table extends WP_List_Table {
 								AND date_time = "' . $item_datetime . '"'
             );
             if ($del_row) {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Entry Deleted!', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
+                echo '<div id="message" class="updated fade"><p><strong>' . __('Entry Deleted!', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             } else {
-                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'sdm_lang') . '</strong></p><p><em>' . __('Click to Dismiss', 'sdm_lang') . '</em></p></div>';
+                echo '<div id="message" class="updated fade"><p><strong>' . __('Error', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             }
         }
     }

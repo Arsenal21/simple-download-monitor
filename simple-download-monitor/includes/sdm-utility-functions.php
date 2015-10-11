@@ -39,7 +39,7 @@ function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
     $url = apply_filters('sdm_before_redirect_to_url',$url);
     if (empty($url)) {
         echo '<strong>';
-        _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'sdm_lang');
+        _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'simple-download-monitor');
         echo '</strong>';
         exit;
     }

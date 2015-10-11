@@ -32,7 +32,7 @@ function sdm_create_download_shortcode($atts) {
                     ), $atts));
 
     if (empty($id)) {
-        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
     }
 
     // Check to see if the download link cpt is password protected
@@ -45,7 +45,7 @@ function sdm_create_download_shortcode($atts) {
     // See if user color option is selected
     $main_opts = get_option('sdm_downloads_options');
     $color_opt = $main_opts['download_button_color'];
-    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'sdm_lang');
+    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
     //*** Generate the download now button code ***
     $window_target = '';
@@ -53,7 +53,7 @@ function sdm_create_download_shortcode($atts) {
         $window_target = 'target="_blank"';
     }
     if (empty($button_text)) {//Use the default text for the button
-        $button_text_string = __('Download Now!', 'sdm_lang');
+        $button_text_string = __('Download Now!', 'simple-download-monitor');
     } else {//Use the custom text
         $button_text_string = $button_text;
     }
@@ -91,7 +91,7 @@ function sdm_create_simple_download_link($atts){
     ), $atts));
 
     if (empty($id)) {
-        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
     }
     
     $download_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
@@ -106,13 +106,13 @@ function sdm_create_counter_shortcode($atts) {
                     ), $atts));
 
     if (empty($id)) {
-        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
     }
 
     $db_count = sdm_get_download_count_for_post($id);
 
     // Set string for singular/plural results
-    $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
+    $string = ($db_count == '1') ? __('Download', 'simple-download-monitor') : __('Downloads', 'simple-download-monitor');
 
     $output = '<div class="sdm_download_count"><span class="sdm_count_number">' . $db_count . '</span><span class="sdm_count_string"> ' . $string . '</span></div>';
     // Return result
@@ -139,11 +139,11 @@ function sdm_handle_category_shortcode($args) {
 
     // If category slug and category id are empty.. return error
     if (empty($category_slug) && empty($category_id)) {
-        return '<p style="color: red;">' . __('Error! You must enter a category slug OR a category id with this shortcode. Refer to the documentation for usage instructions.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('Error! You must enter a category slug OR a category id with this shortcode. Refer to the documentation for usage instructions.', 'simple-download-monitor') . '</p>';
     }
     // Else if both category slug AND category id are defined... return error
     else if (!empty($category_slug) && !empty($category_id)) {
-        return '<p style="color: red;">' . __('Error! Please enter a category slug OR id; not both.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('Error! Please enter a category slug OR id; not both.', 'simple-download-monitor') . '</p>';
     }
     // Else setup query arguments for category_slug
     else if (!empty($category_slug) && empty($category_id)) {
@@ -162,7 +162,7 @@ function sdm_handle_category_shortcode($args) {
     $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
     if(isset($args['pagination'])){
         if(!is_numeric($args['pagination'])){
-            return '<p style="color: red;">' . __('Error! You must enter a numeric number for the "pagination" parameter of the shortcode. Refer to the usage documentation.', 'sdm_lang') . '</p>';
+            return '<p style="color: red;">' . __('Error! You must enter a numeric number for the "pagination" parameter of the shortcode. Refer to the usage documentation.', 'simple-download-monitor') . '</p>';
         }
         $posts_per_page = $args['pagination'];
     } else {
@@ -189,7 +189,7 @@ function sdm_handle_category_shortcode($args) {
 
     // If no cpt's are found
     if (!$get_posts) {
-        return '<p style="color: red;">' . __('There are no download items matching this category criteria.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('There are no download items matching this category criteria.', 'simple-download-monitor') . '</p>';
     }
     // Else iterate cpt's
     else {
@@ -202,7 +202,7 @@ function sdm_handle_category_shortcode($args) {
         // See if user color option is selected
         $main_opts = get_option('sdm_downloads_options');
         $color_opt = $main_opts['download_button_color'];
-        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'sdm_lang');
+        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
         $window_target = '';
         if (!empty($new_window)) {
@@ -210,7 +210,7 @@ function sdm_handle_category_shortcode($args) {
         }
 
         if (empty($button_text)) {//Use the default text for the button
-            $button_text_string = __('Download Now!', 'sdm_lang');
+            $button_text_string = __('Download Now!', 'simple-download-monitor');
         } else {//Use the custom text
             $button_text_string = $button_text;
         }

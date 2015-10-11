@@ -40,7 +40,7 @@ function sdm_show_latest_downloads($args){
 
     // If no cpt's are found
     if (!$get_posts) {
-        return '<p style="color: red;">' . __('There are no download items matching this shortcode criteria.', 'sdm_lang') . '</p>';
+        return '<p style="color: red;">' . __('There are no download items matching this shortcode criteria.', 'simple-download-monitor') . '</p>';
     }
     // Else iterate cpt's
     else {

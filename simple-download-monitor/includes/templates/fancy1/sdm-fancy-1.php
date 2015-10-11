@@ -61,7 +61,7 @@ function sdm_generate_fancy1_display_output($args) {
     // See if user color option is selected
     $main_opts = get_option('sdm_downloads_options');
     $color_opt = $main_opts['download_button_color'];
-    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'sdm_lang');
+    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
     //See if new window parameter is seet
     $window_target = '';
@@ -72,7 +72,7 @@ function sdm_generate_fancy1_display_output($args) {
     //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
-        $button_text_string = __('Download Now!', 'sdm_lang');
+        $button_text_string = __('Download Now!', 'simple-download-monitor');
     } else {//Use the custom text
         $button_text_string = $button_text;
     }
@@ -104,7 +104,7 @@ function sdm_generate_fancy1_display_output($args) {
     }
     
     $db_count = sdm_get_download_count_for_post($id);
-    $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
+    $string = ($db_count == '1') ? __('Download', 'simple-download-monitor') : __('Downloads', 'simple-download-monitor');
     $download_count_string = '<span class="sdm_item_count_number">' . $db_count . '</span><span class="sdm_item_count_string"> ' . $string . '</span>';
 
     $css_class = isset($args['css_class']) ? $args['css_class'] : '';

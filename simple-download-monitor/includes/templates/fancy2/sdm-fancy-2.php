@@ -89,7 +89,7 @@ function sdm_generate_fancy2_display_output($args) {
     //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
-        $button_text_string = __('Download Now!', 'sdm_lang');
+        $button_text_string = __('Download Now!', 'simple-download-monitor');
     } else {//Use the custom text
         $button_text_string = $button_text;
     }

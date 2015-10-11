@@ -29,12 +29,12 @@ function filter_sdm_post_type_content($content) {
         // See if user color option is selected
         $main_opts = get_option('sdm_downloads_options');
         $color_opt = $main_opts['download_button_color'];
-        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'sdm_lang');
+        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
         //Download counter
         //$dl_counter = sdm_create_counter_shortcode(array('id'=>$id));
         //*** Generate the download now button code ***
-        $button_text_string = __('Download Now!', 'sdm_lang');
+        $button_text_string = __('Download Now!', 'simple-download-monitor');
 
         $homepage = get_bloginfo('url');
         $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
@@ -45,7 +45,7 @@ function filter_sdm_post_type_content($content) {
         }
 
         $db_count = sdm_get_download_count_for_post($id);
-        $string = ($db_count == '1') ? __('Download', 'sdm_lang') : __('Downloads', 'sdm_lang');
+        $string = ($db_count == '1') ? __('Download', 'simple-download-monitor') : __('Downloads', 'simple-download-monitor');
         $download_count_string = '<span class="sdm_post_count_number">'.$db_count . '</span><span class="sdm_post_count_string"> ' . $string.'</span>';
                 
         //TODO - make this display better with a new design

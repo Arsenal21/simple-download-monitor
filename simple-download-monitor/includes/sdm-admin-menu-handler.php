@@ -40,8 +40,8 @@ function sdm_handle_admin_menu() {
 
     //*****
     //*****  Create the 'logs' and 'settings' submenu pages
-    $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'sdm_lang'), __('Logs', 'sdm_lang'), 'manage_options', 'logs', 'sdm_create_logs_page');
-    $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'sdm_lang'), __('Settings', 'sdm_lang'), 'manage_options', 'settings', 'sdm_create_settings_page');
+    $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'simple-download-monitor'), __('Logs', 'simple-download-monitor'), 'manage_options', 'logs', 'sdm_create_logs_page');
+    $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'simple-download-monitor'), __('Settings', 'simple-download-monitor'), 'manage_options', 'settings', 'sdm_create_settings_page');
 }
 
 /*
@@ -51,11 +51,11 @@ function sdm_create_settings_page() {
     echo '<div class="wrap">';
     echo '<div id="poststuff"><div id="post-body">';
     ?>
-    <h2><?php _e('Simple Download Monitor Settings Page', 'sdm_lang') ?></h2>
+    <h2><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h2>
 
     <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
         Read the full plugin usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.
-        You can also <a href="http://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('follow us', 'sdm_lang'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'sdm_lang'); ?>
+        You can also <a href="http://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
     </div>
 
     <!-- settings page form -->
@@ -64,10 +64,10 @@ function sdm_create_settings_page() {
         <!-- BEGIN ADMIN OPTIONS DIV -->	    
         <div id="sdm_admin_opts_div" class="sdm_sliding_div_title">
             <div class="sdm_slider_title">
-    <?php _e('Admin Options', 'sdm_lang') ?>
+    <?php _e('Admin Options', 'simple-download-monitor') ?>
             </div>
             <div class="sdm_desc">
-    <?php _e("Control various plugin features.", 'sdm_lang') ?>
+    <?php _e("Control various plugin features.", 'simple-download-monitor') ?>
             </div>
         </div>
         <div id="sliding_div1" class="slidingDiv">
@@ -84,10 +84,10 @@ function sdm_create_settings_page() {
         <!-- BEGIN COLORS DIV -->
         <div id="sdm_color_opts_div" class="sdm_sliding_div_title">
             <div class="sdm_slider_title">
-    <?php _e('Color Options', 'sdm_lang') ?>
+    <?php _e('Color Options', 'simple-download-monitor') ?>
             </div>
             <div class="sdm_desc">
-    <?php _e("Adjust color options", 'sdm_lang') ?>
+    <?php _e("Adjust color options", 'simple-download-monitor') ?>
             </div>
         </div>
         <div id="sliding_div2" class="slidingDiv">
@@ -105,7 +105,7 @@ function sdm_create_settings_page() {
     </form>
 
     <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">	
-        <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'sdm_lang'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'sdm_lang'); ?></a>
+        <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'simple-download-monitor'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'simple-download-monitor'); ?></a>
         </p>
     </div>
 
@@ -126,7 +126,7 @@ function sdm_create_logs_page() {
 	$query = "TRUNCATE $table_name";
 	$result = $wpdb->query($query);
         echo '<div id="message" class="updated fade"><p>';
-        _e('Download log entries deleted!', 'sdm_lang');
+        _e('Download log entries deleted!', 'simple-download-monitor');
         echo '</p></div>';        
     }
     
@@ -139,21 +139,21 @@ function sdm_create_logs_page() {
     <div class="wrap">
     
         <div id="icon-users" class="icon32"><br/></div>
-        <h2><?php _e('Download Logs', 'sdm_lang'); ?></h2>
+        <h2><?php _e('Download Logs', 'simple-download-monitor'); ?></h2>
 
         <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-            <p><?php _e('This page lists all tracked downloads.', 'sdm_lang'); ?></p>
+            <p><?php _e('This page lists all tracked downloads.', 'simple-download-monitor'); ?></p>
         </div>
 
         <div id="poststuff"><div id="post-body">
             <!-- Log reset button -->
             <div class="postbox">
-            <h3><label for="title"><?php _e('Reset Download Log Entries', 'sdm_lang'); ?></label></h3>
+            <h3><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
             <div class="inside">
 
             <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >    
                 <div class="submit">
-                    <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'sdm_lang'); ?>" />
+                    <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'simple-download-monitor'); ?>" />
                 </div>    
             </form> 
 

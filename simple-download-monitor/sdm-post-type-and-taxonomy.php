@@ -4,19 +4,19 @@ function sdm_register_post_type() {
 
     //*****  Create 'sdm_downloads' Custom Post Type
     $labels = array(
-        'name' => __('Downloads', 'sdm_lang'),
-        'singular_name' => __('Downloads', 'sdm_lang'),
-        'add_new' => __('Add New', 'sdm_lang'),
-        'add_new_item' => __('Add New', 'sdm_lang'),
-        'edit_item' => __('Edit Download', 'sdm_lang'),
-        'new_item' => __('New Download', 'sdm_lang'),
-        'all_items' => __('Downloads', 'sdm_lang'),
-        'view_item' => __('View Download', 'sdm_lang'),
-        'search_items' => __('Search Downloads', 'sdm_lang'),
-        'not_found' => __('No Downloads found', 'sdm_lang'),
-        'not_found_in_trash' => __('No Downloads found in Trash', 'sdm_lang'),
-        'parent_item_colon' => __('Parent Download', 'sdm_lang'),
-        'menu_name' => __('Downloads', 'sdm_lang')
+        'name' => __('Downloads', 'simple-download-monitor'),
+        'singular_name' => __('Downloads', 'simple-download-monitor'),
+        'add_new' => __('Add New', 'simple-download-monitor'),
+        'add_new_item' => __('Add New', 'simple-download-monitor'),
+        'edit_item' => __('Edit Download', 'simple-download-monitor'),
+        'new_item' => __('New Download', 'simple-download-monitor'),
+        'all_items' => __('Downloads', 'simple-download-monitor'),
+        'view_item' => __('View Download', 'simple-download-monitor'),
+        'search_items' => __('Search Downloads', 'simple-download-monitor'),
+        'not_found' => __('No Downloads found', 'simple-download-monitor'),
+        'not_found_in_trash' => __('No Downloads found in Trash', 'simple-download-monitor'),
+        'parent_item_colon' => __('Parent Download', 'simple-download-monitor'),
+        'menu_name' => __('Downloads', 'simple-download-monitor')
     );
 
     $sdm_permalink_base = 'sdm_downloads'; //TODO - add an option to configure in the settings maybe?
@@ -43,17 +43,17 @@ function sdm_create_taxonomies() {
 
     //*****  Create CATEGORIES Taxonomy
     $labels_tags = array(
-        'name' => _x('Categories', 'sdm_lang'),
-        'singular_name' => _x('Category', 'sdm_lang'),
-        'search_items' => __('Search Categories', 'sdm_lang'),
-        'all_items' => __('All Categories', 'sdm_lang'),
-        'parent_item' => __('Categories Genre', 'sdm_lang'),
-        'parent_item_colon' => __('Categories Genre:', 'sdm_lang'),
-        'edit_item' => __('Edit Category', 'sdm_lang'),
-        'update_item' => __('Update Category', 'sdm_lang'),
-        'add_new_item' => __('Add New Category', 'sdm_lang'),
-        'new_item_name' => __('New Category', 'sdm_lang'),
-        'menu_name' => __('Categories', 'sdm_lang')
+        'name' => _x('Categories', 'simple-download-monitor'),
+        'singular_name' => _x('Category', 'simple-download-monitor'),
+        'search_items' => __('Search Categories', 'simple-download-monitor'),
+        'all_items' => __('All Categories', 'simple-download-monitor'),
+        'parent_item' => __('Categories Genre', 'simple-download-monitor'),
+        'parent_item_colon' => __('Categories Genre:', 'simple-download-monitor'),
+        'edit_item' => __('Edit Category', 'simple-download-monitor'),
+        'update_item' => __('Update Category', 'simple-download-monitor'),
+        'add_new_item' => __('Add New Category', 'simple-download-monitor'),
+        'new_item_name' => __('New Category', 'simple-download-monitor'),
+        'menu_name' => __('Categories', 'simple-download-monitor')
     );
     $args_tags = array(
         'hierarchical' => true,
@@ -67,17 +67,17 @@ function sdm_create_taxonomies() {
 
     //*****  Create TAGS Taxonomy
     $labels_tags = array(
-        'name' => _x('Tags', 'sdm_lang'),
-        'singular_name' => _x('Tag', 'sdm_lang'),
-        'search_items' => __('Search Tags', 'sdm_lang'),
-        'all_items' => __('All Tags', 'sdm_lang'),
-        'parent_item' => __('Tags Genre', 'sdm_lang'),
-        'parent_item_colon' => __('Tags Genre:', 'sdm_lang'),
-        'edit_item' => __('Edit Tag', 'sdm_lang'),
-        'update_item' => __('Update Tag', 'sdm_lang'),
-        'add_new_item' => __('Add New Tag', 'sdm_lang'),
-        'new_item_name' => __('New Tag', 'sdm_lang'),
-        'menu_name' => __('Tags', 'sdm_lang')
+        'name' => _x('Tags', 'simple-download-monitor'),
+        'singular_name' => _x('Tag', 'simple-download-monitor'),
+        'search_items' => __('Search Tags', 'simple-download-monitor'),
+        'all_items' => __('All Tags', 'simple-download-monitor'),
+        'parent_item' => __('Tags Genre', 'simple-download-monitor'),
+        'parent_item_colon' => __('Tags Genre:', 'simple-download-monitor'),
+        'edit_item' => __('Edit Tag', 'simple-download-monitor'),
+        'update_item' => __('Update Tag', 'simple-download-monitor'),
+        'add_new_item' => __('Add New Tag', 'simple-download-monitor'),
+        'new_item_name' => __('New Tag', 'simple-download-monitor'),
+        'menu_name' => __('Tags', 'simple-download-monitor')
     );
     $args_tags = array(
         'hierarchical' => false,
