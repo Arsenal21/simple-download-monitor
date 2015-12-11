@@ -178,34 +178,35 @@ class sdm_List_Table extends WP_List_Table {
         $this->_column_headers = array($columns, $hidden, $sortable);
         $this->process_bulk_action();
 
-        function usort_reorder($a, $b) {
-            $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'date'; //If no sort, default to title
-            $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'dsc'; //If no order, default to asc
-            $result = strcmp($a[$orderby], $b[$orderby]); //Determine sort order
-            return ($order === 'asc') ? $result : -$result; //Send final sort direction to usort
+        // This checks for sorting input and passes that to the query (for sorting purpose).
+        $orderby_column = isset($_GET['orderby'])?$_GET['orderby']:'';
+        $sort_order = isset($_GET['order'])?$_GET['order']:'';
+        if(empty($orderby_column)){
+        	$orderby_column = "date_time";
+        	$sort_order = "DESC";
         }
-
+        
         //Do a query to find the total number of rows then calculate the query limit
         $table_name = $wpdb->prefix . 'sdm_downloads';
         $query = "SELECT COUNT(*) FROM $table_name";
-        $total_items = $wpdb->get_var($query);
+        $total_items = $wpdb->get_var($query);//For pagination requirement
+
+        $query = "SELECT * FROM $table_name ORDER BY $orderby_column $sort_order";
+
         $offset = ($current_page - 1) * $per_page;
-        $query_limit =' LIMIT ' . (int) $offset . ',' . (int) $per_page;
+        $query.=' LIMIT ' . (int) $offset . ',' . (int) $per_page;//Limit to query to only load a limited number of records
+
+        $data_results = $wpdb->get_results($query);
         
-        $data_results = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads'. $query_limit);
+        //Prepare the array with the correct index names that the table is expecting.
         $data = array();
         foreach ($data_results as $data_result) {
             $data[] = array('ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
         }
-
-
-        usort($data, 'usort_reorder'); 
         
-        //The following is not needed as it comes from the extra query and the query limit stuff
-        //$total_items = count($data);
-        //$data = array_slice($data, (($current_page - 1) * $per_page), $per_page);
+        // Now we add our *sorted* data to the items property, where it can be used by the rest of the class.
+        $this->items = $data;   
 
-        $this->items = $data;
         $this->set_pagination_args(array(
             'total_items' => $total_items, //WE have to calculate the total number of items
             'per_page' => $per_page, //WE have to determine how many items to show on a page
