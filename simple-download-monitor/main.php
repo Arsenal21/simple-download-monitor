@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.2.6
+ * Version: 3.2.7
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.5');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.7');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -169,7 +169,13 @@ class simpleDownloadManager {
         <script type="text/javascript">
             var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url('admin-ajax.php?action=ajax'); ?>'};
             var sdm_plugin_url = '<?php echo plugins_url(); ?>';
-            var tinymce_langs = {select_download_item: '<?php _e('Please select a Download Item:', 'simple-download-monitor') ?>', download_title: '<?php _e('Download Title', 'simple-download-monitor') ?>', include_fancy: '<?php _e('Include Fancy Box', 'simple-download-monitor') ?>', insert_shortcode: '<?php _e('Insert SDM Shortcode', 'simple-download-monitor') ?>'};
+            var tinymce_langs = {
+                select_download_item: '<?php _e('Please select a Download Item:', 'simple-download-monitor') ?>', 
+                download_title: '<?php _e('Download Title', 'simple-download-monitor') ?>', 
+                include_fancy: '<?php _e('Include Fancy Box', 'simple-download-monitor') ?>',
+                open_new_window: '<?php _e('Open New Window', 'simple-download-monitor') ?>',
+                insert_shortcode: '<?php _e('Insert SDM Shortcode', 'simple-download-monitor') ?>'
+            };
         </script>
         <?php
     }

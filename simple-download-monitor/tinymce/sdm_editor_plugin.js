@@ -107,7 +107,11 @@ jQuery(function(){
 						<th><label class="sdm_fancy" for "sdm_fancy_option">'+tinymce_langs.include_fancy+'</th>\
 							<td><input type="checkbox" name="sdm_fancy_cb" id="sdm_fancy_cb" />\
 						</tr>\
-						</table>\
+						<tr>\
+						<th><label class="sdm_new_window" for "sdm_open_new_window">'+tinymce_langs.open_new_window+'</th>\
+							<td><input type="checkbox" name="sdm_open_new_window_cb" id="sdm_open_new_window_cb" />\
+						</tr>\
+                                                </table>\
 						<p class="submit">\
 							<input type="button" id="sdm-tinymce-submit" class="button-primary" value="'+tinymce_langs.insert_shortcode+'" name="submit" style=""/>\
 						</p>\
@@ -120,14 +124,26 @@ jQuery(function(){
     // handles the click event of the submit button
     form.find('#sdm-tinymce-submit').click(function(){
 
-		fancy_cb = jQuery('#sdm_fancy_cb').is(':checked');
-		post_id = jQuery('#sdm_select').find(":selected").val();  // Get selected CPT item title value (item id)
-		
-		if (jQuery('#sdm_fancy_cb').is(':checked')) {
-        	shortcode = '[sdm_download id="'+post_id+'" fancy="1"]';  // Process shortcode
-		} else {
-			shortcode = '[sdm_download id="'+post_id+'" fancy="0"]';  // Process shortcode
-		}
+        fancy_cb = jQuery('#sdm_fancy_cb').is(':checked');
+        new_window_cb = jQuery('#sdm_open_new_window_cb').is(':checked');
+        post_id = jQuery('#sdm_select').find(":selected").val();  // Get selected CPT item title value (item id)
+
+        //Build the shortcode with parameters according to the options
+        shortcode = '[sdm_download id="'+post_id+'"';
+
+        //Add the fancy parameter to the shortcode (if needed
+        if (jQuery('#sdm_fancy_cb').is(':checked')) {
+            shortcode = shortcode + ' fancy="1"';
+        } else {
+            shortcode = shortcode + ' fancy="0"';
+        }
+          
+        //Add the new_window parameter to the shortcode (if needed)
+        if (jQuery('#sdm_open_new_window_cb').is(':checked')) {
+            shortcode = shortcode + ' new_window="1"';
+        }
+        
+        shortcode = shortcode + ']';//End the shortcode
 
         // inserts the shortcode into the active editor
         tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);  // Send processed shortcode to editor

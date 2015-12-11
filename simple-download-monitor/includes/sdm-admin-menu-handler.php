@@ -148,7 +148,7 @@ function sdm_create_logs_page() {
         <div id="poststuff"><div id="post-body">
             <!-- Log reset button -->
             <div class="postbox">
-            <h3><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
+            <h3 class="hndle"><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
             <div class="inside">
 
             <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >    
