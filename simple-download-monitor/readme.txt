@@ -156,6 +156,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.2.9 =
+- Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".
+
 = 3.2.8 =
 - WordPress 4.4 compatibility.
 

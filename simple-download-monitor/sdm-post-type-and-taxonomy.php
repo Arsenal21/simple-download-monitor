@@ -43,8 +43,8 @@ function sdm_create_taxonomies() {
 
     //*****  Create CATEGORIES Taxonomy
     $labels_tags = array(
-        'name' => _x('Categories', 'simple-download-monitor'),
-        'singular_name' => _x('Category', 'simple-download-monitor'),
+        'name' => _x('Download Categories', 'simple-download-monitor'),
+        'singular_name' => _x('Download Category', 'simple-download-monitor'),
         'search_items' => __('Search Categories', 'simple-download-monitor'),
         'all_items' => __('All Categories', 'simple-download-monitor'),
         'parent_item' => __('Categories Genre', 'simple-download-monitor'),
@@ -67,8 +67,8 @@ function sdm_create_taxonomies() {
 
     //*****  Create TAGS Taxonomy
     $labels_tags = array(
-        'name' => _x('Tags', 'simple-download-monitor'),
-        'singular_name' => _x('Tag', 'simple-download-monitor'),
+        'name' => _x('Download Tags', 'simple-download-monitor'),
+        'singular_name' => _x('Download Tag', 'simple-download-monitor'),
         'search_items' => __('Search Tags', 'simple-download-monitor'),
         'all_items' => __('All Tags', 'simple-download-monitor'),
         'parent_item' => __('Tags Genre', 'simple-download-monitor'),
