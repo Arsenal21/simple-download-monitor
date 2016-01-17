@@ -594,66 +594,11 @@ class simpleDownloadManager {
         if ($post_pass != $pass_val) { // Match is a failure
             $success = 'no';  // Pass back to ajax
         } else {  // Match is a success
-            $success = 'yes';  // Pass back to ajax
-
-            $download_id = $button_id;
-            $download_title = get_the_title($download_id);
-            $download_link = get_post_meta($download_id, 'sdm_upload', true);
-            $ipaddress = $_SERVER["REMOTE_ADDR"];
-            $date_time = current_time('mysql');
-            $visitor_country = sdm_ip_info('Visitor', 'Country');
-
-            if (is_user_logged_in()) {  // Get user name (if logged in)
-                global $current_user;
-                get_currentuserinfo();
-                $visitor_name = $current_user->user_login;
-            } else {
-                $visitor_name = __('Not Logged In', 'simple-download-monitor');
-            }
-
-            // Get option for global disabling of download logging
-            $main_option = get_option('sdm_downloads_options');
-            $no_logs = isset($main_option['admin_no_logs']);
-
-            // Get optoin for logging only unique IPs
-            $unique_ips = isset($main_option['admin_log_unique']);
-
-            // Get post meta for individual disabling of download logging
-            $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
-            $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
-
-            $dl_logging_needed = true;
-
-            // Check if download logs have been disabled (globally or per download item)
-            if ($no_logs === true || $item_logging_checked === 'on') {
-                $dl_logging_needed = false;
-            }
-
-            // Check if we are only logging unique ips
-            if ($unique_ips === true) {
-                $check_ip = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"');
-
-                //This IP is already logged for this download item. No need to log it again.
-                if ($check_ip) {
-                    $dl_logging_needed = false;
-                }
-            }
-
-            if ($dl_logging_needed) {
-                $table = $wpdb->prefix . 'sdm_downloads';
-                $data = array(
-                    'post_id' => $download_id,
-                    'post_title' => $download_title,
-                    'file_url' => $download_link,
-                    'visitor_ip' => $ipaddress,
-                    'date_time' => $date_time,
-                    'visitor_country' => $visitor_country,
-                    'visitor_name' => $visitor_name
-                );
-                $insert_table = $wpdb->insert($table, $data);
-            }
+            $success = 'yes';  // Pass back to ajax            
+            $homepage = get_bloginfo('url');
+            $download_link = $homepage . '/?smd_process_download=1&download_id=' . $button_id;
         }
-
+        
         // Generate ajax response
         $response = json_encode(array('success' => $success, 'url' => $download_link));
         header('Content-Type: application/json');

@@ -69,7 +69,6 @@ jQuery(document).ready(function($) {
                 }
 
                 if (response.url != '') {  // If the password match was a success
-
                     window.location.href = response.url;  // Redirect to download url
                     $('.pass_text').val('');  // Clear password field
                 }
