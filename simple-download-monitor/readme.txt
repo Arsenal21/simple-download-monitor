@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
-Tested up to: 4.4
-Stable tag: 3.2.8
+Tested up to: 4.4.1
+Stable tag: 3.2.9
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -156,8 +156,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.2.9 =
+= 3.2.9 =
 - Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".
+- Better implementation of password protected download items. The ajax method of checking password has been completely replaced with a more robust implementation.
+- Fixed a bug with the remove thumbnail ajax query.
+- Thanks to @James Golovich for pointing out the issues.
 
 = 3.2.8 =
 - WordPress 4.4 compatibility.

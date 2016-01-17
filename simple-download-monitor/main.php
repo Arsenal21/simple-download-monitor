@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: Simple Download Monitor
- * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
- * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.2.8
- * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
- * Author URI: https://www.tipsandtricks-hq.com/development-center
- * License: GPL2
- */
+* Plugin Name: Simple Download Monitor
+* Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
+* Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
+* Version: 3.2.9
+* Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
+* Author URI: https://www.tipsandtricks-hq.com/development-center
+* License: GPL2
+*/
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.8');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.2.9');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -539,7 +539,6 @@ function sdm_tiny_get_post_ids_ajax_call() {
     $loop = new WP_Query($args);
     $test = '';
     foreach ($loop->posts as $loop_post) {
-        //$test .= $loop_post->ID.'|'.$loop_post->post_title.'_';
         $test[] = array('post_id' => $loop_post->ID, 'post_title' => $loop_post->post_title);
     }
 
@@ -550,12 +549,18 @@ function sdm_tiny_get_post_ids_ajax_call() {
     exit;
 }
 
-// Remove Thumbnail Image
-add_action('wp_ajax_nopriv_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
-add_action('wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
+//Remove Thumbnail Image
+//add_action('wp_ajax_nopriv_sdm_remove_thumbnail_image', '');//This is only available to logged-in users
+add_action('wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');//Execute this for authenticated users only
 
 function sdm_remove_thumbnail_image_ajax_call() {
+    if(!current_user_can('edit_posts')){
+        //Permission denied
+        wp_die(__('Permission denied!', 'simple-download-monitor'));
+        exit;
+    }  
 
+    //Go ahead with the thumbnail removal
     $post_id = $_POST['post_id_del'];
     $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
     if ($success) {
