@@ -181,13 +181,13 @@ class simpleDownloadManager {
     }
 
     public function sdm_frontend_scripts() {
+        //Use this function to enqueue fron-end js scripts.
+        wp_enqueue_style('sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css');
+        wp_register_script('sdm-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_wp_scripts.js', array('jquery'));
+        wp_enqueue_script('sdm-scripts');
 
-        // Pass language strings to frontend of WP for js usage
-        ?>
-        <script type="text/javascript">
-            var sdm_frontend_translations = {incorrect_password: '<?php _e('Incorrect Password', 'simple-download-monitor') ?>'};
-        </script>
-        <?php
+        // Localize ajax script for frontend
+        wp_localize_script('sdm-scripts', 'sdm_ajax_script', array('ajaxurl' => admin_url('admin-ajax.php')));
     }
 
     public function sdm_admin_styles() {
@@ -263,488 +263,449 @@ class simpleDownloadManager {
             }
             ?></span><?php
             wp_nonce_field('sdm_thumbnail_box_nonce', 'sdm_thumbnail_box_nonce_check');
-        }
-
-        public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
-            _e('This is the shortcode which can used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter to add this shortcode to a post or page.', 'simple-download-monitor');
-            echo '<br />';
-            echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
-            echo '<br /><br />';
-
-            _e('This shortcode may be used as a download counter.', 'simple-download-monitor');
-            echo '<br />';
-            echo '[sdm_download_counter id="' . $post->ID . '"]';
-        }
-
-        public function display_sdm_stats_meta_box($post) {  // Stats metabox
-            $old_count = get_post_meta($post->ID, 'sdm_count_offset', true);
-            $value = isset($old_count) && $old_count != '' ? $old_count : '0';
-
-            // Get checkbox for "disable download logging"
-            $no_logs = get_post_meta($post->ID, 'sdm_item_no_log', true);
-            $checked = isset($no_logs) && $no_logs === 'on' ? 'checked="checked"' : '';
-
-            _e('These are the statistics for this download item.', 'simple-download-monitor');
-            echo '<br /><br />';
-
-            global $wpdb;
-            $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID));
-            _e('Number of Downloads:', 'simple-download-monitor');
-            echo ' <strong>' . $wpdb->num_rows . '</strong>';
-            echo '<span style="margin-left: 20px;"></span>';
-            _e('Offset Count', 'simple-download-monitor');
-            echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
-            echo ' <img src="' . WP_SIMPLE_DL_MONITOR_URL . '/css/images/info.png" style="margin-left:10px;" title="Enter any positive or negative numerical value; to offset the download count shown, when using the download counter shortcode." />';
-
-            echo '<br /><br />';
-            echo '<input type="checkbox" name="sdm_item_no_log" ' . $checked . ' />';
-            echo '<span style="margin-left: 5px;"></span>';
-            _e('Disable download logging for this item.', 'simple-download-monitor');
-
-            wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
-        }
-
-        public function sdm_save_description_meta_data($post_id) {  // Save Description metabox
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return;
-            if (!isset($_POST['sdm_description_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_description_box_nonce_check'], 'sdm_description_box_nonce'))
-                return;
-
-            if (isset($_POST['sdm_description'])) {
-                update_post_meta($post_id, 'sdm_description', $_POST['sdm_description']);
-            }
-        }
-
-        public function sdm_save_upload_meta_data($post_id) {  // Save File Upload metabox
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return;
-            if (!isset($_POST['sdm_upload_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_upload_box_nonce_check'], 'sdm_upload_box_nonce'))
-                return;
-
-            if (isset($_POST['sdm_upload'])) {
-                update_post_meta($post_id, 'sdm_upload', $_POST['sdm_upload']);
-            }
-        }
-
-        public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return;
-            if (!isset($_POST['sdm_thumbnail_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_thumbnail_box_nonce_check'], 'sdm_thumbnail_box_nonce'))
-                return;
-
-            if (isset($_POST['sdm_upload_thumbnail'])) {
-                update_post_meta($post_id, 'sdm_upload_thumbnail', $_POST['sdm_upload_thumbnail']);
-            }
-        }
-
-        public function sdm_save_statistics_meta_data($post_id) {  // Save Statistics Upload metabox
-            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
-                return;
-            if (!isset($_POST['sdm_count_offset_nonce_check']) || !wp_verify_nonce($_POST['sdm_count_offset_nonce_check'], 'sdm_count_offset_nonce'))
-                return;
-
-            if (isset($_POST['sdm_count_offset']) && is_numeric($_POST['sdm_count_offset'])) {
-
-                update_post_meta($post_id, 'sdm_count_offset', $_POST['sdm_count_offset']);
-            }
-
-            // Checkbox for disabling download logging for this item
-            if (isset($_POST['sdm_item_no_log'])) {
-                update_post_meta($post_id, 'sdm_item_no_log', $_POST['sdm_item_no_log']);
-            } else {
-                delete_post_meta($post_id, 'sdm_item_no_log');
-            }
-        }
-
-        public function sdm_remove_view_link_cpt($action, $post) {
-
-            // Only execute on SDM CPT posts page
-            if ($post->post_type == 'sdm_downloads') {
-                unset($action['view']);
-            }
-
-            return $action;
-        }
-
-        public function sdm_register_options() {
-
-            register_setting('sdm_downloads_options', 'sdm_downloads_options');
-            add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
-            add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
-
-            add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
-            add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
-            add_settings_field('admin_no_logs', __('Disable Download Logs', 'simple-download-monitor'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
-            add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
-        }
-
-        public function admin_options_cb() {
-            _e('Admin options settings', 'simple-download-monitor');
-        }
-
-        public function sdm_colors_cb() {
-            _e('Front End colors settings', 'simple-download-monitor');
-        }
-
-        public function admin_tinymce_button_cb() {
-            $main_opts = get_option('sdm_downloads_options');
-            echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';
-            _e('Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor');
-        }
-
-        public function admin_log_unique() {
-            $main_opts = get_option('sdm_downloads_options');
-            echo '<input name="sdm_downloads_options[admin_log_unique]" id="admin_log_unique" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_log_unique']), false) . ' /> ';
-            _e('Only logs downloads from unique IP addresses.', 'simple-download-monitor');
-        }
-
-        public function admin_no_logs_cb() {
-            $main_opts = get_option('sdm_downloads_options');
-            echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_no_logs']), false) . ' /> ';
-            _e('Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor');
-        }
-
-        public function download_button_color_cb() {
-            $main_opts = get_option('sdm_downloads_options');
-            $color_opt = $main_opts['download_button_color'];
-            $color_opts = array(__('Green', 'simple-download-monitor'), __('Blue', 'simple-download-monitor'), __('Purple', 'simple-download-monitor'), __('Teal', 'simple-download-monitor'), __('Dark Blue', 'simple-download-monitor'), __('Black', 'simple-download-monitor'), __('Grey', 'simple-download-monitor'), __('Pink', 'simple-download-monitor'), __('Orange', 'simple-download-monitor'), __('White', 'simple-download-monitor'));
-            echo '<select name="sdm_downloads_options[download_button_color]" id="download_button_color" class="sdm_opts_ajax_dropdowns">';
-            if (isset($color_opt)) {
-                echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'simple-download-monitor') . ')</option>';
-            }
-            foreach ($color_opts as $color) {
-                echo '<option value="' . $color . '">' . $color . '</option>';
-            }
-            echo '</select> ';
-            _e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
-        }
-
     }
 
-    $simpleDownloadManager = new simpleDownloadManager();
+    public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
+        _e('This is the shortcode which can used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter to add this shortcode to a post or page.', 'simple-download-monitor');
+        echo '<br />';
+        echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
+        echo '<br /><br />';
 
-    function sdm_get_password_entry_form($id) {
-        $data = __('Enter Password to Download:', 'simple-download-monitor');
-        $data .= '<form method="post">';
-        $data .= '<input type="password" class="pass_text" value="" /> ';
-        $data .= '<input type="button" class="pass_sumbit" value="' . __('Submit', 'simple-download-monitor') . '" />';
-        $data .= '<input type="hidden" value="' . $id . '" />';
-        $data .= '</form>';
-        return $data;
+        _e('This shortcode may be used as a download counter.', 'simple-download-monitor');
+        echo '<br />';
+        echo '[sdm_download_counter id="' . $post->ID . '"]';
     }
 
-    /*
-     * * Register scripts for front-end posts/pages
-     */
-    add_action('wp_enqueue_scripts', 'sdm_wp_scripts');
+    public function display_sdm_stats_meta_box($post) {  // Stats metabox
+        $old_count = get_post_meta($post->ID, 'sdm_count_offset', true);
+        $value = isset($old_count) && $old_count != '' ? $old_count : '0';
 
-    function sdm_wp_scripts() {
+        // Get checkbox for "disable download logging"
+        $no_logs = get_post_meta($post->ID, 'sdm_item_no_log', true);
+        $checked = isset($no_logs) && $no_logs === 'on' ? 'checked="checked"' : '';
 
-        wp_enqueue_style('sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css');
-        wp_register_script('sdm-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_wp_scripts.js', array('jquery'));
-        wp_enqueue_script('sdm-scripts');
-
-        // Localize ajax script for frontend
-        wp_localize_script('sdm-scripts', 'sdm_ajax_script', array('ajaxurl' => admin_url('admin-ajax.php')));
-    }
-
-    function handle_sdm_download_via_direct_post() {
-        if (isset($_REQUEST['smd_process_download']) && $_REQUEST['smd_process_download'] == '1') {
-            global $wpdb;
-            $download_id = strip_tags($_REQUEST['download_id']);
-            $download_title = get_the_title($download_id);
-            $download_link = get_post_meta($download_id, 'sdm_upload', true);
-
-            //Do some validation checks
-            if (empty($download_id)) {
-                wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
-            }
-            if (empty($download_link)) {
-                wp_die(__('Error! This download item (' . $download_id . ') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'));
-            }
-
-            $ipaddress = $_SERVER["REMOTE_ADDR"];
-            $date_time = current_time('mysql');
-            $visitor_country = sdm_ip_info('Visitor', 'Country');
-
-            if (is_user_logged_in()) {  // Get user name (if logged in)
-                global $current_user;
-                get_currentuserinfo();
-                $visitor_name = $current_user->user_login;
-            } else {
-                $visitor_name = __('Not Logged In', 'simple-download-monitor');
-            }
-
-            // Get option for global disabling of download logging
-            $main_option = get_option('sdm_downloads_options');
-            $no_logs = isset($main_option['admin_no_logs']);
-
-            // Get optoin for logging only unique IPs
-            $unique_ips = isset($main_option['admin_log_unique']);
-
-            // Get post meta for individual disabling of download logging
-            $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
-            $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
-
-            $dl_logging_needed = true;
-
-            // Check if download logs have been disabled (globally or per download item)
-            if ($no_logs === true || $item_logging_checked === 'on') {
-                $dl_logging_needed = false;
-            }
-
-            // Check if we are only logging unique ips
-            if ($unique_ips === true) {
-                $check_ip = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"');
-
-                //This IP is already logged for this download item. No need to log it again.
-                if ($check_ip) {
-                    $dl_logging_needed = false;
-                }
-            }
-
-            if ($dl_logging_needed) {
-                // We need to log this download.
-                $table = $wpdb->prefix . 'sdm_downloads';
-                $data = array(
-                    'post_id' => $download_id,
-                    'post_title' => $download_title,
-                    'file_url' => $download_link,
-                    'visitor_ip' => $ipaddress,
-                    'date_time' => $date_time,
-                    'visitor_country' => $visitor_country,
-                    'visitor_name' => $visitor_name
-                );
-
-                $data = array_filter($data); //Remove any null values.
-                $insert_table = $wpdb->insert($table, $data);
-
-                if ($insert_table) {
-                    //Download request was logged successfully
-                } else {
-                    //Failed to log the download request
-                    wp_die(__('Error! Failed to log the download request in the database table', 'simple-download-monitor'));
-                }
-            }
-
-            //Downoad the item
-            sdm_redirect_to_url($download_link);
-            exit;
-        }
-    }
-
-// Tinymce Button Populate Post ID's
-    add_action('wp_ajax_nopriv_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
-    add_action('wp_ajax_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
-
-    function sdm_tiny_get_post_ids_ajax_call() {
-
-        $args = array(
-            'post_type' => 'sdm_downloads',
-        );
-        $loop = new WP_Query($args);
-        $test = '';
-        foreach ($loop->posts as $loop_post) {
-            //$test .= $loop_post->ID.'|'.$loop_post->post_title.'_';
-            $test[] = array('post_id' => $loop_post->ID, 'post_title' => $loop_post->post_title);
-        }
-
-        $response = json_encode(array('success' => true, 'test' => $test));
-
-        header('Content-Type: application/json');
-        echo $response;
-        exit;
-    }
-
-// Remove Thumbnail Image
-    add_action('wp_ajax_nopriv_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
-    add_action('wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
-
-    function sdm_remove_thumbnail_image_ajax_call() {
-
-        $post_id = $_POST['post_id_del'];
-        $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
-        if ($success) {
-            $response = json_encode(array('success' => true));
-        }
-
-        header('Content-Type: application/json');
-        echo $response;
-        exit;
-    }
-
-// Check download password
-    add_action('wp_ajax_nopriv_sdm_check_pass', 'sdm_check_pass_ajax_call');
-    add_action('wp_ajax_sdm_check_pass', 'sdm_check_pass_ajax_call');
-
-    function sdm_check_pass_ajax_call() {
+        _e('These are the statistics for this download item.', 'simple-download-monitor');
+        echo '<br /><br />';
 
         global $wpdb;
-        $button_id = $_POST['button_id'];  // Get button cpt id
-        $pass_val = $_POST['pass_val'];  // Get password attempt
-        $success = '';
-        $download_link = '';
+        $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID));
+        _e('Number of Downloads:', 'simple-download-monitor');
+        echo ' <strong>' . $wpdb->num_rows . '</strong>';
+        echo '<span style="margin-left: 20px;"></span>';
+        _e('Offset Count', 'simple-download-monitor');
+        echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
+        echo ' <img src="' . WP_SIMPLE_DL_MONITOR_URL . '/css/images/info.png" style="margin-left:10px;" title="Enter any positive or negative numerical value; to offset the download count shown, when using the download counter shortcode." />';
 
-        // Get post object
-        $post_object = get_post($button_id);
-        // Get post password
-        $post_pass = $post_object->post_password;
+        echo '<br /><br />';
+        echo '<input type="checkbox" name="sdm_item_no_log" ' . $checked . ' />';
+        echo '<span style="margin-left: 5px;"></span>';
+        _e('Disable download logging for this item.', 'simple-download-monitor');
 
-        // Check if password is a match
-        if ($post_pass != $pass_val) { // Match is a failure
-            $success = 'no';  // Pass back to ajax
-        } else {  // Match is a success
-            $success = 'yes';  // Pass back to ajax            
-            $homepage = get_bloginfo('url');
-            $download_link = $homepage . '/?smd_process_download=1&download_id=' . $button_id;
+        wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
+    }
+
+    public function sdm_save_description_meta_data($post_id) {  // Save Description metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+        if (!isset($_POST['sdm_description_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_description_box_nonce_check'], 'sdm_description_box_nonce'))
+            return;
+
+        if (isset($_POST['sdm_description'])) {
+            update_post_meta($post_id, 'sdm_description', $_POST['sdm_description']);
         }
-        
-        // Generate ajax response
-        $response = json_encode(array('success' => $success, 'url' => $download_link));
-        header('Content-Type: application/json');
-        echo $response;
-        exit;
     }
 
-// Populate category tree
-    add_action('wp_ajax_nopriv_sdm_pop_cats', 'sdm_pop_cats_ajax_call');
-    add_action('wp_ajax_sdm_pop_cats', 'sdm_pop_cats_ajax_call');
+    public function sdm_save_upload_meta_data($post_id) {  // Save File Upload metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+        if (!isset($_POST['sdm_upload_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_upload_box_nonce_check'], 'sdm_upload_box_nonce'))
+            return;
 
-    function sdm_pop_cats_ajax_call() {
+        if (isset($_POST['sdm_upload'])) {
+            update_post_meta($post_id, 'sdm_upload', $_POST['sdm_upload']);
+        }
+    }
 
-        $cat_slug = $_POST['cat_slug'];  // Get button cpt slug
-        $parent_id = $_POST['parent_id'];  // Get button cpt id
-        // Query custom posts based on taxonomy slug
-        $posts = get_posts(array(
-            'post_type' => 'sdm_downloads',
-            'numberposts' => -1,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'sdm_categories',
-                    'field' => 'slug',
-                    'terms' => $cat_slug,
-                    'include_children' => 0
-                )
-            ),
-            'orderby' => 'title',
-            'order' => 'ASC')
-        );
+    public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+        if (!isset($_POST['sdm_thumbnail_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_thumbnail_box_nonce_check'], 'sdm_thumbnail_box_nonce'))
+            return;
 
-        // Loop results
-        foreach ($posts as $post) {
+        if (isset($_POST['sdm_upload_thumbnail'])) {
+            update_post_meta($post_id, 'sdm_upload_thumbnail', $_POST['sdm_upload_thumbnail']);
+        }
+    }
 
-            // Create array of variables to pass to js
-            $final_array[] = array('id' => $post->ID, 'permalink' => get_permalink($post->ID), 'title' => $post->post_title);
+    public function sdm_save_statistics_meta_data($post_id) {  // Save Statistics Upload metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+            return;
+        if (!isset($_POST['sdm_count_offset_nonce_check']) || !wp_verify_nonce($_POST['sdm_count_offset_nonce_check'], 'sdm_count_offset_nonce'))
+            return;
+
+        if (isset($_POST['sdm_count_offset']) && is_numeric($_POST['sdm_count_offset'])) {
+
+            update_post_meta($post_id, 'sdm_count_offset', $_POST['sdm_count_offset']);
         }
 
-        // Generate ajax response
-        $response = json_encode(array('final_array' => $final_array));
-        header('Content-Type: application/json');
-        echo $response;
-        exit;
+        // Checkbox for disabling download logging for this item
+        if (isset($_POST['sdm_item_no_log'])) {
+            update_post_meta($post_id, 'sdm_item_no_log', $_POST['sdm_item_no_log']);
+        } else {
+            delete_post_meta($post_id, 'sdm_item_no_log');
+        }
     }
 
-    /*
-     * * Setup Sortable Columns
-     */
-    add_filter('manage_edit-sdm_downloads_columns', 'sdm_create_columns'); // Define columns
-    add_filter('manage_edit-sdm_downloads_sortable_columns', 'sdm_downloads_sortable'); // Make sortable
-    add_action('manage_sdm_downloads_posts_custom_column', 'sdm_downloads_columns_content', 10, 2); // Populate new columns
+    public function sdm_remove_view_link_cpt($action, $post) {
 
-    function sdm_create_columns($cols) {
+        // Only execute on SDM CPT posts page
+        if ($post->post_type == 'sdm_downloads') {
+            unset($action['view']);
+        }
 
-        unset($cols['title']);
-        unset($cols['taxonomy-sdm_tags']);
-        unset($cols['taxonomy-sdm_categories']);
-        unset($cols['date']);
-
-        $cols['sdm_downloads_thumbnail'] = __('Image', 'simple-download-monitor');
-        $cols['title'] = __('Title', 'simple-download-monitor');
-        $cols['sdm_downloads_id'] = __('ID', 'simple-download-monitor');
-        $cols['sdm_downloads_file'] = __('File', 'simple-download-monitor');
-        $cols['taxonomy-sdm_categories'] = __('Categories', 'simple-download-monitor');
-        $cols['taxonomy-sdm_tags'] = __('Tags', 'simple-download-monitor');
-        $cols['sdm_downloads_count'] = __('Downloads', 'simple-download-monitor');
-        $cols['date'] = __('Date Posted', 'simple-download-monitor');
-        return $cols;
+        return $action;
     }
 
-    function sdm_downloads_sortable($cols) {
+    public function sdm_register_options() {
 
-        $cols['sdm_downloads_id'] = 'sdm_downloads_id';
-        $cols['sdm_downloads_file'] = 'sdm_downloads_file';
-        $cols['sdm_downloads_count'] = 'sdm_downloads_count';
-        $cols['taxonomy-sdm_categories'] = 'taxonomy-sdm_categories';
-        $cols['taxonomy-sdm_tags'] = 'taxonomy-sdm_tags';
-        return $cols;
+        register_setting('sdm_downloads_options', 'sdm_downloads_options');
+        add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
+        add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
+
+        add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
+        add_settings_field('admin_no_logs', __('Disable Download Logs', 'simple-download-monitor'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
+        add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
     }
 
-    function sdm_downloads_columns_content($column_name, $post_ID) {
+    public function admin_options_cb() {
+        _e('Admin options settings', 'simple-download-monitor');
+    }
 
-        if ($column_name == 'sdm_downloads_thumbnail') {
-            $old_thumbnail = get_post_meta($post_ID, 'sdm_upload_thumbnail', true);
-            //$old_value = isset($old_thumbnail) ? $old_thumbnail : '';
-            if ($old_thumbnail) {
-                echo '<p class="sdm_downloads_count"><img src="' . $old_thumbnail . '" style="width:50px;height:50px;" /></p>';
+    public function sdm_colors_cb() {
+        _e('Front End colors settings', 'simple-download-monitor');
+    }
+
+    public function admin_tinymce_button_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';
+        _e('Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor');
+    }
+
+    public function admin_log_unique() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[admin_log_unique]" id="admin_log_unique" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_log_unique']), false) . ' /> ';
+        _e('Only logs downloads from unique IP addresses.', 'simple-download-monitor');
+    }
+
+    public function admin_no_logs_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_no_logs']), false) . ' /> ';
+        _e('Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor');
+    }
+
+    public function download_button_color_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        $color_opt = $main_opts['download_button_color'];
+        $color_opts = array(__('Green', 'simple-download-monitor'), __('Blue', 'simple-download-monitor'), __('Purple', 'simple-download-monitor'), __('Teal', 'simple-download-monitor'), __('Dark Blue', 'simple-download-monitor'), __('Black', 'simple-download-monitor'), __('Grey', 'simple-download-monitor'), __('Pink', 'simple-download-monitor'), __('Orange', 'simple-download-monitor'), __('White', 'simple-download-monitor'));
+        echo '<select name="sdm_downloads_options[download_button_color]" id="download_button_color" class="sdm_opts_ajax_dropdowns">';
+        if (isset($color_opt)) {
+            echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'simple-download-monitor') . ')</option>';
+        }
+        foreach ($color_opts as $color) {
+            echo '<option value="' . $color . '">' . $color . '</option>';
+        }
+        echo '</select> ';
+        _e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
+    }
+
+}//End of simpleDownloadManager class
+
+//Initialize the simpleDownloadManager class
+$simpleDownloadManager = new simpleDownloadManager();
+
+//Handles the download request
+function handle_sdm_download_via_direct_post() {
+    if (isset($_REQUEST['smd_process_download']) && $_REQUEST['smd_process_download'] == '1') {
+        global $wpdb;
+        $download_id = strip_tags($_REQUEST['download_id']);
+        $download_title = get_the_title($download_id);
+        $download_link = get_post_meta($download_id, 'sdm_upload', true);
+
+        //Do some validation checks
+        if (empty($download_id)) {
+            wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
+        }
+        if (empty($download_link)) {
+            wp_die(__('Error! This download item (' . $download_id . ') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'));
+        }
+
+        //Check download password (if applicable for this download)
+        $post_object = get_post($download_id);// Get post object
+        $post_pass = $post_object->post_password;// Get post password
+        if(!empty($post_pass)){//This download item has a password. So validate the password.
+            $pass_val = $_REQUEST['pass_text'];
+            if(empty($pass_val)){//No password was submitted with the downoad request.
+                wp_die(__('Error! This download requires a password.', 'simple-download-monitor'));
+            }
+            if ($post_pass != $pass_val) { 
+                //Incorrect password submitted.
+                wp_die(__('Error! Incorrect password. This download requires a valid password.', 'simple-download-monitor'));
+            } else {
+                //Password is valid. Go ahead with the download
+            }  
+        }
+        //End of password check
+
+        $ipaddress = $_SERVER["REMOTE_ADDR"];
+        $date_time = current_time('mysql');
+        $visitor_country = sdm_ip_info('Visitor', 'Country');
+
+        if (is_user_logged_in()) {  // Get user name (if logged in)
+            global $current_user;
+            get_currentuserinfo();
+            $visitor_name = $current_user->user_login;
+        } else {
+            $visitor_name = __('Not Logged In', 'simple-download-monitor');
+        }
+
+        // Get option for global disabling of download logging
+        $main_option = get_option('sdm_downloads_options');
+        $no_logs = isset($main_option['admin_no_logs']);
+
+        // Get optoin for logging only unique IPs
+        $unique_ips = isset($main_option['admin_log_unique']);
+
+        // Get post meta for individual disabling of download logging
+        $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
+        $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
+
+        $dl_logging_needed = true;
+
+        // Check if download logs have been disabled (globally or per download item)
+        if ($no_logs === true || $item_logging_checked === 'on') {
+            $dl_logging_needed = false;
+        }
+
+        // Check if we are only logging unique ips
+        if ($unique_ips === true) {
+            $check_ip = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"');
+
+            //This IP is already logged for this download item. No need to log it again.
+            if ($check_ip) {
+                $dl_logging_needed = false;
             }
         }
-        if ($column_name == 'sdm_downloads_id') {
-            echo '<p class="sdm_downloads_postid">' . $post_ID . '</p>';
+
+        if ($dl_logging_needed) {
+            // We need to log this download.
+            $table = $wpdb->prefix . 'sdm_downloads';
+            $data = array(
+                'post_id' => $download_id,
+                'post_title' => $download_title,
+                'file_url' => $download_link,
+                'visitor_ip' => $ipaddress,
+                'date_time' => $date_time,
+                'visitor_country' => $visitor_country,
+                'visitor_name' => $visitor_name
+            );
+
+            $data = array_filter($data); //Remove any null values.
+            $insert_table = $wpdb->insert($table, $data);
+
+            if ($insert_table) {
+                //Download request was logged successfully
+            } else {
+                //Failed to log the download request
+                wp_die(__('Error! Failed to log the download request in the database table', 'simple-download-monitor'));
+            }
         }
-        if ($column_name == 'sdm_downloads_file') {
-            $old_file = get_post_meta($post_ID, 'sdm_upload', true);
-            $file = isset($old_file) ? $old_file : '--';
-            echo '<p class="sdm_downloads_file">' . $file . '</p>';
-        }
-        if ($column_name == 'sdm_downloads_count') {
-            global $wpdb;
-            $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post_ID));
-            echo '<p class="sdm_downloads_count">' . $wpdb->num_rows . '</p>';
+
+        //Downoad the item
+        sdm_redirect_to_url($download_link);
+        exit;
+    }
+}
+
+// Tinymce Button Populate Post ID's
+add_action('wp_ajax_nopriv_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
+add_action('wp_ajax_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
+
+function sdm_tiny_get_post_ids_ajax_call() {
+
+    $args = array(
+        'post_type' => 'sdm_downloads',
+    );
+    $loop = new WP_Query($args);
+    $test = '';
+    foreach ($loop->posts as $loop_post) {
+        //$test .= $loop_post->ID.'|'.$loop_post->post_title.'_';
+        $test[] = array('post_id' => $loop_post->ID, 'post_title' => $loop_post->post_title);
+    }
+
+    $response = json_encode(array('success' => true, 'test' => $test));
+
+    header('Content-Type: application/json');
+    echo $response;
+    exit;
+}
+
+// Remove Thumbnail Image
+add_action('wp_ajax_nopriv_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
+add_action('wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call');
+
+function sdm_remove_thumbnail_image_ajax_call() {
+
+    $post_id = $_POST['post_id_del'];
+    $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
+    if ($success) {
+        $response = json_encode(array('success' => true));
+    }
+
+    header('Content-Type: application/json');
+    echo $response;
+    exit;
+}
+
+// Populate category tree
+add_action('wp_ajax_nopriv_sdm_pop_cats', 'sdm_pop_cats_ajax_call');
+add_action('wp_ajax_sdm_pop_cats', 'sdm_pop_cats_ajax_call');
+
+function sdm_pop_cats_ajax_call() {
+
+    $cat_slug = $_POST['cat_slug'];  // Get button cpt slug
+    $parent_id = $_POST['parent_id'];  // Get button cpt id
+    // Query custom posts based on taxonomy slug
+    $posts = get_posts(array(
+        'post_type' => 'sdm_downloads',
+        'numberposts' => -1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'sdm_categories',
+                'field' => 'slug',
+                'terms' => $cat_slug,
+                'include_children' => 0
+            )
+        ),
+        'orderby' => 'title',
+        'order' => 'ASC')
+    );
+
+    // Loop results
+    foreach ($posts as $post) {
+
+        // Create array of variables to pass to js
+        $final_array[] = array('id' => $post->ID, 'permalink' => get_permalink($post->ID), 'title' => $post->post_title);
+    }
+
+    // Generate ajax response
+    $response = json_encode(array('final_array' => $final_array));
+    header('Content-Type: application/json');
+    echo $response;
+    exit;
+}
+
+/*
+ * * Setup Sortable Columns
+ */
+add_filter('manage_edit-sdm_downloads_columns', 'sdm_create_columns'); // Define columns
+add_filter('manage_edit-sdm_downloads_sortable_columns', 'sdm_downloads_sortable'); // Make sortable
+add_action('manage_sdm_downloads_posts_custom_column', 'sdm_downloads_columns_content', 10, 2); // Populate new columns
+
+function sdm_create_columns($cols) {
+
+    unset($cols['title']);
+    unset($cols['taxonomy-sdm_tags']);
+    unset($cols['taxonomy-sdm_categories']);
+    unset($cols['date']);
+
+    $cols['sdm_downloads_thumbnail'] = __('Image', 'simple-download-monitor');
+    $cols['title'] = __('Title', 'simple-download-monitor');
+    $cols['sdm_downloads_id'] = __('ID', 'simple-download-monitor');
+    $cols['sdm_downloads_file'] = __('File', 'simple-download-monitor');
+    $cols['taxonomy-sdm_categories'] = __('Categories', 'simple-download-monitor');
+    $cols['taxonomy-sdm_tags'] = __('Tags', 'simple-download-monitor');
+    $cols['sdm_downloads_count'] = __('Downloads', 'simple-download-monitor');
+    $cols['date'] = __('Date Posted', 'simple-download-monitor');
+    return $cols;
+}
+
+function sdm_downloads_sortable($cols) {
+
+    $cols['sdm_downloads_id'] = 'sdm_downloads_id';
+    $cols['sdm_downloads_file'] = 'sdm_downloads_file';
+    $cols['sdm_downloads_count'] = 'sdm_downloads_count';
+    $cols['taxonomy-sdm_categories'] = 'taxonomy-sdm_categories';
+    $cols['taxonomy-sdm_tags'] = 'taxonomy-sdm_tags';
+    return $cols;
+}
+
+function sdm_downloads_columns_content($column_name, $post_ID) {
+
+    if ($column_name == 'sdm_downloads_thumbnail') {
+        $old_thumbnail = get_post_meta($post_ID, 'sdm_upload_thumbnail', true);
+        //$old_value = isset($old_thumbnail) ? $old_thumbnail : '';
+        if ($old_thumbnail) {
+            echo '<p class="sdm_downloads_count"><img src="' . $old_thumbnail . '" style="width:50px;height:50px;" /></p>';
         }
     }
+    if ($column_name == 'sdm_downloads_id') {
+        echo '<p class="sdm_downloads_postid">' . $post_ID . '</p>';
+    }
+    if ($column_name == 'sdm_downloads_file') {
+        $old_file = get_post_meta($post_ID, 'sdm_upload', true);
+        $file = isset($old_file) ? $old_file : '--';
+        echo '<p class="sdm_downloads_file">' . $file . '</p>';
+    }
+    if ($column_name == 'sdm_downloads_count') {
+        global $wpdb;
+        $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post_ID));
+        echo '<p class="sdm_downloads_count">' . $wpdb->num_rows . '</p>';
+    }
+}
 
 // Adjust admin column widths
-    add_action('admin_head', 'sdm_admin_column_width'); // Adjust column width in admin panel
+add_action('admin_head', 'sdm_admin_column_width'); // Adjust column width in admin panel
 
-    function sdm_admin_column_width() {
+function sdm_admin_column_width() {
 
-        echo '<style type="text/css">';
-        echo '.column-sdm_downloads_thumbnail { width:75px !important; overflow:hidden }';
-        echo '.column-sdm_downloads_id { width:100px !important; overflow:hidden }';
-        echo '.column-taxonomy-sdm_categories { width:200px !important; overflow:hidden }';
-        echo '.column-taxonomy-sdm_tags { width:200px !important; overflow:hidden }';
-        echo '</style>';
-    }
+    echo '<style type="text/css">';
+    echo '.column-sdm_downloads_thumbnail { width:75px !important; overflow:hidden }';
+    echo '.column-sdm_downloads_id { width:100px !important; overflow:hidden }';
+    echo '.column-taxonomy-sdm_categories { width:200px !important; overflow:hidden }';
+    echo '.column-taxonomy-sdm_tags { width:200px !important; overflow:hidden }';
+    echo '</style>';
+}
 
-    /*
-     * * Register Tinymce Button
-     */
+/*
+ * * Register Tinymce Button
+ */
 
 // First check if option is checked to disable tinymce button
-    $main_option = get_option('sdm_downloads_options');
-    $tiny_button_option = isset($main_option['admin_tinymce_button']);
-    if ($tiny_button_option != true) {
+$main_option = get_option('sdm_downloads_options');
+$tiny_button_option = isset($main_option['admin_tinymce_button']);
+if ($tiny_button_option != true) {
 
-        // Okay.. we're good.  Add the button.
-        add_action('init', 'sdm_downloads_tinymce_button');
+    // Okay.. we're good.  Add the button.
+    add_action('init', 'sdm_downloads_tinymce_button');
 
-        function sdm_downloads_tinymce_button() {
+    function sdm_downloads_tinymce_button() {
 
-            add_filter('mce_external_plugins', 'sdm_downloads_add_button');
-            add_filter('mce_buttons', 'sdm_downloads_register_button');
-        }
-
-        function sdm_downloads_add_button($plugin_array) {
-
-            $plugin_array['sdm_downloads'] = WP_SIMPLE_DL_MONITOR_URL . '/tinymce/sdm_editor_plugin.js';
-            return $plugin_array;
-        }
-
-        function sdm_downloads_register_button($buttons) {
-
-            //array_push( $buttons, 'sdm_downloads' );
-            $buttons[] = 'sdm_downloads';
-            return $buttons;
-        }
-
+        add_filter('mce_external_plugins', 'sdm_downloads_add_button');
+        add_filter('mce_buttons', 'sdm_downloads_register_button');
     }
+
+    function sdm_downloads_add_button($plugin_array) {
+
+        $plugin_array['sdm_downloads'] = WP_SIMPLE_DL_MONITOR_URL . '/tinymce/sdm_editor_plugin.js';
+        return $plugin_array;
+    }
+
+    function sdm_downloads_register_button($buttons) {
+
+        //array_push( $buttons, 'sdm_downloads' );
+        $buttons[] = 'sdm_downloads';
+        return $buttons;
+    }
+
+}

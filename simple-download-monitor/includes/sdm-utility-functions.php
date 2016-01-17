@@ -34,6 +34,17 @@ function sdm_get_item_description_output($id){
     return $isset_item_description;
 }
 
+function sdm_get_password_entry_form($id) {
+    $action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;      
+    $data = __('Enter Password to Download:', 'simple-download-monitor');
+    $data .= '<form action="'.$action_url.'" method="post" >';
+    $data .= '<input type="password" name="pass_text" class="sdm_pass_text" value="" /> ';
+    $data .= '<input type="submit" name="sdm_dl_pass_submit" class="pass_sumbit" value="' . __('Submit', 'simple-download-monitor') . '" />';
+    $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
+    $data .= '</form>';
+    return $data;
+}
+
 //Use this function to redirect to a URL
 function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
     $url = apply_filters('sdm_before_redirect_to_url',$url);
