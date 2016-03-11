@@ -94,8 +94,6 @@ class sdm_List_Table extends WP_List_Table {
 
         $actions = array();
         $actions['delete2'] = __('Delete Permanently', 'simple-download-monitor');
-        $actions['export_all'] = __('Export All as Excel', 'simple-download-monitor');
-        //$actions['export-selected'] = __( 'Export Selected', 'simple-download-monitor' );
 
         return $actions;
     }
@@ -113,12 +111,6 @@ class sdm_List_Table extends WP_List_Table {
         }
 
         $action = $this->current_action();
-
-        // If bulk 'Export All' was clicked
-        if ('export_all' === $this->current_action()) {
-
-            echo '<div id="message" class="updated"><p><strong><a id="sdm_download_export" href="?post_type=sdm_downloads&page=logs&download_log">' . __('Download Export File', 'simple-download-monitor') . '</a></strong></p></div>';
-        }
 
         // if bulk 'Delete Permanently' was clicked
         if ('delete2' === $this->current_action()) {
@@ -168,7 +160,7 @@ class sdm_List_Table extends WP_List_Table {
     function prepare_items() {
 
         global $wpdb; //This is used only if making any database queries
-        $per_page = 30;
+        $per_page = apply_filters('sdm_download_logs_menu_items_per_page', 50);
         $columns = $this->get_columns();
         $hidden = array();
         $sortable = $this->get_sortable_columns();

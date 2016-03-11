@@ -158,10 +158,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = 3.3.0 =
 - Better implementation of the export log data to CSV file.
+- Added a new filter in the download logs menu so the items per page value can be customized.
 - Fixed a bug in the logs menu sorting. Sorting for some columns weren't working correctly.
 - Added sanitization for the order and orderby columns in the logs list table.
 - Added sanitization for the log entry delete functionality.
-- WordPress 4.5 compatibility
 
 = 3.2.9 =
 - Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".

@@ -1,51 +1,17 @@
 <?php
 
+/*
+ * Creates/adds the other admin menu page links to the main SDM custom post type menu
+ */
 function sdm_handle_admin_menu() {
-    //*****  If user clicked to download the bulk export log
-    if (isset($_GET['download_log'])) {
-        global $wpdb;
-        $csv_output = '';
-        $table = $wpdb->prefix . 'sdm_downloads';
-
-        $result = mysql_query("SHOW COLUMNS FROM " . $table . "");
-
-        $i = 0;
-        if (mysql_num_rows($result) > 0) {
-            while ($row = mysql_fetch_assoc($result)) {
-                $csv_output = $csv_output . $row['Field'] . ",";
-                $i++;
-            }
-        }
-        $csv_output .= "\n";
-
-        $values = mysql_query("SELECT * FROM " . $table . "");
-        while ($rowr = mysql_fetch_row($values)) {
-            for ($j = 0; $j < $i; $j++) {
-                $csv_output .= $rowr[$j] . ",";
-            }
-            $csv_output .= "\n";
-        }
-
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        header("Cache-Control: private", false);
-        header("Content-Type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=\"report.csv\";");
-        header("Content-Transfer-Encoding: binary");
-
-        echo $csv_output;
-        exit;
-    }
-
-    //*****
+    
     //*****  Create the 'logs' and 'settings' submenu pages
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'simple-download-monitor'), __('Logs', 'simple-download-monitor'), 'manage_options', 'logs', 'sdm_create_logs_page');
     $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'simple-download-monitor'), __('Settings', 'simple-download-monitor'), 'manage_options', 'settings', 'sdm_create_settings_page');
 }
 
 /*
- * Settings page
+ * Settings menu page
  */
 function sdm_create_settings_page() {
     echo '<div class="wrap">';
@@ -115,10 +81,19 @@ function sdm_create_settings_page() {
 }
 
 /*
- * * Logs Page
+ * * Logs menu page
  */
 function sdm_create_logs_page() {
     global $wpdb;
+
+    if (isset($_POST['sdm_export_log_entries'])) {
+        //Export log entries
+	$log_file_url = sdm_export_download_logs_to_csv();
+        echo '<div id="message" class="updated"><p>';
+        _e('Log entries exported! Click on the following link to download the file.', 'simple-download-monitor');
+        echo '<br /><br /><a href="'.$log_file_url.'">' . __('Download Logs CSV File', 'simple-download-monitor') . '</a>';
+        echo '</p></div>';        
+    }
     
     if (isset($_POST['sdm_reset_log_entries'])) {
         //reset log entries
@@ -146,19 +121,30 @@ function sdm_create_logs_page() {
         </div>
 
         <div id="poststuff"><div id="post-body">
+                
+            <!-- Log export button -->
+            <div class="postbox">
+            <h3 class="hndle"><label for="title"><?php _e('Export Download Log Entries', 'simple-download-monitor'); ?></label></h3>
+            <div class="inside">
+            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >    
+                <div class="submit">
+                    <input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e('Export Log Entries to CSV File', 'simple-download-monitor'); ?>" />
+                </div>    
+            </form> 
+            </div></div>
+
             <!-- Log reset button -->
             <div class="postbox">
             <h3 class="hndle"><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
             <div class="inside">
-
-            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >    
+            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >    
                 <div class="submit">
                     <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'simple-download-monitor'); ?>" />
                 </div>    
             </form> 
-
             </div></div>
-        </div></div>
+            
+        </div></div><!-- end of .poststuff and .post-body -->
         
         <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
         <form id="sdm_downloads-filter" method="post">
@@ -166,7 +152,6 @@ function sdm_create_logs_page() {
             <!-- Now we can render the completed list table -->
             <?php $sdmListTable->display() ?>
         </form>
-
     
     </div><!-- end of wrap -->
     <script type="text/javascript">

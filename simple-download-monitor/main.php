@@ -23,6 +23,7 @@ $sdm_db_version = '1.2';
 
 //File includes
 include_once('includes/sdm-utility-functions.php');
+include_once('includes/sdm-utility-functions-admin-side.php');
 include_once('includes/sdm-logs-list-table.php');
 include_once('includes/sdm-latest-downloads.php');
 include_once('sdm-post-type-and-taxonomy.php');
