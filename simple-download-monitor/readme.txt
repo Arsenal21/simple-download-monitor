@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
-Tested up to: 4.4.1
-Stable tag: 3.2.9
+Tested up to: 4.5
+Stable tag: 3.3.0
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -155,6 +155,13 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.3.0 =
+- Better implementation of the export log data to CSV file.
+- Fixed a bug in the logs menu sorting. Sorting for some columns weren't working correctly.
+- Added sanitization for the order and orderby columns in the logs list table.
+- Added sanitization for the log entry delete functionality.
+- WordPress 4.5 compatibility
 
 = 3.2.9 =
 - Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".

@@ -23,7 +23,7 @@ class sdm_List_Table extends WP_List_Table {
     }
 
     function column_default($item, $column_name) {
-
+        
         switch ($column_name) {
             case 'URL':
             case 'visitor_ip':
@@ -80,10 +80,10 @@ class sdm_List_Table extends WP_List_Table {
     function get_sortable_columns() {
 
         $sortable_columns = array(
-            'title' => array('title', false), //true means it's already sorted
-            'URL' => array('URL', false),
+            'title' => array('post_title', false), //true means it's already sorted
+            'URL' => array('file_url', false),
             'visitor_ip' => array('visitor_ip', false),
-            'date' => array('date', false),
+            'date' => array('date_time', false),
             'visitor_country' => array('visitor_country', false),
             'visitor_name' => array('visitor_name', false)
         );
@@ -102,7 +102,7 @@ class sdm_List_Table extends WP_List_Table {
 
     function process_bulk_action() {
 
-        // security check!
+        // Security check. Check nonce value if a bulk action request was submitted.
         if (isset($_POST['_wpnonce']) && !empty($_POST['_wpnonce'])) {
 
             $nonce = filter_input(INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING);
@@ -151,13 +151,12 @@ class sdm_List_Table extends WP_List_Table {
 
             $item_id = isset($_GET['download']) ? strtok($_GET['download'], '|') : '';
             $item_datetime = isset($_GET['datetime']) ? $_GET['datetime'] : '';
-
+            //Sanitize the inputs
+            $item_id = strip_tags($item_id);
+            $item_datetime = strip_tags($item_datetime);
+            
             global $wpdb;
-            $del_row = $wpdb->query(
-                    'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads
-								WHERE post_id = "' . $item_id . '"
-								AND date_time = "' . $item_datetime . '"'
-            );
+            $del_row = $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id = "' . $item_id . '" AND date_time = "' . $item_datetime . '"');
             if ($del_row) {
                 echo '<div id="message" class="updated fade"><p><strong>' . __('Entry Deleted!', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             } else {
@@ -179,12 +178,15 @@ class sdm_List_Table extends WP_List_Table {
         $this->process_bulk_action();
 
         // This checks for sorting input and passes that to the query (for sorting purpose).
-        $orderby_column = isset($_GET['orderby'])?$_GET['orderby']:'';
-        $sort_order = isset($_GET['order'])?$_GET['order']:'';
+        $orderby_column = isset($_GET['orderby'])? strip_tags($_GET['orderby']):'';
+        $sort_order = isset($_GET['order'])? strip_tags($_GET['order']):'';
         if(empty($orderby_column)){
-        	$orderby_column = "date_time";
-        	$sort_order = "DESC";
+            $orderby_column = "date_time";
+            $sort_order = "DESC";
         }
+        //Sanitize the sort inputs
+        $orderby = sdm_sanitize_value_by_array($orderby, $sortable);
+        $order = sdm_sanitize_value_by_array($order, array('DESC' => '1', 'ASC' => '1'));
         
         //Do a query to find the total number of rows then calculate the query limit
         $table_name = $wpdb->prefix . 'sdm_downloads';

@@ -129,3 +129,16 @@ function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     }
     return $output;
 }
+
+/*
+ * Checks if the string exists in the array key value of the provided array. If it doesn't exist, it returns the first key element from the valid values.
+ */
+function sdm_sanitize_value_by_array($to_check, $valid_values)
+{
+    $keys = array_keys($valid_values);
+    $keys = array_map('strtolower', $keys);
+    if (in_array($to_check, $keys)) {
+        return $to_check;
+    }
+    return reset($keys);//Return the first element from the valid values
+}
