@@ -162,6 +162,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Fixed a bug in the logs menu sorting. Sorting for some columns weren't working correctly.
 - Added sanitization for the order and orderby columns in the logs list table.
 - Added sanitization for the log entry delete functionality.
+- Fixed multiple vulnerabilities (thanks to NCSC-NL).
 
 = 3.2.9 =
 - Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".
