@@ -39,11 +39,11 @@ class sdm_List_Table extends WP_List_Table {
     }
 
     function column_title($item) {
-
+        $delete_log_nonce = wp_create_nonce('sdm_delete_log_entry');
         //Build row actions
         $actions = array(
             'edit' => sprintf('<a href="' . admin_url('post.php?post=' . $item['ID'] . '&action=edit') . '">' . __('Edit', 'simple-download-monitor') . '</a>'),
-            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=%s&action=%s&download=%s&datetime=%s">' . __('Delete', 'simple-download-monitor') . '</a>', $_REQUEST['page'], 'delete', $item['ID'], $item['date'])
+            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=%s&action=%s&download=%s&row_id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete this entry?\')">' . __('Delete', 'simple-download-monitor') . '</a>', $_REQUEST['page'], 'delete', $item['ID'], $item['row_id'], $delete_log_nonce),
         );
 
         //Return the title contents
@@ -100,21 +100,17 @@ class sdm_List_Table extends WP_List_Table {
 
     function process_bulk_action() {
 
-        // Security check. Check nonce value if a bulk action request was submitted.
-        if (isset($_POST['_wpnonce']) && !empty($_POST['_wpnonce'])) {
-
-            $nonce = filter_input(INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING);
-            $action = 'bulk-' . $this->_args['plural'];
-
-            if (!wp_verify_nonce($nonce, $action))
-                wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
-        }
-
-        $action = $this->current_action();
-
         // if bulk 'Delete Permanently' was clicked
         if ('delete2' === $this->current_action()) {
 
+            //Check bulk delete nonce
+            $nonce = filter_input(INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING);
+            $action = 'bulk-' . $this->_args['plural'];
+
+            if (!wp_verify_nonce($nonce, $action)){
+                wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
+            }
+            
             if (!isset($_POST['download']) || $_POST['download'] == null) {
                 echo '<div id="message" class="updated fade"><p><strong>' . __('No entries were selected.', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
                 return;
@@ -141,14 +137,18 @@ class sdm_List_Table extends WP_List_Table {
         // If single entry 'Delete' was clicked
         if ('delete' === $this->current_action()) {
 
-            $item_id = isset($_GET['download']) ? strtok($_GET['download'], '|') : '';
-            $item_datetime = isset($_GET['datetime']) ? $_GET['datetime'] : '';
-            //Sanitize the inputs
-            $item_id = strip_tags($item_id);
-            $item_datetime = strip_tags($item_datetime);
+            //Check bulk delete nonce
+            $nonce = filter_input(INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING);
+            $action = 'sdm_delete_log_entry';
+            if (!wp_verify_nonce($nonce, $action)){
+                wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
+            }
+            
+            //Grab the row id
+            $row_id = filter_input(INPUT_GET, 'row_id', FILTER_SANITIZE_STRING);
             
             global $wpdb;
-            $del_row = $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id = "' . $item_id . '" AND date_time = "' . $item_datetime . '"');
+            $del_row = $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"');
             if ($del_row) {
                 echo '<div id="message" class="updated fade"><p><strong>' . __('Entry Deleted!', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
             } else {
@@ -195,7 +195,7 @@ class sdm_List_Table extends WP_List_Table {
         //Prepare the array with the correct index names that the table is expecting.
         $data = array();
         foreach ($data_results as $data_result) {
-            $data[] = array('ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
+            $data[] = array('row_id' => $data_result->id, 'ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
         }
         
         // Now we add our *sorted* data to the items property, where it can be used by the rest of the class.

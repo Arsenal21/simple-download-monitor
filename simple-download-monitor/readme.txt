@@ -156,13 +156,16 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= 3.3.1 =
+- Added delete confirm dialogue in the individual download logs delete option.
+- Fixed multiple vulnerabilities (thanks to NCSC-NL).
+
 = 3.3.0 =
 - Better implementation of the export log data to CSV file.
 - Added a new filter in the download logs menu so the items per page value can be customized.
 - Fixed a bug in the logs menu sorting. Sorting for some columns weren't working correctly.
 - Added sanitization for the order and orderby columns in the logs list table.
 - Added sanitization for the log entry delete functionality.
-- Fixed multiple vulnerabilities (thanks to NCSC-NL).
 
 = 3.2.9 =
 - Renamed the label of categories and tags of this plugin to "Download Categories" and "Download Tags".
