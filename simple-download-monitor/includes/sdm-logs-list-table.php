@@ -59,7 +59,7 @@ class sdm_List_Table extends WP_List_Table {
         return sprintf(
                 '<input type="checkbox" name="%1$s[]" value="%2$s" />',
                 /* $1%s */ $this->_args['singular'], //Let's simply repurpose the table's singular label ("Download")
-                /* $2%s */ $item['ID'] . '|' . $item['date']            //The value of the checkbox should be the record's id
+                /* $2%s */ $item['row_id'] //The value of the checkbox should be the record's id
         );
     }
 
@@ -117,15 +117,13 @@ class sdm_List_Table extends WP_List_Table {
             }
 
             foreach ($_POST['download'] as $item) {
-                $str_tok_id = substr($item, 0, strpos($item, '|'));
-                $str_tok_datetime = substr($item, strpos($item, '|') + 1);
+                $row_id = sanitize_text_field($item);
+                if (!is_numeric($row_id)){
+                    wp_die(__('Error! The row id value of a log entry must be numeric.', 'simple-download-monitor'));
+                }
 
                 global $wpdb;
-                $del_row = $wpdb->query(
-                        'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads
-									WHERE post_id = "' . $str_tok_id . '"
-									AND date_time = "' . $str_tok_datetime . '"'
-                );
+                $del_row = $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"');
             }
             if ($del_row) {
                 echo '<div id="message" class="updated fade"><p><strong>' . __('Entries Deleted!', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
