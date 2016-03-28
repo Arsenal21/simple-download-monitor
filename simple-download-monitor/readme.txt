@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
 Tested up to: 4.5
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -157,7 +157,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = 3.3.1 =
+- Added a new feature to hide the download counts that is shown in some of the fancy templates. This new option can be found in the settings menu of the plugin.
 - Added delete confirm dialogue in the individual download logs delete option.
+- Simplified the settings menu page style.
 - Fixed multiple vulnerabilities (thanks to NCSC-NL).
 
 = 3.3.0 =

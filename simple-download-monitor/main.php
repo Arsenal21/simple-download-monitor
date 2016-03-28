@@ -3,7 +3,7 @@
 * Plugin Name: Simple Download Monitor
 * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
 * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
-* Version: 3.3.0
+* Version: 3.3.1
 * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
 * Author URI: https://www.tipsandtricks-hq.com/development-center
 * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.3.0');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.3.1');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -369,24 +369,45 @@ class simpleDownloadManager {
 
     public function sdm_register_options() {
 
+        //Register the main setting
         register_setting('sdm_downloads_options', 'sdm_downloads_options');
+        
+        //Add all the settings section that will go under the main settings
+        add_settings_section('general_options', __('General Options', 'simple-download-monitor'), array($this, 'general_options_cb'), 'general_options_section');
         add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
         add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 
+        //Add all the individual settings fields that goes under the sections
+        add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
+        
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_no_logs', __('Disable Download Logs', 'simple-download-monitor'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
+        
         add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
     }
 
+    public function general_options_cb() {
+        //Set the message that will be shown below the general options settings heading
+        _e('General options settings', 'simple-download-monitor');        
+    }
+    
     public function admin_options_cb() {
+        //Set the message that will be shown below the admin options settings heading
         _e('Admin options settings', 'simple-download-monitor');
     }
 
     public function sdm_colors_cb() {
+        //Set the message that will be shown below the color options settings heading
         _e('Front End colors settings', 'simple-download-monitor');
     }
 
+    public function hide_download_count_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[general_hide_donwload_count]" id="general_hide_donwload_count" type="checkbox" ' . checked(1, isset($main_opts['general_hide_donwload_count']), false) . ' /> ';
+        _e('Hide the download count that is shown in some of the fancy templates.', 'simple-download-monitor');
+    }
+    
     public function admin_tinymce_button_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';

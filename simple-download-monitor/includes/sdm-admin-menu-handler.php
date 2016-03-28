@@ -15,9 +15,9 @@ function sdm_handle_admin_menu() {
  */
 function sdm_create_settings_page() {
     echo '<div class="wrap">';
-    echo '<div id="poststuff"><div id="post-body">';
+    //echo '<div id="poststuff"><div id="post-body">';
     ?>
-    <h2><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h2>
+    <h1><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h1>
 
     <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
         Read the full plugin usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.
@@ -27,44 +27,34 @@ function sdm_create_settings_page() {
     <!-- settings page form -->
     <form method="post" action="options.php">
 
-        <!-- BEGIN ADMIN OPTIONS DIV -->	    
-        <div id="sdm_admin_opts_div" class="sdm_sliding_div_title">
-            <div class="sdm_slider_title">
-    <?php _e('Admin Options', 'simple-download-monitor') ?>
-            </div>
-            <div class="sdm_desc">
-    <?php _e("Control various plugin features.", 'simple-download-monitor') ?>
-            </div>
-        </div>
-        <div id="sliding_div1" class="slidingDiv">
-            <?php
-            // This prints out all hidden setting fields
-            do_settings_sections('admin_options_section');
-            settings_fields('sdm_downloads_options');
+        <!-- BEGIN GENERAL OPTIONS DIV -->
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('general_options_section');
+        settings_fields('sdm_downloads_options');
 
-            submit_button();
-            ?>
-        </div>
+        submit_button();
+        ?>
+        <!-- END GENERAL OPTIONS DIV -->
+        
+        <!-- BEGIN ADMIN OPTIONS DIV -->
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('admin_options_section');
+        settings_fields('sdm_downloads_options');
+
+        submit_button();
+        ?>
         <!-- END ADMIN OPTIONS DIV -->
 
         <!-- BEGIN COLORS DIV -->
-        <div id="sdm_color_opts_div" class="sdm_sliding_div_title">
-            <div class="sdm_slider_title">
-    <?php _e('Color Options', 'simple-download-monitor') ?>
-            </div>
-            <div class="sdm_desc">
-    <?php _e("Adjust color options", 'simple-download-monitor') ?>
-            </div>
-        </div>
-        <div id="sliding_div2" class="slidingDiv">
-            <?php
-            // This prints out all hidden setting fields
-            do_settings_sections('sdm_colors_section');
-            settings_fields('sdm_downloads_options');
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('sdm_colors_section');
+        settings_fields('sdm_downloads_options');
 
-            submit_button();
-            ?>
-        </div>
+        submit_button();
+        ?>
         <!-- END COLORS OPTIONS DIV -->
 
         <!-- End of settings page form -->
@@ -76,7 +66,6 @@ function sdm_create_settings_page() {
     </div>
 
     <?php
-    echo '</div></div>'; //end of post-stuff
     echo '</div>'; //end of wrap
 }
 

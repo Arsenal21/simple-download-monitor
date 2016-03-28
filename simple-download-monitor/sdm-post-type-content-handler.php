@@ -58,7 +58,11 @@ function filter_sdm_post_type_content($content) {
         
         $content .= '<div class="sdm_post_item_top_right">';
         $content .= '<div class="sdm_post_title">' . $isset_item_title . '</div>';
-        $content .= '<div class="sdm_post_download_count">' . $download_count_string . '</div>';
+        
+        if(!isset($main_opts['general_hide_donwload_count'])) {//The hide download count is enabled.
+            $content .= '<div class="sdm_post_download_count">' . $download_count_string . '</div>';
+        }
+        
         $content .= '<div class="sdm_post_description">' . $isset_item_description . '</div>';
         $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
         //$content .= '<div class="sdm_post_meta_section"></div>';//TODO - Show post meta (category and tags)
