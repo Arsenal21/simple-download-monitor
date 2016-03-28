@@ -167,17 +167,16 @@ class sdm_List_Table extends WP_List_Table {
         $this->_column_headers = array($columns, $hidden, $sortable);
         $this->process_bulk_action();
 
-        // This checks for sorting input and passes that to the query (for sorting purpose).
-        $orderby_column = isset($_GET['orderby'])? strip_tags($_GET['orderby']):'';
-        $sort_order = isset($_GET['order'])? strip_tags($_GET['order']):'';
+        // Grab the sort inputs then sanitize the values before using it in the query. Use a whitelist approach to sanitize it.
+        $orderby_column = isset($_GET['orderby'])? sanitize_text_field($_GET['orderby']):'';
+        $sort_order = isset($_GET['order'])? sanitize_text_field($_GET['order']):'';
         if(empty($orderby_column)){
             $orderby_column = "date_time";
             $sort_order = "DESC";
         }
-        //Sanitize the sort inputs
-        $orderby = sdm_sanitize_value_by_array($orderby, $sortable);
-        $order = sdm_sanitize_value_by_array($order, array('DESC' => '1', 'ASC' => '1'));
-        
+        $orderby_column = sdm_sanitize_value_by_array($orderby_column, array('post_title'=>'1', 'file_url'=>'1', 'visitor_ip'=>'1', 'date_time'=>'1', 'visitor_country'=>'1', 'visitor_name'=>'1'));
+        $sort_order = sdm_sanitize_value_by_array($sort_order, array('DESC' => '1', 'ASC' => '1'));  
+
         //Do a query to find the total number of rows then calculate the query limit
         $table_name = $wpdb->prefix . 'sdm_downloads';
         $query = "SELECT COUNT(*) FROM $table_name";
