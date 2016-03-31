@@ -1,5 +1,5 @@
 === Simple Download Monitor ===
-Contributors: Tips and Tricks HQ, Ruhul Amin, josh401
+Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
