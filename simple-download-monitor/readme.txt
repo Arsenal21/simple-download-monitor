@@ -71,6 +71,7 @@ The following language translations are already available for the download monit
 * English
 * German
 * Spanish
+* French
 * Italian
 * Russian
 * Dutch
@@ -155,6 +156,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= TODO 3.3.2 =
+- Added French language translation. Translation file submitted by Laurent Jaunaux.
 
 = 3.3.1 =
 - Added a new feature to hide the download counts that is shown in some of the fancy templates. This new option can be found in the settings menu of the plugin.
