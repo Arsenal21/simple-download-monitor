@@ -113,7 +113,15 @@ Example Shortcode Usage:
 
 You can check the download stats from the "Downloads->Logs" interface. It shows the number of downloads for each files, IP address of the user who downloaded it, date and time of the download.
 
+= Detailed Usage Documentation =
+
 View more usage instructions on the [Download Monitor Plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
+
+= Github Repository =
+
+https://github.com/Arsenal21/simple-download-monitor
+
+If you need some extra action hooks or filters for this plugin then let us know.
 
 == Installation ==
 
@@ -159,6 +167,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = TODO 3.3.2 =
 - Added French language translation. Translation file submitted by Laurent Jaunaux.
+- The stats metabox in the download edit page will now appear before the shortcodes metabox.
+- Added more usage instructions in the download file upload section.
 
 = 3.3.1 =
 - Added a new feature to hide the download counts that is shown in some of the fancy templates. This new option can be found in the settings menu of the plugin.

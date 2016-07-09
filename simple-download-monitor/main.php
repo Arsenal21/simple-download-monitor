@@ -203,19 +203,14 @@ class simpleDownloadManager {
     }
 
     public function sdm_create_upload_metabox() {
-
-        //*****
+        
         //*****  Create metaboxes for the custom post type
-        add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array(&$this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default'
-        );
-        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default'
-        );
-        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default'
-        );
-        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default'
-        );
-        add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default'
-        );
+        add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array(&$this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default');
+        
     }
 
     public function display_sdm_description_meta_box($post) {  // Description metabox
@@ -232,13 +227,25 @@ class simpleDownloadManager {
     public function display_sdm_upload_meta_box($post) {  // File Upload metabox
         $old_upload = get_post_meta($post->ID, 'sdm_upload', true);
         $old_value = isset($old_upload) ? $old_upload : '';
-        _e('Click "Select File" to upload (or choose) the file.', 'simple-download-monitor');
-        ?>
-        <br /><br />
-        <input id="upload_image_button" type="button" class="button-primary" value="<?php _e('Select File', 'simple-download-monitor'); ?>" />
-        <span style="margin-left:40px;"></span>
-        <?php _e('File URL:', 'simple-download-monitor') ?> <input id="sdm_upload" type="text" size="70" name="sdm_upload" value="<?php echo $old_value; ?>" placeholder="http://..." />
-        <?php
+        
+        _e('Manually enter a valid URL of the file in the text box below, or click "Select File" button to upload (or choose) the downloadable file.', 'simple-download-monitor');
+        echo '<br /><br />';
+        
+        echo '<div class="sdm-download-edit-file-url-section">';        
+        echo '<input id="sdm_upload" type="text" size="100" name="sdm_upload" value="'.$old_value.'" placeholder="http://..." />';        
+        echo '</div>';
+        
+        echo '<br />';
+        echo '<input id="upload_image_button" type="button" class="button-primary" value="'.__('Select File', 'simple-download-monitor').'" />';
+                
+        echo '<br /><br />';
+        _e('Steps to upload a file or choose one from your media library:', 'simple-download-monitor');
+        echo '<ol>';
+        echo '<li>Hit the "Select File" button</li>';
+        echo '<li>Upload a new file or choose an existing one from your media library.</li>';
+        echo '<li>Click the "Insert into Post" button, this will populate the uploaded file URL in the above text field.</li>';
+        echo '</ol>';
+
         wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
     }
 
@@ -246,12 +253,11 @@ class simpleDownloadManager {
         $old_thumbnail = get_post_meta($post->ID, 'sdm_upload_thumbnail', true);
         $old_value = isset($old_thumbnail) ? $old_thumbnail : '';
         _e('Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'simple-download-monitor');
-        echo '<br />';
-        _e('This thumbnail image will be used to create a fancy file download box if you want to use it.', 'simple-download-monitor');
+        
         ?>        
         <br /><br />
-        <input id="sdm_upload_thumbnail" type="text" size="70" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" placeholder="http://..." />
-        <br />
+        <input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" placeholder="http://..." />
+        <br /><br />
         <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'simple-download-monitor'); ?>" />        
         <input id="remove_thumbnail_button" type="button" class="button" value="<?php _e('Remove Image', 'simple-download-monitor'); ?>" />
         <br /><br />
@@ -262,19 +268,15 @@ class simpleDownloadManager {
                 ?><img id="sdm_thumbnail_image" src="<?php echo $old_value; ?>" style="max-width:200px;" />
                 <?php
             }
-            ?></span><?php
-            wp_nonce_field('sdm_thumbnail_box_nonce', 'sdm_thumbnail_box_nonce_check');
-    }
-
-    public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
-        _e('This is the shortcode which can used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter to add this shortcode to a post or page.', 'simple-download-monitor');
-        echo '<br />';
-        echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
-        echo '<br /><br />';
-
-        _e('This shortcode may be used as a download counter.', 'simple-download-monitor');
-        echo '<br />';
-        echo '[sdm_download_counter id="' . $post->ID . '"]';
+            ?>
+        </span>
+        
+        <?php
+        echo '<p class="description">';
+        _e('This thumbnail image will be used to create a fancy file download box if you want to use it.', 'simple-download-monitor');
+        echo '</p>';
+        
+        wp_nonce_field('sdm_thumbnail_box_nonce', 'sdm_thumbnail_box_nonce_check');
     }
 
     public function display_sdm_stats_meta_box($post) {  // Stats metabox
@@ -290,20 +292,41 @@ class simpleDownloadManager {
 
         global $wpdb;
         $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID));
+        
+        echo '<div class="sdm-download-edit-dl-count">';
         _e('Number of Downloads:', 'simple-download-monitor');
         echo ' <strong>' . $wpdb->num_rows . '</strong>';
-        echo '<span style="margin-left: 20px;"></span>';
+        echo '</div>';
+        
+        echo '<div class="sdm-download-edit-offset-count">';
         _e('Offset Count', 'simple-download-monitor');
         echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
-        echo ' <img src="' . WP_SIMPLE_DL_MONITOR_URL . '/css/images/info.png" style="margin-left:10px;" title="Enter any positive or negative numerical value; to offset the download count shown, when using the download counter shortcode." />';
-
-        echo '<br /><br />';
+        echo '<p class="description">'.__('Enter any positive or negative numerical value; to offset the download count shown to the visitors (when using the download counter shortcode).', 'simple-download-monitor').'</p>';
+        echo '</div>';
+        
+        echo '<br />';
+        echo '<div class="sdm-download-edit-disable-logging">';
         echo '<input type="checkbox" name="sdm_item_no_log" ' . $checked . ' />';
         echo '<span style="margin-left: 5px;"></span>';
         _e('Disable download logging for this item.', 'simple-download-monitor');
+        echo '</div>';
 
         wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
     }
+    
+    public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
+        _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
+        echo '<br />';
+        echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
+        echo '<br /><br />';
+
+        _e('The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor');
+        echo '<br />';
+        echo '[sdm_download_counter id="' . $post->ID . '"]';
+        
+        echo '<br /><br />';
+        echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
+    }    
 
     public function sdm_save_description_meta_data($post_id) {  // Save Description metabox
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
