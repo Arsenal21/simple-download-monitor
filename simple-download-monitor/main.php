@@ -210,7 +210,7 @@ class simpleDownloadManager {
         add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_other_details_meta_box', __('Other Details', 'simple-download-monitor'), array(&$this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_other_details_meta_box', __('Other Details (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default');
         
     }
@@ -301,8 +301,9 @@ class simpleDownloadManager {
         echo '</div>';
         
         echo '<div class="sdm-download-edit-offset-count">';
-        _e('Offset Count', 'simple-download-monitor');
-        echo ' <input type="text" style="width:50px;" name="sdm_count_offset" value="' . $value . '" />';
+        _e('Offset Count: ', 'simple-download-monitor');
+        echo '<br />';
+        echo ' <input type="text" size="10" name="sdm_count_offset" value="' . $value . '" />';
         echo '<p class="description">'.__('Enter any positive or negative numerical value; to offset the download count shown to the visitors (when using the download counter shortcode).', 'simple-download-monitor').'</p>';
         echo '</div>';
         
@@ -320,10 +321,21 @@ class simpleDownloadManager {
         $file_size = get_post_meta($post->ID, 'sdm_item_file_size', true);
         $file_size = isset($file_size) ? $file_size : '';
         
+        $version = get_post_meta($post->ID, 'sdm_item_version', true);
+        $version = isset($version) ? $version : '';
+        
         echo '<div class="sdm-download-edit-filesize">';
-        _e('File Size', 'simple-download-monitor');
-        echo ' <input type="text" name="sdm_item_file_size" value="' . $file_size . '" size="10" />';
-        echo '<p class="description">'.__('Enter the size of this file (example value: 2MB). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
+        _e('File Size: ', 'simple-download-monitor');
+        echo '<br />';
+        echo ' <input type="text" name="sdm_item_file_size" value="' . $file_size . '" size="20" />';
+        echo '<p class="description">'.__('Enter the size of this file (example value: 2.15 MB). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
+        echo '</div>';
+        
+        echo '<div class="sdm-download-edit-version">';
+        _e('Version: ', 'simple-download-monitor');
+        echo '<br />';
+        echo ' <input type="text" name="sdm_item_version" value="' . $version . '" size="20" />';
+        echo '<p class="description">'.__('Enter the version number for this item if any (example value: v2.5.10). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
         echo '</div>';
         
         wp_nonce_field('sdm_other_details_nonce', 'sdm_other_details_nonce_check');
@@ -406,6 +418,10 @@ class simpleDownloadManager {
 
         if (isset($_POST['sdm_item_file_size'])) {
             update_post_meta($post_id, 'sdm_item_file_size', $_POST['sdm_item_file_size']);
+        }
+        
+        if (isset($_POST['sdm_item_version'])){
+            update_post_meta($post_id, 'sdm_item_version', $_POST['sdm_item_version']);
         }
 
     }    
