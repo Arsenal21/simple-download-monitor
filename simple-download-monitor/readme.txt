@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.0
-Tested up to: 4.5
-Stable tag: 3.3.1
+Tested up to: 4.6
+Stable tag: 3.3.2
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -61,6 +61,8 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Shortcode to show a number of latest downloads to your visitors.
 * Ability to disable the download monitoring (logging) for certain items (or all items).
 * You can also choose to only monitor downloads from unique IP address only.
+* Option to specify file size info so it can be shown to your visitors.
+* Option to specify version number info for the download item so it can be shown to your visitors.
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
@@ -165,8 +167,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.3.2 =
-- [WIP] - Show the stored file size value in the fancy display (via the shortcode parameter).
+= 3.3.2 =
+- Added an option to specify the file size info when editing the item. Size info can be shown in the fancy display template using a shortcode parameter (show_size).
+- Added an option to specify the version number info when editing the item. Version info can be shown in the fancy display template using a shortcode parameter (show_version).
 - Added French language translation. Translation file submitted by Laurent Jaunaux.
 - The stats metabox in the download edit page will now appear before the shortcodes metabox.
 - Added more usage instructions in the download file upload section.

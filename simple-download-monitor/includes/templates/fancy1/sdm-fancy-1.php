@@ -5,6 +5,9 @@ function sdm_generate_fancy1_latest_downloads_display_output($get_posts, $args) 
     $output = "";
     isset($args['button_text']) ? $button_text = $args['button_text'] : $button_text = '';
     isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';
+    isset($args['show_size']) ? $show_size = $args['show_size'] : $show_size = '';
+    isset($args['show_version']) ? $show_version = $args['show_version'] : $show_version = '';
+    
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
         //Create a args array
@@ -13,6 +16,8 @@ function sdm_generate_fancy1_latest_downloads_display_output($get_posts, $args) 
             'fancy' => '1',
             'button_text' => $button_text,
             'new_window' => $new_window,
+            'show_size' => $show_size,
+            'show_version' => $show_version,
         );
         $output .= sdm_generate_fancy1_display_output($args);
     }
@@ -28,7 +33,10 @@ function sdm_generate_fancy1_category_display_output($get_posts, $args) {
     //$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy1/sdm-fancy-1-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
     
     isset($args['button_text']) ? $button_text = $args['button_text'] : $button_text = '';
-    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';    
+    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';
+    isset($args['show_size']) ? $show_size = $args['show_size'] : $show_size = '';
+    isset($args['show_version']) ? $show_version = $args['show_version'] : $show_version = '';
+    
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
         //Create a args array
@@ -37,6 +45,8 @@ function sdm_generate_fancy1_category_display_output($get_posts, $args) {
             'fancy' => '1',
             'button_text' => $button_text,
             'new_window' => $new_window,
+            'show_size' => $show_size,
+            'show_version' => $show_version,            
         );
         $output .= sdm_generate_fancy1_display_output($args);
     }
@@ -96,6 +106,14 @@ function sdm_generate_fancy1_display_output($args) {
     $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
     $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
 
+    //Get item file size
+    $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
+    $isset_item_file_size = (isset($args['show_size']) && isset($item_file_size)) ? $item_file_size : '';//check if show_size is enabled and if there is a size value
+
+    //Get item version
+    $item_version = get_post_meta($id, 'sdm_item_version', true);
+    $isset_item_version = (isset($args['show_version']) && isset($item_version)) ? $item_version : '';//check if show_version is enabled and if there is a version value
+
     // Check to see if the download link cpt is password protected
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
@@ -117,7 +135,23 @@ function sdm_generate_fancy1_display_output($args) {
     $output .= '<div class="sdm_download_title">' . $isset_item_title . '</div>';
     $output .= '</div>'; //End of .sdm_download_item_top
     $output .= '<div style="clear:both;"></div>';
+   
     $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
+
+    if (!empty($isset_item_file_size)) {//Show file size info
+        $output .= '<div class="sdm_download_size">';
+        $output .= '<span class="sdm_download_size_label">' . __('Size: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_download_size_value">' . $isset_item_file_size . '</span>';
+        $output .= '</div>';
+    }
+
+    if (!empty($isset_item_version)) {//Show version info
+        $output .= '<div class="sdm_download_version">';
+        $output .= '<span class="sdm_download_version_label">' . __('Version: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_download_version_value">' . $isset_item_version . '</span>';
+        $output .= '</div>';
+    }
+    
     $output .= '<div class="sdm_download_link">';
     $output .= '<span class="sdm_download_button">' . $download_button_code . '</span>';
     if(!isset($main_opts['general_hide_donwload_count'])) {//The hide download count is enabled.

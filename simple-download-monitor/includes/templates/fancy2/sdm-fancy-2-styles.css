@@ -54,6 +54,15 @@
     background-color: #2D3140;
 }
 
+.sdm_fancy2_download_size{
+    margin: 5px 0;
+    text-align: center;
+}
+.sdm_fancy2_download_version{
+    margin: 5px 0;
+    text-align: center;
+}
+
 /*** For smaller devices ***/
 @media only screen and (max-width : 480px)
 {

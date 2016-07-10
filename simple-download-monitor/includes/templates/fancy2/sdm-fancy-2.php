@@ -13,7 +13,9 @@ function sdm_generate_fancy2_latest_downloads_display_output($get_posts, $args) 
         $id = $item->ID;  //Get the post ID
         $button_text = isset($args['button_text'])? $args['button_text'] : '';
         $new_window = isset($args['new_window'])? $args['new_window'] : '';
-        
+        $show_size = isset($args['show_size'])? $args['show_size'] : '';
+        $show_version = isset($args['show_version'])? $args['show_version'] : '';
+    
         //Create a args array
         $args = array(
             'id' => $id,
@@ -21,6 +23,8 @@ function sdm_generate_fancy2_latest_downloads_display_output($get_posts, $args) 
             'button_text' => $button_text,
             'new_window' => $new_window,
             'css_class' => 'sdm_fancy2_grid',
+            'show_size' => $show_size,
+            'show_version' => $show_version,            
         );
         $output .= sdm_generate_fancy2_display_output($args);
 
@@ -45,6 +49,8 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
         $id = $item->ID;  //Get the post ID
         $button_text = isset($args['button_text'])? $args['button_text'] : '';
         $new_window = isset($args['new_window'])? $args['new_window'] : '';
+        $show_size = isset($args['show_size'])? $args['show_size'] : '';
+        $show_version = isset($args['show_version'])? $args['show_version'] : '';
         
         //Create a args array
         $args = array(
@@ -53,6 +59,8 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
             'button_text' => $button_text,
             'new_window' => $new_window,
             'css_class' => 'sdm_fancy2_grid',
+            'show_size' => $show_size,
+            'show_version' => $show_version,            
         );
         $output .= sdm_generate_fancy2_display_output($args);
 
@@ -118,6 +126,15 @@ function sdm_generate_fancy2_display_output($args) {
     // Get item description
     $isset_item_description = sdm_get_item_description_output($id);
 
+    //Get item file size
+    $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
+    $isset_item_file_size = (isset($args['show_size']) && isset($item_file_size)) ? $item_file_size : '';//check if show_size is enabled and if there is a size value
+
+    //Get item version
+    $item_version = get_post_meta($id, 'sdm_item_version', true);
+    $isset_item_version = (isset($args['show_version']) && isset($item_version)) ? $item_version : '';//check if show_version is enabled and if there is a version value
+
+    
     $css_class = isset($args['css_class']) ? $args['css_class'] : '';
     $output = '';
     $output .= '<div class="sdm_fancy2_item ' . $css_class . '">';
@@ -128,6 +145,21 @@ function sdm_generate_fancy2_display_output($args) {
     $output .= '</div>'; //End of .sdm_download_item_top
 
     $output .= '<div class="sdm_fancy2_download_title">' . $isset_item_title . '</div>';
+    
+    if (!empty($isset_item_file_size)) {//Show file size info if specified in the shortcode
+        $output .= '<div class="sdm_fancy2_download_size">';
+        $output .= '<span class="sdm_fancy2_download_size_label">' . __('Size: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_fancy2_download_size_value">' . $isset_item_file_size . '</span>';
+        $output .= '</div>';
+    }
+
+    if (!empty($isset_item_version)) {//Show version info if specified in the shortcode
+        $output .= '<div class="sdm_fancy2_download_version">';
+        $output .= '<span class="sdm_fancy2_download_version_label">' . __('Version: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_fancy2_download_version_value">' . $isset_item_version . '</span>';
+        $output .= '</div>';
+    }
+    
     $output .= '<div class="sdm_fancy2_download_link">' . $download_button_code . '</div>';
 
     $output .= '</div>'; //end .sdm_fancy2_item
