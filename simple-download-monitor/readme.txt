@@ -166,6 +166,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = TODO 3.3.2 =
+- [WIP] - Show the stored file size value in the fancy display (via the shortcode parameter).
 - Added French language translation. Translation file submitted by Laurent Jaunaux.
 - The stats metabox in the download edit page will now appear before the shortcodes metabox.
 - Added more usage instructions in the download file upload section.

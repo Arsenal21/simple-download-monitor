@@ -129,7 +129,8 @@ class simpleDownloadManager {
             add_action('save_post', array(&$this, 'sdm_save_description_meta_data'));  // Save 'description' metabox
             add_action('save_post', array(&$this, 'sdm_save_upload_meta_data'));  // Save 'upload file' metabox
             add_action('save_post', array(&$this, 'sdm_save_thumbnail_meta_data'));  // Save 'thumbnail' metabox
-            add_action('save_post', array(&$this, 'sdm_save_statistics_meta_data'));  // Save 'thumbnail' metabox
+            add_action('save_post', array(&$this, 'sdm_save_statistics_meta_data'));  // Save 'statistics' metabox
+            add_action('save_post', array(&$this, 'sdm_save_other_details_meta_data'));  // Save 'other details' metabox
 
             add_action('admin_enqueue_scripts', array(&$this, 'sdm_admin_scripts'));  // Register admin scripts
             add_action('admin_print_styles', array(&$this, 'sdm_admin_styles'));  // Register admin styles
@@ -209,6 +210,7 @@ class simpleDownloadManager {
         add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_other_details_meta_box', __('Other Details', 'simple-download-monitor'), array(&$this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default');
         
     }
@@ -279,7 +281,7 @@ class simpleDownloadManager {
         wp_nonce_field('sdm_thumbnail_box_nonce', 'sdm_thumbnail_box_nonce_check');
     }
 
-    public function display_sdm_stats_meta_box($post) {  // Stats metabox
+    public function display_sdm_stats_meta_box($post) {  //Stats metabox
         $old_count = get_post_meta($post->ID, 'sdm_count_offset', true);
         $value = isset($old_count) && $old_count != '' ? $old_count : '0';
 
@@ -314,7 +316,21 @@ class simpleDownloadManager {
         wp_nonce_field('sdm_count_offset_nonce', 'sdm_count_offset_nonce_check');
     }
     
-    public function display_sdm_shortcode_meta_box($post) {  // Shortcode metabox
+    public function display_sdm_other_details_meta_box($post){ //Other details metabox
+        $file_size = get_post_meta($post->ID, 'sdm_item_file_size', true);
+        $file_size = isset($file_size) ? $file_size : '';
+        
+        echo '<div class="sdm-download-edit-filesize">';
+        _e('File Size', 'simple-download-monitor');
+        echo ' <input type="text" name="sdm_item_file_size" value="' . $file_size . '" size="10" />';
+        echo '<p class="description">'.__('Enter the size of this file (example value: 2MB). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
+        echo '</div>';
+        
+        wp_nonce_field('sdm_other_details_nonce', 'sdm_other_details_nonce_check');
+        
+    }
+    
+    public function display_sdm_shortcode_meta_box($post) {  //Shortcode metabox
         _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
         echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
@@ -379,6 +395,20 @@ class simpleDownloadManager {
             delete_post_meta($post_id, 'sdm_item_no_log');
         }
     }
+    
+    public function sdm_save_other_details_meta_data($post_id) {  // Save Statistics Upload metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
+            return;
+        }
+        if (!isset($_POST['sdm_other_details_nonce_check']) || !wp_verify_nonce($_POST['sdm_other_details_nonce_check'], 'sdm_other_details_nonce')){
+            return;
+        }
+
+        if (isset($_POST['sdm_item_file_size'])) {
+            update_post_meta($post_id, 'sdm_item_file_size', $_POST['sdm_item_file_size']);
+        }
+
+    }    
 
     public function sdm_remove_view_link_cpt($action, $post) {
 
