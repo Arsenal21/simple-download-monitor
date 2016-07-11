@@ -137,7 +137,7 @@ function sdm_create_logs_page() {
         
         <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
         <form id="sdm_downloads-filter" method="post">
-            <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+            <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']) ?>" />
             <!-- Now we can render the completed list table -->
             <?php $sdmListTable->display() ?>
         </form>
