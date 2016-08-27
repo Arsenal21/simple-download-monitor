@@ -64,6 +64,37 @@ function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
     }
 }
 
+/**
+ * Dispatch file with $filename and terminate script execution, if the file is
+ * readable and headers have not been sent yet.
+ * @param string $filename
+ * @return void
+ */
+function sdm_dispatch_file($filename) {
+
+    if ( headers_sent() ) {
+        trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, headers already sent.");
+        return;
+    }
+
+    if ( !is_readable($filename) ) {
+        trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, file is not readable.");
+        return;
+    }
+
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream'); // http://stackoverflow.com/a/20509354
+    header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($filename));
+
+    ob_end_clean();
+    readfile($filename);
+    exit;
+}
+
 // Helper function to get visitor country (or other info)
 function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     $output = NULL;
