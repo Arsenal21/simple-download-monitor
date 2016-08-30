@@ -2,9 +2,9 @@
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
-Requires at least: 3.0
+Requires at least: 3.3.0
 Tested up to: 4.6
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -166,6 +166,10 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.4.0 =
+- Local download items can now be dispatched via PHP. This way, the actual URL of the downloaded file is not exposed.
+- Minimum required WP version raised to 3.3.0
 
 = 3.3.2 =
 - Added an option to specify the file size info when editing the item. Size info can be shown in the fancy display template using a shortcode parameter (show_size).

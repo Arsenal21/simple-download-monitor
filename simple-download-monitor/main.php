@@ -3,7 +3,7 @@
 * Plugin Name: Simple Download Monitor
 * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
 * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
-* Version: 3.3.2
+* Version: 3.4.0
 * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
 * Author URI: https://www.tipsandtricks-hq.com/development-center
 * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.3.2');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.0');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -120,23 +120,24 @@ class simpleDownloadManager {
         add_action('init', 'sdm_register_post_type');  // Create 'sdm_downloads' custom post type
         add_action('init', 'sdm_create_taxonomies');  // Register 'tags' and 'categories' taxonomies
         add_action('init', 'sdm_register_shortcodes'); //Register the shortcodes
-        add_action('wp_enqueue_scripts', array(&$this, 'sdm_frontend_scripts'));  // Register frontend scripts
+        add_action('wp_enqueue_scripts', array($this, 'sdm_frontend_scripts'));  // Register frontend scripts
 
         if (is_admin()) {
-            add_action('admin_menu', array(&$this, 'sdm_create_menu_pages'));  // Create admin pages
-            add_action('add_meta_boxes', array(&$this, 'sdm_create_upload_metabox'));  // Create metaboxes
+            add_action('admin_menu', array($this, 'sdm_create_menu_pages'));  // Create admin pages
+            add_action('add_meta_boxes', array($this, 'sdm_create_upload_metabox'));  // Create metaboxes
 
-            add_action('save_post', array(&$this, 'sdm_save_description_meta_data'));  // Save 'description' metabox
-            add_action('save_post', array(&$this, 'sdm_save_upload_meta_data'));  // Save 'upload file' metabox
-            add_action('save_post', array(&$this, 'sdm_save_thumbnail_meta_data'));  // Save 'thumbnail' metabox
-            add_action('save_post', array(&$this, 'sdm_save_statistics_meta_data'));  // Save 'statistics' metabox
-            add_action('save_post', array(&$this, 'sdm_save_other_details_meta_data'));  // Save 'other details' metabox
+            add_action('save_post', array($this, 'sdm_save_description_meta_data'));  // Save 'description' metabox
+            add_action('save_post', array($this, 'sdm_save_upload_meta_data'));  // Save 'upload file' metabox
+            add_action('save_post', array($this, 'sdm_save_dispatch_meta_data'));  // Save 'dispatch' metabox
+            add_action('save_post', array($this, 'sdm_save_thumbnail_meta_data'));  // Save 'thumbnail' metabox
+            add_action('save_post', array($this, 'sdm_save_statistics_meta_data'));  // Save 'statistics' metabox
+            add_action('save_post', array($this, 'sdm_save_other_details_meta_data'));  // Save 'other details' metabox
 
-            add_action('admin_enqueue_scripts', array(&$this, 'sdm_admin_scripts'));  // Register admin scripts
-            add_action('admin_print_styles', array(&$this, 'sdm_admin_styles'));  // Register admin styles
+            add_action('admin_enqueue_scripts', array($this, 'sdm_admin_scripts'));  // Register admin scripts
+            add_action('admin_print_styles', array($this, 'sdm_admin_styles'));  // Register admin styles
 
-            add_action('admin_init', array(&$this, 'sdm_register_options'));  // Register admin options
-            //add_filter('post_row_actions', array(&$this, 'sdm_remove_view_link_cpt'), 10, 2);  // Remove 'View' link in all downloads list view
+            add_action('admin_init', array($this, 'sdm_register_options'));  // Register admin options
+            //add_filter('post_row_actions', array($this, 'sdm_remove_view_link_cpt'), 10, 2);  // Remove 'View' link in all downloads list view
         }
     }
 
@@ -206,12 +207,13 @@ class simpleDownloadManager {
     public function sdm_create_upload_metabox() {
         
         //*****  Create metaboxes for the custom post type
-        add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array(&$this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array(&$this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array(&$this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_other_details_meta_box', __('Other Details (Optional)', 'simple-download-monitor'), array(&$this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array(&$this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array($this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array($this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_dispatch_meta_box', __('Dispatch or Redirect', 'simple-download-monitor'), array($this, 'display_sdm_dispatch_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array($this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_other_details_meta_box', __('Other Details (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_shortcode_meta_box', __('Shortcodes', 'simple-download-monitor'), array($this, 'display_sdm_shortcode_meta_box'), 'sdm_downloads', 'normal', 'default');
         
     }
 
@@ -249,6 +251,26 @@ class simpleDownloadManager {
         echo '</ol>';
 
         wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
+    }
+
+    public function display_sdm_dispatch_meta_box($post) {
+        $dispatch = get_post_meta($post->ID, 'sdm_item_dispatch', true);
+
+        if ( $dispatch === '' ) {
+            // No value yet (either new item or saved with older version of plugin)
+            $screen = get_current_screen();
+
+            if ( $screen->action === 'add' ) {
+                // New item: set default value as per plugin settings.
+                $main_opts = get_option('sdm_downloads_options');
+                $dispatch = isset($main_opts['general_default_dispatch_value']) && $main_opts['general_default_dispatch_value'];
+            }
+        }
+
+        echo '<input id="sdm_item_dispatch" type="checkbox" name="sdm_item_dispatch" value="yes"' . checked(true, $dispatch, false) . ' />';
+        echo '<label for="sdm_item_dispatch">' . __('Dispatch the file via PHP directly instead of redirecting to it. Dispatching works only for local files.', 'simple-download-monitor') . '</label>';
+
+        wp_nonce_field('sdm_dispatch_box_nonce', 'sdm_dispatch_box_nonce_check');
     }
 
     public function display_sdm_thumbnail_meta_box($post) {  // Thumbnail upload metabox
@@ -378,6 +400,18 @@ class simpleDownloadManager {
         }
     }
 
+    public function sdm_save_dispatch_meta_data($post_id) { // Save "Dispatch or Redirect" metabox
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        if ( !isset($_POST['sdm_dispatch_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_dispatch_box_nonce_check'], 'sdm_dispatch_box_nonce') ) {
+            return;
+        }
+        // Get POST-ed data as boolean value
+        $value = filter_input(INPUT_POST, 'sdm_item_dispatch', FILTER_VALIDATE_BOOLEAN);
+        update_post_meta($post_id, 'sdm_item_dispatch', $value);
+    }
+
     public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return;
@@ -448,6 +482,7 @@ class simpleDownloadManager {
 
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
+        add_settings_field('general_default_dispatch_value', __('PHP dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
         
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -473,26 +508,33 @@ class simpleDownloadManager {
 
     public function hide_download_count_cb() {
         $main_opts = get_option('sdm_downloads_options');
-        echo '<input name="sdm_downloads_options[general_hide_donwload_count]" id="general_hide_donwload_count" type="checkbox" ' . checked(1, isset($main_opts['general_hide_donwload_count']), false) . ' /> ';
-        _e('Hide the download count that is shown in some of the fancy templates.', 'simple-download-monitor');
+        echo '<input name="sdm_downloads_options[general_hide_donwload_count]" id="general_hide_download_count" type="checkbox" ' . checked(1, isset($main_opts['general_hide_donwload_count']), false) . ' /> ';
+        echo '<label for="general_hide_download_count">' . __('Hide the download count that is shown in some of the fancy templates.', 'simple-download-monitor') . '</label>';
+    }
+
+    public function general_default_dispatch_value_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['general_default_dispatch_value']) && $main_opts['general_default_dispatch_value'];
+        echo '<input name="sdm_downloads_options[general_default_dispatch_value]" id="general_default_dispatch_value" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
+        echo '<label for="general_default_dispatch_value">' . __('New download items should be dispatched via PHP by default.', 'simple-download-monitor') . '</label>';
     }
     
     public function admin_tinymce_button_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_tinymce_button']), false) . ' /> ';
-        _e('Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor');
+        echo '<label for="admin_tinymce_button">' . __('Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_log_unique() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_log_unique]" id="admin_log_unique" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_log_unique']), false) . ' /> ';
-        _e('Only logs downloads from unique IP addresses.', 'simple-download-monitor');
+        echo '<label for="admin_log_unique">' . __('Only logs downloads from unique IP addresses.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_no_logs_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_no_logs']), false) . ' /> ';
-        _e('Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor');
+        echo '<label for="admin_no_logs">' . __('Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor') . '</label>';
     }
 
     public function download_button_color_cb() {
@@ -519,12 +561,12 @@ $simpleDownloadManager = new simpleDownloadManager();
 function handle_sdm_download_via_direct_post() {
     if (isset($_REQUEST['smd_process_download']) && $_REQUEST['smd_process_download'] == '1') {
         global $wpdb;
-        $download_id = strip_tags($_REQUEST['download_id']);
+        $download_id = absint($_REQUEST['download_id']);
         $download_title = get_the_title($download_id);
         $download_link = get_post_meta($download_id, 'sdm_upload', true);
 
         //Do some validation checks
-        if (empty($download_id)) {
+        if ( !$download_id ) {
             wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
         }
         if (empty($download_link)) {
@@ -612,9 +654,20 @@ function handle_sdm_download_via_direct_post() {
             }
         }
 
-        //Downoad the item
+        // Should the item be dispatched?
+        $dispatch = apply_filters('sdm_dispatch_downloads', get_post_meta($download_id, 'sdm_item_dispatch', true));
+
+        // Only local file can be dispatched.
+        if ( $dispatch && (stripos($download_link, WP_CONTENT_URL) === 0) ) {
+            // Get file path
+            $file = path_join(WP_CONTENT_DIR, ltrim(substr($download_link, strlen(WP_CONTENT_URL)), '/'));
+            // Try to dispatch file (terminates script execution on success)
+            sdm_dispatch_file($file);
+        }
+
+        // As a fallback or when dispatching is disabled, redirect to the file
+        // (and terminate script execution).
         sdm_redirect_to_url($download_link);
-        exit;
     }
 }
 
