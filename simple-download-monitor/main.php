@@ -3,7 +3,7 @@
 * Plugin Name: Simple Download Monitor
 * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
 * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
-* Version: 3.4.0
+* Version: 3.3.3
 * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
 * Author URI: https://www.tipsandtricks-hq.com/development-center
 * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.0');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.3.3');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -24,6 +24,7 @@ $sdm_db_version = '1.2';
 //File includes
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-utility-functions-admin-side.php');
+include_once('includes/sdm-download-request-handler.php');
 include_once('includes/sdm-logs-list-table.php');
 include_once('includes/sdm-latest-downloads.php');
 include_once('sdm-post-type-and-taxonomy.php');
@@ -80,12 +81,14 @@ function sdm_plugins_loaded_tasks() {
  * * Handle Generic Init tasks
  */
 add_action('init', 'sdm_init_time_tasks');
-
 function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
 }
 
+/*
+ * DB upgrade check
+ */
 function sdm_db_update_check() {
     if (is_admin()) {//Check if DB needs to be upgraded
         global $sdm_db_version;
@@ -209,7 +212,7 @@ class simpleDownloadManager {
         //*****  Create metaboxes for the custom post type
         add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array($this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array($this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_dispatch_meta_box', __('Dispatch or Redirect', 'simple-download-monitor'), array($this, 'display_sdm_dispatch_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_dispatch_meta_box', __('PHP Dispatch or Redirect', 'simple-download-monitor'), array($this, 'display_sdm_dispatch_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array($this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_other_details_meta_box', __('Other Details (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
@@ -268,7 +271,7 @@ class simpleDownloadManager {
         }
 
         echo '<input id="sdm_item_dispatch" type="checkbox" name="sdm_item_dispatch" value="yes"' . checked(true, $dispatch, false) . ' />';
-        echo '<label for="sdm_item_dispatch">' . __('Dispatch the file via PHP directly instead of redirecting to it. Dispatching works only for local files.', 'simple-download-monitor') . '</label>';
+        echo '<label for="sdm_item_dispatch">' . __('Dispatch the file via PHP directly instead of redirecting to it. PHP Dispatching keeps the download URL hidden. Dispatching works only for local files (files that you uploaded to this site via this plugin or media library).', 'simple-download-monitor') . '</label>';
 
         wp_nonce_field('sdm_dispatch_box_nonce', 'sdm_dispatch_box_nonce_check');
     }
@@ -482,7 +485,7 @@ class simpleDownloadManager {
 
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
-        add_settings_field('general_default_dispatch_value', __('PHP dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
+        add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
         
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -516,7 +519,7 @@ class simpleDownloadManager {
         $main_opts = get_option('sdm_downloads_options');
         $value = isset($main_opts['general_default_dispatch_value']) && $main_opts['general_default_dispatch_value'];
         echo '<input name="sdm_downloads_options[general_default_dispatch_value]" id="general_default_dispatch_value" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
-        echo '<label for="general_default_dispatch_value">' . __('New download items should be dispatched via PHP by default.', 'simple-download-monitor') . '</label>';
+        echo '<label for="general_default_dispatch_value">' . __('When you create a new download item, The PHP Dispatching option should be enabled by default. PHP Dispatching keeps the URL of the downloadable files hidden.', 'simple-download-monitor') . '</label>';
     }
     
     public function admin_tinymce_button_cb() {
@@ -556,120 +559,6 @@ class simpleDownloadManager {
 
 //Initialize the simpleDownloadManager class
 $simpleDownloadManager = new simpleDownloadManager();
-
-//Handles the download request
-function handle_sdm_download_via_direct_post() {
-    if (isset($_REQUEST['smd_process_download']) && $_REQUEST['smd_process_download'] == '1') {
-        global $wpdb;
-        $download_id = absint($_REQUEST['download_id']);
-        $download_title = get_the_title($download_id);
-        $download_link = get_post_meta($download_id, 'sdm_upload', true);
-
-        //Do some validation checks
-        if ( !$download_id ) {
-            wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
-        }
-        if (empty($download_link)) {
-            wp_die(__('Error! This download item (' . $download_id . ') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'));
-        }
-
-        //Check download password (if applicable for this download)
-        $post_object = get_post($download_id);// Get post object
-        $post_pass = $post_object->post_password;// Get post password
-        if(!empty($post_pass)){//This download item has a password. So validate the password.
-            $pass_val = $_REQUEST['pass_text'];
-            if(empty($pass_val)){//No password was submitted with the downoad request.
-                wp_die(__('Error! This download requires a password.', 'simple-download-monitor'));
-            }
-            if ($post_pass != $pass_val) { 
-                //Incorrect password submitted.
-                wp_die(__('Error! Incorrect password. This download requires a valid password.', 'simple-download-monitor'));
-            } else {
-                //Password is valid. Go ahead with the download
-            }  
-        }
-        //End of password check
-
-        $ipaddress = $_SERVER["REMOTE_ADDR"];
-        $date_time = current_time('mysql');
-        $visitor_country = sdm_ip_info('Visitor', 'Country');
-
-        if (is_user_logged_in()) {  // Get user name (if logged in)
-            global $current_user;
-            get_currentuserinfo();
-            $visitor_name = $current_user->user_login;
-        } else {
-            $visitor_name = __('Not Logged In', 'simple-download-monitor');
-        }
-
-        // Get option for global disabling of download logging
-        $main_option = get_option('sdm_downloads_options');
-        $no_logs = isset($main_option['admin_no_logs']);
-
-        // Get optoin for logging only unique IPs
-        $unique_ips = isset($main_option['admin_log_unique']);
-
-        // Get post meta for individual disabling of download logging
-        $get_meta = get_post_meta($download_id, 'sdm_item_no_log', true);
-        $item_logging_checked = isset($get_meta) && $get_meta === 'on' ? 'on' : 'off';
-
-        $dl_logging_needed = true;
-
-        // Check if download logs have been disabled (globally or per download item)
-        if ($no_logs === true || $item_logging_checked === 'on') {
-            $dl_logging_needed = false;
-        }
-
-        // Check if we are only logging unique ips
-        if ($unique_ips === true) {
-            $check_ip = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"');
-
-            //This IP is already logged for this download item. No need to log it again.
-            if ($check_ip) {
-                $dl_logging_needed = false;
-            }
-        }
-
-        if ($dl_logging_needed) {
-            // We need to log this download.
-            $table = $wpdb->prefix . 'sdm_downloads';
-            $data = array(
-                'post_id' => $download_id,
-                'post_title' => $download_title,
-                'file_url' => $download_link,
-                'visitor_ip' => $ipaddress,
-                'date_time' => $date_time,
-                'visitor_country' => $visitor_country,
-                'visitor_name' => $visitor_name
-            );
-
-            $data = array_filter($data); //Remove any null values.
-            $insert_table = $wpdb->insert($table, $data);
-
-            if ($insert_table) {
-                //Download request was logged successfully
-            } else {
-                //Failed to log the download request
-                wp_die(__('Error! Failed to log the download request in the database table', 'simple-download-monitor'));
-            }
-        }
-
-        // Should the item be dispatched?
-        $dispatch = apply_filters('sdm_dispatch_downloads', get_post_meta($download_id, 'sdm_item_dispatch', true));
-
-        // Only local file can be dispatched.
-        if ( $dispatch && (stripos($download_link, WP_CONTENT_URL) === 0) ) {
-            // Get file path
-            $file = path_join(WP_CONTENT_DIR, ltrim(substr($download_link, strlen(WP_CONTENT_URL)), '/'));
-            // Try to dispatch file (terminates script execution on success)
-            sdm_dispatch_file($file);
-        }
-
-        // As a fallback or when dispatching is disabled, redirect to the file
-        // (and terminate script execution).
-        sdm_redirect_to_url($download_link);
-    }
-}
 
 // Tinymce Button Populate Post ID's
 add_action('wp_ajax_nopriv_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');

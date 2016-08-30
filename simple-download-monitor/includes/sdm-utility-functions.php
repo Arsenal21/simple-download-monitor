@@ -45,56 +45,6 @@ function sdm_get_password_entry_form($id) {
     return $data;
 }
 
-//Use this function to redirect to a URL
-function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
-    $url = apply_filters('sdm_before_redirect_to_url',$url);
-    if (empty($url)) {
-        echo '<strong>';
-        _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'simple-download-monitor');
-        echo '</strong>';
-        exit;
-    }
-    if (!headers_sent()) {
-        header('Location: ' . $url);
-    } else {
-        echo '<meta http-equiv="refresh" content="' . $delay . ';url=' . $url . '" />';
-    }
-    if ($exit == '1') {//exit
-        exit;
-    }
-}
-
-/**
- * Dispatch file with $filename and terminate script execution, if the file is
- * readable and headers have not been sent yet.
- * @param string $filename
- * @return void
- */
-function sdm_dispatch_file($filename) {
-
-    if ( headers_sent() ) {
-        trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, headers already sent.");
-        return;
-    }
-
-    if ( !is_readable($filename) ) {
-        trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, file is not readable.");
-        return;
-    }
-
-    header('Content-Description: File Transfer');
-    header('Content-Type: application/octet-stream'); // http://stackoverflow.com/a/20509354
-    header('Content-Disposition: attachment; filename="'.basename($filename).'"');
-    header('Expires: 0');
-    header('Cache-Control: must-revalidate');
-    header('Pragma: public');
-    header('Content-Length: ' . filesize($filename));
-
-    ob_end_clean();
-    readfile($filename);
-    exit;
-}
-
 // Helper function to get visitor country (or other info)
 function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
     $output = NULL;

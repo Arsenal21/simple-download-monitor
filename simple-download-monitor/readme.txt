@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.3.0
 Tested up to: 4.6
-Stable tag: 3.4.0
+Stable tag: 3.3.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -41,6 +41,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Track IP addresses of the users who downloaded your files.
 * Track date and time of each file downloads.
 * Track the usernames of the users downloading the files.
+* Option to setup secure downloads for your files (the URL of the downloadable file will be hidden).
 * Option to upload a thumbnail image for each of your downloadable files.
 * Option to use a nice looking template to show your download now buttons.
 * Ability to search and sort your downloadable files in the admin dashboard.
@@ -50,7 +51,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Tinymce button in the WordPress post/page editor so you can easily add the shortcode.
 * You can customize the "Download Now" button text of an item to anything you want.
 * Ability to add the download now buttons to your sidebar widget.
-* Create password protected download now buttons. Users will only be able to download the file if they enter the correct password. [View the tutorial](http://www.tipsandtricks-hq.com/create-a-password-protected-download-file-6838)
+* Create password protected download now buttons. Users will only be able to download the file if they enter the correct password. [View the tutorial](https://www.tipsandtricks-hq.com/create-a-password-protected-download-file-6838)
 * Shortcode to show the download counter of a file. Use it to show off your file download count.
 * Shortcode to show all the downloads from a particular category.
 * Shortcode to embed a file tree browser for your downloadable files. The file browser is ajax based and it shows the files structured by categories.
@@ -167,9 +168,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= 3.4.0 =
-- Local download items can now be dispatched via PHP. This way, the actual URL of the downloaded file is not exposed.
-- Minimum required WP version raised to 3.3.0
+= 3.3.3 =
+- New feature - local download items can now be dispatched via PHP. This way, the actual URL of the downloaded file is not exposed (offers secure download).
+- Minimum required WP version raised to WordPress v3.3
+- WordPress 4.6 compatibility.
 
 = 3.3.2 =
 - Added an option to specify the file size info when editing the item. Size info can be shown in the fancy display template using a shortcode parameter (show_size).
