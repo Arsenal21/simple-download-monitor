@@ -45,20 +45,38 @@ function sdm_get_password_entry_form($id) {
     return $data;
 }
 
-// Helper function to get visitor country (or other info)
-function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
-    $output = NULL;
-    if (filter_var($ip, FILTER_VALIDATE_IP) === FALSE) {
-        $ip = $_SERVER["REMOTE_ADDR"];
-        if ($deep_detect) {
-            if (filter_var(@$_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP))
-                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            if (filter_var(@$_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP))
-                $ip = $_SERVER['HTTP_CLIENT_IP'];
+
+/**
+ * Get remote IP address.
+ * @link http://stackoverflow.com/questions/1634782/what-is-the-most-accurate-way-to-retrieve-a-users-correct-ip-address-in-php
+ *
+ * @param bool $ignore_private_and_reserved Ignore IPs that fall into private or reserved IP ranges.
+ * @return mixed IP address as a string or null, if remote IP address cannot be determined (or is ignored).
+ */
+function sdm_get_ip_address($ignore_private_and_reserved = false) {
+    $flags = $ignore_private_and_reserved ? (FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) : 0;
+    foreach ( array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key ) {
+        if ( array_key_exists($key, $_SERVER) === true ) {
+            foreach ( explode(',', $_SERVER[$key]) as $ip ) {
+                $ip = trim($ip); // just to be safe
+
+                if ( filter_var($ip, FILTER_VALIDATE_IP, $flags) !== false ) {
+                    return $ip;
+                }
+            }
         }
     }
-    $purpose = str_replace(array("name", "\n", "\t", " ", "-", "_"), NULL, strtolower(trim($purpose)));
-    $support = array("country", "countrycode", "state", "region", "city", "location", "address");
+    return null;
+}
+
+/**
+ * Get location information (country or other info) for given IP address.
+ * @param string $ip
+ * @param string $purpose
+ * @return mixed
+ */
+function sdm_ip_info($ip, $purpose = "location") {
+
     $continents = array(
         "AF" => "Africa",
         "AN" => "Antarctica",
@@ -68,47 +86,42 @@ function sdm_ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) {
         "NA" => "North America",
         "SA" => "South America"
     );
-    if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-        $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
-        if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
-            switch ($purpose) {
-                case "location":
-                    $output = array(
-                        "city" => @$ipdat->geoplugin_city,
-                        "state" => @$ipdat->geoplugin_regionName,
-                        "country" => @$ipdat->geoplugin_countryName,
-                        "country_code" => @$ipdat->geoplugin_countryCode,
-                        "continent" => @$continents[strtoupper($ipdat->geoplugin_continentCode)],
-                        "continent_code" => @$ipdat->geoplugin_continentCode
-                    );
-                    break;
-                case "address":
-                    $address = array($ipdat->geoplugin_countryName);
-                    if (@strlen($ipdat->geoplugin_regionName) >= 1)
-                        $address[] = $ipdat->geoplugin_regionName;
-                    if (@strlen($ipdat->geoplugin_city) >= 1)
-                        $address[] = $ipdat->geoplugin_city;
-                    $output = implode(", ", array_reverse($address));
-                    break;
-                case "city":
-                    $output = @$ipdat->geoplugin_city;
-                    break;
-                case "state":
-                    $output = @$ipdat->geoplugin_regionName;
-                    break;
-                case "region":
-                    $output = @$ipdat->geoplugin_regionName;
-                    break;
-                case "country":
-                    $output = @$ipdat->geoplugin_countryName;
-                    break;
-                case "countrycode":
-                    $output = @$ipdat->geoplugin_countryCode;
-                    break;
-            }
+
+    $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+
+    if (@strlen(trim($ipdat->geoplugin_countryCode)) === 2) {
+        switch ($purpose) {
+            case "location":
+                return array(
+                    "city" => @$ipdat->geoplugin_city,
+                    "state" => @$ipdat->geoplugin_regionName,
+                    "country" => @$ipdat->geoplugin_countryName,
+                    "country_code" => @$ipdat->geoplugin_countryCode,
+                    "continent" => @$continents[strtoupper($ipdat->geoplugin_continentCode)],
+                    "continent_code" => @$ipdat->geoplugin_continentCode
+                );
+            case "address":
+                $address = array($ipdat->geoplugin_countryName);
+                if (@strlen($ipdat->geoplugin_regionName) >= 1)
+                    $address[] = $ipdat->geoplugin_regionName;
+                if (@strlen($ipdat->geoplugin_city) >= 1)
+                    $address[] = $ipdat->geoplugin_city;
+                return implode(", ", array_reverse($address));
+            case "city":
+                return @$ipdat->geoplugin_city;
+            case "state":
+                return @$ipdat->geoplugin_regionName;
+            case "region":
+                return @$ipdat->geoplugin_regionName;
+            case "country":
+                return @$ipdat->geoplugin_countryName;
+            case "countrycode":
+                return @$ipdat->geoplugin_countryCode;
         }
     }
-    return $output;
+
+    // Either no info found or invalid $purpose.
+    return null;
 }
 
 /*

@@ -33,9 +33,9 @@ function handle_sdm_download_via_direct_post() {
         }
         //End of password check
 
-        $ipaddress = $_SERVER["REMOTE_ADDR"];
+        $ipaddress = sdm_get_ip_address();
         $date_time = current_time('mysql');
-        $visitor_country = sdm_ip_info('Visitor', 'Country');
+        $visitor_country = $ipaddress ? sdm_ip_info($ipaddress, 'country') : '';
 
         if (is_user_logged_in()) {  // Get user name (if logged in)
             global $current_user;
