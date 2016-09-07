@@ -38,8 +38,7 @@ function handle_sdm_download_via_direct_post() {
         $visitor_country = sdm_ip_info('Visitor', 'Country');
 
         if (is_user_logged_in()) {  // Get user name (if logged in)
-            global $current_user;
-            get_currentuserinfo();
+            $current_user = wp_get_current_user();
             $visitor_name = $current_user->user_login;
         } else {
             $visitor_name = __('Not Logged In', 'simple-download-monitor');
