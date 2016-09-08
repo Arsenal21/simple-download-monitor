@@ -168,6 +168,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP - 3.3.4 =
+- Replace deprecated get_currentuserinfo() with wp_get_current_user()
+- Improve remote IP and location detection
+
 = 3.3.3 =
 - New feature - local download items can now be dispatched via PHP. This way, the actual URL of the downloaded file is not exposed (offers secure download).
 - Minimum required WP version raised to WordPress v3.3
