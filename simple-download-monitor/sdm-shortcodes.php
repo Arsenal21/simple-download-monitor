@@ -19,6 +19,7 @@ function sdm_register_shortcodes() {
     add_shortcode('sdm_show_dl_from_category', 'sdm_handle_category_shortcode'); //For category shortcode
     add_shortcode('sdm_download_categories', 'sdm_download_categories_shortcode'); // Ajax file tree browser
     
+    add_shortcode('sdm_download_categories_list', 'sdm_download_categories_list_shortcode');
 }
 
 // Create Download Shortcode
@@ -301,4 +302,70 @@ function sdm_download_categories_shortcode() {
     }
 
     return '<div class="sdm_object_tree">' . custom_taxonomy_walker('sdm_categories') . '</div>';
+}
+
+
+/**
+ * Return HTML list with SDM categories rendered according to $atts.
+ * @param array $atts
+ * @param int $parent
+ * @return string
+ */
+function sdm_download_categories_list_walker($atts, $parent = 0) {
+
+    $count = (bool) $atts['count'];
+    $hierarchical = (bool) $atts['hierarchical'];
+    $show_empty = (bool) $atts['empty'];
+    $list_tag = $atts['numbered'] ? 'ol' : 'ul';
+
+    // Get terms (check if has parent)
+    $terms = get_terms(array(
+        'taxonomy' => 'sdm_categories',
+        'parent' => $parent,
+        'hide_empty' => !$show_empty
+    ));
+
+    // Return empty string, if no terms found.
+    if ( empty($terms) ) { return ''; }
+
+    // Produce list of download categories under $parent.
+    $out .= '<' . $list_tag . '>';
+
+    foreach ( $terms as $term ) {
+        $out .= '<li>'
+                . '<a href="' . get_term_link($term) . '">' . $term->name . '</a>' // link
+                . ( $count ? (' <span>(' . $term->count . ')</span>') : '') // count
+                . ( $hierarchical ? sdm_download_categories_list_walker($atts, $term->term_id) : '' ) // subcategories
+             . '</li>'
+        ;
+    }
+
+    $out .= '</' . $list_tag . '>';
+
+    return $out;
+}
+
+
+/**
+ * Return output of `sdm_download_categories_list` shortcode.
+ * @param array $attributes
+ * @return string
+ */
+function sdm_download_categories_list_shortcode($attributes) {
+
+    $atts = shortcode_atts(
+        array(
+            'class' => 'sdm-download-categories', // wrapper class
+            'empty' => '0', // show empty categories
+            'numbered' => '0', // use <ol> instead of <ul> to wrap the list
+            'count' => '0', // display count of items in every category
+            'hierarchical' => '1', // display subcategories as well
+        ), $attributes
+    );
+
+    return
+          '<div class="' . esc_attr($atts['class']) . '">'
+        . sdm_download_categories_list_walker($atts)
+        . '</div>'
+    ;
 }
