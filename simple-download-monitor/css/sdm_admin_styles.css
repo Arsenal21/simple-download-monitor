@@ -20,3 +20,12 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+
+/* Download button TinyMCE icon */
+i.mce-i-sdm-download::before {
+    content: "";
+
+    font: 400 20px/1 dashicons;
+    vertical-align: top;
+}

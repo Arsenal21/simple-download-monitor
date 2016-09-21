@@ -742,7 +742,6 @@ if ($tiny_button_option != true) {
 
     function sdm_downloads_register_button($buttons) {
 
-        //array_push( $buttons, 'sdm_downloads' );
         $buttons[] = 'sdm_downloads';
         return $buttons;
     }
