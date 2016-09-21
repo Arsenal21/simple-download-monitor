@@ -1,10 +1,10 @@
 === Simple Download Monitor ===
-Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution
+Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, chesio
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 3.3.0
 Tested up to: 4.6
-Stable tag: 3.3.3
+Stable tag: 3.3.4
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -168,9 +168,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP - 3.3.4 =
+= 3.3.4 =
 - Replace deprecated get_currentuserinfo() with wp_get_current_user()
 - Improve remote IP and location detection
+- Added a new shortcode to show a simple list of the download categories
+- Fix: avoid undefined variable notices in sdm_pop_cats_ajax_call()
 
 = 3.3.3 =
 - New feature - local download items can now be dispatched via PHP. This way, the actual URL of the downloaded file is not exposed (offers secure download).
