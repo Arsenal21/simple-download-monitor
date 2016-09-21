@@ -629,9 +629,10 @@ function sdm_pop_cats_ajax_call() {
         'order' => 'ASC')
     );
 
+    $final_array = array();
+
     // Loop results
     foreach ($posts as $post) {
-
         // Create array of variables to pass to js
         $final_array[] = array('id' => $post->ID, 'permalink' => get_permalink($post->ID), 'title' => $post->post_title);
     }
