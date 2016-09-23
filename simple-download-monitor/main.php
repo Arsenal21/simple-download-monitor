@@ -199,7 +199,7 @@ class simpleDownloadManager {
     public function sdm_admin_styles() {
 
         wp_enqueue_style('thickbox');  // Needed for media upload thickbox
-        wp_enqueue_style('sdm_admin_styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_admin_styles.css');  // Needed for media upload thickbox
+        wp_enqueue_style('sdm_admin_styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_admin_styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION);  // Needed for media upload thickbox
     }
 
     public function sdm_create_menu_pages() {
