@@ -112,6 +112,8 @@ Example Shortcode Usage:
 
 `[sdm_download id="271" fancy="0"]`  (embed a plain download button/link for a file)
 
+`[sdm_download id="271" fancy="0" color="blue"]`  (embed a plain download button/link for a file with a blue color)
+
 **D) Download logs**
 
 You can check the download stats from the "Downloads->Logs" interface. It shows the number of downloads for each files, IP address of the user who downloaded it, date and time of the download.

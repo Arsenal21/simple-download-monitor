@@ -62,33 +62,21 @@ function sdm_generate_fancy1_category_display_output($get_posts, $args) {
 
 function sdm_generate_fancy1_display_output($args) {
 
-    //Get the download ID
-    $id = $args['id'];
-    if (!is_numeric($id)) {
+    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts($args);
+
+    // Make shortcode attributes available in function local scope.
+    extract($shortcode_atts);
+
+    // Check the download ID
+    if ( empty($id) ) {
         return '<div class="sdm_error_msg">Error! The shortcode is missing the ID parameter. Please refer to the documentation to learn the shortcode usage.</div>';
     }
 
-    // See if user color option is selected
+    // Read plugin settings
     $main_opts = get_option('sdm_downloads_options');
-    $color_opt = $main_opts['download_button_color'];
-    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
-    //See if new window parameter is seet
-    $window_target = '';
-    if (isset($args['new_window']) && $args['new_window'] == '1') {
-        $window_target = 'target="_blank"';
-    }
-
-    //Get the download button text
-    $button_text = isset($args['button_text']) ? $args['button_text'] : '';
-    if (empty($button_text)) {//Use the default text for the button
-        $button_text_string = __('Download Now!', 'simple-download-monitor');
-    } else {//Use the custom text
-        $button_text_string = $button_text;
-    }
-
-    // Get permalink
-    $permalink = get_permalink($id);
+    // See if new window parameter is set
+    $window_target = empty($new_window) ? '_self' : '_blank';
 
     // Get CPT thumbnail
     $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);    
@@ -96,7 +84,6 @@ function sdm_generate_fancy1_display_output($args) {
 
     // Get CPT title
     $item_title = get_the_title($id);
-    $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
 
     // Get CPT description
     $isset_item_description = sdm_get_item_description_output($id);
@@ -104,7 +91,7 @@ function sdm_generate_fancy1_display_output($args) {
     // Get download button
     $homepage = get_bloginfo('url');
     $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
-    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
+    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
     //Get item file size
     $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
@@ -132,7 +119,7 @@ function sdm_generate_fancy1_display_output($args) {
     $output .= '<div class="sdm_download_item ' . $css_class . '">';
     $output .= '<div class="sdm_download_item_top">';
     $output .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
-    $output .= '<div class="sdm_download_title">' . $isset_item_title . '</div>';
+    $output .= '<div class="sdm_download_title">' . $item_title . '</div>';
     $output .= '</div>'; //End of .sdm_download_item_top
     $output .= '<div style="clear:both;"></div>';
    
