@@ -180,8 +180,10 @@ class simpleDownloadManager {
                 download_title: '<?php _e('Download Title', 'simple-download-monitor') ?>',
                 include_fancy: '<?php _e('Include Fancy Box', 'simple-download-monitor') ?>',
                 open_new_window: '<?php _e('Open New Window', 'simple-download-monitor') ?>',
+                button_color: '<?php _e('Button Color', 'simple-download-monitor'); ?>',
                 insert_shortcode: '<?php _e('Insert SDM Shortcode', 'simple-download-monitor') ?>'
             };
+            var sdm_button_colors = <?php echo wp_json_encode(sdm_get_download_button_colors()); ?>;
         </script>
         <?php
     }
