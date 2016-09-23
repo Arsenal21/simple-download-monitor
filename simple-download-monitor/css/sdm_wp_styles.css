@@ -40,6 +40,11 @@
 .sdm_download_link{
     display: block;
 }
+.sdm_download_link:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 .sdm_download_button{
     display: inline-block;    
 }
