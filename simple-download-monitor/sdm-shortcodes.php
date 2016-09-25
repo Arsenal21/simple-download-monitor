@@ -329,7 +329,7 @@ function sdm_download_categories_list_walker($atts, $parent = 0) {
     if ( empty($terms) ) { return ''; }
 
     // Produce list of download categories under $parent.
-    $out .= '<' . $list_tag . '>';
+    $out = '<' . $list_tag . '>';
 
     foreach ( $terms as $term ) {
         $out .= '<li>'
