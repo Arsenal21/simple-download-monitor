@@ -22,15 +22,56 @@ function sdm_register_shortcodes() {
     add_shortcode('sdm_download_categories_list', 'sdm_download_categories_list_shortcode');
 }
 
+
+/**
+ * Process (sanitize) download button shortcode attributes:
+ * - convert "id" to absolute integer
+ * - set "color" to color from settings or default color, if empty
+ * @param array $atts
+ * @return array
+ */
+function sanitize_sdm_create_download_shortcode_atts($atts) {
+
+    // First, make sure all values are set (use defaults, when nothing is provided).
+    $shortcode_atts = shortcode_atts(
+        array(
+            'id' => '',
+            'fancy' => '0',
+            'button_text' => __('Download Now!', 'simple-download-monitor'),
+            'new_window' => '',
+            'color' => '',
+        ), $atts
+    );
+
+    // Sanitize download item ID
+    $shortcode_atts['id'] = absint($shortcode_atts['id']);
+
+    // See if user color option is selected
+    $main_opts = get_option('sdm_downloads_options');
+
+    if ( empty($shortcode_atts['color']) ) {
+        // No color provided by shortcode, read color from plugin settings.
+        $shortcode_atts['color']
+            = isset($main_opts['download_button_color'])
+            ? strtolower($main_opts['download_button_color']) // default values needs to be lowercased
+            : 'green'
+        ;
+    }
+
+    // Remove spaces from color key to make a proper CSS class name.
+    $shortcode_atts['color'] = str_replace(' ', '', $shortcode_atts['color']);
+
+    return $shortcode_atts;
+}
+
+
 // Create Download Shortcode
 function sdm_create_download_shortcode($atts) {
 
-    extract(shortcode_atts(array(
-        'id' => 'id',
-        'fancy' => '0',
-        'button_text' => '',
-        'new_window' => '',
-                    ), $atts));
+    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts($atts);
+
+    // Make shortcode attributes available in function local scope.
+    extract($shortcode_atts);
 
     if (empty($id)) {
         return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
@@ -41,26 +82,13 @@ function sdm_create_download_shortcode($atts) {
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;
     // Get CPT title
     $item_title = get_the_title($id);
-    $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
-
-    // See if user color option is selected
-    $main_opts = get_option('sdm_downloads_options');
-    $color_opt = $main_opts['download_button_color'];
-    $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
 
     //*** Generate the download now button code ***
-    $window_target = '';
-    if (!empty($new_window)) {
-        $window_target = 'target="_blank"';
-    }
-    if (empty($button_text)) {//Use the default text for the button
-        $button_text_string = __('Download Now!', 'simple-download-monitor');
-    } else {//Use the custom text
-        $button_text_string = $button_text;
-    }
+    $window_target = empty($new_window) ? '_self' : '_blank';
+
     $homepage = get_bloginfo('url');
     $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
-    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
+    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
         $download_button_code = sdm_get_password_entry_form($id);
@@ -68,19 +96,20 @@ function sdm_create_download_shortcode($atts) {
     //End of download now button code generation
 
     $output = '';
-    if ($fancy == '0') {
-        $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
-    } else if ($fancy == '1') {
-        include_once('includes/templates/fancy1/sdm-fancy-1.php');
-        $output .= sdm_generate_fancy1_display_output($atts);
-        $output .= '<div class="sdm_clear_float"></div>';
-    } else if ($fancy == '2') {
-        include_once('includes/templates/fancy2/sdm-fancy-2.php');
-        $output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
-        $output .= sdm_generate_fancy2_display_output($atts);
-        $output .= '<div class="sdm_clear_float"></div>';
-    } else {//Default output is the standard download now button (fancy 0)
-        $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
+    switch ( $fancy ) {
+        case '1':
+            include_once('includes/templates/fancy1/sdm-fancy-1.php');
+            $output .= sdm_generate_fancy1_display_output($shortcode_atts);
+            $output .= '<div class="sdm_clear_float"></div>';
+            break;
+        case '2':
+            include_once('includes/templates/fancy2/sdm-fancy-2.php');
+            $output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
+            $output .= sdm_generate_fancy2_display_output($shortcode_atts);
+            $output .= '<div class="sdm_clear_float"></div>';
+            break;
+        default: // Default output is the standard download now button (fancy 0)
+            $output = '<div class="sdm_download_link">' . $download_button_code . '</div>';
     }
 
     return apply_filters('sdm_download_shortcode_output', $output, $atts);
@@ -88,15 +117,14 @@ function sdm_create_download_shortcode($atts) {
 
 function sdm_create_simple_download_link($atts){
     extract(shortcode_atts(array(
-        'id' => 'id',
+        'id' => '',
     ), $atts));
 
     if (empty($id)) {
         return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
     }
     
-    $download_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
-    return $download_url;
+    return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
 }
 
 // Create Counter Shortcode

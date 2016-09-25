@@ -91,31 +91,36 @@ jQuery(function(){
 			}
 		}
 	);
+
+        var button_color_options = '';
+        for ( var color in sdm_button_colors ) {
+            button_color_options += '<option value="' + color + '">' + sdm_button_colors[color] + '</option>';
+        }
 				
 	// Instantiate a form in the wp thickbox window (hidden at start)		
     var form = jQuery('<div id="highlight-form"><div id="sdm_tinymce_postids" style="display:none;"></div>\
 						<div id="sdm_select_title" style="margin-top:20px;">'+tinymce_langs.select_download_item+'</div>\
 						<table id="highlight-table" class="form-table" style="text-align: left">\
-							\
-							\
 						<tr>\
-						<th><label class="title" for="highlight-bg">'+tinymce_langs.download_title+'</label></th>\
-							<td><select name="sdm_select" id="sdm_select">\
-							</select><br />\
+						    <th><label class="title" for="sdm_select">'+tinymce_langs.download_title+'</label></th>\
+						    <td><select name="sdm_select" id="sdm_select"></select></td>\
 						</tr>\
 						<tr>\
-						<th><label class="sdm_fancy" for "sdm_fancy_option">'+tinymce_langs.include_fancy+'</th>\
-							<td><input type="checkbox" name="sdm_fancy_cb" id="sdm_fancy_cb" />\
+						    <th><label class="sdm_fancy" for="sdm_fancy_cb">'+tinymce_langs.include_fancy+'</th>\
+						    <td><input type="checkbox" name="sdm_fancy_cb" id="sdm_fancy_cb" /></td>\
 						</tr>\
 						<tr>\
-						<th><label class="sdm_new_window" for "sdm_open_new_window">'+tinymce_langs.open_new_window+'</th>\
-							<td><input type="checkbox" name="sdm_open_new_window_cb" id="sdm_open_new_window_cb" />\
+						    <th><label class="color" for="sdm_button_color">'+tinymce_langs.button_color+'</label></th>\
+						    <td><select name="sdm_button_color" id="sdm_button_color">' + button_color_options + '</select></td>\
+						</tr>\
+						<tr>\
+						    <th><label class="sdm_new_window" for="sdm_open_new_window_cb">'+tinymce_langs.open_new_window+'</th>\
+						    <td><input type="checkbox" name="sdm_open_new_window_cb" id="sdm_open_new_window_cb" /></td>\
 						</tr>\
                                                 </table>\
 						<p class="submit">\
 							<input type="button" id="sdm-tinymce-submit" class="button-primary" value="'+tinymce_langs.insert_shortcode+'" name="submit" style=""/>\
 						</p>\
-						<p></p>\
 					   </div>');
 
     var table = form.find('table');
@@ -124,25 +129,30 @@ jQuery(function(){
     // handles the click event of the submit button
     form.find('#sdm-tinymce-submit').click(function(){
 
-        fancy_cb = jQuery('#sdm_fancy_cb').is(':checked');
-        new_window_cb = jQuery('#sdm_open_new_window_cb').is(':checked');
-        post_id = jQuery('#sdm_select').find(":selected").val();  // Get selected CPT item title value (item id)
+        var fancy_cb = jQuery('#sdm_fancy_cb').is(':checked');
+        var new_window_cb = jQuery('#sdm_open_new_window_cb').is(':checked');
+        var post_id = jQuery('#sdm_select').find(":selected").val();  // Get selected CPT item title value (item id)
+        var color = jQuery('#sdm_button_color').find(":selected").val();  // Get selected CPT item title value (item id)
 
         //Build the shortcode with parameters according to the options
-        shortcode = '[sdm_download id="'+post_id+'"';
+        var shortcode = '[sdm_download id="'+post_id+'"';
 
         //Add the fancy parameter to the shortcode (if needed
-        if (jQuery('#sdm_fancy_cb').is(':checked')) {
+        if ( fancy_cb ) {
             shortcode = shortcode + ' fancy="1"';
         } else {
             shortcode = shortcode + ' fancy="0"';
         }
           
         //Add the new_window parameter to the shortcode (if needed)
-        if (jQuery('#sdm_open_new_window_cb').is(':checked')) {
+        if ( new_window_cb ) {
             shortcode = shortcode + ' new_window="1"';
         }
         
+        if ( color ) {
+            shortcode += ' color="' + color + '"';
+        }
+
         shortcode = shortcode + ']';//End the shortcode
 
         // inserts the shortcode into the active editor

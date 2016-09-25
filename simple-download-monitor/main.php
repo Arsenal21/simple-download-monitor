@@ -180,8 +180,10 @@ class simpleDownloadManager {
                 download_title: '<?php _e('Download Title', 'simple-download-monitor') ?>',
                 include_fancy: '<?php _e('Include Fancy Box', 'simple-download-monitor') ?>',
                 open_new_window: '<?php _e('Open New Window', 'simple-download-monitor') ?>',
+                button_color: '<?php _e('Button Color', 'simple-download-monitor'); ?>',
                 insert_shortcode: '<?php _e('Insert SDM Shortcode', 'simple-download-monitor') ?>'
             };
+            var sdm_button_colors = <?php echo wp_json_encode(sdm_get_download_button_colors()); ?>;
         </script>
         <?php
     }
@@ -542,17 +544,16 @@ class simpleDownloadManager {
 
     public function download_button_color_cb() {
         $main_opts = get_option('sdm_downloads_options');
-        $color_opt = $main_opts['download_button_color'];
-        $color_opts = array(__('Green', 'simple-download-monitor'), __('Blue', 'simple-download-monitor'), __('Purple', 'simple-download-monitor'), __('Teal', 'simple-download-monitor'), __('Dark Blue', 'simple-download-monitor'), __('Black', 'simple-download-monitor'), __('Grey', 'simple-download-monitor'), __('Pink', 'simple-download-monitor'), __('Orange', 'simple-download-monitor'), __('White', 'simple-download-monitor'));
+        // Read current color class.
+        $color_opt = isset($main_opts['download_button_color']) ? $main_opts['download_button_color'] : null;
+        $color_opts = sdm_get_download_button_colors();
+
         echo '<select name="sdm_downloads_options[download_button_color]" id="download_button_color" class="sdm_opts_ajax_dropdowns">';
-        if (isset($color_opt)) {
-            echo '<option value="' . $color_opt . '" selected="selected">' . $color_opt . ' (' . __('current', 'simple-download-monitor') . ')</option>';
-        }
-        foreach ($color_opts as $color) {
-            echo '<option value="' . $color . '">' . $color . '</option>';
+        foreach ($color_opts as $color_class => $color_name) {
+            echo '<option value="' . $color_class . '"' . selected($color_class, $color_opt, false) . '>' . $color_name . '</option>';
         }
         echo '</select> ';
-        _e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
+        esc_html_e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
     }
 
 }//End of simpleDownloadManager class
