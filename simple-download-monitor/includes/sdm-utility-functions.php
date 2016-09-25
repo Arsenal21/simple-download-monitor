@@ -7,16 +7,16 @@
  */
 function sdm_get_download_button_colors() {
     return apply_filters('sdm_download_button_color_options', array(
-        'Green'     => __('Green', 'simple-download-monitor'),
-        'Blue'      => __('Blue', 'simple-download-monitor'),
-        'Purple'    => __('Purple', 'simple-download-monitor'),
-        'Teal'      => __('Teal', 'simple-download-monitor'),
-        'Dark Blue' => __('Dark Blue', 'simple-download-monitor'),
-        'Black'     => __('Black', 'simple-download-monitor'),
-        'Grey'      => __('Grey', 'simple-download-monitor'),
-        'Pink'      => __('Pink', 'simple-download-monitor'),
-        'Orange'    => __('Orange', 'simple-download-monitor'),
-        'White'     => __('White', 'simple-download-monitor')
+        'green'     => __('Green', 'simple-download-monitor'),
+        'blue'      => __('Blue', 'simple-download-monitor'),
+        'purple'    => __('Purple', 'simple-download-monitor'),
+        'teal'      => __('Teal', 'simple-download-monitor'),
+        'darkblue' => __('Dark Blue', 'simple-download-monitor'),
+        'black'     => __('Black', 'simple-download-monitor'),
+        'grey'      => __('Grey', 'simple-download-monitor'),
+        'pink'      => __('Pink', 'simple-download-monitor'),
+        'orange'    => __('Orange', 'simple-download-monitor'),
+        'white'     => __('White', 'simple-download-monitor')
     ));
 }
 

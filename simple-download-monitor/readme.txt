@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.6
-Stable tag: 3.3.4
+Stable tag: 3.3.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -169,6 +169,14 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.3.5 =
+- Download button color can now be specified in the shortcode for fancy 1 and the standard download button.
+- Added clearfix to .sdm_download_link container for better rendering in mobile devices.
+- The button text color CSS has been sharpened a little to make it look nicer.
+- Fixed an undefined variable notice.
+- Updated TinyMCE button icon to a better one.
+- Minimum WordPress version requirement changed to WP4.1
 
 = 3.3.4 =
 - Replace deprecated get_currentuserinfo() with wp_get_current_user()

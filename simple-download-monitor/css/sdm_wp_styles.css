@@ -121,7 +121,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#cae285), to(#9fcb57)); /*  WebKit */
     background: -moz-linear-gradient(top,  #cae285, #9fcb57);
     border-color: #adc671 #98b65b #87aa4a;
-    color: #5d7731;
+    color: #2F4014 !important;
     text-shadow: 0 1px 0 #cfe5a4;
     -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
     -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
@@ -145,7 +145,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#abe4f8), to(#6fcef3)); /*  WebKit */
     background: -moz-linear-gradient(top,  #abe4f8, #6fcef3);
     border-color: #8dc5da #76b7cf #63abc7;
-    color: #42788e;
+    color: #1E4657 !important;
     text-shadow: 0 1px 0 #b6e6f9;
     -webkit-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #c0ebfa;
     -moz-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #c0ebfa;
@@ -166,7 +166,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#e8c4e4), to(#d494ce)); /*  WebKit */
     background: -moz-linear-gradient(top,  #e8c4e4, #d494ce);
     border-color: #bc9db9 #ad89aa #a1799d;
-    color: #7b5777;
+    color: #4D334A !important;
     text-shadow: 0 1px 0 #eacae6;
     -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #eed3eb;
     -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #eed3eb;
@@ -190,7 +190,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#b7f2f4), to(#7ce7ea)); /*  WebKit */
     background: -moz-linear-gradient(top,  #b7f2f4, #7ce7ea);
     border-color: #90c6c8 #78bdc0 #65b6ba;
-    color: #437b7d;
+    color: #2B5052 !important;
     text-shadow: 0 1px 0 #bef3f5;
     -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #c9f5f7;
     -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #c9f5f7;
@@ -211,7 +211,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#becbd6), to(#88a1b4)); /*  WebKit */
     background: -moz-linear-gradient(top,  #becbd6, #88a1b4);
     border-color: #a2afb8 #8696a1 #6f818f;
-    color: #515f6a;
+    color: #26313B !important;
     text-shadow: 0 1px 0 #c4d0d9;
     -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
     -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
@@ -232,7 +232,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#5e5e5e), to(#434343)); /*  WebKit */
     background: -moz-linear-gradient(top,  #5e5e5e, #434343);
     border-color: #4c4c4c #313131 #1f1f1f;
-    color: #fff;
+    color: #FFFFFF !important;
     text-shadow: 0 1px 0 #2e2e2e;
     -webkit-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
     -moz-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
@@ -252,7 +252,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#cacaca), to(#aeaeae)); /*  WebKit */
     background: -moz-linear-gradient(top,  #cacaca, #aeaeae);
     border-color: #b5b5b5 #a1a1a1 #8f8f8f;
-    color: #555;
+    color: #555555 !important;
     text-shadow: 0 1px 0 #d4d4d4;
     -webkit-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
     -moz-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
@@ -276,7 +276,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#f78297), to(#f56778)); /*  WebKit */
     background: -moz-linear-gradient(top,  #f78297, #f56778);
     border-color: #df6f8b #da5f75 #d55061;
-    color: #913944;
+    color: #4F272C !important;
     text-shadow: 0 1px 0 #f89ca9;
     -webkit-box-shadow: 0 1px 1px #c1c1c1, inset 0 1px 0 #f9a1b1;
     -moz-box-shadow: 0 1px 1px #c1c1c1, inset 0 1px 0 #f9a1b1;
@@ -300,7 +300,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#feda71), to(#febb4a)); /*  WebKit */
     background: -moz-linear-gradient(top,  #feda71, #febb4a);
     border-color: #f5b74e #e5a73e #d6982f;
-    color: #996633;
+    color: #4D3217 !important;
     text-shadow: 0 1px 0 #fedd9b;
     -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
     -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
@@ -323,7 +323,7 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#f0f0f0)); /*  WebKit */
     background: -moz-linear-gradient(top,  #f9f9f9, #f0f0f0);
     border-color: #dedede #d8d8d8 #d3d3d3;
-    color: #555;
+    color: #555555 !important;
     text-shadow: 0 1px 0 #fff;
     -webkit-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
     -moz-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
