@@ -10,9 +10,9 @@
          */
         init : function(ed, url) {
             ed.addButton('sdm_downloads', {
-                title : 'SDM Downloads',
-                cmd : 'sdm_downloads',
-                image : url + '/img/sdm_downloads.png'
+                icon: 'sdm-download',
+                tooltip : 'SDM Downloads Button',
+                cmd : 'sdm_downloads'
             });
  
             ed.addCommand('sdm_downloads', function() {
