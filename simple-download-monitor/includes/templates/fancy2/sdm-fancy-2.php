@@ -10,23 +10,9 @@ function sdm_generate_fancy2_latest_downloads_display_output($get_posts, $args) 
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
     foreach ($get_posts as $item) {
-        $id = $item->ID;  //Get the post ID
-        $button_text = isset($args['button_text'])? $args['button_text'] : '';
-        $new_window = isset($args['new_window'])? $args['new_window'] : '';
-        $show_size = isset($args['show_size'])? $args['show_size'] : '';
-        $show_version = isset($args['show_version'])? $args['show_version'] : '';
-    
-        //Create a args array
-        $args = array(
-            'id' => $id,
-            'fancy' => '2',
-            'button_text' => $button_text,
-            'new_window' => $new_window,
-            'css_class' => 'sdm_fancy2_grid',
-            'show_size' => $show_size,
-            'show_version' => $show_version,            
+        $output .= sdm_generate_fancy2_display_output(
+            array_merge($args, array('id' => $item->ID))
         );
-        $output .= sdm_generate_fancy2_display_output($args);
 
         if ($count % 3 == 0) {//Clear after every 3 items in the grid
             $output .= '<div class="sdm_clear_float"></div>';
@@ -46,23 +32,9 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
     foreach ($get_posts as $item) {
-        $id = $item->ID;  //Get the post ID
-        $button_text = isset($args['button_text'])? $args['button_text'] : '';
-        $new_window = isset($args['new_window'])? $args['new_window'] : '';
-        $show_size = isset($args['show_size'])? $args['show_size'] : '';
-        $show_version = isset($args['show_version'])? $args['show_version'] : '';
-        
-        //Create a args array
-        $args = array(
-            'id' => $id,
-            'fancy' => '2',
-            'button_text' => $button_text,
-            'new_window' => $new_window,
-            'css_class' => 'sdm_fancy2_grid',
-            'show_size' => $show_size,
-            'show_version' => $show_version,            
+        $output .= sdm_generate_fancy2_display_output(
+            array_merge($args, array('id' => $item->ID))
         );
-        $output .= sdm_generate_fancy2_display_output($args);
 
         if ($count % 3 == 0) {//Clear after every 3 items in the grid
             $output .= '<div class="sdm_clear_float"></div>';
@@ -80,9 +52,19 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
  * id, fancy, button_text, new_window
  */
 
-function sdm_generate_fancy2_display_output($args) {
+function sdm_generate_fancy2_display_output($atts) {
 
-    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts($args);
+    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts(
+        shortcode_atts(array(
+            'id' => '',
+            'button_text' => __('Download Now!', 'simple-download-monitor'),
+            'new_window' => '',
+            'color' => '',
+            'css_class' => 'sdm_fancy2_grid',
+            'show_size' => '',
+            'show_version' => '',
+        ), $atts)
+    );
 
     // Make shortcode attributes available in function local scope.
     extract($shortcode_atts);
@@ -118,14 +100,13 @@ function sdm_generate_fancy2_display_output($args) {
 
     //Get item file size
     $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
-    $isset_item_file_size = (isset($args['show_size']) && isset($item_file_size)) ? $item_file_size : '';//check if show_size is enabled and if there is a size value
+    $isset_item_file_size = ($show_size && isset($item_file_size)) ? $item_file_size : '';//check if show_size is enabled and if there is a size value
 
     //Get item version
     $item_version = get_post_meta($id, 'sdm_item_version', true);
-    $isset_item_version = (isset($args['show_version']) && isset($item_version)) ? $item_version : '';//check if show_version is enabled and if there is a version value
+    $isset_item_version = ($show_version && isset($item_version)) ? $item_version : '';//check if show_version is enabled and if there is a version value
 
     
-    $css_class = isset($args['css_class']) ? $args['css_class'] : '';
     $output = '';
     $output .= '<div class="sdm_fancy2_item ' . $css_class . '">';
     $output .= '<div class="sdm_fancy2_wrapper">';

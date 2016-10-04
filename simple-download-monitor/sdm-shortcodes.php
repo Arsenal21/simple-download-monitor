@@ -32,26 +32,15 @@ function sdm_register_shortcodes() {
  */
 function sanitize_sdm_create_download_shortcode_atts($atts) {
 
-    // First, make sure all values are set (use defaults, when nothing is provided).
-    $shortcode_atts = shortcode_atts(
-        array(
-            'id' => '',
-            'fancy' => '0',
-            'button_text' => __('Download Now!', 'simple-download-monitor'),
-            'new_window' => '',
-            'color' => '',
-        ), $atts
-    );
-
     // Sanitize download item ID
-    $shortcode_atts['id'] = absint($shortcode_atts['id']);
+    $atts['id'] = absint($atts['id']);
 
     // See if user color option is selected
     $main_opts = get_option('sdm_downloads_options');
 
-    if ( empty($shortcode_atts['color']) ) {
+    if ( empty($atts['color']) ) {
         // No color provided by shortcode, read color from plugin settings.
-        $shortcode_atts['color']
+        $atts['color']
             = isset($main_opts['download_button_color'])
             ? strtolower($main_opts['download_button_color']) // default values needs to be lowercased
             : 'green'
@@ -59,16 +48,24 @@ function sanitize_sdm_create_download_shortcode_atts($atts) {
     }
 
     // Remove spaces from color key to make a proper CSS class name.
-    $shortcode_atts['color'] = str_replace(' ', '', $shortcode_atts['color']);
+    $atts['color'] = str_replace(' ', '', $atts['color']);
 
-    return $shortcode_atts;
+    return $atts;
 }
 
 
 // Create Download Shortcode
 function sdm_create_download_shortcode($atts) {
 
-    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts($atts);
+    $shortcode_atts = sanitize_sdm_create_download_shortcode_atts(
+        shortcode_atts(array(
+            'id' => '',
+            'fancy' => '0',
+            'button_text' => __('Download Now!', 'simple-download-monitor'),
+            'new_window' => '',
+            'color' => '',
+        ), $atts)
+    );
 
     // Make shortcode attributes available in function local scope.
     extract($shortcode_atts);
@@ -155,7 +152,7 @@ function sdm_handle_category_shortcode($args) {
         'category_slug' => '',
         'category_id' => '',
         'fancy' => '0',
-        'button_text' => '',
+        'button_text' => __('Download Now!', 'simple-download-monitor'),
         'new_window' => '',
         'orderby' => 'post_date',
 	'order' => 'DESC',
@@ -170,12 +167,14 @@ function sdm_handle_category_shortcode($args) {
     if (empty($category_slug) && empty($category_id)) {
         return '<p style="color: red;">' . __('Error! You must enter a category slug OR a category id with this shortcode. Refer to the documentation for usage instructions.', 'simple-download-monitor') . '</p>';
     }
-    // Else if both category slug AND category id are defined... return error
-    else if (!empty($category_slug) && !empty($category_id)) {
+
+    // If both category slug AND category id are defined... return error
+    if (!empty($category_slug) && !empty($category_id)) {
         return '<p style="color: red;">' . __('Error! Please enter a category slug OR id; not both.', 'simple-download-monitor') . '</p>';
     }
+
     // Else setup query arguments for category_slug
-    else if (!empty($category_slug) && empty($category_id)) {
+    if (!empty($category_slug) && empty($category_id)) {
 
         $field = 'slug';
         $terms = $category_slug;
@@ -225,53 +224,37 @@ function sdm_handle_category_shortcode($args) {
 
         $output = '';
 
-        // Setup download location
-        $homepage = get_bloginfo('url');
-
         // See if user color option is selected
         $main_opts = get_option('sdm_downloads_options');
         $color_opt = $main_opts['download_button_color'];
-        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : __('green', 'simple-download-monitor');
+        $def_color = isset($color_opt) ? str_replace(' ', '', strtolower($color_opt)) : 'green';
 
-        $window_target = '';
-        if (!empty($new_window)) {
-            $window_target = 'target="_blank"';
-        }
+        if ($fancy == '0') {
 
-        if (empty($button_text)) {//Use the default text for the button
-            $button_text_string = __('Download Now!', 'simple-download-monitor');
-        } else {//Use the custom text
-            $button_text_string = $button_text;
-        }
+            // Setup download location
+            $homepage = get_bloginfo('url');
 
-        // Iterate cpt's
-        foreach ($get_posts as $item) {
+            $window_target = empty($new_window) ? '_self' : '_blank';
 
-            // Set download location
-            $id = $item->ID;  // get each cpt ID
-            $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
+            // Iterate cpt's
+            foreach ($get_posts as $item) {
 
-            // Get each cpt title
-            $item_title = get_the_title($id);
-            $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
+                // Set download location
+                $id = $item->ID;  // get each cpt ID
+                $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
 
-            // Get CPT thumbnail (for fancy option)
-            $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
-            $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
+                // Get each cpt title
+                $item_title = get_the_title($id);
 
-            // Get item description (for fancy option)
-            $isset_item_description = sdm_get_item_description_output($id);
+                // Setup download button code
+                $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
-            // Setup download button code
-            $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" ' . $window_target . '>' . $button_text_string . '</a>';
-
-            // Generate download buttons            
-            if ($fancy == '0') {
+                // Generate download buttons
                 $output .= '<div class="sdm_download_link">' . $download_button_code . '</div><br />';
-            }
-        }  // End foreach
-        //Fancy 1 and onwards handles the loop inside the template function
-        if ($fancy == '1') {
+            }  // End foreach
+        }
+        // Fancy 1 and onwards handles the loop inside the template function
+        else if ($fancy == '1') {
             include_once('includes/templates/fancy1/sdm-fancy-1.php');
             $output .= sdm_generate_fancy1_category_display_output($get_posts, $args);
         } else if ($fancy == '2') {
