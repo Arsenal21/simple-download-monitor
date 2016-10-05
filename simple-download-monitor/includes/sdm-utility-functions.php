@@ -109,6 +109,9 @@ function sdm_ip_info($ip, $purpose = "location") {
     );
 
     $res = wp_safe_remote_get("http://www.geoplugin.net/json.gp?ip=" . $ip);
+    if ( is_wp_error($res) ) {
+        return null;
+    }    
     $ipdat = @json_decode($res['body']);
 
     if (@strlen(trim($ipdat->geoplugin_countryCode)) === 2) {
