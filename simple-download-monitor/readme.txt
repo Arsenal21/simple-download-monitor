@@ -170,6 +170,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.3.8 =
+- Minor typo fix.
+
 = 3.3.7 =
 - Added an improvement for the password protected download. If a user goes directly to the download link without entering a password, it will point the users to go to a page where they can enter a password for the download item.
 

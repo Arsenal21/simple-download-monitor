@@ -356,14 +356,14 @@ class simpleDownloadManager {
         _e('File Size: ', 'simple-download-monitor');
         echo '<br />';
         echo ' <input type="text" name="sdm_item_file_size" value="' . $file_size . '" size="20" />';
-        echo '<p class="description">'.__('Enter the size of this file (example value: 2.15 MB). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
+        echo '<p class="description">'.__('Enter the size of this file (example value: 2.15 MB). You can show this value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
         echo '</div>';
         
         echo '<div class="sdm-download-edit-version">';
         _e('Version: ', 'simple-download-monitor');
         echo '<br />';
         echo ' <input type="text" name="sdm_item_version" value="' . $version . '" size="20" />';
-        echo '<p class="description">'.__('Enter the version number for this item if any (example value: v2.5.10). You can show shis value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
+        echo '<p class="description">'.__('Enter the version number for this item if any (example value: v2.5.10). You can show this value in the fancy display by using a shortcode parameter.', 'simple-download-monitor').'</p>';
         echo '</div>';
         
         wp_nonce_field('sdm_other_details_nonce', 'sdm_other_details_nonce_check');
