@@ -102,6 +102,9 @@ function handle_sdm_download_via_direct_post() {
             }
         }
 
+        // Allow plugin extensions to hook into download request.
+        do_action('sdm_process_download_request', $download_id, $download_link);
+
         // Should the item be dispatched?
         $dispatch = apply_filters('sdm_dispatch_downloads', get_post_meta($download_id, 'sdm_item_dispatch', true));
 
