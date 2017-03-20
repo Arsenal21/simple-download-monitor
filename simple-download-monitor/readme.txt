@@ -170,7 +170,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.3.8 =
+= TODO 3.4.0 =
+- Allow plugin extensions to hook into download request handling.
 - Minor typo fix.
 
 = 3.3.7 =
