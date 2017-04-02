@@ -115,7 +115,7 @@ function sdm_create_logs_page() {
             <div class="postbox">
             <h3 class="hndle"><label for="title"><?php _e('Export Download Log Entries', 'simple-download-monitor'); ?></label></h3>
             <div class="inside">
-            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >    
+            <form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >    
                 <div class="submit">
                     <input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e('Export Log Entries to CSV File', 'simple-download-monitor'); ?>" />
                 </div>    
@@ -126,7 +126,7 @@ function sdm_create_logs_page() {
             <div class="postbox">
             <h3 class="hndle"><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
             <div class="inside">
-            <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >    
+            <form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >    
                 <div class="submit">
                     <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'simple-download-monitor'); ?>" />
                 </div>    
