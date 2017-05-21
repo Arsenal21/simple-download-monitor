@@ -43,11 +43,21 @@ function handle_sdm_download_via_direct_post() {
         $date_time = current_time('mysql');
         $visitor_country = $ipaddress ? sdm_ip_info($ipaddress, 'country') : '';
 
-        if (is_user_logged_in()) {  // Get user name (if logged in)
+        if (is_user_logged_in()) {  // Get WP user name (if logged in)
             $current_user = wp_get_current_user();
             $visitor_name = $current_user->user_login;
         } else {
             $visitor_name = __('Not Logged In', 'simple-download-monitor');
+        }
+
+        //WP eMember plugin integration
+        if (class_exists('Emember_Auth')) {
+            //WP eMember plugin is installed.
+            $emember_auth = Emember_Auth::getInstance();
+            $username = $emember_auth->getUserInfo('user_name');
+            if (!empty($username)){//Member is logged in.
+                $visitor_name = $username;//Override the visitor name to emember username.
+            }
         }
 
         // Get option for global disabling of download logging

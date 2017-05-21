@@ -170,6 +170,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.4.1 =
+- The download now log will track WP eMember plugin username if the user is logged in as a member.
+
 = 3.4.0 =
 - Added a new hook to allow plugin extensions to hook into download request handling.
 - Added empty index file to the plugin folder.
