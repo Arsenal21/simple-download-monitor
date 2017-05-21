@@ -88,7 +88,7 @@ function sdm_create_download_shortcode($atts) {
     $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
-        $download_button_code = sdm_get_password_entry_form($id);
+        $download_button_code = sdm_get_password_entry_form($id, $atts);
     }
     //End of download now button code generation
 

@@ -52,7 +52,7 @@ function sdm_generate_fancy2_category_display_output($get_posts, $args) {
  * id, fancy, button_text, new_window
  */
 
-function sdm_generate_fancy2_display_output($atts) {
+function sdm_generate_fancy2_display_output($args) {
 
     $shortcode_atts = sanitize_sdm_create_download_shortcode_atts(
         shortcode_atts(array(
@@ -63,7 +63,7 @@ function sdm_generate_fancy2_display_output($atts) {
             'css_class' => 'sdm_fancy2_grid',
             'show_size' => '',
             'show_version' => '',
-        ), $atts)
+        ), $args)
     );
 
     // Make shortcode attributes available in function local scope.
@@ -85,7 +85,7 @@ function sdm_generate_fancy2_display_output($atts) {
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
-        $download_button_code = sdm_get_password_entry_form($id);
+        $download_button_code = sdm_get_password_entry_form($id, $args);
     }
 
     // Get item thumbnail

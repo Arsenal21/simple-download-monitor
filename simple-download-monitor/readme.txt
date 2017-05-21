@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.7
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -170,7 +170,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.4.1 =
+= 3.4.1 =
+- The password protected download button will use the "button_text" specified in the shortcode (if any).
 - The download now log will track WP eMember plugin username if the user is logged in as a member.
 
 = 3.4.0 =

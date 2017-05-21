@@ -89,7 +89,7 @@ function sdm_generate_fancy0_display_output($args) {
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
-        $download_button_code = sdm_get_password_entry_form($id);
+        $download_button_code = sdm_get_password_entry_form($id, $args);
     }
 
     $output = "";
