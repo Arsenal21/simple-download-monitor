@@ -43,20 +43,19 @@ function handle_sdm_download_via_direct_post() {
         $date_time = current_time('mysql');
         $visitor_country = $ipaddress ? sdm_ip_info($ipaddress, 'country') : '';
 
-        $logged_in_user = simpleDownloadManager::get_logged_in_user();
-        if ($logged_in_user === false) {
-            $visitor_name = __('Not Logged In', 'simple-download-monitor');
-        }
-
         $main_option = get_option('sdm_downloads_options');
+
+        $visitor_name = simpleDownloadManager::get_logged_in_user();
 
         // Check if we only allow the download for logged-in users
         if (isset($main_option['only_logged_in_can_download'])) {
-            if ($main_option['only_logged_in_can_download'] && $logged_in_user === false) {
+            if ($main_option['only_logged_in_can_download'] && $visitor_name === false) {
                 // User not logged in, let's display the message
-                wp_die(__('You need to be logged in to download this file.','simple-download-monitor'));
+                wp_die(__('You need to be logged in to download this file.', 'simple-download-monitor'));
             }
         }
+
+        $visitor_name = $visitor_name === false ? __('Not Logged In', 'simple-download-monitor') : $visitor_name;
 
         // Get option for global disabling of download logging
         $no_logs = isset($main_option['admin_no_logs']);
