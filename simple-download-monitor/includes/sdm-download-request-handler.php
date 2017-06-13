@@ -9,7 +9,7 @@ function handle_sdm_download_via_direct_post() {
         $download_link = get_post_meta($download_id, 'sdm_upload', true);
 
         //Do some validation checks
-        if ( !$download_id ) {
+        if (!$download_id) {
             wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
         }
         if (empty($download_link)) {
@@ -17,25 +17,25 @@ function handle_sdm_download_via_direct_post() {
         }
 
         //Check download password (if applicable for this download)
-        $post_object = get_post($download_id);// Get post object
-        $post_pass = $post_object->post_password;// Get post password
-        if(!empty($post_pass)){//This download item has a password. So validate the password.
+        $post_object = get_post($download_id); // Get post object
+        $post_pass = $post_object->post_password; // Get post password
+        if (!empty($post_pass)) {//This download item has a password. So validate the password.
             $pass_val = $_REQUEST['pass_text'];
-            if(empty($pass_val)){//No password was submitted with the downoad request.
+            if (empty($pass_val)) {//No password was submitted with the downoad request.
                 $dl_post_url = get_permalink($download_id);
                 $error_msg = __('Error! This download requires a password.', 'simple-download-monitor');
                 $error_msg .= '<p>';
-                $error_msg .= '<a href="'.$dl_post_url.'">'.__('Click here', 'simple-download-monitor').'</a>';
+                $error_msg .= '<a href="' . $dl_post_url . '">' . __('Click here', 'simple-download-monitor') . '</a>';
                 $error_msg .= __(' and enter a valid password for this item', 'simple-download-monitor');
                 $error_msg .= '</p>';
                 wp_die($error_msg);
             }
-            if ($post_pass != $pass_val) { 
+            if ($post_pass != $pass_val) {
                 //Incorrect password submitted.
                 wp_die(__('Error! Incorrect password. This download requires a valid password.', 'simple-download-monitor'));
             } else {
                 //Password is valid. Go ahead with the download
-            }  
+            }
         }
         //End of password check
 
@@ -43,25 +43,22 @@ function handle_sdm_download_via_direct_post() {
         $date_time = current_time('mysql');
         $visitor_country = $ipaddress ? sdm_ip_info($ipaddress, 'country') : '';
 
-        if (is_user_logged_in()) {  // Get WP user name (if logged in)
-            $current_user = wp_get_current_user();
-            $visitor_name = $current_user->user_login;
-        } else {
+        $logged_in_user = simpleDownloadManager::get_logged_in_user();
+        if ($logged_in_user === false) {
             $visitor_name = __('Not Logged In', 'simple-download-monitor');
         }
 
-        //WP eMember plugin integration
-        if (class_exists('Emember_Auth')) {
-            //WP eMember plugin is installed.
-            $emember_auth = Emember_Auth::getInstance();
-            $username = $emember_auth->getUserInfo('user_name');
-            if (!empty($username)){//Member is logged in.
-                $visitor_name = $username;//Override the visitor name to emember username.
+        $main_option = get_option('sdm_downloads_options');
+
+        // Check if we only allow the download for logged-in users
+        if (isset($main_option['only_logged_in_can_download'])) {
+            if ($main_option['only_logged_in_can_download'] && $logged_in_user === false) {
+                // User not logged in, let's display the message
+                wp_die(__('You need to be logged in to download this file.','simple-download-monitor'));
             }
         }
 
         // Get option for global disabling of download logging
-        $main_option = get_option('sdm_downloads_options');
         $no_logs = isset($main_option['admin_no_logs']);
 
         // Get optoin for logging only unique IPs
@@ -119,7 +116,7 @@ function handle_sdm_download_via_direct_post() {
         $dispatch = apply_filters('sdm_dispatch_downloads', get_post_meta($download_id, 'sdm_item_dispatch', true));
 
         // Only local file can be dispatched.
-        if ( $dispatch && (stripos($download_link, WP_CONTENT_URL) === 0) ) {
+        if ($dispatch && (stripos($download_link, WP_CONTENT_URL) === 0)) {
             // Get file path
             $file = path_join(WP_CONTENT_DIR, ltrim(substr($download_link, strlen(WP_CONTENT_URL)), '/'));
             // Try to dispatch file (terminates script execution on success)
@@ -135,8 +132,9 @@ function handle_sdm_download_via_direct_post() {
 /*
  * Use this function to redirect to a URL
  */
+
 function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
-    $url = apply_filters('sdm_before_redirect_to_url',$url);
+    $url = apply_filters('sdm_before_redirect_to_url', $url);
     if (empty($url)) {
         echo '<strong>';
         _e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'simple-download-monitor');
@@ -161,19 +159,19 @@ function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
  */
 function sdm_dispatch_file($filename) {
 
-    if ( headers_sent() ) {
+    if (headers_sent()) {
         trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, headers already sent.");
         return;
     }
 
-    if ( !is_readable($filename) ) {
+    if (!is_readable($filename)) {
         trigger_error(__FUNCTION__ . ": Cannot dispatch file $filename, file is not readable.");
         return;
     }
 
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream'); // http://stackoverflow.com/a/20509354
-    header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+    header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
     header('Expires: 0');
     header('Cache-Control: must-revalidate');
     header('Pragma: public');

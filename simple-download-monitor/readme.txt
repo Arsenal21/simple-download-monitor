@@ -170,6 +170,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.4.2 =
+- Added global option "Only Allow Logged-in User to Download".
+
 = 3.4.1 =
 - The password protected download button will use the "button_text" specified in the shortcode (if any).
 - The download now log will track WP eMember plugin username if the user is logged in as a member.
