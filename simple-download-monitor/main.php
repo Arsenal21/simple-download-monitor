@@ -57,6 +57,12 @@ function sdm_install_db_table() {
 
     update_option('sdm_db_version', $sdm_db_version);
 
+    $opts = get_option('sdm_downloads_options');
+    if ($opts === false) {
+        // no options, let's put default values
+        update_option('sdm_downloads_options', array('force_file_download' => '1'));
+    }
+
     //Register the post type so you can flush the rewrite rules
     sdm_register_post_type();
 
@@ -487,6 +493,7 @@ class simpleDownloadManager {
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
         add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
         add_settings_field('only_logged_in_can_download', __('Only Allow Logged-in Users to Download', 'simple-download-monitor'), array($this, 'general_only_logged_in_can_download_cb'), 'general_options_section', 'general_options');
+        add_settings_field('force_file_download', __('Force File Download', 'simple-download-monitor'), array($this, 'general_force_file_download_cb'), 'general_options_section', 'general_options');
 
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -528,6 +535,13 @@ class simpleDownloadManager {
         $value = isset($main_opts['only_logged_in_can_download']) && $main_opts['only_logged_in_can_download'];
         echo '<input name="sdm_downloads_options[only_logged_in_can_download]" id="only_logged_in_can_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
         echo '<label for="only_logged_in_can_download">' . __('Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message.', 'simple-download-monitor') . '</label>';
+    }
+
+    public function general_force_file_download_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['force_file_download']) && $main_opts['force_file_download'];
+        echo '<input name="sdm_downloads_options[force_file_download]" id="force_file_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
+        echo '<label for="force_file_download">' . __('Enable this option to force browsers download file rather than display it for certain file types like PDF, images, etc.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_tinymce_button_cb() {
