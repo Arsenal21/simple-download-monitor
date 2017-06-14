@@ -45,7 +45,7 @@ function handle_sdm_download_via_direct_post() {
 
         $main_option = get_option('sdm_downloads_options');
 
-        $visitor_name = simpleDownloadManager::get_logged_in_user();
+        $visitor_name = sdm_get_logged_in_user();
 
         // Check if we only allow the download for logged-in users
         if (isset($main_option['only_logged_in_can_download'])) {
@@ -55,7 +55,7 @@ function handle_sdm_download_via_direct_post() {
             }
         }
 
-        $visitor_name = $visitor_name === false ? __('Not Logged In', 'simple-download-monitor') : $visitor_name;
+        $visitor_name = ($visitor_name === false) ? __('Not Logged In', 'simple-download-monitor') : $visitor_name;
 
         // Get option for global disabling of download logging
         $no_logs = isset($main_option['admin_no_logs']);

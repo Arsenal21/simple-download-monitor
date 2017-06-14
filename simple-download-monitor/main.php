@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.4.1
+ * Version: 3.4.2
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.1');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.2');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -486,7 +486,7 @@ class simpleDownloadManager {
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
         add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
-        add_settings_field('only_logged_in_can_download', __('Only Allow Logged-in User to Download', 'simple-download-monitor'), array($this, 'general_only_logged_in_can_download_cb'), 'general_options_section', 'general_options');
+        add_settings_field('only_logged_in_can_download', __('Only Allow Logged-in Users to Download', 'simple-download-monitor'), array($this, 'general_only_logged_in_can_download_cb'), 'general_options_section', 'general_options');
 
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -527,7 +527,7 @@ class simpleDownloadManager {
         $main_opts = get_option('sdm_downloads_options');
         $value = isset($main_opts['only_logged_in_can_download']) && $main_opts['only_logged_in_can_download'];
         echo '<input name="sdm_downloads_options[only_logged_in_can_download]" id="only_logged_in_can_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
-        echo '<label for="only_logged_in_can_download">' . __('Enable this option if you want to allow downloads only for logged-in users.', 'simple-download-monitor') . '</label>';
+        echo '<label for="only_logged_in_can_download">' . __('Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_tinymce_button_cb() {
@@ -560,27 +560,6 @@ class simpleDownloadManager {
         }
         echo '</select> ';
         esc_html_e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
-    }
-
-    public static function get_logged_in_user() {
-        $visitor_name = false;
-
-        if (is_user_logged_in()) {  // Get WP user name (if logged in)
-            $current_user = wp_get_current_user();
-            $visitor_name = $current_user->user_login;
-
-            //WP eMember plugin integration
-            if (class_exists('Emember_Auth')) {
-                //WP eMember plugin is installed.
-                $emember_auth = Emember_Auth::getInstance();
-                $username = $emember_auth->getUserInfo('user_name');
-                if (!empty($username)) {//Member is logged in.
-                    $visitor_name = $username; //Override the visitor name to emember username.
-                }
-            }
-        }
-
-        return $visitor_name;
     }
 
 }

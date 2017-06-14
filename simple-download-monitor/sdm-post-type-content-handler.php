@@ -53,7 +53,7 @@ function filter_sdm_post_type_content($content) {
 
         // Check if we only allow the download for logged-in users
 //        if (isset($main_opts['only_logged_in_can_download'])) {
-//            if ($main_opts['only_logged_in_can_download'] && simpleDownloadManager::get_logged_in_user()===false) {
+//            if ($main_opts['only_logged_in_can_download'] && sdm_get_logged_in_user()===false) {
 //                // User not logged in, let's display the message
 //                $download_button_code = __('You need to be logged in to download this file.','simple-download-monitor');
 //            }

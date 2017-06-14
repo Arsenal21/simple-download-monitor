@@ -405,7 +405,7 @@ function sdm_search_form_shortcode($attributes) {
         $s_results = '';
         foreach ($pageposts as $post) {
             $meta = get_post_meta($post->ID);
-            $s_results .= '<div class="sdm-search-result-item">';
+            $s_results .= '<div class="sdm_search_result_item">';
             $s_results .= '<h4><a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a></h4>';
             $descr = strip_shortcodes($meta['sdm_description'][0]);
             if (strlen($descr) > $atts['description_max_length']) {
@@ -422,10 +422,11 @@ function sdm_search_form_shortcode($attributes) {
     }
 
     $out = '';
-    $out .= '<form id="sdm-search-form" class="search-form' . (empty($atts['class']) ? '' : ' ' . $atts['class']) . '" method="POST">
-    <input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . $atts['placeholder'] . '">
-           <input type="submit" class="search-submit screen-reader-text" name="sdm_search_submit" value="Search">
-</form>';
+    $out .= '<form id="sdm_search_form" class="' . (empty($atts['class']) ? '' : ' ' . $atts['class']) . '" method="POST">';
+    $out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . $atts['placeholder'] . '">';
+    $out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
+    $out .= '</form>';
     $out .= isset($s_results) ? $s_results : '';
+    
     return $out;
 }
