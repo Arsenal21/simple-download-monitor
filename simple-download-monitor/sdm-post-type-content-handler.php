@@ -51,6 +51,14 @@ function filter_sdm_post_type_content($content) {
             $download_button_code = sdm_get_password_entry_form($id);
         }
 
+        // Check if we only allow the download for logged-in users
+//        if (isset($main_opts['only_logged_in_can_download'])) {
+//            if ($main_opts['only_logged_in_can_download'] && sdm_get_logged_in_user()===false) {
+//                // User not logged in, let's display the message
+//                $download_button_code = __('You need to be logged in to download this file.','simple-download-monitor');
+//            }
+//        }
+
         $db_count = sdm_get_download_count_for_post($id);
         $string = ($db_count == '1') ? __('Download', 'simple-download-monitor') : __('Downloads', 'simple-download-monitor');
         $download_count_string = '<span class="sdm_post_count_number">' . $db_count . '</span><span class="sdm_post_count_string"> ' . $string . '</span>';

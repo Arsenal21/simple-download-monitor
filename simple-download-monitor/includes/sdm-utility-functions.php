@@ -166,3 +166,24 @@ function sdm_sanitize_value_by_array($to_check, $valid_values)
     }
     return reset($keys);//Return the first element from the valid values
 }
+
+function sdm_get_logged_in_user() {
+    $visitor_name = false;
+
+    if (is_user_logged_in()) {  // Get WP user name (if logged in)
+        $current_user = wp_get_current_user();
+        $visitor_name = $current_user->user_login;
+    }
+
+    //WP eMember plugin integration
+    if (class_exists('Emember_Auth')) {
+        //WP eMember plugin is installed.
+        $emember_auth = Emember_Auth::getInstance();
+        $username = $emember_auth->getUserInfo('user_name');
+        if (!empty($username)) {//Member is logged in.
+            $visitor_name = $username; //Override the visitor name to emember username.
+        }
+    }
+
+    return $visitor_name;
+}

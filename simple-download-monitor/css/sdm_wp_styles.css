@@ -346,3 +346,16 @@
     margin-right: 5px;
     display: block;
 }
+
+/* Search form and results */
+
+.sdm_search_result_item {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid silver
+}
+
+.sdm_search_result_item:last-child {
+    border-bottom: none;
+}

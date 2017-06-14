@@ -13,15 +13,15 @@ function sdm_register_shortcodes() {
     add_shortcode('sdm-download-counter', 'sdm_create_counter_shortcode');  // For counter shortcode (for backwards compatibility)
     add_shortcode('sdm_latest_downloads', 'sdm_show_latest_downloads'); // For showing X number of latest downloads
     add_shortcode('sdm-latest-downloads', 'sdm_show_latest_downloads');  // For showing X number of latest downloads(for backwards compatibility)
-    
+
     add_shortcode('sdm_download_link', 'sdm_create_simple_download_link');
-    
+
     add_shortcode('sdm_show_dl_from_category', 'sdm_handle_category_shortcode'); //For category shortcode
     add_shortcode('sdm_download_categories', 'sdm_download_categories_shortcode'); // Ajax file tree browser
-    
-    add_shortcode('sdm_download_categories_list', 'sdm_download_categories_list_shortcode');
-}
 
+    add_shortcode('sdm_download_categories_list', 'sdm_download_categories_list_shortcode');
+    add_shortcode('sdm_search_form', 'sdm_search_form_shortcode');
+}
 
 /**
  * Process (sanitize) download button shortcode attributes:
@@ -38,12 +38,10 @@ function sanitize_sdm_create_download_shortcode_atts($atts) {
     // See if user color option is selected
     $main_opts = get_option('sdm_downloads_options');
 
-    if ( empty($atts['color']) ) {
+    if (empty($atts['color'])) {
         // No color provided by shortcode, read color from plugin settings.
-        $atts['color']
-            = isset($main_opts['download_button_color'])
-            ? strtolower($main_opts['download_button_color']) // default values needs to be lowercased
-            : 'green'
+        $atts['color'] = isset($main_opts['download_button_color']) ? strtolower($main_opts['download_button_color']) // default values needs to be lowercased
+                : 'green'
         ;
     }
 
@@ -53,18 +51,17 @@ function sanitize_sdm_create_download_shortcode_atts($atts) {
     return $atts;
 }
 
-
 // Create Download Shortcode
 function sdm_create_download_shortcode($atts) {
 
     $shortcode_atts = sanitize_sdm_create_download_shortcode_atts(
-        shortcode_atts(array(
-            'id' => '',
-            'fancy' => '0',
-            'button_text' => __('Download Now!', 'simple-download-monitor'),
-            'new_window' => '',
-            'color' => '',
-        ), $atts)
+            shortcode_atts(array(
+        'id' => '',
+        'fancy' => '0',
+        'button_text' => __('Download Now!', 'simple-download-monitor'),
+        'new_window' => '',
+        'color' => '',
+                    ), $atts)
     );
 
     // Make shortcode attributes available in function local scope.
@@ -93,7 +90,7 @@ function sdm_create_download_shortcode($atts) {
     //End of download now button code generation
 
     $output = '';
-    switch ( $fancy ) {
+    switch ($fancy) {
         case '1':
             include_once('includes/templates/fancy1/sdm-fancy-1.php');
             $output .= sdm_generate_fancy1_display_output($shortcode_atts);
@@ -112,15 +109,15 @@ function sdm_create_download_shortcode($atts) {
     return apply_filters('sdm_download_shortcode_output', $output, $atts);
 }
 
-function sdm_create_simple_download_link($atts){
+function sdm_create_simple_download_link($atts) {
     extract(shortcode_atts(array(
         'id' => '',
-    ), $atts));
+                    ), $atts));
 
     if (empty($id)) {
         return '<p style="color: red;">' . __('Error! Please enter an ID value with this shortcode.', 'simple-download-monitor') . '</p>';
     }
-    
+
     return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
 }
 
@@ -155,9 +152,9 @@ function sdm_handle_category_shortcode($args) {
         'button_text' => __('Download Now!', 'simple-download-monitor'),
         'new_window' => '',
         'orderby' => 'post_date',
-	'order' => 'DESC',
+        'order' => 'DESC',
         'pagination' => '',
-    ), $args));
+                    ), $args));
 
     // Define vars
     $field = '';
@@ -187,17 +184,17 @@ function sdm_handle_category_shortcode($args) {
     }
 
     // For pagination
-    $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
-    if(isset($args['pagination'])){
-        if(!is_numeric($args['pagination'])){
+    $paged = ( get_query_var('paged') ) ? absint(get_query_var('paged')) : 1;
+    if (isset($args['pagination'])) {
+        if (!is_numeric($args['pagination'])) {
             return '<p style="color: red;">' . __('Error! You must enter a numeric number for the "pagination" parameter of the shortcode. Refer to the usage documentation.', 'simple-download-monitor') . '</p>';
         }
         $posts_per_page = $args['pagination'];
     } else {
         $posts_per_page = 9999;
     }
-    
-        
+
+
     // Query cpt's based on arguments above
     $get_posts = get_posts(array(
         'post_type' => 'sdm_downloads',
@@ -211,7 +208,7 @@ function sdm_handle_category_shortcode($args) {
             )
         ),
         'orderby' => $orderby,
-	'order' => $order,
+        'order' => $order,
         'paged' => $paged,
     ));
 
@@ -263,25 +260,25 @@ function sdm_handle_category_shortcode($args) {
         }
 
         // Pagination related
-        if(isset($args['pagination'])){
+        if (isset($args['pagination'])) {
             $posts_per_page = $args['pagination'];
             $count_sdm_posts = wp_count_posts('sdm_downloads');
-            $published_sdm_posts = $count_sdm_posts->publish;            
+            $published_sdm_posts = $count_sdm_posts->publish;
             $total_pages = ceil($published_sdm_posts / $posts_per_page);
-            
+
             $big = 999999999; // Need an unlikely integer
-            $pagination = paginate_links( array(
-			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
-			'format'       => '',
-			'add_args'     => '',
-			'current'      => max( 1, get_query_var( 'paged' ) ),
-			'total'        => $total_pages,
-			'prev_text'    => '&larr;',
-			'next_text'    => '&rarr;',
-		) );
-            $output .= '<div class="sdm_pagination">'.$pagination.'</div>';
+            $pagination = paginate_links(array(
+                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+                'format' => '',
+                'add_args' => '',
+                'current' => max(1, get_query_var('paged')),
+                'total' => $total_pages,
+                'prev_text' => '&larr;',
+                'next_text' => '&rarr;',
+            ));
+            $output .= '<div class="sdm_pagination">' . $pagination . '</div>';
         }
-    
+
         // Return results
         return apply_filters('sdm_category_download_items_shortcode_output', $output, $args, $get_posts);
     }  // End else iterate cpt's
@@ -315,7 +312,6 @@ function sdm_download_categories_shortcode() {
     return '<div class="sdm_object_tree">' . custom_taxonomy_walker('sdm_categories') . '</div>';
 }
 
-
 /**
  * Return HTML list with SDM categories rendered according to $atts.
  * @param array $atts
@@ -337,17 +333,19 @@ function sdm_download_categories_list_walker($atts, $parent = 0) {
     ));
 
     // Return empty string, if no terms found.
-    if ( empty($terms) ) { return ''; }
+    if (empty($terms)) {
+        return '';
+    }
 
     // Produce list of download categories under $parent.
     $out = '<' . $list_tag . '>';
 
-    foreach ( $terms as $term ) {
+    foreach ($terms as $term) {
         $out .= '<li>'
                 . '<a href="' . get_term_link($term) . '">' . $term->name . '</a>' // link
                 . ( $count ? (' <span>(' . $term->count . ')</span>') : '') // count
                 . ( $hierarchical ? sdm_download_categories_list_walker($atts, $term->term_id) : '' ) // subcategories
-             . '</li>'
+                . '</li>'
         ;
     }
 
@@ -355,7 +353,6 @@ function sdm_download_categories_list_walker($atts, $parent = 0) {
 
     return $out;
 }
-
 
 /**
  * Return output of `sdm_download_categories_list` shortcode.
@@ -365,18 +362,71 @@ function sdm_download_categories_list_walker($atts, $parent = 0) {
 function sdm_download_categories_list_shortcode($attributes) {
 
     $atts = shortcode_atts(
-        array(
-            'class' => 'sdm-download-categories', // wrapper class
-            'empty' => '0', // show empty categories
-            'numbered' => '0', // use <ol> instead of <ul> to wrap the list
-            'count' => '0', // display count of items in every category
-            'hierarchical' => '1', // display subcategories as well
-        ), $attributes
+            array(
+        'class' => 'sdm-download-categories', // wrapper class
+        'empty' => '0', // show empty categories
+        'numbered' => '0', // use <ol> instead of <ul> to wrap the list
+        'count' => '0', // display count of items in every category
+        'hierarchical' => '1', // display subcategories as well
+            ), $attributes
     );
 
     return
-          '<div class="' . esc_attr($atts['class']) . '">'
-        . sdm_download_categories_list_walker($atts)
-        . '</div>'
+            '<div class="' . esc_attr($atts['class']) . '">'
+            . sdm_download_categories_list_walker($atts)
+            . '</div>'
     ;
+}
+
+function sdm_search_form_shortcode($attributes) {
+    $atts = shortcode_atts(
+            array(
+        'class' => '', // wrapper class
+        'placeholder' => 'Search...', // placeholder for search input
+        'description_max_length' => 50, // short description symbols count
+            ), $attributes
+    );
+
+    // Check if we have a search value posted
+
+    $s_term = isset($_POST['sdm_search_term']) ? stripslashes(sanitize_text_field(esc_html($_POST['sdm_search_term']))) : '';
+
+    if (!empty($s_term)) {
+        // we got search term posted
+        global $wpdb;
+        $querystr = "
+    SELECT $wpdb->posts.* 
+    FROM $wpdb->posts
+    WHERE $wpdb->posts.post_title LIKE '%$s_term%'
+    AND $wpdb->posts.post_status = 'publish' 
+    AND $wpdb->posts.post_type = 'sdm_downloads'
+ ";
+        $pageposts = $wpdb->get_results($querystr, OBJECT);
+        $s_results = '';
+        foreach ($pageposts as $post) {
+            $meta = get_post_meta($post->ID);
+            $s_results .= '<div class="sdm_search_result_item">';
+            $s_results .= '<h4><a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a></h4>';
+            $descr = strip_shortcodes($meta['sdm_description'][0]);
+            if (strlen($descr) > $atts['description_max_length']) {
+                $descr = substr($descr, 0, $atts['description_max_length']) . '[...]';
+            }
+            $s_results .= '<span>' . $descr . '</span>';
+            $s_results .= '</div>';
+        }
+        if (!empty($s_results)) {
+            $s_results = '<h2>Search results for "' . $s_term . '":</h2>'.$s_results;
+        } else {
+            $s_results ='<h2>Nothing found for "'.$s_term.'".</h2>';
+        }
+    }
+
+    $out = '';
+    $out .= '<form id="sdm_search_form" class="' . (empty($atts['class']) ? '' : ' ' . $atts['class']) . '" method="POST">';
+    $out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . $atts['placeholder'] . '">';
+    $out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
+    $out .= '</form>';
+    $out .= isset($s_results) ? $s_results : '';
+    
+    return $out;
 }
