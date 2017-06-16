@@ -170,7 +170,6 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
-
 = TODO 3.4.3 =
 - [Needs proper testing] Added "Force File Download" option to force browsers download file rather than display it for certain file types like PDF, images, etc.
 
