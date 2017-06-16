@@ -172,7 +172,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = TODO 3.4.3 =
-- Added "Force File Download" option to force browsers download file rather than display it for certain file types like PDF, images, etc.
+- [Needs proper testing] Added "Force File Download" option to force browsers download file rather than display it for certain file types like PDF, images, etc.
 
 = 3.4.2 =
 - Added a new option "Only Allow Logged-in Users to Download".

@@ -541,7 +541,7 @@ class simpleDownloadManager {
         $main_opts = get_option('sdm_downloads_options');
         $value = isset($main_opts['force_file_download']) && $main_opts['force_file_download'];
         echo '<input name="sdm_downloads_options[force_file_download]" id="force_file_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
-        echo '<label for="force_file_download">' . __('Enable this option to force browsers download file rather than display it for certain file types like PDF, images, etc.', 'simple-download-monitor') . '</label>';
+        echo '<label for="force_file_download">' . __('Enable this option to force browsers download file rather than display it in the browser for certain file types like PDF, images, etc.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_tinymce_button_cb() {
