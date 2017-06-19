@@ -45,38 +45,19 @@ function filter_sdm_post_type_content($content) {
 
         $homepage = get_bloginfo('url');
         $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
-        $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '"_%download_param%_>' . $button_text_string . '</a>';
+        $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '">' . $button_text_string . '</a>';
 
         if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
             $download_button_code = sdm_get_password_entry_form($id);
         }
 
-        $download_param='';
-        // Check if we have force_file_download option enabled
-        if (isset($main_opts['force_file_download']) && $main_opts['force_file_download']) {
-            $download_link = get_post_meta($id, 'sdm_upload', true);
-
-            if (!empty($download_link)) {
-                // let's try to get file name
-                $filename = basename($download_link);
-                // if no filename available, we just put "download" parameter without filename to let browser handle the name.
-                $download_param = empty($filename) ? ' download' : ' download="' . basename($download_link) . '"';
-            }
-        }
         // Check if we only allow the download for logged-in users
-        if (isset($main_opts['only_logged_in_can_download'])) {
-            if ($main_opts['only_logged_in_can_download'] && sdm_get_logged_in_user() === false) {
-                // User not logged in, we can display the "not logged in" message instead of the button.
-                //$download_button_code = __('You need to be logged in to download this file.', 'simple-download-monitor');
-                
-                // We also need to remove "download" parameter from the <a> tag in order for the "not logged in" message to be
-                // properly displayed after user clicks "download" button. This is due to strange behaviour of some browsers
-                // (Firefox to name one) that display "File not found" instead of the wp_die() error message.
-                $download_param = '';
-            }
-        }
-
-        $download_button_code = str_replace('_%download_param%_', $download_param, $download_button_code);
+//        if (isset($main_opts['only_logged_in_can_download'])) {
+//            if ($main_opts['only_logged_in_can_download'] && sdm_get_logged_in_user()===false) {
+//                // User not logged in, let's display the message
+//                $download_button_code = __('You need to be logged in to download this file.','simple-download-monitor');
+//            }
+//        }
 
         $db_count = sdm_get_download_count_for_post($id);
         $string = ($db_count == '1') ? __('Download', 'simple-download-monitor') : __('Downloads', 'simple-download-monitor');
