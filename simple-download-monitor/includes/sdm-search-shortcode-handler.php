@@ -3,6 +3,7 @@
 function sdm_search_form_shortcode($args) {
     $atts = shortcode_atts(
             array(
+        'fancy' => '',
         'class' => '', // wrapper class
         'placeholder' => 'Search...', // placeholder for search input
         'description_max_length' => 50, // short description symbols count
@@ -23,7 +24,7 @@ function sdm_search_form_shortcode($args) {
     AND $wpdb->posts.post_type = 'sdm_downloads'
  ";
         $posts_collection = $wpdb->get_results($querystr, OBJECT);
-        $s_results = sdm_generate_search_result_using_template($posts_collection, $args);
+        $s_results = sdm_generate_search_result_using_template($posts_collection, $atts);
 
         if (!empty($s_results)) {
             $s_results = '<h2>Search results for "' . $s_term . '":</h2>' . $s_results;
@@ -45,7 +46,7 @@ function sdm_search_form_shortcode($args) {
 function sdm_generate_search_result_using_template($posts_collection, $args = array()) {
     $s_results = '';
 
-    if (isset($args['fancy'])) {
+    if (isset($args['fancy']) && !empty($args['fancy'])) {
         if ($args['fancy'] == '1') {
             include_once(WP_SIMPLE_DL_MONITOR_PATH.'includes/templates/fancy1/sdm-fancy-1.php');
             $s_results .= sdm_generate_fancy1_category_display_output($posts_collection, $args);
