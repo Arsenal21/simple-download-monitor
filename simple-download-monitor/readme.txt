@@ -171,6 +171,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO - 3.4.3 =
+- The [sdm_search_form] can take the fancy template as a shortcode argument to display the search result using that template.
+
 = 3.4.2 =
 - Added a new option "Only Allow Logged-in Users to Download".
 - Added [sdm_search_form] shortcode to display a search form for searching SDM downloads only.
