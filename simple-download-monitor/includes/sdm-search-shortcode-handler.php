@@ -17,11 +17,14 @@ function sdm_search_form_shortcode($args) {
         // we got search term posted
         global $wpdb;
         $querystr = "
-    SELECT $wpdb->posts.* 
-    FROM $wpdb->posts
-    WHERE $wpdb->posts.post_title LIKE '%$s_term%'
+    SELECT $wpdb->posts.*, $wpdb->postmeta.meta_value as description
+    FROM $wpdb->posts, $wpdb->postmeta
+    WHERE $wpdb->posts.ID = $wpdb->postmeta.post_id
     AND $wpdb->posts.post_status = 'publish' 
     AND $wpdb->posts.post_type = 'sdm_downloads'
+    AND ($wpdb->posts.post_title LIKE '%$s_term%'
+    OR ($wpdb->postmeta.meta_key='sdm_description' AND $wpdb->postmeta.meta_value LIKE '%$s_term%') )
+    GROUP BY $wpdb->posts.ID
  ";
         $posts_collection = $wpdb->get_results($querystr, OBJECT);
         $s_results = sdm_generate_search_result_using_template($posts_collection, $atts);
@@ -48,14 +51,13 @@ function sdm_generate_search_result_using_template($posts_collection, $args = ar
 
     if (isset($args['fancy']) && !empty($args['fancy'])) {
         if ($args['fancy'] == '1') {
-            include_once(WP_SIMPLE_DL_MONITOR_PATH.'includes/templates/fancy1/sdm-fancy-1.php');
+            include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy1/sdm-fancy-1.php');
             $s_results .= sdm_generate_fancy1_category_display_output($posts_collection, $args);
         } else if ($args['fancy'] == '2') {
-            include_once(WP_SIMPLE_DL_MONITOR_PATH.'includes/templates/fancy2/sdm-fancy-2.php');
+            include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy2/sdm-fancy-2.php');
             $s_results .= sdm_generate_fancy2_category_display_output($posts_collection, $args);
         }
-    } 
-    else {
+    } else {
         //No fancy template is used. Show the search result using the standard search display
         foreach ($posts_collection as $post) {
             $meta = get_post_meta($post->ID);
