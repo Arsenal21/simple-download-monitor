@@ -8,7 +8,6 @@
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
  */
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -87,6 +86,11 @@ add_action('init', 'sdm_init_time_tasks');
 function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
+    //Register Google Charts library
+    if (is_admin()) {
+        wp_register_script('sdm_google_charts', 'https://www.gstatic.com/charts/loader.js', array(), null, true);
+        wp_register_style('sdm_jquery_ui_style', WP_SIMPLE_DL_MONITOR_URL . '/css/jquery.ui.min.css', array(), null, 'all');
+    }
 }
 
 /*
