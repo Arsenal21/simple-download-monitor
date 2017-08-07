@@ -172,6 +172,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = TODO 3.4.4 =
+- Added "Stats" menu in the plugin that shows download count using a nice chart.
 - Removed the "modal" class definition from the admin CSS file.
 
 = 3.4.3 =
