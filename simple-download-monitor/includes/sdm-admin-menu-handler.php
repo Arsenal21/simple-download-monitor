@@ -5,7 +5,7 @@
 
 function sdm_handle_admin_menu() {
 
-    //*****  Create the 'logs' and 'settings' submenu pages
+//*****  Create the 'logs' and 'settings' submenu pages
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'simple-download-monitor'), __('Logs', 'simple-download-monitor'), 'manage_options', 'logs', 'sdm_create_logs_page');
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Stats', 'simple-download-monitor'), __('Stats', 'simple-download-monitor'), 'manage_options', 'stats', 'sdm_create_stats_page');
     $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'simple-download-monitor'), __('Settings', 'simple-download-monitor'), 'manage_options', 'settings', 'sdm_create_settings_page');
@@ -17,7 +17,7 @@ function sdm_handle_admin_menu() {
 
 function sdm_create_settings_page() {
     echo '<div class="wrap">';
-    //echo '<div id="poststuff"><div id="post-body">';
+//echo '<div id="poststuff"><div id="post-body">';
     ?>
     <h1><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h1>
 
@@ -79,7 +79,7 @@ function sdm_create_logs_page() {
     global $wpdb;
 
     if (isset($_POST['sdm_export_log_entries'])) {
-        //Export log entries
+//Export log entries
         $log_file_url = sdm_export_download_logs_to_csv();
         echo '<div id="message" class="updated"><p>';
         _e('Log entries exported! Click on the following link to download the file.', 'simple-download-monitor');
@@ -88,7 +88,7 @@ function sdm_create_logs_page() {
     }
 
     if (isset($_POST['sdm_reset_log_entries'])) {
-        //reset log entries
+//reset log entries
         $table_name = $wpdb->prefix . 'sdm_downloads';
         $query = "TRUNCATE $table_name";
         $result = $wpdb->query($query);
@@ -98,9 +98,9 @@ function sdm_create_logs_page() {
     }
 
     /*     * * Display the logs table ** */
-    //Create an instance of our package class...
+//Create an instance of our package class...
     $sdmListTable = new sdm_List_Table();
-    //Fetch, prepare, sort, and filter our data...
+//Fetch, prepare, sort, and filter our data...
     $sdmListTable->prepare_items();
     ?>
     <div class="wrap">
@@ -172,7 +172,7 @@ function sdm_create_stats_page() {
     if (isset($_POST['sdm_stats_start_date'])) {
         $start_date = $_POST['sdm_stats_start_date'];
     } else {
-        // default start date is 30 days back
+// default start date is 30 days back
         $start_date = date('Y-m-d', time() - 60 * 60 * 24 * 30);
     }
 
@@ -181,7 +181,11 @@ function sdm_create_stats_page() {
     } else {
         $end_date = date('Y-m-d', time());
     }
-
+    if (isset($_POST['sdm_active_tab']) && !empty($_POST['sdm_active_tab'])) {
+        $active_tab = $_POST['sdm_active_tab'];
+    } else {
+        $active_tab = 'datechart';
+    }
     $downloads_by_date = sdm_get_downloads_by_date($start_date, $end_date);
 
     $downloads_by_country = sdm_get_downloads_by_country($start_date, $end_date);
@@ -194,6 +198,7 @@ function sdm_create_stats_page() {
                     <h3 class="hndle"><label for="title">Choose Date Range (yyyy-mm-dd)</label></h3>
                     <div class="inside">
                         <form id="sdm_choose_date" method="post">
+                            <input type="hidden" name="sdm_active_tab" value="<?php echo $active_tab; ?>">
                             Start Date: <input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo $start_date; ?>">
                             End Date: <input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo $end_date; ?>">
                             <p id="sdm_date_buttons">
@@ -209,47 +214,75 @@ function sdm_create_stats_page() {
                         </form>
                     </div>
                 </div>
-                <h3 style="font-size:18px;font-weight:bold;margin-bottom:10px;border-bottom:1px solid #ccc;">Downloads by Date</h3>
-                <div id="downloads_chart" style="width: 700px;"></div>
-                <h3 style="font-size:18px;font-weight:bold;margin-bottom:10px;border-bottom:1px solid #ccc;">Downloads by Country</h3>
-                <div id="country_chart" style="width: 700px;"></div>
-
+                <div class="nav-tab-wrapper sdm-tabs">
+                    <a class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart">Downloads by date</a>
+                    <a class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart">Downloads by country</a>
+                </div>
+                <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
+                    <div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
+                        <div id="downloads_chart" style="width: 700px;"></div>
+                    </div>
+                    <div data-tab-name="geochart" class="sdm-tab"<?php echo ($active_tab == 'geochart' ? '' : ' style="display:none;"'); ?>>
+                        <div id="country_chart" style="width: 700px;height:437px;"></div>
+                    </div>
+                </div>
             </div></div>
     </div>
     <script>
+        var sdm = [];
+        sdm.datechart = false;
+        sdm.geochart = false;
+        sdm.activeTab = '<?php echo $active_tab; ?>';
         jQuery('#sdm_date_buttons button').click(function (e) {
             jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
             jQuery('#sdm_choose_date').find('input[name="sdm_stats_end_date"]').val(jQuery(this).attr('data-end-date'));
         });
-        jQuery(function () {
-            google.charts.load('current', {'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyAjtHaEc8TX3JbzxWgjS96MiN7p7ePQilM'});
-            google.charts.setOnLoadCallback(sdm_drawChart);
-            function sdm_drawChart() {
-                var sdm_datesData = new google.visualization.DataTable();
-                sdm_datesData.addColumn('string', 'Date');
-                sdm_datesData.addColumn('number', 'Number of downloads');
-                sdm_datesData.addRows([
-    <?php echo $downloads_by_date; ?>
-                ]);
-
-                var sdm_datesChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
-                sdm_datesChart.draw(sdm_datesData, {width: 700, height: 300, title: 'Downloads by Date', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
-                    hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
-                    vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
-                    legend: 'top',
-                });
-
-                var sdm_countryData = google.visualization.arrayToDataTable([
-    <?php echo $downloads_by_country; ?>
-                ]);
-
-                var sdm_countryOptions = {colorAxis: {colors: ['#ddf', '#00f']}};
-
-                var chart = new google.visualization.GeoChart(document.getElementById('country_chart'));
-
-                chart.draw(sdm_countryData, sdm_countryOptions);
+        function sdm_init_chart(tab) {
+            if (!sdm.datechart && tab == 'datechart') {
+                sdm.datechart = true;
+                google.charts.load('current', {'packages': ['corechart']});
+                google.charts.setOnLoadCallback(sdm_drawDateChart);
+            } else if (!sdm.geochart && tab == 'geochart') {
+                sdm.geochart = true;
+                google.charts.load('current', {'packages': ['geochart'], 'mapsApiKey': 'AIzaSyAjtHaEc8TX3JbzxWgjS96MiN7p7ePQilM'});
+                google.charts.setOnLoadCallback(sdm_drawGeoChart);
             }
+        }
+        function sdm_drawDateChart() {
+            var sdm_dateData = new google.visualization.DataTable();
+            sdm_dateData.addColumn('string', 'Date');
+            sdm_dateData.addColumn('number', 'Number of downloads');
+            sdm_dateData.addRows([<?php echo $downloads_by_date; ?>]);
 
+            var sdm_dateChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
+            sdm_dateChart.draw(sdm_dateData, {width: 700, height: 300, title: 'Downloads by Date', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
+                hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
+                vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
+                legend: 'top',
+            });
+        }
+        function sdm_drawGeoChart() {
+
+            var sdm_countryData = google.visualization.arrayToDataTable([<?php echo $downloads_by_country; ?>]);
+
+            var sdm_countryOptions = {colorAxis: {colors: ['#ddf', '#00f']}};
+
+            var sdm_countryChart = new google.visualization.GeoChart(document.getElementById('country_chart'));
+
+            sdm_countryChart.draw(sdm_countryData, sdm_countryOptions);
+
+        }
+        jQuery(function () {
+            sdm_init_chart(sdm.activeTab);
+            jQuery('div.sdm-tabs a').click(function () {
+                var tab = jQuery(this).attr('data-tab-name');
+                jQuery('div.sdm-tabs').find('a').removeClass('nav-tab-active');
+                jQuery(this).addClass('nav-tab-active');
+                jQuery('div.sdm-tabs-content-wrapper').find('div.sdm-tab').hide();
+                jQuery('div.sdm-tabs-content-wrapper').find('div[data-tab-name="' + tab + '"]').fadeIn('fast');
+                sdm_init_chart(tab);
+                jQuery('#sdm_choose_date').find('input[name="sdm_active_tab"]').val(tab);
+            });
             jQuery('.datepicker').datepicker({
                 dateFormat: 'yy-mm-dd'
             });
