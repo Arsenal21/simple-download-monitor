@@ -181,8 +181,8 @@ function sdm_create_stats_page() {
     } else {
         $end_date = date('Y-m-d', time());
     }
-    if (isset($_POST['sdm_active_tab']) && !empty($_POST['sdm_active_tab'])) {
-        $active_tab = $_POST['sdm_active_tab'];
+    if (isset($_REQUEST['sdm_active_tab']) && !empty($_REQUEST['sdm_active_tab'])) {
+        $active_tab = $_REQUEST['sdm_active_tab'];
     } else {
         $active_tab = 'datechart';
     }
@@ -215,8 +215,8 @@ function sdm_create_stats_page() {
                     </div>
                 </div>
                 <div class="nav-tab-wrapper sdm-tabs">
-                    <a class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart">Downloads by date</a>
-                    <a class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart">Downloads by country</a>
+                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart">Downloads by date</a>
+                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart">Downloads by country</a>
                 </div>
                 <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
                     <div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
@@ -274,7 +274,8 @@ function sdm_create_stats_page() {
         }
         jQuery(function () {
             sdm_init_chart(sdm.activeTab);
-            jQuery('div.sdm-tabs a').click(function () {
+            jQuery('div.sdm-tabs a').click(function (e) {
+                e.preventDefault();
                 var tab = jQuery(this).attr('data-tab-name');
                 jQuery('div.sdm-tabs').find('a').removeClass('nav-tab-active');
                 jQuery(this).addClass('nav-tab-active');
