@@ -47,6 +47,7 @@ https://www.youtube.com/watch?v=L-mXbs7kp0s
 * Ability to search and sort your downloadable files in the admin dashboard.
 * Track the number of downloads for each of your files.
 * Track the visitors country.
+* View the daily download counts of your items in a chart.
 * WordPress Shortcode for embedding a download link for a file.
 * Tinymce button in the WordPress post/page editor so you can easily add the shortcode.
 * You can customize the "Download Now" button text of an item to anything you want.
