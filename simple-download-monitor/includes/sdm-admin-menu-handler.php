@@ -7,7 +7,7 @@ function sdm_handle_admin_menu() {
 
 //*****  Create the 'logs' and 'settings' submenu pages
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'simple-download-monitor'), __('Logs', 'simple-download-monitor'), 'manage_options', 'logs', 'sdm_create_logs_page');
-    $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Stats', 'simple-download-monitor'), __('Stats', 'simple-download-monitor'), 'manage_options', 'stats', 'sdm_create_stats_page');
+    $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Stats', 'simple-download-monitor'), __('Stats', 'simple-download-monitor'), 'manage_options', 'sdm-stats', 'sdm_create_stats_page');
     $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'simple-download-monitor'), __('Settings', 'simple-download-monitor'), 'manage_options', 'settings', 'sdm_create_settings_page');
 }
 
