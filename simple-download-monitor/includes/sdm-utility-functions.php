@@ -1,27 +1,25 @@
 <?php
 
-
 /**
  * Get (filtered) list of all download button colors.
  * @return array Array of colors: color key => color name.
  */
 function sdm_get_download_button_colors() {
     return apply_filters('sdm_download_button_color_options', array(
-        'green'     => __('Green', 'simple-download-monitor'),
-        'blue'      => __('Blue', 'simple-download-monitor'),
-        'purple'    => __('Purple', 'simple-download-monitor'),
-        'teal'      => __('Teal', 'simple-download-monitor'),
+        'green' => __('Green', 'simple-download-monitor'),
+        'blue' => __('Blue', 'simple-download-monitor'),
+        'purple' => __('Purple', 'simple-download-monitor'),
+        'teal' => __('Teal', 'simple-download-monitor'),
         'darkblue' => __('Dark Blue', 'simple-download-monitor'),
-        'black'     => __('Black', 'simple-download-monitor'),
-        'grey'      => __('Grey', 'simple-download-monitor'),
-        'pink'      => __('Pink', 'simple-download-monitor'),
-        'orange'    => __('Orange', 'simple-download-monitor'),
-        'white'     => __('White', 'simple-download-monitor')
+        'black' => __('Black', 'simple-download-monitor'),
+        'grey' => __('Grey', 'simple-download-monitor'),
+        'pink' => __('Pink', 'simple-download-monitor'),
+        'orange' => __('Orange', 'simple-download-monitor'),
+        'white' => __('White', 'simple-download-monitor')
     ));
 }
 
-
-function sdm_get_download_count_for_post($id){
+function sdm_get_download_count_for_post($id) {
     // Get number of downloads by counting db columns matching postID
     global $wpdb;
     $table = $wpdb->prefix . 'sdm_downloads';
@@ -36,15 +34,15 @@ function sdm_get_download_count_for_post($id){
 
         $db_count = $db_count + $get_offset;
     }
-    
+
     return $db_count;
 }
 
-function sdm_get_item_description_output($id){
+function sdm_get_item_description_output($id) {
     $item_description = get_post_meta($id, 'sdm_description', true);
     $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
     //$isset_item_description = apply_filters('the_content', $isset_item_description);
-    
+
     $isset_item_description = do_shortcode($isset_item_description);
     $isset_item_description = wptexturize($isset_item_description);
     $isset_item_description = convert_smilies($isset_item_description);
@@ -55,9 +53,9 @@ function sdm_get_item_description_output($id){
     return $isset_item_description;
 }
 
-function sdm_get_password_entry_form($id, $args=array()) {
+function sdm_get_password_entry_form($id, $args = array()) {
     $action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
-    
+
     //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
@@ -65,16 +63,15 @@ function sdm_get_password_entry_form($id, $args=array()) {
     } else {//Use the custom text
         $button_text_string = $button_text;
     }
-    
+
     $data = __('Enter Password to Download:', 'simple-download-monitor');
-    $data .= '<form action="'.$action_url.'" method="post" >';
+    $data .= '<form action="' . $action_url . '" method="post" >';
     $data .= '<input type="password" name="pass_text" class="sdm_pass_text" value="" /> ';
     $data .= '<input type="submit" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download" value="' . $button_text_string . '" />';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
     return $data;
 }
-
 
 /**
  * Get remote IP address.
@@ -85,12 +82,12 @@ function sdm_get_password_entry_form($id, $args=array()) {
  */
 function sdm_get_ip_address($ignore_private_and_reserved = false) {
     $flags = $ignore_private_and_reserved ? (FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) : 0;
-    foreach ( array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key ) {
-        if ( array_key_exists($key, $_SERVER) === true ) {
-            foreach ( explode(',', $_SERVER[$key]) as $ip ) {
+    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key) {
+        if (array_key_exists($key, $_SERVER) === true) {
+            foreach (explode(',', $_SERVER[$key]) as $ip) {
                 $ip = trim($ip); // just to be safe
 
-                if ( filter_var($ip, FILTER_VALIDATE_IP, $flags) !== false ) {
+                if (filter_var($ip, FILTER_VALIDATE_IP, $flags) !== false) {
                     return $ip;
                 }
             }
@@ -157,14 +154,14 @@ function sdm_ip_info($ip, $purpose = "location") {
 /*
  * Checks if the string exists in the array key value of the provided array. If it doesn't exist, it returns the first key element from the valid values.
  */
-function sdm_sanitize_value_by_array($to_check, $valid_values)
-{
+
+function sdm_sanitize_value_by_array($to_check, $valid_values) {
     $keys = array_keys($valid_values);
     $keys = array_map('strtolower', $keys);
     if (in_array($to_check, $keys)) {
         return $to_check;
     }
-    return reset($keys);//Return the first element from the valid values
+    return reset($keys); //Return the first element from the valid values
 }
 
 function sdm_get_logged_in_user() {

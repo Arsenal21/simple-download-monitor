@@ -59,6 +59,32 @@ function sdm_create_settings_page() {
         ?>
         <!-- END COLORS OPTIONS DIV -->
 
+        <!-- BEGIN DEBUG OPTIONS DIV -->
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('sdm_debug_section');
+        settings_fields('sdm_downloads_options');
+
+        submit_button();
+        ?>
+        <script>
+            jQuery('a#sdm-reset-log').click(function (e) {
+                e.preventDefault();
+                if (confirm('Are you sure want to reset log file?')) {
+                    jQuery.post(ajaxurl,
+                            {'action': 'sdm_reset_log'},
+                            function (result) {
+                                if (result == '1') {
+                                    alert('Log has been reset.');
+                                }
+                            });
+                }
+            });
+        </script>
+
+        <!-- END DEBUG OPTIONS DIV -->
+
+
         <!-- End of settings page form -->
     </form>
 

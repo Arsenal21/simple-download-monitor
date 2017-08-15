@@ -17,6 +17,7 @@ define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
 define('WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url());
+define('WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt');
 
 global $sdm_db_version;
 $sdm_db_version = '1.2';
@@ -82,15 +83,27 @@ function sdm_plugins_loaded_tasks() {
  * * Handle Generic Init tasks
  */
 add_action('init', 'sdm_init_time_tasks');
+add_action('admin_init', 'sdm_admin_init_time_tasks');
 
 function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
-    //Register Google Charts library
     if (is_admin()) {
+        //Register Google Charts library
         wp_register_script('sdm_google_charts', 'https://www.gstatic.com/charts/loader.js', array(), null, true);
         wp_register_style('sdm_jquery_ui_style', WP_SIMPLE_DL_MONITOR_URL . '/css/jquery.ui.min.css', array(), null, 'all');
     }
+}
+
+function sdm_admin_init_time_tasks() {
+    //Register ajax handlers
+    add_action('wp_ajax_sdm_reset_log', 'sdm_reset_log_handler');
+}
+
+function sdm_reset_log_handler() {
+    SDM_Debug::reset_log();
+    echo '1';
+    wp_die();
 }
 
 /*
@@ -488,6 +501,7 @@ class simpleDownloadManager {
         add_settings_section('general_options', __('General Options', 'simple-download-monitor'), array($this, 'general_options_cb'), 'general_options_section');
         add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
         add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
+        add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
 
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
@@ -499,6 +513,8 @@ class simpleDownloadManager {
         add_settings_field('admin_no_logs', __('Disable Download Logs', 'simple-download-monitor'), array($this, 'admin_no_logs_cb'), 'admin_options_section', 'admin_options');
 
         add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
+
+        add_settings_field('enable_debug', __('Enable Debug', 'simple-download-monitor'), array($this, 'enable_debug_cb'), 'sdm_debug_section', 'sdm_debug');
     }
 
     public function general_options_cb() {
@@ -514,6 +530,11 @@ class simpleDownloadManager {
     public function sdm_colors_cb() {
         //Set the message that will be shown below the color options settings heading
         _e('Front End colors settings', 'simple-download-monitor');
+    }
+
+    public function sdm_debug_cb() {
+        //Set the message that will be shown below the debug options settings heading
+        _e('Debug settings', 'simple-download-monitor');
     }
 
     public function hide_download_count_cb() {
@@ -568,6 +589,17 @@ class simpleDownloadManager {
         esc_html_e('Adjusts the color of the "Download Now" button.', 'simple-download-monitor');
     }
 
+    public function enable_debug_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        echo '<input name="sdm_downloads_options[enable_debug]" id="enable_debug" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['enable_debug']), false) . ' /> ';
+        echo '<label for="enable_debug">' . __('Check this option to enable debug logging.', 'simple-download-monitor') .
+        '<p class="description"><a href="' . WP_SIMPLE_DL_MONITOR_URL . '/sdm-debug-log.txt" target="_blank">' .
+        __('Click here', 'simple-download-monitor') . '</a>' .
+        __(' to view log file.', 'simple-download-monitor') . '<br>' .
+        '<a id="sdm-reset-log" href="#0">' . __('Click here', 'simple-download-monitor') . '</a>' .
+        __(' to reset log file.', 'simple-download-monitor') . '</p></label>';
+    }
+
 }
 
 //End of simpleDownloadManager class
@@ -607,7 +639,7 @@ function sdm_remove_thumbnail_image_ajax_call() {
         exit;
     }
 
-    //Go ahead with the thumbnail removal
+//Go ahead with the thumbnail removal
     $post_id = $_POST['post_id_del'];
     $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
     if ($success) {
@@ -627,7 +659,7 @@ function sdm_pop_cats_ajax_call() {
 
     $cat_slug = $_POST['cat_slug'];  // Get button cpt slug
     $parent_id = $_POST['parent_id'];  // Get button cpt id
-    // Query custom posts based on taxonomy slug
+// Query custom posts based on taxonomy slug
     $posts = get_posts(array(
         'post_type' => 'sdm_downloads',
         'numberposts' => -1,
@@ -645,13 +677,13 @@ function sdm_pop_cats_ajax_call() {
 
     $final_array = array();
 
-    // Loop results
+// Loop results
     foreach ($posts as $post) {
         // Create array of variables to pass to js
         $final_array[] = array('id' => $post->ID, 'permalink' => get_permalink($post->ID), 'title' => $post->post_title);
     }
 
-    // Generate ajax response
+// Generate ajax response
     $response = json_encode(array('final_array' => $final_array));
     header('Content-Type: application/json');
     echo $response;
@@ -739,7 +771,7 @@ $main_option = get_option('sdm_downloads_options');
 $tiny_button_option = isset($main_option['admin_tinymce_button']);
 if ($tiny_button_option != true) {
 
-    // Okay.. we're good.  Add the button.
+// Okay.. we're good.  Add the button.
     add_action('init', 'sdm_downloads_tinymce_button');
 
     function sdm_downloads_tinymce_button() {
@@ -758,6 +790,26 @@ if ($tiny_button_option != true) {
 
         $buttons[] = 'sdm_downloads';
         return $buttons;
+    }
+
+}
+
+class SDM_Debug {
+
+    public function __construct() {
+        
+    }
+
+    static function log($msg, $success = true) {
+        $opts = get_option('sdm_downloads_options');
+        if (isset($opts['enable_debug']) && $opts['enable_debug'] == 'on') {
+            file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': [' . ($success === true ? 'SUCCESS' : 'FAIL') . '] ' . $msg . "\r\n", FILE_APPEND);
+        }
+    }
+
+    static function reset_log() {
+        file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': Log has been reset.' . "\r\n");
+        file_put_contents(WP_SDM_LOG_FILE, '-------------------------------------------------------'. "\r\n", FILE_APPEND);
     }
 
 }
