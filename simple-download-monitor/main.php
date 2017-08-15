@@ -809,7 +809,7 @@ class SDM_Debug {
 
     static function reset_log() {
         file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': Log has been reset.' . "\r\n");
-        file_put_contents(WP_SDM_LOG_FILE, '-------------------------------------------------------', FILE_APPEND);
+        file_put_contents(WP_SDM_LOG_FILE, '-------------------------------------------------------'. "\r\n", FILE_APPEND);
     }
 
 }
