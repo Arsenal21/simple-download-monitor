@@ -23,6 +23,7 @@ global $sdm_db_version;
 $sdm_db_version = '1.2';
 
 //File includes
+include_once('includes/sdm-debug.php');
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-utility-functions-admin-side.php');
 include_once('includes/sdm-download-request-handler.php');
@@ -790,26 +791,6 @@ if ($tiny_button_option != true) {
 
         $buttons[] = 'sdm_downloads';
         return $buttons;
-    }
-
-}
-
-class SDM_Debug {
-
-    public function __construct() {
-        
-    }
-
-    static function log($msg, $success = true) {
-        $opts = get_option('sdm_downloads_options');
-        if (isset($opts['enable_debug']) && $opts['enable_debug'] == 'on') {
-            file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': [' . ($success === true ? 'SUCCESS' : 'FAIL') . '] ' . $msg . "\r\n", FILE_APPEND);
-        }
-    }
-
-    static function reset_log() {
-        file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': Log has been reset.' . "\r\n");
-        file_put_contents(WP_SDM_LOG_FILE, '-------------------------------------------------------'. "\r\n", FILE_APPEND);
     }
 
 }

@@ -70,15 +70,13 @@ function sdm_create_settings_page() {
         <script>
             jQuery('a#sdm-reset-log').click(function (e) {
                 e.preventDefault();
-                if (confirm('Are you sure want to reset log file?')) {
-                    jQuery.post(ajaxurl,
-                            {'action': 'sdm_reset_log'},
-                            function (result) {
-                                if (result == '1') {
-                                    alert('Log has been reset.');
-                                }
-                            });
-                }
+                jQuery.post(ajaxurl,
+                {'action': 'sdm_reset_log'},
+                function (result) {
+                    if (result == '1') {
+                        alert('Log has been reset.');
+                    }
+                });
             });
         </script>
 
