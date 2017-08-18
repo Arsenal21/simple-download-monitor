@@ -391,12 +391,14 @@ class simpleDownloadManager {
     public function display_sdm_shortcode_meta_box($post) {  //Shortcode metabox
         _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
-        echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
-        echo '<br /><br />';
+        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';        
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        echo "<br /><br />";
 
         _e('The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor');
         echo '<br />';
-        echo '[sdm_download_counter id="' . $post->ID . '"]';
+        $shortcode_text = '[sdm_download_counter id="' . $post->ID . '"]';
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
 
         echo '<br /><br />';
         echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
