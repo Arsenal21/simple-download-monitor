@@ -99,10 +99,35 @@ function sdm_init_time_tasks() {
 function sdm_admin_init_time_tasks() {
     //Register ajax handlers
     add_action('wp_ajax_sdm_reset_log', 'sdm_reset_log_handler');
+    add_action('wp_ajax_sdm_delete_data', 'sdm_delete_data_handler');
 }
 
 function sdm_reset_log_handler() {
     SDM_Debug::reset_log();
+    echo '1';
+    wp_die();
+}
+
+function sdm_delete_data_handler() {
+    if (!check_ajax_referer('sdm_delete_data', 'nonce', false)) {
+        //nonce check failed
+        wp_die(0);
+    }
+    global $wpdb;
+    //let's find and delete smd_download posts and meta
+    $posts = $wpdb->get_results('SELECT id FROM ' . $wpdb->prefix . 'posts WHERE post_type="sdm_downloads"', ARRAY_A);
+    if (!is_null($posts)) {
+        foreach ($posts as $post) {
+            wp_delete_post($post['id'], true);
+        }
+    }
+    //let's delete options
+    delete_option('sdm_downloads_options');
+    delete_option('sdm_db_version');
+    //let's delete sdm_downloads table
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "sdm_downloads");
+    //deactivate plugin
+    deactivate_plugins(plugin_basename(__FILE__));
     echo '1';
     wp_die();
 }
@@ -391,14 +416,14 @@ class simpleDownloadManager {
     public function display_sdm_shortcode_meta_box($post) {  //Shortcode metabox
         _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
-        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';        
-        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
         echo "<br /><br />";
 
         _e('The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor');
         echo '<br />';
         $shortcode_text = '[sdm_download_counter id="' . $post->ID . '"]';
-        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
 
         echo '<br /><br />';
         echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
@@ -505,6 +530,7 @@ class simpleDownloadManager {
         add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
         add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
         add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
+        add_settings_section('sdm_deldata', __('Delete data', 'simple-download-monitor'), array($this, 'sdm_deldata_cb'), 'sdm_deldata_section');
 
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
@@ -538,6 +564,13 @@ class simpleDownloadManager {
     public function sdm_debug_cb() {
         //Set the message that will be shown below the debug options settings heading
         _e('Debug settings', 'simple-download-monitor');
+    }
+
+    public function sdm_deldata_cb() {
+        //Set the message that will be shown below the debug options settings heading
+        _e('You can delete all the data related to this plugin from database using the button below. Useful when you\'re uninstalling the plugin and don\'t want any leftovers remaining.', 'simple-download-monitor');
+        echo '<p><b>' . __('Warning', 'simple-download-monitor') . ': </b> ' . __('this can\'t be undone. All settings, download items, download logs will be deleted.', 'simple-download-monitor') . '</p>';
+        echo '<p><button id="sdmDeleteData" style="color:red;">' . __('Delete all data and deactivate plugin', 'simple-download-monitor') . '</button></p>';
     }
 
     public function hide_download_count_cb() {

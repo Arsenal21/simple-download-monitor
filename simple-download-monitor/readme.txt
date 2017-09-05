@@ -172,6 +172,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.4.6 =
+- Added option to delete plugin's settings, data and tables from database.
+
 = 3.4.5 =
 - Updated the slug of the new stats menu in this plugin so it doesn't conflict with jetpack's stat menu.
 
