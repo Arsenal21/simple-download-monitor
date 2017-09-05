@@ -17,6 +17,7 @@ define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
 define('WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url());
+//TODO: Make log file name randomly generate on plugin's activation for more security
 define('WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt');
 
 global $sdm_db_version;
@@ -100,6 +101,20 @@ function sdm_admin_init_time_tasks() {
     //Register ajax handlers
     add_action('wp_ajax_sdm_reset_log', 'sdm_reset_log_handler');
     add_action('wp_ajax_sdm_delete_data', 'sdm_delete_data_handler');
+
+    if (is_admin()) {
+        if (user_can(wp_get_current_user(), 'administrator')) {
+            // user is an admin
+            if (isset($_GET['sdmAction'])) {
+                if ($_GET['sdmAction'] === 'view_log') {
+                    $logfile = fopen(WP_SDM_LOG_FILE, 'rb');
+                    header('Content-Type: text/plain');
+                    fpassthru($logfile);
+                    die;
+                }
+            }
+        }
+    }
 }
 
 function sdm_reset_log_handler() {
@@ -597,7 +612,7 @@ class simpleDownloadManager {
     public function general_login_page_url_cb() {
         $main_opts = get_option('sdm_downloads_options');
         $value = isset($main_opts['general_login_page_url']) ? $main_opts['general_login_page_url'] : '';
-        echo '<input size="100" name="sdm_downloads_options[general_login_page_url]" id="general_login_page_url" type="text" value="'.$value.'" />';
+        echo '<input size="100" name="sdm_downloads_options[general_login_page_url]" id="general_login_page_url" type="text" value="' . $value . '" />';
         echo '<p class="description">' . __('(Optional) If above option enabled, you can specify login page URL where users can login. Login link will be added to "You need to be logged in to download this file" message.', 'simple-download-monitor') . '</p>';
     }
 
@@ -637,10 +652,10 @@ class simpleDownloadManager {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[enable_debug]" id="enable_debug" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['enable_debug']), false) . ' /> ';
         echo '<label for="enable_debug">' . __('Check this option to enable debug logging.', 'simple-download-monitor') .
-        '<p class="description"><a href="' . WP_SIMPLE_DL_MONITOR_URL . '/sdm-debug-log.txt" target="_blank">' .
+        '<p class="description"><a href="' . get_admin_url() . '?sdmAction=view_log" target="_blank">' .
         __('Click here', 'simple-download-monitor') . '</a>' .
         __(' to view log file.', 'simple-download-monitor') . '<br>' .
-        '<a id="sdm-reset-log" href="#0">' . __('Click here', 'simple-download-monitor') . '</a>' .
+        '<a id="sdm-reset-log" href="#0" style="color: red">' . __('Click here', 'simple-download-monitor') . '</a>' .
         __(' to reset log file.', 'simple-download-monitor') . '</p></label>';
     }
 
