@@ -23,6 +23,7 @@ global $sdm_db_version;
 $sdm_db_version = '1.2';
 
 //File includes
+include_once('includes/sdm-debug.php');
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-utility-functions-admin-side.php');
 include_once('includes/sdm-download-request-handler.php');
@@ -390,12 +391,14 @@ class simpleDownloadManager {
     public function display_sdm_shortcode_meta_box($post) {  //Shortcode metabox
         _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
-        echo '[sdm_download id="' . $post->ID . '" fancy="0"]';
-        echo '<br /><br />';
+        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';        
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        echo "<br /><br />";
 
         _e('The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor');
         echo '<br />';
-        echo '[sdm_download_counter id="' . $post->ID . '"]';
+        $shortcode_text = '[sdm_download_counter id="' . $post->ID . '"]';
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
 
         echo '<br /><br />';
         echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
@@ -790,26 +793,6 @@ if ($tiny_button_option != true) {
 
         $buttons[] = 'sdm_downloads';
         return $buttons;
-    }
-
-}
-
-class SDM_Debug {
-
-    public function __construct() {
-        
-    }
-
-    static function log($msg, $success = true) {
-        $opts = get_option('sdm_downloads_options');
-        if (isset($opts['enable_debug']) && $opts['enable_debug'] == 'on') {
-            file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': [' . ($success === true ? 'SUCCESS' : 'FAIL') . '] ' . $msg . "\r\n", FILE_APPEND);
-        }
-    }
-
-    static function reset_log() {
-        file_put_contents(WP_SDM_LOG_FILE, date('Y-m-d H:i:s', time()) . ': Log has been reset.' . "\r\n");
-        file_put_contents(WP_SDM_LOG_FILE, '-------------------------------------------------------'. "\r\n", FILE_APPEND);
     }
 
 }

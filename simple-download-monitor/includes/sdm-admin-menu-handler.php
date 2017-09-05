@@ -9,6 +9,7 @@ function sdm_handle_admin_menu() {
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Logs', 'simple-download-monitor'), __('Logs', 'simple-download-monitor'), 'manage_options', 'logs', 'sdm_create_logs_page');
     $sdm_logs_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Stats', 'simple-download-monitor'), __('Stats', 'simple-download-monitor'), 'manage_options', 'sdm-stats', 'sdm_create_stats_page');
     $sdm_settings_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Settings', 'simple-download-monitor'), __('Settings', 'simple-download-monitor'), 'manage_options', 'settings', 'sdm_create_settings_page');
+    $sdm_addons_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Add-ons', 'simple-download-monitor'), __('Add-ons', 'simple-download-monitor'), 'manage_options', 'sdm-addons', 'sdm_create_addons_page');
 }
 
 /*
@@ -70,15 +71,13 @@ function sdm_create_settings_page() {
         <script>
             jQuery('a#sdm-reset-log').click(function (e) {
                 e.preventDefault();
-                if (confirm('Are you sure want to reset log file?')) {
-                    jQuery.post(ajaxurl,
-                            {'action': 'sdm_reset_log'},
-                            function (result) {
-                                if (result == '1') {
-                                    alert('Log has been reset.');
-                                }
-                            });
-                }
+                jQuery.post(ajaxurl,
+                {'action': 'sdm_reset_log'},
+                function (result) {
+                    if (result == '1') {
+                        alert('Log has been reset.');
+                    }
+                });
             });
         </script>
 
@@ -131,7 +130,6 @@ function sdm_create_logs_page() {
     ?>
     <div class="wrap">
 
-        <div id="icon-users" class="icon32"><br/></div>
         <h2><?php _e('Download Logs', 'simple-download-monitor'); ?></h2>
 
         <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
@@ -316,4 +314,9 @@ function sdm_create_stats_page() {
         });
     </script>
     <?php
+}
+
+function sdm_create_addons_page()
+{
+    include(WP_SIMPLE_DL_MONITOR_PATH.'includes/admin-side/sdm-admin-add-ons-page.php');
 }
