@@ -536,6 +536,7 @@ class simpleDownloadManager {
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
         add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
         add_settings_field('only_logged_in_can_download', __('Only Allow Logged-in Users to Download', 'simple-download-monitor'), array($this, 'general_only_logged_in_can_download_cb'), 'general_options_section', 'general_options');
+        add_settings_field('general_login_page_url', __('Login Page URL', 'simple-download-monitor'), array($this, 'general_login_page_url_cb'), 'general_options_section', 'general_options');
 
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -591,6 +592,13 @@ class simpleDownloadManager {
         $value = isset($main_opts['only_logged_in_can_download']) && $main_opts['only_logged_in_can_download'];
         echo '<input name="sdm_downloads_options[only_logged_in_can_download]" id="only_logged_in_can_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
         echo '<label for="only_logged_in_can_download">' . __('Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message.', 'simple-download-monitor') . '</label>';
+    }
+
+    public function general_login_page_url_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['general_login_page_url']) ? $main_opts['general_login_page_url'] : '';
+        echo '<input size="100" name="sdm_downloads_options[general_login_page_url]" id="general_login_page_url" type="text" value="'.$value.'" />';
+        echo '<p class="description">' . __('(Optional) If above option enabled, you can specify login page URL where users can login. Login link will be added to "You need to be logged in to download this file" message.', 'simple-download-monitor') . '</p>';
     }
 
     public function admin_tinymce_button_cb() {

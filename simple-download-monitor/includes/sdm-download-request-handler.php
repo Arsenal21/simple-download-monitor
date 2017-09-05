@@ -51,7 +51,14 @@ function handle_sdm_download_via_direct_post() {
         if (isset($main_option['only_logged_in_can_download'])) {
             if ($main_option['only_logged_in_can_download'] && $visitor_name === false) {
                 // User not logged in, let's display the message
-                wp_die(__('You need to be logged in to download this file.', 'simple-download-monitor'));
+                //But first let's see if we have login page URL set so we can display it as well
+                $loginMsg = '';
+                if (isset($main_option['general_login_page_url']) && !empty($main_option['general_login_page_url'])) {
+                    //we have login page URL set
+                    $tpl = __("__Click here__ to go to login page.", 'simple-download-monitor');
+                    $loginMsg = preg_replace('/__(.*)__/', ' <a href="' . $main_option['general_login_page_url'] . '">$1</a> $2', $tpl);
+                }
+                wp_die(__('You need to be logged in to download this file.', 'simple-download-monitor') . $loginMsg);
             }
         }
 
