@@ -68,21 +68,48 @@ function sdm_create_settings_page() {
 
         submit_button();
         ?>
+        <!-- END DEBUG OPTIONS DIV -->
+        <!-- BEGIN DELDATA OPTIONS DIV -->
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('sdm_deldata_section');
+        settings_fields('sdm_downloads_options');
+
+        $deldataNonce = wp_create_nonce('sdm_delete_data');
+        ?>
+        <!-- END DELDATA OPTIONS DIV -->
+
         <script>
+            jQuery('button#sdmDeleteData').click(function (e) {
+                e.preventDefault();
+                jQuery(this).attr('disabled', 'disabled');
+                if (confirm("<?php echo __("Are you sure want to delete all plugin's data and deactivate plugin?", 'simple-download-monitor'); ?>")) {
+                    jQuery.post(ajaxurl,
+                            {'action': 'sdm_delete_data', 'nonce': '<?php echo $deldataNonce; ?>'},
+                            function (result) {
+                                if (result === '1') {
+                                    alert('<?php echo __('Data has been deleted and plugin deactivated. Click OK to go to Plugins page.', 'simple-download-monitor'); ?>');
+                                    jQuery(location).attr('href', '<?php echo get_admin_url().'plugins.php'; ?>');
+                                    return true;
+                                } else {
+                                    alert('<?php echo __('Error occured.', 'simple-download-monitor'); ?>');
+                                }
+                            });
+                } else {
+                    jQuery(this).removeAttr('disabled');
+                }
+            });
             jQuery('a#sdm-reset-log').click(function (e) {
                 e.preventDefault();
                 jQuery.post(ajaxurl,
-                {'action': 'sdm_reset_log'},
-                function (result) {
-                    if (result == '1') {
-                        alert('Log has been reset.');
-                    }
-                });
+                        {'action': 'sdm_reset_log'},
+                        function (result) {
+                            if (result === '1') {
+                                alert('Log has been reset.');
+                            }
+                        });
             });
         </script>
-
-        <!-- END DEBUG OPTIONS DIV -->
-
 
         <!-- End of settings page form -->
     </form>
@@ -316,7 +343,6 @@ function sdm_create_stats_page() {
     <?php
 }
 
-function sdm_create_addons_page()
-{
-    include(WP_SIMPLE_DL_MONITOR_PATH.'includes/admin-side/sdm-admin-add-ons-page.php');
+function sdm_create_addons_page() {
+    include(WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-add-ons-page.php');
 }

@@ -17,6 +17,7 @@ define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
 define('WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url());
+//TODO: Make log file name randomly generate on plugin's activation for more security
 define('WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt');
 
 global $sdm_db_version;
@@ -99,10 +100,49 @@ function sdm_init_time_tasks() {
 function sdm_admin_init_time_tasks() {
     //Register ajax handlers
     add_action('wp_ajax_sdm_reset_log', 'sdm_reset_log_handler');
+    add_action('wp_ajax_sdm_delete_data', 'sdm_delete_data_handler');
+
+    if (is_admin()) {
+        if (user_can(wp_get_current_user(), 'administrator')) {
+            // user is an admin
+            if (isset($_GET['sdmAction'])) {
+                if ($_GET['sdmAction'] === 'view_log') {
+                    $logfile = fopen(WP_SDM_LOG_FILE, 'rb');
+                    header('Content-Type: text/plain');
+                    fpassthru($logfile);
+                    die;
+                }
+            }
+        }
+    }
 }
 
 function sdm_reset_log_handler() {
     SDM_Debug::reset_log();
+    echo '1';
+    wp_die();
+}
+
+function sdm_delete_data_handler() {
+    if (!check_ajax_referer('sdm_delete_data', 'nonce', false)) {
+        //nonce check failed
+        wp_die(0);
+    }
+    global $wpdb;
+    //let's find and delete smd_download posts and meta
+    $posts = $wpdb->get_results('SELECT id FROM ' . $wpdb->prefix . 'posts WHERE post_type="sdm_downloads"', ARRAY_A);
+    if (!is_null($posts)) {
+        foreach ($posts as $post) {
+            wp_delete_post($post['id'], true);
+        }
+    }
+    //let's delete options
+    delete_option('sdm_downloads_options');
+    delete_option('sdm_db_version');
+    //let's delete sdm_downloads table
+    $wpdb->query("DROP TABLE " . $wpdb->prefix . "sdm_downloads");
+    //deactivate plugin
+    deactivate_plugins(plugin_basename(__FILE__));
     echo '1';
     wp_die();
 }
@@ -391,14 +431,14 @@ class simpleDownloadManager {
     public function display_sdm_shortcode_meta_box($post) {  //Shortcode metabox
         _e('The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor');
         echo '<br />';
-        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';        
-        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        $shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
         echo "<br /><br />";
 
         _e('The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor');
         echo '<br />';
         $shortcode_text = '[sdm_download_counter id="' . $post->ID . '"]';
-        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='".$shortcode_text."' size='40'>";
+        echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
 
         echo '<br /><br />';
         echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
@@ -505,11 +545,13 @@ class simpleDownloadManager {
         add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
         add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
         add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
+        add_settings_section('sdm_deldata', __('Delete data', 'simple-download-monitor'), array($this, 'sdm_deldata_cb'), 'sdm_deldata_section');
 
         //Add all the individual settings fields that goes under the sections
         add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
         add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
         add_settings_field('only_logged_in_can_download', __('Only Allow Logged-in Users to Download', 'simple-download-monitor'), array($this, 'general_only_logged_in_can_download_cb'), 'general_options_section', 'general_options');
+        add_settings_field('general_login_page_url', __('Login Page URL', 'simple-download-monitor'), array($this, 'general_login_page_url_cb'), 'general_options_section', 'general_options');
 
         add_settings_field('admin_tinymce_button', __('Remove Tinymce Button', 'simple-download-monitor'), array($this, 'admin_tinymce_button_cb'), 'admin_options_section', 'admin_options');
         add_settings_field('admin_log_unique', __('Log Unique IP', 'simple-download-monitor'), array($this, 'admin_log_unique'), 'admin_options_section', 'admin_options');
@@ -540,6 +582,13 @@ class simpleDownloadManager {
         _e('Debug settings', 'simple-download-monitor');
     }
 
+    public function sdm_deldata_cb() {
+        //Set the message that will be shown below the debug options settings heading
+        _e('You can delete all the data related to this plugin from database using the button below. Useful when you\'re uninstalling the plugin and don\'t want any leftovers remaining.', 'simple-download-monitor');
+        echo '<p><b>' . __('Warning', 'simple-download-monitor') . ': </b> ' . __('this can\'t be undone. All settings, download items, download logs will be deleted.', 'simple-download-monitor') . '</p>';
+        echo '<p><button id="sdmDeleteData" style="color:red;">' . __('Delete all data and deactivate plugin', 'simple-download-monitor') . '</button></p>';
+    }
+
     public function hide_download_count_cb() {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[general_hide_donwload_count]" id="general_hide_download_count" type="checkbox" ' . checked(1, isset($main_opts['general_hide_donwload_count']), false) . ' /> ';
@@ -558,6 +607,13 @@ class simpleDownloadManager {
         $value = isset($main_opts['only_logged_in_can_download']) && $main_opts['only_logged_in_can_download'];
         echo '<input name="sdm_downloads_options[only_logged_in_can_download]" id="only_logged_in_can_download" type="checkbox" value="1"' . checked(true, $value, false) . ' />';
         echo '<label for="only_logged_in_can_download">' . __('Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message.', 'simple-download-monitor') . '</label>';
+    }
+
+    public function general_login_page_url_cb() {
+        $main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['general_login_page_url']) ? $main_opts['general_login_page_url'] : '';
+        echo '<input size="100" name="sdm_downloads_options[general_login_page_url]" id="general_login_page_url" type="text" value="' . $value . '" />';
+        echo '<p class="description">' . __('(Optional) If above option enabled, you can specify login page URL where users can login. Login link will be added to "You need to be logged in to download this file" message.', 'simple-download-monitor') . '</p>';
     }
 
     public function admin_tinymce_button_cb() {
@@ -596,10 +652,10 @@ class simpleDownloadManager {
         $main_opts = get_option('sdm_downloads_options');
         echo '<input name="sdm_downloads_options[enable_debug]" id="enable_debug" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['enable_debug']), false) . ' /> ';
         echo '<label for="enable_debug">' . __('Check this option to enable debug logging.', 'simple-download-monitor') .
-        '<p class="description"><a href="' . WP_SIMPLE_DL_MONITOR_URL . '/sdm-debug-log.txt" target="_blank">' .
+        '<p class="description"><a href="' . get_admin_url() . '?sdmAction=view_log" target="_blank">' .
         __('Click here', 'simple-download-monitor') . '</a>' .
         __(' to view log file.', 'simple-download-monitor') . '<br>' .
-        '<a id="sdm-reset-log" href="#0">' . __('Click here', 'simple-download-monitor') . '</a>' .
+        '<a id="sdm-reset-log" href="#0" style="color: red">' . __('Click here', 'simple-download-monitor') . '</a>' .
         __(' to reset log file.', 'simple-download-monitor') . '</p></label>';
     }
 
