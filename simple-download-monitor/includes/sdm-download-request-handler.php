@@ -50,11 +50,11 @@ function handle_sdm_download_via_direct_post() {
         // Check if we only allow the download for logged-in users
         if (isset($main_option['only_logged_in_can_download'])) {
             if ($main_option['only_logged_in_can_download'] && $visitor_name === false) {
-                // User not logged in, let's display the message
+                //User not logged in, let's display the error message.
                 //But first let's see if we have login page URL set so we can display it as well
                 $loginMsg = '';
                 if (isset($main_option['general_login_page_url']) && !empty($main_option['general_login_page_url'])) {
-                    //we have login page URL set
+                    //We have a login page URL set. Lets use it.
                     $tpl = __("__Click here__ to go to login page.", 'simple-download-monitor');
                     $loginMsg = preg_replace('/__(.*)__/', ' <a href="' . $main_option['general_login_page_url'] . '">$1</a> $2', $tpl);
                 }
