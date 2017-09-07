@@ -172,6 +172,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.4.7 =
+- Delete Plugin Data button now also deletes taxonomies and rewrite rules related to plugin.
+
 = 3.4.6 =
 - Added option to delete plugin's settings, data and tables from database.
 - Added "Login Page URL" option to optionally specify a login page URL when user is required to be logged in to download.
