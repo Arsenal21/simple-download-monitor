@@ -138,10 +138,16 @@ function sdm_delete_data_handler() {
     //let's delete options
     delete_option('sdm_downloads_options');
     delete_option('sdm_db_version');
+    //remove post type and taxonomies
+    unregister_post_type('sdm_downloads');
+    unregister_taxonomy('sdm_categories');
+    unregister_taxonomy('sdm_tags');
     //let's delete sdm_downloads table
     $wpdb->query("DROP TABLE " . $wpdb->prefix . "sdm_downloads");
     //deactivate plugin
     deactivate_plugins(plugin_basename(__FILE__));
+    //flush rewrite rules
+    flush_rewrite_rules(false);
     echo '1';
     wp_die();
 }
