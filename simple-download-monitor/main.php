@@ -220,7 +220,7 @@ class simpleDownloadManager {
             // These scripts are needed for the media upload thickbox
             wp_enqueue_script('media-upload');
             wp_enqueue_script('thickbox');
-            wp_register_script('sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array('jquery', 'media-upload', 'thickbox'));
+            wp_register_script('sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array('jquery', 'media-upload', 'thickbox'), WP_SIMPLE_DL_MONITOR_VERSION);
             wp_enqueue_script('sdm-upload');
 
             // Pass postID for thumbnail deletion
@@ -231,6 +231,9 @@ class simpleDownloadManager {
             <?php
             // Localize langauge strings used in js file
             $sdmTranslations = array(
+                'select_file' => __('Select File', 'simple-download-monitor'),
+                'select_thumbnail' => __('Select Thumbnail', 'simple-download-monitor'),
+                'insert' => __('Insert', 'simple-download-monitor'),
                 'image_removed' => __('Image Successfully Removed', 'simple-download-monitor'),
                 'ajax_error' => __('Error with AJAX', 'simple-download-monitor')
             );
@@ -705,9 +708,15 @@ function sdm_remove_thumbnail_image_ajax_call() {
 
 //Go ahead with the thumbnail removal
     $post_id = $_POST['post_id_del'];
-    $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
-    if ($success) {
-        $response = json_encode(array('success' => true));
+    $key_exists = metadata_exists('post', $post_id, 'sdm_upload_thumbnail');
+    if ($key_exists) {
+        $success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
+        if ($success) {
+            $response = json_encode(array('success' => true));
+        }
+    } else {
+        // in order for frontend script to not display "Ajax error", let's return some data
+        $response = json_encode(array('not_exists' => true));
     }
 
     header('Content-Type: application/json');
