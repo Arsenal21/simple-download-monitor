@@ -24,17 +24,15 @@ jQuery(document).ready(function ($) {
     $('#upload_thumbnail_button').click(function (e) {
         e.preventDefault();
         selectFileFrame = wp.media({
-            title: 'Select File',
+            title: 'Select Thumbnail',
             button: {
                 text: 'Insert'
             },
             multiple: false,
             library: {type: 'image'},
-            frame: 'post',
-            state: 'insert'
         });
         selectFileFrame.open();
-        selectFileFrame.on('insert', function () {
+        selectFileFrame.on('select', function () {
             var attachment = selectFileFrame.state().get('selection').first().toJSON();
 
             $('#sdm_thumbnail_image').remove();
