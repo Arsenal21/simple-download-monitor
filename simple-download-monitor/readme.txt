@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.8
-Stable tag: 3.4.6
+Stable tag: 3.4.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -172,8 +172,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.4.7 =
-- Delete Plugin Data button now also deletes taxonomies and rewrite rules related to plugin.
+= 3.4.7 =
+- Reworked the file upload interface to make it more user-friendly. 
+- Delete plugin Data button now also deletes taxonomies and rewrite rules related to plugin.
 
 = 3.4.6 =
 - Added option to delete plugin's settings, data and tables from database.
