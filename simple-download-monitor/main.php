@@ -220,7 +220,7 @@ class simpleDownloadManager {
             // These scripts are needed for the media upload thickbox
             wp_enqueue_script('media-upload');
             wp_enqueue_script('thickbox');
-            wp_register_script('sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array('jquery', 'media-upload', 'thickbox'));
+            wp_register_script('sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array('jquery', 'media-upload', 'thickbox'), WP_SIMPLE_DL_MONITOR_VERSION);
             wp_enqueue_script('sdm-upload');
 
             // Pass postID for thumbnail deletion
