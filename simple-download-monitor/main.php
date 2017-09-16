@@ -311,7 +311,7 @@ class simpleDownloadManager {
         echo '</div>';
 
         echo '<br />';
-        echo '<input id="upload_image_button" type="button" class="button-primary" value="' . __('Select File', 'simple-download-monitor') . '" />';
+        echo '<input id="upload_image_button" type="button" class="button button-primary" data-update="Test" value="' . __('Select File', 'simple-download-monitor') . '" />';
 
         echo '<br /><br />';
         _e('Steps to upload a file or choose one from your media library:', 'simple-download-monitor');
@@ -352,7 +352,7 @@ class simpleDownloadManager {
         <br /><br />
         <input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo $old_value; ?>" placeholder="http://..." />
         <br /><br />
-        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php _e('Select Image', 'simple-download-monitor'); ?>" />        
+        <input id="upload_thumbnail_button" type="button" class="button insert-media add_media button-primary" value="<?php _e('Select Image', 'simple-download-monitor'); ?>" />        
         <input id="remove_thumbnail_button" type="button" class="button" value="<?php _e('Remove Image', 'simple-download-monitor'); ?>" />
         <br /><br />
 
