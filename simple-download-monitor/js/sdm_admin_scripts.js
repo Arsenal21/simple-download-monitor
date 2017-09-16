@@ -5,9 +5,9 @@ jQuery(document).ready(function ($) {
     $('#upload_image_button').click(function (e) {
         e.preventDefault();
         selectFileFrame = wp.media({
-            title: 'Select File',
+            title: sdm_translations.select_file,
             button: {
-                text: 'Insert'
+                text: sdm_translations.insert,
             },
             multiple: false
         });
@@ -24,9 +24,9 @@ jQuery(document).ready(function ($) {
     $('#upload_thumbnail_button').click(function (e) {
         e.preventDefault();
         selectFileFrame = wp.media({
-            title: 'Select Thumbnail',
+            title: sdm_translations.select_thumbnail,
             button: {
-                text: 'Insert'
+                text: sdm_translations.insert,
             },
             multiple: false,
             library: {type: 'image'},

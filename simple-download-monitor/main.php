@@ -231,6 +231,9 @@ class simpleDownloadManager {
             <?php
             // Localize langauge strings used in js file
             $sdmTranslations = array(
+                'select_file' =>  __('Select File', 'simple-download-monitor'),
+                'select_thumbnail' =>  __('Select Thumbnail', 'simple-download-monitor'),
+                'insert' =>  __('Insert', 'simple-download-monitor'),
                 'image_removed' => __('Image Successfully Removed', 'simple-download-monitor'),
                 'ajax_error' => __('Error with AJAX', 'simple-download-monitor')
             );
