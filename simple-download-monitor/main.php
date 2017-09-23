@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.4.7
+ * Version: 3.4.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.7');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.8');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -678,15 +678,15 @@ add_action('wp_ajax_nopriv_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_c
 add_action('wp_ajax_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
 
 function sdm_tiny_get_post_ids_ajax_call() {
-
-    $args = array(
+    
+    $posts = get_posts(array(
         'post_type' => 'sdm_downloads',
+        'numberposts' => -1,
+        )
     );
-    $loop = new WP_Query($args);
-    $test = '';
-    foreach ($loop->posts as $loop_post) {
-        $test[] = array('post_id' => $loop_post->ID, 'post_title' => $loop_post->post_title);
-    }
+    foreach ($posts as $item) {
+        $test[] = array('post_id' => $item->ID, 'post_title' => $item->post_title);
+    }    
 
     $response = json_encode(array('success' => true, 'test' => $test));
 
