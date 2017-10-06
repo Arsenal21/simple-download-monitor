@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.4.6
+ * Version: 3.4.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.6');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.4.8');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -283,7 +283,7 @@ class simpleDownloadManager {
 
         //*****  Create metaboxes for the custom post type
         add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array($this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
-        add_meta_box('sdm_upload_meta_box', __('Upload File', 'simple-download-monitor'), array($this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_upload_meta_box', __('Downloadable File (Visitors will download this item)', 'simple-download-monitor'), array($this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_dispatch_meta_box', __('PHP Dispatch or Redirect', 'simple-download-monitor'), array($this, 'display_sdm_dispatch_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
         add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array($this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
@@ -319,9 +319,9 @@ class simpleDownloadManager {
         echo '<br /><br />';
         _e('Steps to upload a file or choose one from your media library:', 'simple-download-monitor');
         echo '<ol>';
-        echo '<li>Hit the "Select File" button</li>';
+        echo '<li>Hit the "Select File" button.</li>';
         echo '<li>Upload a new file or choose an existing one from your media library.</li>';
-        echo '<li>Click the "Insert into Post" button, this will populate the uploaded file URL in the above text field.</li>';
+        echo '<li>Click the "Insert" button, this will populate the uploaded file\'s URL in the above text field.</li>';
         echo '</ol>';
 
         wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
@@ -678,15 +678,15 @@ add_action('wp_ajax_nopriv_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_c
 add_action('wp_ajax_sdm_tiny_get_post_ids', 'sdm_tiny_get_post_ids_ajax_call');
 
 function sdm_tiny_get_post_ids_ajax_call() {
-
-    $args = array(
+    
+    $posts = get_posts(array(
         'post_type' => 'sdm_downloads',
+        'numberposts' => -1,
+        )
     );
-    $loop = new WP_Query($args);
-    $test = '';
-    foreach ($loop->posts as $loop_post) {
-        $test[] = array('post_id' => $loop_post->ID, 'post_title' => $loop_post->post_title);
-    }
+    foreach ($posts as $item) {
+        $test[] = array('post_id' => $item->ID, 'post_title' => $item->post_title);
+    }    
 
     $response = json_encode(array('success' => true, 'test' => $test));
 

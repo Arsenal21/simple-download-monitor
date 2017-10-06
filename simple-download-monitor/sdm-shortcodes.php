@@ -61,6 +61,9 @@ function sdm_create_download_shortcode($atts) {
         'button_text' => __('Download Now!', 'simple-download-monitor'),
         'new_window' => '',
         'color' => '',
+        'css_class' => '',                
+        'show_size' => '',
+        'show_version' => '',                
                     ), $atts)
     );
 
