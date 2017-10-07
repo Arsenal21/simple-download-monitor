@@ -172,6 +172,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.4.9 =
+- Updated the settings menu slug to make it unique.
+
 = 3.4.8 =
 - Fixed an issue with the shortcode inserter interface showing the last 5 items only.
 - The "show_size" shortcode parameter will work correctly with the fancy template now.
