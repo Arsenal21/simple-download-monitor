@@ -176,7 +176,7 @@ function sdm_settings_link($links, $file) {
     if (!$this_plugin)
         $this_plugin = plugin_basename(__FILE__);
     if ($file == $this_plugin) {
-        $settings_link = '<a href="edit.php?post_type=sdm_downloads&page=settings" title="SDM Settings Page">' . __("Settings", 'simple-download-monitor') . '</a>';
+        $settings_link = '<a href="edit.php?post_type=sdm_downloads&page=sdm-settings" title="SDM Settings Page">' . __("Settings", 'simple-download-monitor') . '</a>';
         array_unshift($links, $settings_link);
     }
     return $links;
