@@ -174,6 +174,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = TODO 3.4.9 =
 - Updated the settings menu slug to make it unique.
+- Enhancement to the password protected download function.
 
 = 3.4.8 =
 - Fixed an issue with the shortcode inserter interface showing the last 5 items only.
