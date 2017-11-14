@@ -4,7 +4,7 @@ function sdm_generate_fancy0_latest_downloads_display_output($get_posts, $args) 
 
     $output = "";
     isset($args['button_text']) ? $button_text = $args['button_text'] : $button_text = '';
-    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';    
+    isset($args['new_window']) ? $new_window = $args['new_window'] : $new_window = '';
     foreach ($get_posts as $item) {
         $id = $item->ID;  //Get the post ID
         //Create a args array
@@ -20,7 +20,8 @@ function sdm_generate_fancy0_latest_downloads_display_output($get_posts, $args) 
     return $output;
 }
 
-/*** TODO - Use this function in the category shortcode handler function ***/
+/* * * TODO - Use this function in the category shortcode handler function ** */
+
 //function sdm_generate_fancy0_category_display_output($get_posts, $args) {
 //
 //    $output = "";
@@ -76,7 +77,7 @@ function sdm_generate_fancy0_display_output($args) {
         $button_text_string = $button_text;
     }
 
-   // Get CPT title
+    // Get CPT title
     $item_title = get_the_title($id);
     $isset_item_title = isset($item_title) && !empty($item_title) ? $item_title : '';
 
@@ -89,7 +90,7 @@ function sdm_generate_fancy0_display_output($args) {
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
-        $download_button_code = sdm_get_password_entry_form($id, $args);
+        $download_button_code = sdm_get_password_entry_form($id, $args, 'sdm_download ' . $def_color);
     }
 
     $output = "";

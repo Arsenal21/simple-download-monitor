@@ -2,6 +2,10 @@
     clear: both;
 }
 
+.sdm_pass_text {
+    margin-bottom: 10px;
+}
+
 .sdm_download_item {
     display: block;
     border:1px solid #E7E9EB;

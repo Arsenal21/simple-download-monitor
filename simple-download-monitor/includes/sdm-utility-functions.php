@@ -53,7 +53,7 @@ function sdm_get_item_description_output($id) {
     return $isset_item_description;
 }
 
-function sdm_get_password_entry_form($id, $args = array()) {
+function sdm_get_password_entry_form($id, $args = array(),$class='') {
     $action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
 
     //Get the download button text
@@ -64,10 +64,14 @@ function sdm_get_password_entry_form($id, $args = array()) {
         $button_text_string = $button_text;
     }
 
+    $uuid = uniqid('sdm-pass-');
+
     $data = __('Enter Password to Download:', 'simple-download-monitor');
-    $data .= '<form action="' . $action_url . '" method="post" >';
+    $data .= '<form action="' . $action_url . '" method="post" id="' . $uuid . '">';
     $data .= '<input type="password" name="pass_text" class="sdm_pass_text" value="" /> ';
-    $data .= '<input type="submit" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download" value="' . $button_text_string . '" />';
+    $data .= '<span class="sdm-download-button">';
+    $data .= '<a href="javascript:document.getElementById(\'' . $uuid . '\').submit();" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download '.$class.'">' . $button_text_string . '</a>';
+    $data .= '</span>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
     return $data;
