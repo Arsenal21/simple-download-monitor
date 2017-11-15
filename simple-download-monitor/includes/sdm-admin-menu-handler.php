@@ -114,7 +114,7 @@ function sdm_create_settings_page() {
         <!-- End of settings page form -->
     </form>
 
-    <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">	
+    <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">
         <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'simple-download-monitor'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'simple-download-monitor'); ?></a>
         </p>
     </div>
@@ -169,22 +169,22 @@ function sdm_create_logs_page() {
                 <div class="postbox">
                     <h3 class="hndle"><label for="title"><?php _e('Export Download Log Entries', 'simple-download-monitor'); ?></label></h3>
                     <div class="inside">
-                        <form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >    
+                        <form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >
                             <div class="submit">
                                 <input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e('Export Log Entries to CSV File', 'simple-download-monitor'); ?>" />
-                            </div>    
-                        </form> 
+                            </div>
+                        </form>
                     </div></div>
 
                 <!-- Log reset button -->
                 <div class="postbox">
                     <h3 class="hndle"><label for="title"><?php _e('Reset Download Log Entries', 'simple-download-monitor'); ?></label></h3>
                     <div class="inside">
-                        <form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >    
+                        <form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >
                             <div class="submit">
                                 <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e('Reset Log Entries', 'simple-download-monitor'); ?>" />
-                            </div>    
-                        </form> 
+                            </div>
+                        </form>
                     </div></div>
 
             </div></div><!-- end of .poststuff and .post-body -->
