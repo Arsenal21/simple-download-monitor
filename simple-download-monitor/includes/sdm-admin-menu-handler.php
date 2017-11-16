@@ -18,7 +18,7 @@ function sdm_handle_admin_menu() {
 
 function sdm_create_settings_page() {
     echo '<div class="wrap">';
-//echo '<div id="poststuff"><div id="post-body">';
+    //echo '<div id="poststuff"><div id="post-body">';
     ?>
     <h1><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h1>
 
