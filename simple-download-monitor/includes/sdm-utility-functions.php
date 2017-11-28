@@ -191,7 +191,7 @@ function sdm_get_logged_in_user() {
 
 // Checks if current visitor is a bot
 function sdm_visitor_is_bot() {
-    $bots = array('archiver', 'binlar', 'casper', 'checkprivacy', 'clshttp', 'cmsworldmap', 'comodo', 'curl', 'diavol', 'dotbot', 'email', 'extract', 'feedfinder', 'flicky', 'grab', 'harvest', 'httrack', 'ia_archiver', 'jakarta', 'kmccrew', 'libwww', 'loader', 'miner', 'nikto', 'nutch', 'planetwork', 'purebot', 'pycurl', 'python', 'scan', 'skygrid', 'sucker', 'turnit', 'vikspider', 'wget', 'winhttp', 'youda', 'zmeu', 'zune');
+    $bots = array('archiver', 'binlar', 'casper', 'checkprivacy', 'clshttp', 'cmsworldmap', 'comodo', 'curl', 'diavol', 'dotbot', 'email', 'extract', 'feedfinder', 'flicky', 'googlebot','grab', 'harvest', 'httrack', 'ia_archiver', 'jakarta', 'kmccrew', 'libwww', 'loader', 'miner', 'msnbot', 'nikto', 'nutch', 'planetwork', 'purebot', 'pycurl', 'python', 'scan', 'skygrid', 'sucker', 'turnit', 'vikspider', 'wget', 'winhttp', 'yahoo', 'youda', 'zmeu', 'zune');
 
     $isBot = false;
 
@@ -207,5 +207,8 @@ function sdm_visitor_is_bot() {
 	$isBot = true;
     }
 
+    //This filter can be used to override what you consider bot via your own custom function. You can read the user-agent value from the server var.
+    $isBot = apply_filters('sdm_visitor_is_bot', $isBot);
+    
     return $isBot;
 }
