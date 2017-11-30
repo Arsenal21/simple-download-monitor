@@ -191,7 +191,7 @@ function sdm_get_logged_in_user() {
 
 // Checks if current visitor is a bot
 function sdm_visitor_is_bot() {
-    $bots = array('archiver', 'binlar', 'casper', 'checkprivacy', 'clshttp', 'cmsworldmap', 'comodo', 'curl', 'diavol', 'dotbot', 'email', 'extract', 'facebookexternalhit', 'feedfinder', 'flicky', 'googlebot','grab', 'harvest', 'httrack', 'ia_archiver', 'jakarta', 'kmccrew', 'libwww', 'loader', 'miner', 'msnbot', 'nikto', 'nutch', 'planetwork', 'purebot', 'pycurl', 'python', 'scan', 'skygrid', 'sucker', 'turnit', 'vikspider', 'wget', 'winhttp', 'yandex', 'yahoo', 'youda', 'zmeu', 'zune');
+    $bots = array('archiver', 'baiduspider', 'binlar', 'casper', 'checkprivacy', 'clshttp', 'cmsworldmap', 'comodo', 'curl', 'diavol', 'dotbot', 'email', 'extract', 'facebookexternalhit', 'feedfinder', 'flicky', 'googlebot','grab', 'harvest', 'httrack', 'ia_archiver', 'jakarta', 'kmccrew', 'libwww', 'loader', 'miner', 'msnbot', 'nikto', 'nutch', 'planetwork', 'purebot', 'pycurl', 'python', 'scan', 'skygrid', 'sucker', 'turnit', 'vikspider', 'wget', 'winhttp', 'yandex', 'yahoo', 'youda', 'zmeu', 'zune');
 
     $isBot = false;
 
