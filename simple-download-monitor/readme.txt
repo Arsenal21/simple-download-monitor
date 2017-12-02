@@ -173,6 +173,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= TODO 3.5.1 = 
+- Added a few more user-agents check in the is_bot function.
+
 = 3.5.0 =
 - Added check for a couple of user-agents in the is_bot function.
 - Added a filter that can be used to override what you consider bot via your own custom function.
