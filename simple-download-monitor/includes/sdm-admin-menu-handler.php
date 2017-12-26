@@ -246,28 +246,28 @@ function sdm_create_stats_page() {
         <div id="poststuff"><div id="post-body">
 
                 <div class="postbox">
-                    <h3 class="hndle"><label for="title">Choose Date Range (yyyy-mm-dd)</label></h3>
+                    <h3 class="hndle"><label for="title"><?php _e('Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor'); ?></label></h3>
                     <div class="inside">
                         <form id="sdm_choose_date" method="post">
                             <input type="hidden" name="sdm_active_tab" value="<?php echo $active_tab; ?>">
-                            Start Date: <input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo $start_date; ?>">
-                            End Date: <input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo $end_date; ?>">
+                            <?php _e('Start Date: ', 'simple-download-monitor'); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo $start_date; ?>">
+                            <?php _e('End Date: ', 'simple-download-monitor'); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo $end_date; ?>">
                             <p id="sdm_date_buttons">
-                                <button type="button" data-start-date="<?php echo date('Y-m-01'); ?>" data-end-date="<?php echo date('Y-m-d'); ?>">This Month</button>
-                                <button type="button" data-start-date="<?php echo date('Y-m-d', strtotime('first day of last month')); ?>" data-end-date="<?php echo date('Y-m-d', strtotime('last day of last month')); ?>">Last Month</button>
-                                <button button type="button" data-start-date="<?php echo date('Y-01-01'); ?>" data-end-date="<?php echo date('Y-m-d'); ?>">This Year</button>
-                                <button button type="button" data-start-date="<?php echo date("Y-01-01", strtotime("-1 year")); ?>" data-end-date="<?php echo date("Y-12-31", strtotime('last year')); ?>">Last Year</button>
-                                <button button type="button" data-start-date="<?php echo "1970-01-01"; ?>" data-end-date="<?php echo date('Y-m-d'); ?>">All Time</button>
+                                <button type="button" data-start-date="<?php echo date('Y-m-01'); ?>" data-end-date="<?php echo date('Y-m-d'); ?>"><?php _e('This Month', 'simple-download-monitor'); ?></button>
+                                <button type="button" data-start-date="<?php echo date('Y-m-d', strtotime('first day of last month')); ?>" data-end-date="<?php echo date('Y-m-d', strtotime('last day of last month')); ?>"><?php _e('Last Month', 'simple-download-monitor'); ?></button>
+                                <button button type="button" data-start-date="<?php echo date('Y-01-01'); ?>" data-end-date="<?php echo date('Y-m-d'); ?>"><?php _e('This Year', 'simple-download-monitor'); ?></button>
+                                <button button type="button" data-start-date="<?php echo date("Y-01-01", strtotime("-1 year")); ?>" data-end-date="<?php echo date("Y-12-31", strtotime('last year')); ?>"><?php _e('Last Year', 'simple-download-monitor'); ?></button>
+                                <button button type="button" data-start-date="<?php echo "1970-01-01"; ?>" data-end-date="<?php echo date('Y-m-d'); ?>"><?php _e('All Time', 'simple-download-monitor'); ?></button>
                             </p>
                             <div class="submit">
-                                <input type="submit" class="button-primary" value="View Stats »">
+                                <input type="submit" class="button-primary" value="<?php _e('View Stats', 'simple-download-monitor'); ?>">
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="nav-tab-wrapper sdm-tabs">
-                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart">Downloads by date</a>
-                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart">Downloads by country</a>
+                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart"><?php _e('Downloads by date', 'simple-download-monitor'); ?></a>
+                    <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart"><?php _e('Downloads by country', 'simple-download-monitor'); ?></a>
                 </div>
                 <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
                     <div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
