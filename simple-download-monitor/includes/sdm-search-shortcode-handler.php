@@ -2,37 +2,72 @@
 
 function sdm_search_form_shortcode($args) {
     $atts = shortcode_atts(
-            array(
+        array(
         'fancy' => '',
         'class' => '', // wrapper class
         'placeholder' => 'Search...', // placeholder for search input
         'description_max_length' => 50, // short description symbols count
-            ), $args
+        ), $args
     );
 
+    global $wpdb;
+    
     // Check if we have a search value posted
     $s_term = isset($_POST['sdm_search_term']) ? stripslashes(sanitize_text_field(esc_html($_POST['sdm_search_term']))) : '';
-
+    
     if (!empty($s_term)) {
         // we got search term posted
-        global $wpdb;
-        $querystr = "
-    SELECT $wpdb->posts.*, $wpdb->postmeta.meta_value as description
-    FROM $wpdb->posts, $wpdb->postmeta
-    WHERE $wpdb->posts.ID = $wpdb->postmeta.post_id
-    AND $wpdb->posts.post_status = 'publish' 
-    AND $wpdb->posts.post_type = 'sdm_downloads'
-    AND ($wpdb->posts.post_title LIKE '%$s_term%'
-    OR ($wpdb->postmeta.meta_key='sdm_description' AND $wpdb->postmeta.meta_value LIKE '%$s_term%') )
-    GROUP BY $wpdb->posts.ID
- ";
-        $posts_collection = $wpdb->get_results($querystr, OBJECT);
+	$keywords_searched = array();
+	$posts_collection = array();
+	$parts = explode(' ', $s_term);
+	foreach($parts as $keyword){
+	    if(strlen($keyword) < 3){
+		//Ignore keywords less than 3 characters long           
+		continue;
+	    }
+	    
+	    $keywords_searched[] = $keyword;
+	    
+	    $querystr = "
+	    SELECT $wpdb->posts.*, $wpdb->postmeta.meta_value as description
+	    FROM $wpdb->posts, $wpdb->postmeta
+	    WHERE $wpdb->posts.ID = $wpdb->postmeta.post_id
+	    AND $wpdb->posts.post_status = 'publish' 
+	    AND $wpdb->posts.post_type = 'sdm_downloads'
+	    AND ($wpdb->posts.post_title LIKE '%$keyword%'
+	    OR ($wpdb->postmeta.meta_key='sdm_description' AND $wpdb->postmeta.meta_value LIKE '%$keyword%') )
+	    GROUP BY $wpdb->posts.ID
+	    ";
+	    $query_result = $wpdb->get_results($querystr, OBJECT);
+
+	    //Merge the results of this keyword with the collection array. Also remove any duplicate.
+	    $posts_collection = array_merge($posts_collection, $query_result);
+	    //$posts_collection = array_unique(array_merge($posts_collection, $query_result), SORT_REGULAR);
+	}
+	
+	//Lets get rid of any duplicates
+	$unique_posts_collection_id = array();
+	foreach($posts_collection as $key => $post){
+	    if(in_array($post->ID, $unique_posts_collection_id)){
+		//This is a duplicate.
+		unset($posts_collection[$key]);//Delete this entry from the collection.
+	    } else {
+		//This post ID is not in the collection yet. Add it.
+		$unique_posts_collection_id[] = $post->ID;
+	    }
+	}
+
+	//Create the result entries output using a template.
         $s_results = sdm_generate_search_result_using_template($posts_collection, $atts);
 
+	//Show the search result
         if (!empty($s_results)) {
-            $s_results = '<h2>Search results for "' . $s_term . '":</h2>' . $s_results;
+            $result_output = '<h2 class="sdm_search_result_heading">'.__('Showing search results for ', 'simple-download-monitor').'"' . $s_term . '"</h2>';	    
+	    $result_output .= '<div class="sdm_search_result_number_of_items">' . __('Number of items found: ', 'simple-download-monitor') . count($posts_collection) . '</div>';
+	    $result_output .= '<div class="sdm_search_result_keywords">' . __('Keywords searched: ', 'simple-download-monitor') . implode(", ", $keywords_searched) . '</div>';
+	    $result_output .= '<div class="sdm_search_result_listing">' . $s_results . '</div>';
         } else {
-            $s_results = '<h2>Nothing found for "' . $s_term . '".</h2>';
+            $result_output = '<h2 class="sdm_search_result_heading">'.__('Nothing found for ', 'simple-download-monitor').'"' . $s_term . '".</h2>';
         }
     }
 
@@ -41,7 +76,7 @@ function sdm_search_form_shortcode($args) {
     $out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . $atts['placeholder'] . '">';
     $out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
     $out .= '</form>';
-    $out .= isset($s_results) ? $s_results : '';
+    $out .= isset($result_output) ? $result_output : '';
 
     return $out;
 }

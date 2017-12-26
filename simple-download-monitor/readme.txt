@@ -1,10 +1,10 @@
 === Simple Download Monitor ===
-Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, chesio
+Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfoxc
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -173,8 +173,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= TODO 3.5.1 = 
+= 3.5.1 = 
 - Added a few more user-agents check in the is_bot function.
+- Search shortcode has been improved so it performs the search using each keyword of a multi-word search phrase. It will ignore any word that are less than 4 characters long.
+- Includes some missing translation strings to the POT file.
 
 = 3.5.0 =
 - Added check for a couple of user-agents in the is_bot function.
