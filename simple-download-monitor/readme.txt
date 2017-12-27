@@ -45,6 +45,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Option to upload a thumbnail image for each of your downloadable files.
 * Option to use a nice looking template to show your download now buttons.
 * Ability to search and sort your downloadable files in the admin dashboard.
+* Ability to create a search page and allow your visitors to search your downloads.
 * Track the number of downloads for each of your files.
 * Track the visitors country.
 * View the daily download counts of your items in a chart.
