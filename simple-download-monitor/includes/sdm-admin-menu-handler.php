@@ -242,7 +242,7 @@ function sdm_create_stats_page() {
     $downloads_by_country = sdm_get_downloads_by_country($start_date, $end_date);
     ?>
     <div class="wrap">
-        <h2>Stats</h2>
+        <h2><?php _e('Stats', 'simple-download-monitor'); ?></h2>
         <div id="poststuff"><div id="post-body">
 
                 <div class="postbox">
