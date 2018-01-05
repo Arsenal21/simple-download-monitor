@@ -174,6 +174,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.5.5 =
+- Fixed a PHP warning.
+
 = 3.5.4 =
 - Fixed stored-XSS bug. Thanks to d4wner.
 
