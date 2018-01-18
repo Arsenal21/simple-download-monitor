@@ -510,7 +510,7 @@ class simpleDownloadManager {
 	    return;
 	}
 	if (isset($_POST['sdm_count_offset']) && is_numeric($_POST['sdm_count_offset'])) {
-	    update_post_meta($post_id, 'sdm_count_offset', sanitize_text_field($_POST['sdm_count_offset']));
+	    update_post_meta($post_id, 'sdm_count_offset', intval($_POST['sdm_count_offset']));
 	}
 
 	// Checkbox for disabling download logging for this item
