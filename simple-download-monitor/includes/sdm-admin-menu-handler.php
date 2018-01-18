@@ -131,7 +131,7 @@ function sdm_create_logs_page() {
     global $wpdb;
 
     if (isset($_POST['sdm_export_log_entries'])) {
-//Export log entries
+	//Export log entries
         $log_file_url = sdm_export_download_logs_to_csv();
         echo '<div id="message" class="updated"><p>';
         _e('Log entries exported! Click on the following link to download the file.', 'simple-download-monitor');
@@ -140,7 +140,7 @@ function sdm_create_logs_page() {
     }
 
     if (isset($_POST['sdm_reset_log_entries'])) {
-//reset log entries
+	//Reset log entries
         $table_name = $wpdb->prefix . 'sdm_downloads';
         $query = "TRUNCATE $table_name";
         $result = $wpdb->query($query);
@@ -149,10 +149,10 @@ function sdm_create_logs_page() {
         echo '</p></div>';
     }
 
-    /*     * * Display the logs table ** */
-//Create an instance of our package class...
+    /* Display the logs table */
+    //Create an instance of our package class...
     $sdmListTable = new sdm_List_Table();
-//Fetch, prepare, sort, and filter our data...
+    //Fetch, prepare, sort, and filter our data...
     $sdmListTable->prepare_items();
     ?>
     <div class="wrap">
@@ -221,19 +221,19 @@ function sdm_create_stats_page() {
     wp_enqueue_style('sdm_jquery_ui_style');
 
     if (isset($_POST['sdm_stats_start_date'])) {
-        $start_date = $_POST['sdm_stats_start_date'];
+        $start_date = sanitize_text_field($_POST['sdm_stats_start_date']);
     } else {
-// default start date is 30 days back
+	// default start date is 30 days back
         $start_date = date('Y-m-d', time() - 60 * 60 * 24 * 30);
     }
 
     if (isset($_POST['sdm_stats_end_date'])) {
-        $end_date = $_POST['sdm_stats_end_date'];
+        $end_date = sanitize_text_field($_POST['sdm_stats_end_date']);
     } else {
         $end_date = date('Y-m-d', time());
     }
     if (isset($_REQUEST['sdm_active_tab']) && !empty($_REQUEST['sdm_active_tab'])) {
-        $active_tab = $_REQUEST['sdm_active_tab'];
+        $active_tab = sanitize_text_field($_REQUEST['sdm_active_tab']);
     } else {
         $active_tab = 'datechart';
     }

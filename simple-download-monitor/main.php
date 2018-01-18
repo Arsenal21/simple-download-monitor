@@ -456,11 +456,12 @@ class simpleDownloadManager {
     }
 
     public function sdm_save_description_meta_data($post_id) {  // Save Description metabox
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
 	    return;
-	if (!isset($_POST['sdm_description_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_description_box_nonce_check'], 'sdm_description_box_nonce'))
+	}
+	if (!isset($_POST['sdm_description_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_description_box_nonce_check'], 'sdm_description_box_nonce')){
 	    return;
-
+	}
 	if (isset($_POST['sdm_description'])) {
 	    update_post_meta($post_id, 'sdm_description', wp_kses_post($_POST['sdm_description']));
 	}
@@ -490,30 +491,31 @@ class simpleDownloadManager {
     }
 
     public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
 	    return;
-	if (!isset($_POST['sdm_thumbnail_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_thumbnail_box_nonce_check'], 'sdm_thumbnail_box_nonce'))
+	}
+	if (!isset($_POST['sdm_thumbnail_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_thumbnail_box_nonce_check'], 'sdm_thumbnail_box_nonce')){
 	    return;
-
+	}
 	if (isset($_POST['sdm_upload_thumbnail'])) {
 	    update_post_meta($post_id, 'sdm_upload_thumbnail', sanitize_text_field($_POST['sdm_upload_thumbnail']));
 	}
     }
 
     public function sdm_save_statistics_meta_data($post_id) {  // Save Statistics Upload metabox
-	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE){
 	    return;
-	if (!isset($_POST['sdm_count_offset_nonce_check']) || !wp_verify_nonce($_POST['sdm_count_offset_nonce_check'], 'sdm_count_offset_nonce'))
+	}
+	if (!isset($_POST['sdm_count_offset_nonce_check']) || !wp_verify_nonce($_POST['sdm_count_offset_nonce_check'], 'sdm_count_offset_nonce')){
 	    return;
-
+	}
 	if (isset($_POST['sdm_count_offset']) && is_numeric($_POST['sdm_count_offset'])) {
-
-	    update_post_meta($post_id, 'sdm_count_offset', $_POST['sdm_count_offset']);
+	    update_post_meta($post_id, 'sdm_count_offset', sanitize_text_field($_POST['sdm_count_offset']));
 	}
 
 	// Checkbox for disabling download logging for this item
 	if (isset($_POST['sdm_item_no_log'])) {
-	    update_post_meta($post_id, 'sdm_item_no_log', $_POST['sdm_item_no_log']);
+	    update_post_meta($post_id, 'sdm_item_no_log', sanitize_text_field($_POST['sdm_item_no_log']));
 	} else {
 	    delete_post_meta($post_id, 'sdm_item_no_log');
 	}
@@ -716,8 +718,8 @@ function sdm_remove_thumbnail_image_ajax_call() {
 	exit;
     }
 
-//Go ahead with the thumbnail removal
-    $post_id = $_POST['post_id_del'];
+    //Go ahead with the thumbnail removal
+    $post_id = intval($_POST['post_id_del']);
     $key_exists = metadata_exists('post', $post_id, 'sdm_upload_thumbnail');
     if ($key_exists) {
 	$success = delete_post_meta($post_id, 'sdm_upload_thumbnail');
@@ -740,9 +742,10 @@ add_action('wp_ajax_sdm_pop_cats', 'sdm_pop_cats_ajax_call');
 
 function sdm_pop_cats_ajax_call() {
 
-    $cat_slug = $_POST['cat_slug'];  // Get button cpt slug
-    $parent_id = $_POST['parent_id'];  // Get button cpt id
-// Query custom posts based on taxonomy slug
+    $cat_slug = sanitize_text_field($_POST['cat_slug']);  // Get button cpt slug
+    $parent_id = intval($_POST['parent_id']);  // Get button cpt id
+    
+    // Query custom posts based on taxonomy slug
     $posts = get_posts(array(
 	'post_type' => 'sdm_downloads',
 	'numberposts' => -1,
@@ -760,13 +763,13 @@ function sdm_pop_cats_ajax_call() {
 
     $final_array = array();
 
-// Loop results
+    // Loop results
     foreach ($posts as $post) {
 	// Create array of variables to pass to js
 	$final_array[] = array('id' => $post->ID, 'permalink' => get_permalink($post->ID), 'title' => $post->post_title);
     }
 
-// Generate ajax response
+    // Generate ajax response
     $response = json_encode(array('final_array' => $final_array));
     header('Content-Type: application/json');
     echo $response;
