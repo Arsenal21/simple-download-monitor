@@ -24,6 +24,8 @@ function sdm_register_shortcodes() {
 
     add_shortcode('sdm_download_categories_list', 'sdm_download_categories_list_shortcode');
     add_shortcode('sdm_search_form', 'sdm_search_form_shortcode');
+    
+    add_shortcode('sdm_show_download_info','sdm_show_download_info_shortcode');
 }
 
 /**
@@ -382,4 +384,58 @@ function sdm_download_categories_list_shortcode($attributes) {
             . sdm_download_categories_list_walker($atts)
             . '</div>'
     ;
+}
+
+function sdm_show_download_info_shortcode($args){
+    extract(shortcode_atts(array(
+        'id' => '',
+        'download_info' => '',
+    ), $args));
+    
+    if(empty($id) || empty($download_info)) {
+        return '<div class="sdm_shortcode_error">Error! you must enter a value for "id" and "download_info" parameters.</div>';
+    }
+    
+    //Available values: title, description, download_url, thumbnail, file_size, file_version
+    
+    $id = absint($id);
+    $get_cpt_object = get_post($id);
+
+    if ($download_info == "title") {//download title
+        $item_title = get_the_title($id);
+        return $item_title;
+    }
+    
+    if ($download_info == "description") {//download description
+        $item_description = sdm_get_item_description_output($id);
+        return $item_description;
+    }    
+    
+    if ($download_info == "download_url") {//download URL
+        $download_link = get_post_meta($id, 'sdm_upload', true);
+        return $download_link;
+    }
+    
+    if ($download_info == "thumbnail") {//download thumb
+        $download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
+        $download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
+        return $download_thumbnail;
+    }
+    
+    if ($download_info == "file_size") {//download file size
+        $file_size = get_post_meta($id, 'sdm_item_file_size', true);
+        return $file_size;
+    }
+    
+    if ($download_info == "file_version") {//download file version
+        $file_version = get_post_meta($id, 'sdm_item_version', true);
+        return $file_version;
+    }
+    
+    if ($download_info == "download_count") {//download count
+        $dl_count = sdm_get_download_count_for_post($id);
+        return $dl_count;
+    }    
+
+    return '<div class="sdm_shortcode_error">Error! The value of "download_info" field does not match any availalbe parameters.</div>';
 }
