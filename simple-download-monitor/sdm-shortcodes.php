@@ -7,6 +7,9 @@ add_filter('widget_text', 'do_shortcode'); //Enable shortcode filtering in stand
  */
 
 function sdm_register_shortcodes() {
+    
+    //Note: shortcode name should use underscores (not dashes). Some of the shortcodes have dashes for backwards compatibility.
+    
     add_shortcode('sdm_download', 'sdm_create_download_shortcode');  // For download shortcode (underscores)
     add_shortcode('sdm-download', 'sdm_create_download_shortcode');  // For download shortcode (for backwards compatibility)
     add_shortcode('sdm_download_counter', 'sdm_create_counter_shortcode');  // For counter shortcode (underscores)
