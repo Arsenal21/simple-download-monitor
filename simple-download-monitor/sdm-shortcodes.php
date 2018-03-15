@@ -396,7 +396,7 @@ function sdm_show_download_info_shortcode($args){
         return '<div class="sdm_shortcode_error">Error! you must enter a value for "id" and "download_info" parameters.</div>';
     }
     
-    //Available values: title, description, download_url, thumbnail, file_size, file_version
+    //Available values: title, description, download_url, thumbnail, file_size, file_version, download_count
     
     $id = absint($id);
     $get_cpt_object = get_post($id);
