@@ -129,7 +129,7 @@ https://developers.google.com/chart/
 
 ** Detailed Usage Documentation **
 
-View more usage instructions on the [Download Monitor Plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
+View more usage instructions on the [Download Monitor Plugin](https://simple-download-monitor.com/) page.
 
 ** Github Repository **
 
