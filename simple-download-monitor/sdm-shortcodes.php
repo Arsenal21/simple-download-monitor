@@ -418,9 +418,14 @@ function sdm_show_download_info_shortcode($args){
     
     if ($download_info == "thumbnail") {//download thumb
         $download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
-        $download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
+        $download_thumbnail = '<img class="sdm_download_thumbnail_image" src="' . $download_thumbnail . '" />';
         return $download_thumbnail;
     }
+    
+    if ($download_info == "thumbnail_url") {//download thumbnail raw URL
+        $download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
+        return $download_thumbnail;
+    }    
     
     if ($download_info == "file_size") {//download file size
         $file_size = get_post_meta($id, 'sdm_item_file_size', true);
