@@ -19,6 +19,8 @@ function sdm_register_shortcodes() {
 
     add_shortcode( 'sdm_download_link', 'sdm_create_simple_download_link' );
 
+    add_shortcode( 'sdm_show_all_dl', 'sdm_handle_show_all_dl_shortcode' ); // For show all downloads shortcode
+
     add_shortcode( 'sdm_show_dl_from_category', 'sdm_handle_category_shortcode' ); //For category shortcode
     add_shortcode( 'sdm_download_categories', 'sdm_download_categories_shortcode' ); // Ajax file tree browser
 
@@ -169,7 +171,7 @@ function sdm_handle_category_shortcode( $args ) {
     $terms	 = '';
 
     // If category slug and category id are empty.. return error
-    if ( empty( $category_slug ) && empty( $category_id ) ) {
+    if ( empty( $category_slug ) && empty( $category_id ) && empty( $args[ 'show_all' ] ) ) {
 	return '<p style="color: red;">' . __( 'Error! You must enter a category slug OR a category id with this shortcode. Refer to the documentation for usage instructions.', 'simple-download-monitor' ) . '</p>';
     }
 
@@ -191,6 +193,16 @@ function sdm_handle_category_shortcode( $args ) {
 	$terms	 = $category_id;
     }
 
+    if ( isset( $args[ 'show_all' ] ) ) {
+	$tax_query = array();
+    } else {
+	$tax_query = array( array(
+		'taxonomy'	 => 'sdm_categories',
+		'field'		 => $field,
+		'terms'		 => $terms
+	    ) );
+    }
+
     // For pagination
     $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
     if ( isset( $args[ 'pagination' ] ) ) {
@@ -208,13 +220,7 @@ function sdm_handle_category_shortcode( $args ) {
 	'post_type'	 => 'sdm_downloads',
 	'show_posts'	 => -1,
 	'posts_per_page' => $posts_per_page,
-	'tax_query'	 => array(
-	    array(
-		'taxonomy'	 => 'sdm_categories',
-		'field'		 => $field,
-		'terms'		 => $terms
-	    )
-	),
+	'tax_query'	 => $tax_query,
 	'orderby'	 => $orderby,
 	'order'		 => $order,
 	'paged'		 => $paged,
@@ -443,4 +449,11 @@ function sdm_show_download_info_shortcode( $args ) {
     }
 
     return '<div class="sdm_shortcode_error">Error! The value of "download_info" field does not match any availalbe parameters.</div>';
+}
+
+function sdm_handle_show_all_dl_shortcode( $args ) {
+    unset( $args[ 'category_id' ] );
+    unset( $args[ 'category_slug' ] );
+    $args[ 'show_all' ] = 1;
+    return sdm_handle_category_shortcode( $args );
 }
