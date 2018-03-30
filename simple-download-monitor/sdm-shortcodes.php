@@ -216,7 +216,7 @@ function sdm_handle_category_shortcode( $args ) {
 
 
     // Query cpt's based on arguments above
-    $get_posts = get_posts( array(
+    $get_posts_args = array(
 	'post_type'	 => 'sdm_downloads',
 	'show_posts'	 => -1,
 	'posts_per_page' => $posts_per_page,
@@ -224,7 +224,11 @@ function sdm_handle_category_shortcode( $args ) {
 	'orderby'	 => $orderby,
 	'order'		 => $order,
 	'paged'		 => $paged,
-    ) );
+    );
+
+    $query = new WP_Query;
+
+    $get_posts = $query->query( $get_posts_args );
 
     // If no cpt's are found
     if ( ! $get_posts ) {
@@ -276,8 +280,8 @@ function sdm_handle_category_shortcode( $args ) {
 	// Pagination related
 	if ( isset( $args[ 'pagination' ] ) ) {
 	    $posts_per_page		 = $args[ 'pagination' ];
-	    $count_sdm_posts	 = wp_count_posts( 'sdm_downloads' );
-	    $published_sdm_posts	 = $count_sdm_posts->publish;
+	    $count_sdm_posts	 = $query->found_posts;
+	    $published_sdm_posts	 = $count_sdm_posts;
 	    $total_pages		 = ceil( $published_sdm_posts / $posts_per_page );
 
 	    $big		 = 999999999; // Need an unlikely integer
