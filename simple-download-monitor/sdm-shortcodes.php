@@ -456,8 +456,12 @@ function sdm_show_download_info_shortcode( $args ) {
 }
 
 function sdm_handle_show_all_dl_shortcode( $args ) {
-    unset( $args[ 'category_id' ] );
-    unset( $args[ 'category_slug' ] );
+    if ( isset( $args[ 'category_id' ] ) ) {
+	unset( $args[ 'category_id' ] );
+    }
+    if ( isset( $args[ 'category_slug' ] ) ) {
+	unset( $args[ 'category_slug' ] );
+    }
     $args[ 'show_all' ] = 1;
     return sdm_handle_category_shortcode( $args );
 }
