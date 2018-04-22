@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.5.8
+ * Version: 3.5.9
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.5.8');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.5.9');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -602,6 +602,7 @@ class simpleDownloadManager {
 	_e('You can delete all the data related to this plugin from database using the button below. Useful when you\'re uninstalling the plugin and don\'t want any leftovers remaining.', 'simple-download-monitor');
 	echo '<p><b>' . __('Warning', 'simple-download-monitor') . ': </b> ' . __('this can\'t be undone. All settings, download items, download logs will be deleted.', 'simple-download-monitor') . '</p>';
 	echo '<p><button id="sdmDeleteData" class="button" style="color:red;">' . __('Delete all data and deactivate plugin', 'simple-download-monitor') . '</button></p>';
+        echo '<br />';
     }
 
     public function hide_download_count_cb() {
@@ -646,7 +647,7 @@ class simpleDownloadManager {
     public function admin_do_not_capture_ip() {
 	$main_opts = get_option('sdm_downloads_options');
 	echo '<input name="sdm_downloads_options[admin_do_not_capture_ip]" id="admin_do_not_capture_ip" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked(1, isset($main_opts['admin_do_not_capture_ip']), false) . ' /> ';
-	echo '<label for="admin_do_not_capture_ip">' . __('Do Not Capture IP Address', 'simple-download-monitor') . '</label>';
+	echo '<label for="admin_do_not_capture_ip">' . __('Use this if you do not want to capture the IP address and Country of the visitors when they download an item.', 'simple-download-monitor') . '</label>';
     }
 
     public function admin_dont_log_bots() {
