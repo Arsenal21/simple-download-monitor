@@ -41,13 +41,14 @@ function handle_sdm_download_via_direct_post() {
 
         $main_option = get_option('sdm_downloads_options');
         
-        $ipaddress = null;
+        $ipaddress = '';
+        //Check if do not capture IP is enabled.
         if (!isset($main_option['admin_do_not_capture_ip'])) {
             $ipaddress = sdm_get_ip_address();
         }
         
 	$date_time = current_time('mysql');
-	$visitor_country = $ipaddress ? sdm_ip_info($ipaddress, 'country') : '';
+	$visitor_country = !empty($ipaddress) ? sdm_ip_info($ipaddress, 'country') : '';
 	
 	$visitor_name = sdm_get_logged_in_user();
 
