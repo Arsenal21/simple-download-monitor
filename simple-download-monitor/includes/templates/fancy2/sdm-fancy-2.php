@@ -84,6 +84,16 @@ function sdm_generate_fancy2_display_output($args) {
     // Check to see if the download link cpt is password protected
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
+    
+    // Read plugin settings
+    $main_opts = get_option('sdm_downloads_options');
+    
+    //Check if reCAPTCHA enabled
+    $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+    if ($recaptcha_enable && $cpt_is_password == 'no') {
+        $download_button_code = sdm_get_download_form_with_recaptcha($id, $shortcode_atts, 'sdm_fancy2_download');
+    }
+    
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
         $download_button_code = sdm_get_password_entry_form($id, $shortcode_atts, 'sdm_fancy2_download');
     }
@@ -134,6 +144,5 @@ function sdm_generate_fancy2_display_output($args) {
 
     $output .= '</div>'; //end .sdm_fancy2_item
     $output .= '</div>'; //end .sdm_fancy2_wrapper
-
     return $output;
 }

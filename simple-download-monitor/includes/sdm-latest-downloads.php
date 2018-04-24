@@ -44,7 +44,7 @@ function sdm_show_latest_downloads($args){
     }
     // Else iterate cpt's
     else {
-
+        
         $output = '';       
         if ($fancy == '0') {
             include_once(WP_SIMPLE_DL_MONITOR_PATH.'includes/templates/fancy0/sdm-fancy-0.php');

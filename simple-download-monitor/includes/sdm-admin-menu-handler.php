@@ -40,6 +40,16 @@ function sdm_create_settings_page() {
         ?>
         <!-- END GENERAL OPTIONS DIV -->
 
+        <!-- BEGIN RECAPTCHA OPTIONS DIV -->
+        <?php
+        // This prints out all hidden setting fields
+        do_settings_sections('recaptcha_options_section');
+        settings_fields('recaptcha_options_section');
+
+        submit_button();
+        ?>
+        <!-- END RECAPTCHA OPTIONS DIV -->
+        
         <!-- BEGIN ADMIN OPTIONS DIV -->
         <?php
         // This prints out all hidden setting fields
