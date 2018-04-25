@@ -265,7 +265,17 @@ class simpleDownloadManager {
 	//Use this function to enqueue fron-end js scripts.
 	wp_enqueue_style('sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css');
 	wp_register_script('sdm-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_wp_scripts.js', array('jquery'));
-	wp_enqueue_script('sdm-scripts');
+        wp_enqueue_script('sdm-scripts');
+        
+        //Check if reCAPTCHA is enabled.
+        $main_option = get_option('sdm_downloads_options');
+        if (isset($main_option['recaptcha_enable'])) {
+            wp_register_script('sdm-recaptcha-scripts-js', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_g_recaptcha.js', array(), true);
+            wp_localize_script("sdm-recaptcha-scripts-js", "sdm_recaptcha_opt", array("site_key" => $main_option['recaptcha_site_key']));
+            wp_register_script('sdm-recaptcha-scripts-lib',  "//www.google.com/recaptcha/api.js?hl=".get_locale()."&onload=sdm_reCaptcha&render=explicit", array(), false);
+            wp_enqueue_script('sdm-recaptcha-scripts-js');
+            wp_enqueue_script('sdm-recaptcha-scripts-lib');
+        }
 
 	// Localize ajax script for frontend
 	wp_localize_script('sdm-scripts', 'sdm_ajax_script', array('ajaxurl' => admin_url('admin-ajax.php')));
@@ -556,10 +566,14 @@ class simpleDownloadManager {
 	//Add all the settings section that will go under the main settings
 	add_settings_section('general_options', __('General Options', 'simple-download-monitor'), array($this, 'general_options_cb'), 'general_options_section');
 	add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
+        
+        //add reCAPTCHA section
+        add_settings_section('recaptcha_options', __('Google Captcha (reCAPTCHA)', 'simple-download-monitor'), array($this, 'recaptcha_options_cb'), 'recaptcha_options_section');
+        
 	add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 	add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
 	add_settings_section('sdm_deldata', __('Delete Plugin Data', 'simple-download-monitor'), array($this, 'sdm_deldata_cb'), 'sdm_deldata_section');
-
+        
 	//Add all the individual settings fields that goes under the sections
 	add_settings_field('general_hide_donwload_count', __('Hide Download Count', 'simple-download-monitor'), array($this, 'hide_download_count_cb'), 'general_options_section', 'general_options');
 	add_settings_field('general_default_dispatch_value', __('PHP Dispatching', 'simple-download-monitor'), array($this, 'general_default_dispatch_value_cb'), 'general_options_section', 'general_options');
@@ -575,6 +589,12 @@ class simpleDownloadManager {
 	add_settings_field('download_button_color', __('Download Button Color', 'simple-download-monitor'), array($this, 'download_button_color_cb'), 'sdm_colors_section', 'sdm_colors');
 
 	add_settings_field('enable_debug', __('Enable Debug', 'simple-download-monitor'), array($this, 'enable_debug_cb'), 'sdm_debug_section', 'sdm_debug');
+        
+        //add reCAPTCHA section fields
+        add_settings_field('recaptcha_enable', __('Enable reCAPTCHA', 'simple-download-monitor'), array($this, 'recaptcha_enable_cb'), 'recaptcha_options_section', 'recaptcha_options');
+        add_settings_field('recaptcha_site_key', __('Site Key', 'simple-download-monitor'), array($this, 'recaptcha_site_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
+        add_settings_field('recaptcha_secret_key', __('Secret Key', 'simple-download-monitor'), array($this, 'recaptcha_secret_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
+        
     }
 
     public function general_options_cb() {
@@ -605,6 +625,31 @@ class simpleDownloadManager {
         echo '<br />';
     }
 
+    public function recaptcha_options_cb() {
+	//Set the message that will be shown below the debug options settings heading
+	_e('Google Captcha (reCAPTCHA) options', 'simple-download-monitor');
+    }
+    
+    public function recaptcha_enable_cb() {
+	$main_opts = get_option('sdm_downloads_options');
+	echo '<input name="sdm_downloads_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
+	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>', 'simple-download-monitor') . '</label>';
+    }
+    
+    public function recaptcha_site_key_cb() {
+	$main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['recaptcha_site_key']) ? $main_opts['recaptcha_site_key'] : '';
+	echo '<input size="100" name="sdm_downloads_options[recaptcha_site_key]" id="recaptcha_site_key" type="text" value="'.$value.'" /> ';
+	echo '<p class="description">' . __('The site key for the reCAPTCHA API', 'simple-download-monitor') . '</p>';
+    }
+    
+    public function recaptcha_secret_key_cb() {
+	$main_opts = get_option('sdm_downloads_options');
+        $value = isset($main_opts['recaptcha_secret_key']) ? $main_opts['recaptcha_secret_key'] : '';
+	echo '<input size="100" name="sdm_downloads_options[recaptcha_secret_key]" id="recaptcha_secret_key" type="text" value="'.$value.'" /> ';
+	echo '<p class="description">' . __('The secret key for the reCAPTCHA API', 'simple-download-monitor') . '</p>';
+    }
+    
     public function hide_download_count_cb() {
 	$main_opts = get_option('sdm_downloads_options');
 	echo '<input name="sdm_downloads_options[general_hide_donwload_count]" id="general_hide_download_count" type="checkbox" ' . checked(1, isset($main_opts['general_hide_donwload_count']), false) . ' /> ';

@@ -94,11 +94,18 @@ function sdm_create_download_shortcode( $atts ) {
     $download_url		 = $homepage . '/?smd_process_download=1&download_id=' . $id;
     $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
+    //Check if reCAPTCHA enabled
+    $main_opts = get_option('sdm_downloads_options');
+    $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+    if ($recaptcha_enable && $cpt_is_password == 'no') {
+        $download_button_code = sdm_get_download_form_with_recaptcha($id, $shortcode_atts, 'sdm_download ' . $color);
+    }
+    
     if ( $cpt_is_password !== 'no' ) {//This is a password protected download so replace the download now button with password requirement
 	$download_button_code = sdm_get_password_entry_form( $id, $shortcode_atts, 'sdm_download ' . $color );
     }
     //End of download now button code generation
-
+   
     $output = '';
     switch ( $fancy ) {
 	case '1':

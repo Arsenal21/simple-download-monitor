@@ -47,6 +47,12 @@ function filter_sdm_post_type_content($content) {
         $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
         $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '">' . $button_text_string . '</a>';
 
+        //Check if reCAPTCHA enabled
+        $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+        if ($recaptcha_enable && $cpt_is_password == 'no') {
+            $download_button_code = sdm_get_download_form_with_recaptcha($id,array(),'sdm_download ' . $def_color);
+        }
+        
         if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
             $download_button_code = sdm_get_password_entry_form($id,array(),'sdm_download ' . $def_color);
         }
