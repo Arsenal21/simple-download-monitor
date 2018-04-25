@@ -55,6 +55,10 @@
 .sdm_download_button_box_default{
     margin: 10px 0;    
 }
+
+.sdm-g-recaptcha{
+    margin-bottom: 10px;
+}
 /********************************************/
 /*** Individual Download Item View Styles ***/
 /********************************************/
