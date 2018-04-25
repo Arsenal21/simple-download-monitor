@@ -17,6 +17,7 @@ function sdm_handle_admin_menu() {
  */
 
 function sdm_create_settings_page() {
+    
     echo '<div class="wrap">';
     //echo '<div id="poststuff"><div id="post-body">';
     ?>
@@ -29,7 +30,59 @@ function sdm_create_settings_page() {
 
     <!-- settings page form -->
     <form method="post" action="options.php">
+        
+        <?php
+        $wpsdm_plugin_tabs = array(
+            'sdm-settings' => __('General Settings', 'simple-download-monitor'),
+            'sdm-settings&action=advanced-settings' => __('Advanced Settings', 'simple-download-monitor'),
+        );
+        $current = "";
+        if (isset($_GET['page'])) {
+            $current = sanitize_text_field($_GET['page']);
+            if (isset($_GET['action'])) {
+                $current .= "&action=" . sanitize_text_field($_GET['action']);
+            }
+        }
+        $content = '';
+        $content .= '<h2 class="nav-tab-wrapper">';
+        foreach ($wpsdm_plugin_tabs as $location => $tabname) {
+            if ($current == $location) {
+                $class = ' nav-tab-active';
+            } else {
+                $class = '';
+            }
+            $content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+        }
+        $content .= '</h2>';
+        echo $content;
+        echo '<div id="poststuff"><div id="post-body">';
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'advanced-settings':
+                    sdm_admin_menu_advanced_settings();
+                    break;
+            }
+        } else {
+            sdm_admin_menu_general_settings();
+        }
+        echo '</div></div>';
+        ?>
 
+        <!-- End of settings page form -->
+    </form>
+
+    <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">
+        <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'simple-download-monitor'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'simple-download-monitor'); ?></a>
+        </p>
+    </div>
+
+    <?php
+    echo '</div>'; //end of wrap
+}
+
+function sdm_admin_menu_general_settings()
+{
+    ?>
         <!-- BEGIN GENERAL OPTIONS DIV -->
         <?php
         // This prints out all hidden setting fields
@@ -40,16 +93,7 @@ function sdm_create_settings_page() {
         ?>
         <!-- END GENERAL OPTIONS DIV -->
 
-        <!-- BEGIN RECAPTCHA OPTIONS DIV -->
-        <?php
-        // This prints out all hidden setting fields
-        do_settings_sections('recaptcha_options_section');
-        settings_fields('recaptcha_options_section');
-
-        submit_button();
-        ?>
-        <!-- END RECAPTCHA OPTIONS DIV -->
-        
+       
         <!-- BEGIN ADMIN OPTIONS DIV -->
         <?php
         // This prints out all hidden setting fields
@@ -120,17 +164,22 @@ function sdm_create_settings_page() {
                         });
             });
         </script>
+        <?php
+}
 
-        <!-- End of settings page form -->
-    </form>
-
-    <div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">
-        <p><?php _e('If you need a feature rich and supported plugin for selling your digital items then checkout our', 'simple-download-monitor'); ?> <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e('WP eStore Plugin', 'simple-download-monitor'); ?></a>
-        </p>
-    </div>
-
+function sdm_admin_menu_advanced_settings()
+{
+    ?>
+    <!-- BEGIN RECAPTCHA OPTIONS DIV -->
     <?php
-    echo '</div>'; //end of wrap
+    // This prints out all hidden setting fields
+    do_settings_sections('recaptcha_options_section');
+    settings_fields('recaptcha_options_section');
+
+    submit_button();
+    ?>
+    <!-- END RECAPTCHA OPTIONS DIV -->
+<?php
 }
 
 /*

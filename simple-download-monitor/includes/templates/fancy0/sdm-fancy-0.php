@@ -91,7 +91,8 @@ function sdm_generate_fancy0_display_output($args) {
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
     
     //Check if reCAPTCHA enabled
-    $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+    $main_advanced_opts = get_option('sdm_advanced_options');
+    $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
     if ($recaptcha_enable && $cpt_is_password == 'no') {
         $download_button_code = sdm_get_download_form_with_recaptcha($id, $args, 'sdm_download ' . $def_color);
     }

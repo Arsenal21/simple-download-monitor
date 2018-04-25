@@ -95,8 +95,8 @@ function sdm_create_download_shortcode( $atts ) {
     $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
     //Check if reCAPTCHA enabled
-    $main_opts = get_option('sdm_downloads_options');
-    $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+    $main_advanced_opts = get_option('sdm_advanced_options');
+    $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
     if ($recaptcha_enable && $cpt_is_password == 'no') {
         $download_button_code = sdm_get_download_form_with_recaptcha($id, $shortcode_atts, 'sdm_download ' . $color);
     }
@@ -272,7 +272,8 @@ function sdm_handle_category_shortcode( $args ) {
 		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
                 //Check if reCAPTCHA enabled
-                $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+                $main_advanced_opts = get_option('sdm_advanced_options');
+                $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
                 if ($recaptcha_enable) {
                     $download_button_code = sdm_get_download_form_with_recaptcha($id, $args, 'sdm_download ' . $def_color);
                 }

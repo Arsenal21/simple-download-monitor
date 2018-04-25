@@ -212,6 +212,7 @@ class simpleDownloadManager {
 	    add_action('admin_init', array($this, 'sdm_register_options'));  // Register admin options
 	    //add_filter('post_row_actions', array($this, 'sdm_remove_view_link_cpt'), 10, 2);  // Remove 'View' link in all downloads list view
 	}
+        
     }
 
     public function sdm_admin_scripts() {
@@ -268,10 +269,11 @@ class simpleDownloadManager {
         wp_enqueue_script('sdm-scripts');
         
         //Check if reCAPTCHA is enabled.
-        $main_option = get_option('sdm_downloads_options');
-        if (isset($main_option['recaptcha_enable'])) {
+        $main_advanced_opts = get_option('sdm_advanced_options');
+        $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
+        if ($recaptcha_enable) {
             wp_register_script('sdm-recaptcha-scripts-js', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_g_recaptcha.js', array(), true);
-            wp_localize_script("sdm-recaptcha-scripts-js", "sdm_recaptcha_opt", array("site_key" => $main_option['recaptcha_site_key']));
+            wp_localize_script("sdm-recaptcha-scripts-js", "sdm_recaptcha_opt", array("site_key" => $main_advanced_opts['recaptcha_site_key']));
             wp_register_script('sdm-recaptcha-scripts-lib',  "//www.google.com/recaptcha/api.js?hl=".get_locale()."&onload=sdm_reCaptcha&render=explicit", array(), false);
             wp_enqueue_script('sdm-recaptcha-scripts-js');
             wp_enqueue_script('sdm-recaptcha-scripts-lib');
@@ -565,7 +567,7 @@ class simpleDownloadManager {
 
 	//Add all the settings section that will go under the main settings
 	add_settings_section('general_options', __('General Options', 'simple-download-monitor'), array($this, 'general_options_cb'), 'general_options_section');
-	add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
+        add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
         
         //add reCAPTCHA section
         add_settings_section('recaptcha_options', __('Google Captcha (reCAPTCHA)', 'simple-download-monitor'), array($this, 'recaptcha_options_cb'), 'recaptcha_options_section');
@@ -631,22 +633,22 @@ class simpleDownloadManager {
     }
     
     public function recaptcha_enable_cb() {
-	$main_opts = get_option('sdm_downloads_options');
-	echo '<input name="sdm_downloads_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
+	$main_opts = get_option('sdm_advanced_options');
+	echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
 	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>', 'simple-download-monitor') . '</label>';
     }
     
     public function recaptcha_site_key_cb() {
-	$main_opts = get_option('sdm_downloads_options');
+	$main_opts = get_option('sdm_advanced_options');
         $value = isset($main_opts['recaptcha_site_key']) ? $main_opts['recaptcha_site_key'] : '';
-	echo '<input size="100" name="sdm_downloads_options[recaptcha_site_key]" id="recaptcha_site_key" type="text" value="'.$value.'" /> ';
+	echo '<input size="100" name="sdm_advanced_options[recaptcha_site_key]" id="recaptcha_site_key" type="text" value="'.$value.'" /> ';
 	echo '<p class="description">' . __('The site key for the reCAPTCHA API', 'simple-download-monitor') . '</p>';
     }
     
     public function recaptcha_secret_key_cb() {
-	$main_opts = get_option('sdm_downloads_options');
+	$main_opts = get_option('sdm_advanced_options');
         $value = isset($main_opts['recaptcha_secret_key']) ? $main_opts['recaptcha_secret_key'] : '';
-	echo '<input size="100" name="sdm_downloads_options[recaptcha_secret_key]" id="recaptcha_secret_key" type="text" value="'.$value.'" /> ';
+	echo '<input size="100" name="sdm_advanced_options[recaptcha_secret_key]" id="recaptcha_secret_key" type="text" value="'.$value.'" /> ';
 	echo '<p class="description">' . __('The secret key for the reCAPTCHA API', 'simple-download-monitor') . '</p>';
     }
     
@@ -835,6 +837,7 @@ function sdm_pop_cats_ajax_call() {
 add_filter('manage_edit-sdm_downloads_columns', 'sdm_create_columns'); // Define columns
 add_filter('manage_edit-sdm_downloads_sortable_columns', 'sdm_downloads_sortable'); // Make sortable
 add_action('manage_sdm_downloads_posts_custom_column', 'sdm_downloads_columns_content', 10, 2); // Populate new columns
+add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 
 function sdm_create_columns($cols) {
 
@@ -931,4 +934,17 @@ if ($tiny_button_option != true) {
 	return $buttons;
     }
 
+}
+/**
+ * sdm_admin_menu_function_hook
+ * Its hook for add advanced testings tab, and working on saving options to db, if not use it, you received error "options page not found"
+ * @param array $whitelist_options
+ * @return string
+ */
+function sdm_admin_menu_function_hook($whitelist_options = [])
+{
+    $whitelist_options['recaptcha_options_section'] = [
+        'sdm_advanced_options'
+    ];
+    return $whitelist_options;
 }
