@@ -635,7 +635,8 @@ class simpleDownloadManager {
     public function recaptcha_enable_cb() {
 	$main_opts = get_option('sdm_advanced_options');
 	echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
-	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>', 'simple-download-monitor') . '</label>';
+	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor') . '</label>';
+        echo '<label for="recaptcha_enable_description">' . __('The captcha option adds a captcha to the donwload now buttons.', 'simple-download-monitor') . '</label>';
     }
     
     public function recaptcha_site_key_cb() {
@@ -837,7 +838,6 @@ function sdm_pop_cats_ajax_call() {
 add_filter('manage_edit-sdm_downloads_columns', 'sdm_create_columns'); // Define columns
 add_filter('manage_edit-sdm_downloads_sortable_columns', 'sdm_downloads_sortable'); // Make sortable
 add_action('manage_sdm_downloads_posts_custom_column', 'sdm_downloads_columns_content', 10, 2); // Populate new columns
-add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 
 function sdm_create_columns($cols) {
 
@@ -934,17 +934,4 @@ if ($tiny_button_option != true) {
 	return $buttons;
     }
 
-}
-/**
- * sdm_admin_menu_function_hook
- * Its hook for add advanced testings tab, and working on saving options to db, if not use it, you received error "options page not found"
- * @param array $whitelist_options
- * @return string
- */
-function sdm_admin_menu_function_hook($whitelist_options = [])
-{
-    $whitelist_options['recaptcha_options_section'] = [
-        'sdm_advanced_options'
-    ];
-    return $whitelist_options;
 }

@@ -12,6 +12,23 @@ function sdm_handle_admin_menu() {
     $sdm_addons_page = add_submenu_page('edit.php?post_type=sdm_downloads', __('Add-ons', 'simple-download-monitor'), __('Add-ons', 'simple-download-monitor'), 'manage_options', 'sdm-addons', 'sdm_create_addons_page');
 }
 
+add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
+
+/**
+ * sdm_admin_menu_function_hook
+ * Its hook for add advanced testings tab, and working on saving options to db, if not used, you receive error "options page not found"
+ * @param array $whitelist_options
+ * @return string
+ */
+function sdm_admin_menu_function_hook($whitelist_options = [])
+{
+    $whitelist_options['recaptcha_options_section'] = [
+        'sdm_advanced_options'
+    ];
+    return $whitelist_options;
+}
+
+
 /*
  * Settings menu page
  */
@@ -24,7 +41,7 @@ function sdm_create_settings_page() {
     <h1><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h1>
 
     <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
-        Read the full plugin usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.
+        Read the full plugin usage documentation <a href="https://simple-download-monitor.com/download-monitor-tutorials/" target="_blank">here</a>.
         You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
     </div>
 
@@ -55,7 +72,7 @@ function sdm_create_settings_page() {
         }
         $content .= '</h2>';
         echo $content;
-        echo '<div id="poststuff"><div id="post-body">';
+
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'advanced-settings':
@@ -65,7 +82,6 @@ function sdm_create_settings_page() {
         } else {
             sdm_admin_menu_general_settings();
         }
-        echo '</div></div>';
         ?>
 
         <!-- End of settings page form -->
@@ -169,6 +185,7 @@ function sdm_admin_menu_general_settings()
 
 function sdm_admin_menu_advanced_settings()
 {
+    //At the moment we only have the captcha options in the advanced settings. More options will be added here in the future.
     ?>
     <!-- BEGIN RECAPTCHA OPTIONS DIV -->
     <?php
@@ -179,7 +196,7 @@ function sdm_admin_menu_advanced_settings()
     submit_button();
     ?>
     <!-- END RECAPTCHA OPTIONS DIV -->
-<?php
+    <?php
 }
 
 /*
