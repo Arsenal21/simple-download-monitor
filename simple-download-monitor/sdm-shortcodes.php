@@ -271,6 +271,12 @@ function sdm_handle_category_shortcode( $args ) {
 		// Setup download button code
 		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
+                //Check if reCAPTCHA enabled
+                $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+                if ($recaptcha_enable) {
+                    $download_button_code = sdm_get_download_form_with_recaptcha($id, $args, 'sdm_download ' . $def_color);
+                }
+                
 		// Generate download buttons
 		$output .= '<div class="sdm_download_link">' . $download_button_code . '</div><br />';
 	    }  // End foreach
