@@ -210,11 +210,11 @@ function sdm_dispatch_file($filename) {
  */
 function sdm_recaptcha_verify()
 {
-    $main_opts = get_option('sdm_downloads_options');
-    $recaptcha_enable = isset($main_opts['recaptcha_enable']) ? true : false;
+    $main_advanced_opts = get_option('sdm_advanced_options');
+    $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
     if ($recaptcha_enable) {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["g-recaptcha-response"])) {
-            $recaptcha_secret_key = $main_opts['recaptcha_secret_key'];
+            $recaptcha_secret_key = $main_advanced_opts['recaptcha_secret_key'];
             $recaptcha_response = filter_input(INPUT_POST, "g-recaptcha-response", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $response = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$recaptcha_response}");
             $response = json_decode($response["body"], 1);
