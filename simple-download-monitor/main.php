@@ -635,8 +635,8 @@ class simpleDownloadManager {
     public function recaptcha_enable_cb() {
 	$main_opts = get_option('sdm_advanced_options');
 	echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
-	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor') . '</label>';
-        echo '<label for="recaptcha_enable_description">' . __('The captcha option adds a captcha to the donwload now buttons.', 'simple-download-monitor') . '</label>';
+	echo '<p class="description">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor') . '</p>';
+        echo '<p class="description">' . __('The captcha option adds a captcha to the download now buttons.', 'simple-download-monitor') . '</p>';
     }
     
     public function recaptcha_site_key_cb() {
