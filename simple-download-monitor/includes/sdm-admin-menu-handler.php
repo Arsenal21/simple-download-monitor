@@ -20,14 +20,13 @@ add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
  * @param array $whitelist_options
  * @return string
  */
-function sdm_admin_menu_function_hook($whitelist_options = [])
+function sdm_admin_menu_function_hook($whitelist_options = array())
 {
     $whitelist_options['recaptcha_options_section'] = [
         'sdm_advanced_options'
     ];
     return $whitelist_options;
 }
-
 
 /*
  * Settings menu page
