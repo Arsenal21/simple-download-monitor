@@ -22,9 +22,7 @@ add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
  */
 function sdm_admin_menu_function_hook($whitelist_options = array())
 {
-    $whitelist_options['recaptcha_options_section'] = [
-        'sdm_advanced_options'
-    ];
+    $whitelist_options['recaptcha_options_section'] = array('sdm_advanced_options');
     return $whitelist_options;
 }
 
