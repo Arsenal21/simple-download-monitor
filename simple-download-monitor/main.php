@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.5.9
+ * Version: 3.6.1
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.5.9');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.1');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -635,7 +635,8 @@ class simpleDownloadManager {
     public function recaptcha_enable_cb() {
 	$main_opts = get_option('sdm_advanced_options');
 	echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked(1, isset($main_opts['recaptcha_enable']), false) . ' /> ';
-	echo '<label for="recaptcha_enable">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>', 'simple-download-monitor') . '</label>';
+	echo '<p class="description">' . __('Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor') . '</p>';
+        echo '<p class="description">' . __('The captcha option adds a captcha to the download now buttons.', 'simple-download-monitor') . '</p>';
     }
     
     public function recaptcha_site_key_cb() {
@@ -837,7 +838,6 @@ function sdm_pop_cats_ajax_call() {
 add_filter('manage_edit-sdm_downloads_columns', 'sdm_create_columns'); // Define columns
 add_filter('manage_edit-sdm_downloads_sortable_columns', 'sdm_downloads_sortable'); // Make sortable
 add_action('manage_sdm_downloads_posts_custom_column', 'sdm_downloads_columns_content', 10, 2); // Populate new columns
-add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 
 function sdm_create_columns($cols) {
 
@@ -935,6 +935,7 @@ if ($tiny_button_option != true) {
     }
 
 }
+
 /**
  * sdm_admin_menu_function_hook
  * Its hook for add advanced testings tab, and working on saving options to db, if not use it, you received error "options page not found"

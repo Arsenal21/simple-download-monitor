@@ -1,185 +1,62 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: SDM 3.1\n"
-"POT-Creation-Date: 2016-06-10 12:27+0200\n"
-"PO-Revision-Date: 2016-06-10 13:20+0200\n"
+"Project-Id-Version: simple-download-monitor-fr\n"
+"POT-Creation-Date: 2018-04-23 08:37+0200\n"
+"PO-Revision-Date: 2018-04-23 08:38+0200\n"
+"Last-Translator: FreePixel <contact@freepixel.net>\n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-Basepath: .\n"
-"Last-Translator: \n"
+"X-Poedit-Basepath: simple-download-monitor\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr_FR\n"
-"X-Poedit-SearchPath-0: C:/Users/amin/Desktop/simple-download-monitor\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: includes/sdm-admin-menu-handler.php\n"
+"X-Poedit-SearchPath-1: includes/sdm-debug.php\n"
+"X-Poedit-SearchPath-2: includes/sdm-download-request-handler.php\n"
+"X-Poedit-SearchPath-3: includes/sdm-latest-downloads.php\n"
+"X-Poedit-SearchPath-4: includes/sdm-logs-list-table.php\n"
+"X-Poedit-SearchPath-5: includes/sdm-search-shortcode-handler.php\n"
+"X-Poedit-SearchPath-6: includes/sdm-utility-functions-admin-side.php\n"
+"X-Poedit-SearchPath-7: includes/sdm-utility-functions.php\n"
+"X-Poedit-SearchPath-8: includes/admin-side/sdm-admin-add-ons-page.php\n"
+"X-Poedit-SearchPath-9: includes/templates/fancy0/sdm-fancy-0.php\n"
+"X-Poedit-SearchPath-10: includes/templates/fancy1/sdm-fancy-1.php\n"
+"X-Poedit-SearchPath-11: includes/templates/fancy2/sdm-fancy-2.php\n"
+"X-Poedit-SearchPath-12: sdm-post-type-and-taxonomy.php\n"
+"X-Poedit-SearchPath-13: sdm-post-type-content-handler.php\n"
+"X-Poedit-SearchPath-14: sdm-shortcodes.php\n"
+"X-Poedit-SearchPath-15: main.php\n"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:91
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:310
-msgid "Settings"
-msgstr "Paramètres"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:145
-msgid "Image Successfully Removed"
-msgstr "Image supprimée avec succès"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:146
-msgid "Error with AJAX"
-msgstr "Erreur avec AJAX"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
-msgid "Please select a Download Item:"
-msgstr "Veuillez sélectionner un téléchargement :"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
-msgid "Download Title"
-msgstr "Titre du Téléchargement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
-msgid "Include Fancy Box"
-msgstr "Inclure la Fancy Box"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:156
-msgid "Insert SDM Shortcode"
-msgstr "Insérez le Shortcode SDM"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:166
-msgid "Incorrect Password"
-msgstr "Mot de passe incorrect"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:182
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:183
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:188
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:194
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:590
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1034
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:48
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:94
-#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:87
-msgid "Downloads"
-msgstr "Téléchargements"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:184
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:185
-msgid "Add New"
-msgstr "Ajouter Nouveau"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:186
-msgid "Edit Download"
-msgstr "Modifier Téléchargement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:187
-msgid "New Download"
-msgstr "Nouveau téléchargement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:189
-msgid "View Download"
-msgstr "Afficher Téléchargement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:190
-msgid "Search Downloads"
-msgstr "Recherche de téléchargements"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:191
-msgid "No Downloads found"
-msgstr "Aucun Téléchargement Trouvé"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:192
-msgid "No Downloads found in Trash"
-msgstr "Aucun téléchargement trouvé dans la poubelle"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:193
-msgid "Parent Download"
-msgstr "Téléchargement Parent"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:221
-msgid "Search Categories"
-msgstr "Chercher dans Catégories"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:222
-msgid "All Categories"
-msgstr "Toutes Catégories"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:223
-msgid "Categories Genre"
-msgstr "Types de catégories"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:224
-msgid "Categories Genre:"
-msgstr "Types de catégories"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:225
-msgid "Edit Category"
-msgstr "Modifier Catégorie"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:226
-msgid "Update Category"
-msgstr "\tMettre à jour la catégorie"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:227
-msgid "Add New Category"
-msgstr "Ajouter une nouvelle catégorie"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:228
-msgid "New Category"
-msgstr "Nouvelle catégorie"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:229
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1032
-msgid "Categories"
-msgstr "Catégories"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:246
-msgid "Search Tags"
-msgstr "Rechercher parmi les mots-clés"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:247
-msgid "All Tags"
-msgstr "Tous les tags"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:248
-msgid "Tags Genre"
-msgstr "Genre de mots-clés"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:249
-msgid "Tags Genre:"
-msgstr "Genre de mots-clés:"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:250
-msgid "Edit Tag"
-msgstr "Modifier le mots-clé"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:251
-msgid "Update Tag"
-msgstr "Mettre à jour les mots-clés"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:252
-msgid "Add New Tag"
-msgstr "Ajouter un nouveau mot clé"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:253
-msgid "New Tag"
-msgstr "Nouveau tag"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:254
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1033
-msgid "Tags"
-msgstr "Mots clés "
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:309
+#: includes/sdm-admin-menu-handler.php:9
 msgid "Logs"
 msgstr "Logs"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:317
+#: includes/sdm-admin-menu-handler.php:10
+#: includes/sdm-admin-menu-handler.php:245
+msgid "Stats"
+msgstr "Statistiques"
+
+#: includes/sdm-admin-menu-handler.php:11 main.php:182
+msgid "Settings"
+msgstr "Paramètres"
+
+#: includes/sdm-admin-menu-handler.php:12
+msgid "Add-ons"
+msgstr "Modules additionnels"
+
+#: includes/sdm-admin-menu-handler.php:23
 msgid "Simple Download Monitor Settings Page"
 msgstr "Page de Paramètres SDM "
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:320
-msgid "Follow us"
-msgstr "Nous suivre"
+#: includes/sdm-admin-menu-handler.php:27
+msgid "follow us"
+msgstr "nous suivre"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:320
+#: includes/sdm-admin-menu-handler.php:27
 msgid ""
 "on Twitter, Google+ or via Email to stay upto date about the new features of "
 "this plugin."
@@ -187,348 +64,900 @@ msgstr ""
 "sur Twitter, Google +, ou par Email pour être tenu à jour sur les nouvelles "
 "fonctionnalités de ce plugin."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:329
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:528
-msgid "Admin Options"
-msgstr "Option d’administration"
+#: includes/sdm-admin-menu-handler.php:86
+msgid "Are you sure want to delete all plugin's data and deactivate plugin?"
+msgstr ""
+"Êtes-vous sûr de vouloir supprimer toutes les données de l’extension et "
+"désactiver l’extension&nbsp;?"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:332
-msgid "Control various plugin features."
-msgstr "Contrôlez diverses fonctionnalités plug-in."
+#: includes/sdm-admin-menu-handler.php:91
+msgid ""
+"Data has been deleted and plugin deactivated. Click OK to go to Plugins page."
+msgstr ""
+"Les données ont été supprimées et l’extension désactivée. Cliquez sur OK "
+"pour accéder à la page Extensions."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:349
-msgid "Color Options"
-msgstr "Options de Couleur"
+#: includes/sdm-admin-menu-handler.php:95
+msgid "Error occured."
+msgstr "Une erreur a été rencontrée."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:352
-msgid "Adjust color options"
-msgstr "Réglez les options de couleurs"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:370
+#: includes/sdm-admin-menu-handler.php:118
 msgid ""
 "If you need a feature rich and supported plugin for selling your digital "
 "items then checkout our"
 msgstr ""
-"Si vous avez besoin d'un plugin riche en fonctionnalités pour la vente de "
-"vos objets numériques alors allez voir sur"
+"Si vous avez besoin d’une extension riche en fonctionnalités pour la vente "
+"de vos objets numériques alors allez voir sur"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:370
+#: includes/sdm-admin-menu-handler.php:118
 msgid "WP eStore Plugin"
 msgstr "WP eStore Plugin"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:383
-msgid "Description"
-msgstr "Description"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:385
-msgid "Upload File"
-msgstr "Télécharger un fichier"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:387
-msgid "File Thumbnail (Optional)"
-msgstr "La miniature du fichier (Facultatif)"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:389
-msgid "Shortcodes"
-msgstr "Shortcodes"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:391
-msgid "Statistics"
-msgstr "Statistiques"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:396
-msgid "Add a description for this download item."
-msgstr "Ajouter une description pour ce fichier."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:409
-msgid "Click \"Select File\" to upload (or choose) the file."
+#: includes/sdm-admin-menu-handler.php:137
+msgid "Log entries exported! Click on the following link to download the file."
 msgstr ""
-"Cliquez sur \"Sélectionner un fichier\" pour Uploader (ou choisir) le "
-"fichier."
+"Entrées de journal exportées&nbsp;! Cliquez sur le lien suivant pour "
+"télécharger le fichier."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:412
-msgid "Select File"
-msgstr "Sélectionnez un fichier"
+#: includes/sdm-admin-menu-handler.php:138
+msgid "Download Logs CSV File"
+msgstr "Télécharger le fichier CSV des journaux"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:414
-msgid "File URL:"
-msgstr "URL du fichier:"
+#: includes/sdm-admin-menu-handler.php:148
+msgid "Download log entries deleted!"
+msgstr "Télécharger les entrées de journal supprimées&nbsp;!"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:422
-msgid ""
-"Click \"Select Image\" to upload (or choose) the file thumbnail image. This "
-"thumbnail image will be used to create a fancy file download box if you want "
-"to use it."
-msgstr ""
-"Cliquez sur \"Sélectionner une Image\" pour uploader (ou choisir) la "
-"miniature du fichier. Cette miniature servira à créer une boite de "
-"téléchargement si vous souhaitez l'utiliser."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:427
-msgid "Select Image"
-msgstr "Selectionnez une image"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:428
-msgid "Remove Image"
-msgstr "Supprimer I'image"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:442
-msgid ""
-"This is the shortcode which can used on posts or pages to embed a download "
-"now button for this file. You can also use the shortcode inserter to add "
-"this shortcode to a post or page."
-msgstr ""
-"Il s'agit d'un raccourci utilisable dans les articles ou pages permettant "
-"d'intégrer un bouton de téléchargement pour ce fichier. Vous pouvez "
-"également utiliser l'outil d'insertion pour ajouter ce raccourci pour un "
-"article ou une page."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:447
-msgid "This shortcode may be used as a download counter."
-msgstr "Ce raccourci peut être utilisé comme un compteur de téléchargement."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:456
-msgid "These are the statistics for this download item."
-msgstr "Voici les statistiques pour ce téléchargement."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:461
-msgid "Number of Downloads:"
-msgstr "Nombre de téléchargements:"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:464
-msgid "Offset Count"
-msgstr "Décalage de compteur"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:529
-msgid "Colors"
-msgstr "Couleurs"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:531
-msgid "Remove Tinymce Button"
-msgstr "Supprimer le bouton Tinymce"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:532
-msgid "Download Button Color"
-msgstr "﻿Couleur du bouton de Téléchargement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:536
-msgid "Admin options settings"
-msgstr "Paramètres des options d'administration"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:540
-msgid "Front End colors settings"
-msgstr "Paramètres de couleurs de l'interface utilisateur"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:546
-msgid "Removes the SDM Downloads button from the WP content editor."
-msgstr "Supprime le bouton Téléchargements SDM de l'éditeur de contenu de WP."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Green"
-msgstr "Vert"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Blue"
-msgstr "Bleu"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Purple"
-msgstr "Mauve"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Teal"
-msgstr "Bleu Canard"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Dark Blue"
-msgstr "Bleu foncé"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Black"
-msgstr "noir"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Grey"
-msgstr "Gris"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Pink"
-msgstr "Rose"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "Orange"
-msgstr "Orange"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:552
-msgid "White"
-msgstr "﻿Blanc"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:555
-msgid "current"
-msgstr "Actuel"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:561
-msgid "Adjusts the color of the \"Download Now\" button."
-msgstr "Modifier la couleur du bouton \"Télécharger Maintenant\"."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:589
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:48
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:94
-#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:87
-msgid "Download"
-msgstr "Telecharger"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:613
-msgid "Edit"
-msgstr "Éditer (Modifier)"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:614
-msgid "Delete"
-msgstr "Effacer"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:638
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1029
-msgid "Title"
-msgstr " Titre"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:639
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1031
-msgid "File"
-msgstr "Fichier"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:640
-msgid "Visitor IP"
-msgstr "IP du visiteur"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:641
-msgid "Date"
-msgstr "Date"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:642
-msgid "Country"
-msgstr "Pays"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:662
-msgid "Delete Permanently"
-msgstr "Supprimer Définitivement"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:663
-msgid "Export All as Excel"
-msgstr "Export Tout sous Excel"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:678
-msgid "Nope! Security check failed!"
-msgstr "Zut! Le contrôle de sécurité a échoué !"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:686
-msgid "Download Export File"
-msgstr "Télécharger le fichier d'exportation"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:693
-msgid "No entries were selected."
-msgstr "Pas d'entrées ont été sélectionnés."
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:693
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:709
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:711
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:728
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:730
-msgid "Click to Dismiss"
-msgstr "Cliquez pour ignorer"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:709
-msgid "Entries Deleted!"
-msgstr "Entrées supprimées!"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:711
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:730
-msgid "Error"
-msgstr "Erreur"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:728
-msgid "Entry Deleted!"
-msgstr "Ecriture supprimée !"
-
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:788
+#: includes/sdm-admin-menu-handler.php:160
 msgid "Download Logs"
 msgstr "Télécharger le journal"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:791
+#: includes/sdm-admin-menu-handler.php:163
 msgid "This page lists all tracked downloads."
 msgstr "Cette page liste les suivis de téléchargements."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:813
-msgid "Enter Password to Download:"
-msgstr "Entrez le mot de passe pour télécharger :"
+#: includes/sdm-admin-menu-handler.php:170
+msgid "Export Download Log Entries"
+msgstr "Exporter les entrées de journal de téléchargement"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:816
-msgid "Submit"
-msgstr "Soumettre"
+#: includes/sdm-admin-menu-handler.php:174
+msgid "Export Log Entries to CSV File"
+msgstr "Exporter les entrées de journal vers un fichier CSV"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:862
+#: includes/sdm-admin-menu-handler.php:181
+msgid "Reset Download Log Entries"
+msgstr "Réinitialiser les entrées de journal de téléchargement"
+
+#: includes/sdm-admin-menu-handler.php:185
+msgid "Reset Log Entries"
+msgstr "Réinitialiser les entrées de journal"
+
+#: includes/sdm-admin-menu-handler.php:249
+msgid "Choose Date Range (yyyy-mm-dd)"
+msgstr "Choisir la plage de dates (aaaa-mm-jj)"
+
+#: includes/sdm-admin-menu-handler.php:253
+msgid "Start Date: "
+msgstr "Date de début&nbsp;: "
+
+#: includes/sdm-admin-menu-handler.php:254
+msgid "End Date: "
+msgstr "Date de fin "
+
+#: includes/sdm-admin-menu-handler.php:256
+msgid "This Month"
+msgstr "Ce mois-ci"
+
+#: includes/sdm-admin-menu-handler.php:257
+msgid "Last Month"
+msgstr "Dernier mois"
+
+#: includes/sdm-admin-menu-handler.php:258
+msgid "This Year"
+msgstr "Cette année"
+
+#: includes/sdm-admin-menu-handler.php:259
+msgid "Last Year"
+msgstr "Dernière année"
+
+#: includes/sdm-admin-menu-handler.php:260
+msgid "All Time"
+msgstr "Tout le temps"
+
+#: includes/sdm-admin-menu-handler.php:263
+msgid "View Stats"
+msgstr "Afficher les statistiques"
+
+#: includes/sdm-admin-menu-handler.php:269
+msgid "Downloads by date"
+msgstr "Téléchargements par date"
+
+#: includes/sdm-admin-menu-handler.php:270
+msgid "Downloads by country"
+msgstr "Téléchargements par pays"
+
+#: includes/sdm-download-request-handler.php:13
+msgid "Error! Incorrect download item id."
+msgstr "Erreur&nbsp;! Identifiant de l’élément de téléchargement incorrect."
+
+#: includes/sdm-download-request-handler.php:16
+msgid "Error! This download item ("
+msgstr "Erreur&nbsp;! Cet article de téléchargement ("
+
+#: includes/sdm-download-request-handler.php:26
+msgid "Error! This download requires a password."
+msgstr "Erreur&nbsp;! Ce téléchargement nécessite un mot de passe."
+
+#: includes/sdm-download-request-handler.php:28 main.php:684 main.php:686
+msgid "Click here"
+msgstr "Cliquer ici"
+
+#: includes/sdm-download-request-handler.php:29
+msgid " and enter a valid password for this item"
+msgstr " et entrez un mot de passe valide pour cet élément"
+
+#: includes/sdm-download-request-handler.php:35
+msgid "Error! Incorrect password. This download requires a valid password."
+msgstr ""
+"Erreur&nbsp;! Mot de passe incorrect. Ce téléchargement nécessite un mot de "
+"passe valide."
+
+#: includes/sdm-download-request-handler.php:63
+msgid "__Click here__ to go to login page."
+msgstr "__Cliquez ici__ pour accéder à la page de connexion."
+
+#: includes/sdm-download-request-handler.php:66
+msgid "You need to be logged in to download this file."
+msgstr "Vous devez être connecté pour télécharger ce fichier."
+
+#: includes/sdm-download-request-handler.php:70
+msgid "Not Logged In"
+msgstr "Non connecté"
+
+#: includes/sdm-download-request-handler.php:128
 msgid "Error! Failed to log the download request in the database table"
 msgstr ""
 "Erreur! Impossible de se connecter à la demande de téléchargement dans la "
 "table de base de données"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:871
+#: includes/sdm-download-request-handler.php:160
 msgid ""
 "Error! The URL value is empty. Please specify a correct URL value to "
 "redirect to!"
 msgstr ""
-"Erreur! La valeur de l'URL est vide. S'il vous plaît spécifier une valeur "
-"d'URL correcte pour rediriger vers elle!"
+"Erreur! La valeur de l’URL est vide. S’il vous plaît spécifier une valeur "
+"d’URL correcte pour rediriger vers elle!"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1028
-msgid "Image"
-msgstr "Image"
+#: includes/sdm-latest-downloads.php:43
+msgid "There are no download items matching this shortcode criteria."
+msgstr ""
+"Aucun élément de téléchargement ne correspond à ce critère de code court."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1030
-msgid "ID"
-msgstr "ID "
+#: includes/sdm-logs-list-table.php:19
+#: includes/templates/fancy1/sdm-fancy-1.php:95
+#: sdm-post-type-content-handler.php:63 sdm-shortcodes.php:148
+msgid "Download"
+msgstr "Telecharger"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1035
-msgid "Date Posted"
-msgstr "Date de Publication"
+#: includes/sdm-logs-list-table.php:20
+#: includes/templates/fancy1/sdm-fancy-1.php:95 main.php:807
+#: sdm-post-type-and-taxonomy.php:7 sdm-post-type-and-taxonomy.php:8
+#: sdm-post-type-and-taxonomy.php:13 sdm-post-type-and-taxonomy.php:19
+#: sdm-post-type-content-handler.php:63 sdm-shortcodes.php:148
+msgid "Downloads"
+msgstr "téléchargements"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/main.php:1036
-msgid "Visitor Country"
-msgstr "Pays du visiteur"
+#: includes/sdm-logs-list-table.php:45
+msgid "Edit"
+msgstr "Éditer (Modifier)"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:32
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:40
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:166
-#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:42
+#: includes/sdm-logs-list-table.php:46
+msgid "Delete"
+msgstr "Effacer"
+
+#: includes/sdm-logs-list-table.php:70 main.php:802
+msgid "Title"
+msgstr " Titre"
+
+#: includes/sdm-logs-list-table.php:71 main.php:804
+msgid "File"
+msgstr "Fichier"
+
+#: includes/sdm-logs-list-table.php:72
+msgid "Visitor IP"
+msgstr "IP du visiteur"
+
+#: includes/sdm-logs-list-table.php:73
+msgid "Date"
+msgstr "Date"
+
+#: includes/sdm-logs-list-table.php:74
+msgid "Country"
+msgstr "Pays"
+
+#: includes/sdm-logs-list-table.php:75
+msgid "Username"
+msgstr "Nom d&rsquo;utilisateur"
+
+#: includes/sdm-logs-list-table.php:96
+msgid "Delete Permanently"
+msgstr "Supprimer Définitivement"
+
+#: includes/sdm-logs-list-table.php:111 includes/sdm-logs-list-table.php:142
+msgid "Nope! Security check failed!"
+msgstr "Zut! Le contrôle de sécurité a échoué !"
+
+#: includes/sdm-logs-list-table.php:115
+msgid "No entries were selected."
+msgstr "Pas d’entrées ont été sélectionnés."
+
+#: includes/sdm-logs-list-table.php:115 includes/sdm-logs-list-table.php:129
+#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:151
+#: includes/sdm-logs-list-table.php:153
+msgid "Click to Dismiss"
+msgstr "Cliquez pour ignorer"
+
+#: includes/sdm-logs-list-table.php:122
+msgid "Error! The row id value of a log entry must be numeric."
+msgstr ""
+"Erreur&nbsp;! La valeur d’identifiant de ligne d’une entrée de journal doit "
+"être numérique."
+
+#: includes/sdm-logs-list-table.php:129
+msgid "Entries Deleted!"
+msgstr "Entrées supprimées!"
+
+#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:153
+msgid "Error"
+msgstr "Erreur"
+
+#: includes/sdm-logs-list-table.php:151
+msgid "Entry Deleted!"
+msgstr "Ecriture supprimée !"
+
+#: includes/sdm-search-shortcode-handler.php:65
+msgid "Showing search results for "
+msgstr "Affichage des résultats de recherche pour "
+
+#: includes/sdm-search-shortcode-handler.php:66
+msgid "Number of items found: "
+msgstr "Nombre d’articles trouvés&nbsp;:"
+
+#: includes/sdm-search-shortcode-handler.php:67
+msgid "Keywords searched: "
+msgstr "Mots-clés recherchés&nbsp;: "
+
+#: includes/sdm-search-shortcode-handler.php:70
+msgid "Nothing found for "
+msgstr "Rien trouvé pour "
+
+#: includes/sdm-utility-functions.php:9
+msgid "Green"
+msgstr "Vert"
+
+#: includes/sdm-utility-functions.php:10
+msgid "Blue"
+msgstr "Bleu"
+
+#: includes/sdm-utility-functions.php:11
+msgid "Purple"
+msgstr "Mauve"
+
+#: includes/sdm-utility-functions.php:12
+msgid "Teal"
+msgstr "Bleu Canard"
+
+#: includes/sdm-utility-functions.php:13
+msgid "Dark Blue"
+msgstr "Bleu foncé"
+
+#: includes/sdm-utility-functions.php:14
+msgid "Black"
+msgstr "noir"
+
+#: includes/sdm-utility-functions.php:15
+msgid "Grey"
+msgstr "Gris"
+
+#: includes/sdm-utility-functions.php:16
+msgid "Pink"
+msgstr "Rose"
+
+#: includes/sdm-utility-functions.php:17
+msgid "Orange"
+msgstr "Orange"
+
+#: includes/sdm-utility-functions.php:18
+msgid "White"
+msgstr "﻿Blanc"
+
+#: includes/sdm-utility-functions.php:62
+#: includes/templates/fancy0/sdm-fancy-0.php:75
+#: includes/templates/fancy1/sdm-fancy-1.php:43
+#: includes/templates/fancy2/sdm-fancy-2.php:60
+#: sdm-post-type-content-handler.php:44 sdm-shortcodes.php:68
+#: sdm-shortcodes.php:162
+msgid "Download Now!"
+msgstr "Télécharger le catalogue"
+
+#: includes/sdm-utility-functions.php:69
+msgid "Enter Password to Download:"
+msgstr "Entrez le mot de passe pour télécharger :"
+
+#: includes/templates/fancy0/sdm-fancy-0.php:64
+#: sdm-post-type-content-handler.php:39
 msgid "green"
 msgstr "vert"
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-post-type-content-handler.php:37
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:48
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:174
-#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy1/sdm-fancy-1.php:53
-#: C:\Users\amin\Desktop\simple-download-monitor/includes/templates/fancy2/sdm-fancy-2.php:57
-msgid "Download Now!"
-msgstr "Télécharger maintenant!"
+#: includes/templates/fancy1/sdm-fancy-1.php:111
+#: includes/templates/fancy2/sdm-fancy-2.php:121
+#: sdm-post-type-content-handler.php:87
+msgid "Size: "
+msgstr "Taille&nbsp;: "
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:27
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:88
+#: includes/templates/fancy1/sdm-fancy-1.php:118
+#: includes/templates/fancy2/sdm-fancy-2.php:128 main.php:433
+#: sdm-post-type-content-handler.php:94
+msgid "Version: "
+msgstr "Version&nbsp;: "
+
+#: main.php:237 main.php:320
+msgid "Select File"
+msgstr "Sélectionnez un fichier"
+
+#: main.php:238
+msgid "Select Thumbnail"
+msgstr "Sélectionnez une miniature"
+
+#: main.php:239
+msgid "Insert"
+msgstr "Insérer"
+
+#: main.php:240
+msgid "Image Successfully Removed"
+msgstr "Image supprimée avec succès"
+
+#: main.php:241
+msgid "Error with AJAX"
+msgstr "Erreur avec AJAX"
+
+#: main.php:252
+msgid "Please select a Download Item:"
+msgstr "Veuillez sélectionner un téléchargement :"
+
+#: main.php:253
+msgid "Download Title"
+msgstr "Titre du Téléchargement"
+
+#: main.php:254
+msgid "Include Fancy Box"
+msgstr "Inclure la Fancy Box"
+
+#: main.php:255
+msgid "Open New Window"
+msgstr "Ouvrir une nouvelle fenêtre"
+
+#: main.php:256
+msgid "Button Color"
+msgstr "Couleur du bouton"
+
+#: main.php:257
+msgid "Insert SDM Shortcode"
+msgstr "Insérez le Shortcode SDM"
+
+#: main.php:288
+msgid "Description"
+msgstr "Description"
+
+#: main.php:289
+msgid "Downloadable File (Visitors will download this item)"
+msgstr "Fichier téléchargeable (Les visiteurs téléchargeront cet élément)"
+
+#: main.php:290
+msgid "PHP Dispatch or Redirect"
+msgstr "Envoi PHP ou redirection"
+
+#: main.php:291
+msgid "File Thumbnail (Optional)"
+msgstr "La miniature du fichier (Facultatif)"
+
+#: main.php:292
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: main.php:293
+msgid "Other Details (Optional)"
+msgstr "Autres détails (facultatif)"
+
+#: main.php:294
+msgid "Shortcodes"
+msgstr "Shortcodes"
+
+#: main.php:298
+msgid "Add a description for this download item."
+msgstr "Ajouter une description pour ce fichier."
+
+#: main.php:312
+msgid ""
+"Manually enter a valid URL of the file in the text box below, or click "
+"\"Select File\" button to upload (or choose) the downloadable file."
+msgstr ""
+"Entrez manuellement une URL valide du fichier dans la zone de texte ci-"
+"dessous, ou cliquez sur le bouton \"Sélectionner un fichier\" pour "
+"télécharger (ou choisir) le fichier téléchargeable."
+
+#: main.php:323
+msgid "Steps to upload a file or choose one from your media library:"
+msgstr ""
+"Étapes pour télécharger un fichier ou en choisir un dans votre bibliothèque "
+"multimédia&nbsp;:"
+
+#: main.php:348
+msgid ""
+"Dispatch the file via PHP directly instead of redirecting to it. PHP "
+"Dispatching keeps the download URL hidden. Dispatching works only for local "
+"files (files that you uploaded to this site via this plugin or media "
+"library)."
+msgstr ""
+"Distribuer le fichier via PHP directement au lieu de le rediriger. Envoi PHP "
+"garde l’URL de téléchargement cachée. L’envoi fonctionne uniquement pour les "
+"fichiers locaux (fichiers que vous avez téléchargés sur ce site via ce "
+"plugin ou cette bibliothèque multimédia)."
+
+#: main.php:356
+msgid ""
+"Manually enter a valid URL, or click \"Select Image\" to upload (or choose) "
+"the file thumbnail image."
+msgstr ""
+"Saisissez manuellement une URL valide ou cliquez sur \"Sélectionner une image"
+"\" pour télécharger (ou choisir) l’image miniature du fichier."
+
+#: main.php:361
+msgid "Select Image"
+msgstr "Selectionnez une image"
+
+#: main.php:362
+msgid "Remove Image"
+msgstr "Supprimer I’image"
+
+#: main.php:376
+msgid ""
+"This thumbnail image will be used to create a fancy file download box if you "
+"want to use it."
+msgstr ""
+"Cette image miniature sera utilisée pour créer une boîte de téléchargement "
+"de fichiers stylisée si vous voulez l’utiliser."
+
+#: main.php:390
+msgid "These are the statistics for this download item."
+msgstr "Voici les statistiques pour ce téléchargement."
+
+#: main.php:397
+msgid "Number of Downloads:"
+msgstr "Nombre de téléchargements:"
+
+#: main.php:402
+msgid "Offset Count: "
+msgstr "Décalage du compteur&nbsp;: "
+
+#: main.php:405
+msgid ""
+"Enter any positive or negative numerical value; to offset the download count "
+"shown to the visitors (when using the download counter shortcode)."
+msgstr ""
+"Entrez une valeur numérique, positive ou négative, pour compenser le nombre "
+"de téléchargements indiqué aux visiteurs (lors de l’utilisation du code "
+"court du compteur de téléchargement)."
+
+#: main.php:412
+msgid "Disable download logging for this item."
+msgstr "Désactiver les entrées de téléchargement pour cet élément."
+
+#: main.php:426
+msgid "File Size: "
+msgstr "Taille du fichier&nbsp;: "
+
+#: main.php:429
+msgid ""
+"Enter the size of this file (example value: 2.15 MB). You can show this "
+"value in the fancy display by using a shortcode parameter."
+msgstr ""
+"Entrez la taille de ce fichier (valeur d’exemple&nbsp;: 2,15&nbsp;Mo). Vous "
+"pouvez afficher cette valeur dans l’affichage fantaisie en utilisant un "
+"paramètre de code court."
+
+#: main.php:436
+msgid ""
+"Enter the version number for this item if any (example value: v2.5.10). You "
+"can show this value in the fancy display by using a shortcode parameter."
+msgstr ""
+"Entrez le numéro de version de cet article, le cas échéant (exemple de "
+"valeur: v2.5.10). Vous pouvez afficher cette valeur dans l’affichage "
+"fantaisie en utilisant un paramètre de code court."
+
+#: main.php:443
+msgid ""
+"The following shortcode can be used on posts or pages to embed a download "
+"now button for this file. You can also use the shortcode inserter (in the "
+"post editor) to add this shortcode to a post or page."
+msgstr ""
+"Le code court suivant peut être utilisé sur des publications ou des pages "
+"pour intégrer un bouton de téléchargement maintenant pour ce fichier. Vous "
+"pouvez également utiliser le dispositif d’insertion de code court (dans "
+"l’éditeur de publication) pour ajouter ce code court à un article ou à une "
+"page."
+
+#: main.php:449
+msgid ""
+"The following shortcode can be used to show a download counter for this item."
+msgstr ""
+"Le code court suivant peut être utilisé pour afficher un compteur de "
+"téléchargement pour cet élément."
+
+#: main.php:557
+msgid "General Options"
+msgstr "Options générales"
+
+#: main.php:558
+msgid "Admin Options"
+msgstr "Option d’administration"
+
+#: main.php:559
+msgid "Colors"
+msgstr "Couleurs"
+
+#: main.php:560
+msgid "Debug"
+msgstr "Débogage"
+
+#: main.php:561
+msgid "Delete Plugin Data"
+msgstr "Supprimer les données de l’extension"
+
+#: main.php:564
+msgid "Hide Download Count"
+msgstr "Masquer le nombre de téléchargements"
+
+#: main.php:565
+msgid "PHP Dispatching"
+msgstr "Envoi PHP"
+
+#: main.php:566
+msgid "Only Allow Logged-in Users to Download"
+msgstr "Autoriser uniquement les utilisateurs connectés à télécharger"
+
+#: main.php:567
+msgid "Login Page URL"
+msgstr "URL de la page de connexion"
+
+#: main.php:569
+msgid "Remove Tinymce Button"
+msgstr "Supprimer le bouton Tinymce"
+
+#: main.php:570
+msgid "Log Unique IP"
+msgstr "Entrée IP unique"
+
+#: main.php:571
+msgid "Do Not Capture IP Address"
+msgstr "Ne pas capturer l’adresse IP"
+
+#: main.php:572
+msgid "Do Not Count Downloads from Bots"
+msgstr "Ne pas compter les téléchargements des bots."
+
+#: main.php:573
+msgid "Disable Download Logs"
+msgstr "Désactiver les journaux de téléchargement"
+
+#: main.php:575
+msgid "Download Button Color"
+msgstr "﻿Couleur du bouton de Téléchargement"
+
+#: main.php:577
+msgid "Enable Debug"
+msgstr "Activer le mode de débogage"
+
+#: main.php:582
+msgid "General options settings"
+msgstr "Paramètres généraux d’options"
+
+#: main.php:587
+msgid "Admin options settings"
+msgstr "Paramètres des options d’administration"
+
+#: main.php:592
+msgid "Front End colors settings"
+msgstr "Paramètres de couleurs de l’interface utilisateur"
+
+#: main.php:597
+msgid "Debug settings"
+msgstr "Paramètres de débogage"
+
+#: main.php:602
+msgid ""
+"You can delete all the data related to this plugin from database using the "
+"button below. Useful when you're uninstalling the plugin and don't want any "
+"leftovers remaining."
+msgstr ""
+"Vous pouvez supprimer toutes les données relatives à cette extension de la "
+"base de données en utilisant le bouton ci-dessous. Utile lorsque vous "
+"désinstallez l’extension et que vous ne voulez pas qu’il reste des données."
+
+#: main.php:603
+msgid "Warning"
+msgstr "Attention"
+
+#: main.php:603
+msgid ""
+"this can't be undone. All settings, download items, download logs will be "
+"deleted."
+msgstr ""
+"cela ne peut pas être annulé. Tous les paramètres, télécharger des éléments, "
+"télécharger les journaux seront supprimés."
+
+#: main.php:604
+msgid "Delete all data and deactivate plugin"
+msgstr "Supprimer toutes les données et désactiver l’extension."
+
+#: main.php:611
+msgid "Hide the download count that is shown in some of the fancy templates."
+msgstr ""
+"Masquez le nombre de téléchargements indiqué dans certains des modèles "
+"stylisés."
+
+#: main.php:618
+msgid ""
+"When you create a new download item, The PHP Dispatching option should be "
+"enabled by default. PHP Dispatching keeps the URL of the downloadable files "
+"hidden."
+msgstr ""
+"Lorsque vous créez un nouvel élément de téléchargement, l’option Envoi de "
+"PHP doit être activée par défaut. Envoi de PHP conserve l’URL des fichiers "
+"téléchargeables cachés."
+
+#: main.php:625
+msgid ""
+"Enable this option if you want to allow downloads only for logged-in users. "
+"When enabled, anonymous users clicking on the download button will receive "
+"an error message."
+msgstr ""
+"Activez cette option si vous souhaitez autoriser les téléchargements "
+"uniquement pour les utilisateurs connectés. Lorsque cette option est "
+"activée, les utilisateurs anonymes qui cliquent sur le bouton de "
+"téléchargement recevront un message d’erreur."
+
+#: main.php:632
+msgid ""
+"(Optional) Specify a login page URL where users can login. This is useful if "
+"you only allow logged in users to be able to download. This link will be "
+"added to the message that is shown to anonymous users."
+msgstr ""
+"(Optionnel) Spécifiez une URL de page de connexion dans laquelle les "
+"utilisateurs peuvent se connecter. Ceci est utile si vous autorisez "
+"uniquement les utilisateurs connectés à télécharger. Ce lien sera ajouté au "
+"message affiché aux utilisateurs anonymes."
+
+#: main.php:638
+msgid "Removes the SDM Downloads button from the WP content editor."
+msgstr "Supprime le bouton Téléchargements SDM de l’éditeur de contenu de WP."
+
+#: main.php:644
+msgid "Only logs downloads from unique IP addresses."
+msgstr "Seuls les journaux sont téléchargés à partir d’adresses IP uniques."
+
+#: main.php:650
+msgid ""
+"Use this if you do not want to capture the IP address and Country of the "
+"visitors when they download an item."
+msgstr ""
+"Utilisez cette option si vous ne souhaitez pas capturer l’adresse IP et le "
+"pays des visiteurs lorsqu’ils téléchargent un élément."
+
+#: main.php:656
+msgid "When enabled, the plugin won't count and log downloads from bots."
+msgstr ""
+"Lorsque cette option est activée, l’extension ne compte pas et enregistre "
+"les téléchargements depuis les robots."
+
+#: main.php:662
+msgid ""
+"Disables all download logs. (This global option overrides the individual "
+"download item option.)"
+msgstr ""
+"Désactive tous les journaux de téléchargement. (Cette option globale "
+"remplace l’option d’élément de téléchargement individuel.)"
+
+#: main.php:682
+msgid "Check this option to enable debug logging."
+msgstr "Cochez cette option pour activer la journalisation du débogage."
+
+#: main.php:685
+msgid " to view log file."
+msgstr " pour afficher le fichier journal."
+
+#: main.php:687
+msgid " to reset log file."
+msgstr " pour réinitialiser le fichier journal."
+
+#: main.php:725
+msgid "Permission denied!"
+msgstr "Permission refusée&nbsp;!"
+
+#: main.php:801
+msgid "Image"
+msgstr "Image"
+
+#: main.php:803
+msgid "ID"
+msgstr "ID "
+
+#: main.php:805 sdm-post-type-and-taxonomy.php:56
+msgid "Categories"
+msgstr "Catégories"
+
+#: main.php:806 sdm-post-type-and-taxonomy.php:80
+msgid "Tags"
+msgstr "Mots clés "
+
+#: main.php:808
+msgid "Date Posted"
+msgstr "Date de Publication"
+
+#: sdm-post-type-and-taxonomy.php:9 sdm-post-type-and-taxonomy.php:10
+msgid "Add New"
+msgstr "Ajouter Nouveau"
+
+#: sdm-post-type-and-taxonomy.php:11
+msgid "Edit Download"
+msgstr "Modifier Téléchargement"
+
+#: sdm-post-type-and-taxonomy.php:12
+msgid "New Download"
+msgstr "Nouveau téléchargement"
+
+#: sdm-post-type-and-taxonomy.php:14
+msgid "View Download"
+msgstr "Afficher Téléchargement"
+
+#: sdm-post-type-and-taxonomy.php:15
+msgid "Search Downloads"
+msgstr "Recherche de téléchargements"
+
+#: sdm-post-type-and-taxonomy.php:16
+msgid "No Downloads found"
+msgstr "Aucun Téléchargement Trouvé"
+
+#: sdm-post-type-and-taxonomy.php:17
+msgid "No Downloads found in Trash"
+msgstr "Aucun téléchargement trouvé dans la poubelle"
+
+#: sdm-post-type-and-taxonomy.php:18
+msgid "Parent Download"
+msgstr "Téléchargement Parent"
+
+#: sdm-post-type-and-taxonomy.php:48
+msgid "Search Categories"
+msgstr "Chercher dans Catégories"
+
+#: sdm-post-type-and-taxonomy.php:49
+msgid "All Categories"
+msgstr "Toutes Catégories"
+
+#: sdm-post-type-and-taxonomy.php:50
+msgid "Categories Genre"
+msgstr "Types de catégories"
+
+#: sdm-post-type-and-taxonomy.php:51
+msgid "Categories Genre:"
+msgstr "Types de catégories"
+
+#: sdm-post-type-and-taxonomy.php:52
+msgid "Edit Category"
+msgstr "Modifier Catégorie"
+
+#: sdm-post-type-and-taxonomy.php:53
+msgid "Update Category"
+msgstr "Mettre à jour la catégorie"
+
+#: sdm-post-type-and-taxonomy.php:54
+msgid "Add New Category"
+msgstr "Ajouter une nouvelle catégorie"
+
+#: sdm-post-type-and-taxonomy.php:55
+msgid "New Category"
+msgstr "Nouvelle catégorie"
+
+#: sdm-post-type-and-taxonomy.php:72
+msgid "Search Tags"
+msgstr "Rechercher parmi les mots-clés"
+
+#: sdm-post-type-and-taxonomy.php:73
+msgid "All Tags"
+msgstr "Tous les tags"
+
+#: sdm-post-type-and-taxonomy.php:74
+msgid "Tags Genre"
+msgstr "Genre de mots-clés"
+
+#: sdm-post-type-and-taxonomy.php:75
+msgid "Tags Genre:"
+msgstr "Genre de mots-clés:"
+
+#: sdm-post-type-and-taxonomy.php:76
+msgid "Edit Tag"
+msgstr "Modifier le mots-clé"
+
+#: sdm-post-type-and-taxonomy.php:77
+msgid "Update Tag"
+msgstr "Mettre à jour les mots-clés"
+
+#: sdm-post-type-and-taxonomy.php:78
+msgid "Add New Tag"
+msgstr "Ajouter un nouveau mot clé"
+
+#: sdm-post-type-and-taxonomy.php:79
+msgid "New Tag"
+msgstr "Nouveau tag"
+
+#: sdm-shortcodes.php:81 sdm-shortcodes.php:128 sdm-shortcodes.php:142
 msgid "Error! Please enter an ID value with this shortcode."
-msgstr "Erreur ! Veuillez entrer une valeur d'ID avec ce raccourci."
+msgstr "Erreur ! Veuillez entrer une valeur d’ID avec ce raccourci."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:118
+#: sdm-shortcodes.php:175
 msgid ""
 "Error! You must enter a category slug OR a category id with this shortcode. "
 "Refer to the documentation for usage instructions."
 msgstr ""
 "Erreur ! Veuillez saisir une catégorie ou un id de catégorie avec ce "
 "raccourci. Reportez-vous à la documentation pour obtenir des instructions "
-"d'utilisation."
+"d’utilisation."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:122
+#: sdm-shortcodes.php:180
 msgid "Error! Please enter a category slug OR id; not both."
 msgstr "Erreur ! Veuillez saisir une catégorie OU un ID pas les deux."
 
-#: C:\Users\amin\Desktop\simple-download-monitor/sdm-shortcodes.php:153
+#: sdm-shortcodes.php:210
+msgid ""
+"Error! You must enter a numeric number for the \"pagination\" parameter of "
+"the shortcode. Refer to the usage documentation."
+msgstr ""
+"Erreur&nbsp;! Vous devez entrer un numéro numérique pour le paramètre "
+"\"pagination\" du code court. Reportez-vous à la documentation d’utilisation."
+
+#: sdm-shortcodes.php:235
 msgid "There are no download items matching this category criteria."
 msgstr ""
-"Il n'y a pas de téléchargement correspondant à ces critères de catégorie."
+"Il n’y a pas de téléchargement correspondant à ces critères de catégorie."
+
+#~ msgid "Incorrect Password"
+#~ msgstr "Mot de passe incorrect"
+
+#~ msgid "Control various plugin features."
+#~ msgstr "Contrôlez diverses fonctionnalités plug-in."
+
+#~ msgid "Color Options"
+#~ msgstr "Options de Couleur"
+
+#~ msgid "Adjust color options"
+#~ msgstr "Réglez les options de couleurs"
+
+#~ msgid "Upload File"
+#~ msgstr "Télécharger un fichier"
+
+#~ msgid "current"
+#~ msgstr "Actuel"
+
+#~ msgid "Adjusts the color of the \"Download Now\" button."
+#~ msgstr "Modifier la couleur du bouton \"Télécharger Maintenant\"."
+
+#~ msgid "Export All as Excel"
+#~ msgstr "Export Tout sous Excel"
+
+#~ msgid "Download Export File"
+#~ msgstr "Télécharger le fichier d'exportation"
+
+#~ msgid "Submit"
+#~ msgstr "Soumettre"
+
+#~ msgid "Visitor Country"
+#~ msgstr "Pays du visiteur"

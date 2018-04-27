@@ -63,6 +63,10 @@
     text-align: center;
 }
 
+.sdm_fancy2_item .sdm-g-recaptcha{
+    transform:scale(0.60);
+    transform-origin:0 0;
+}
 /*** For smaller devices ***/
 @media only screen and (max-width : 480px)
 {

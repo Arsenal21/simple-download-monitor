@@ -229,12 +229,11 @@ function sdm_get_download_form_with_recaptcha($id, $args = array(), $class = '')
 
     $uuid = uniqid('sdm-recaptcha-');
 
-    $data = '<form action="' . $action_url . '" method="post" id="' . $uuid . '">';
-    $data .= '<span class="sdm-recaptcha-button">';
-    $data .= '<div class="g-recaptcha"></div>';
-    $data .= '<br/>';
+    $data = '<form action="' . $action_url . '" method="post" id="' . $uuid . '" class="sdm-g-recaptcha-form">';
+    $data .= '<div class="sdm-recaptcha-button">';
+    $data .= '<div class="g-recaptcha sdm-g-recaptcha"></div>';
     $data .= '<a href="javascript:document.getElementById(\'' . $uuid . '\').submit();" name="sdm_dl_recaptcha_submit" class="recaptcha_sumbit sdm_recaptcha_protected_download ' . $class . '">' . $button_text_string . '</a>';
-    $data .= '</span>';
+    $data .= '</div>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
     return $data;
@@ -244,7 +243,7 @@ function sdm_get_download_with_recaptcha() {
     $main_advanced_opts = get_option('sdm_advanced_options');
     $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
     if ($recaptcha_enable) {
-        return '<div class="g-recaptcha"></div>';
+        return '<div class="g-recaptcha sdm-g-recaptcha"></div>';
     }
     return '';
 }
