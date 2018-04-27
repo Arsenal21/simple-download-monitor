@@ -935,3 +935,15 @@ if ($tiny_button_option != true) {
     }
 
 }
+
+/**
+ * sdm_admin_menu_function_hook
+ * Its hook for add advanced testings tab, and working on saving options to db, if not use it, you received error "options page not found"
+ * @param array $whitelist_options
+ * @return string
+ */
+function sdm_admin_menu_function_hook($whitelist_options = array())
+{
+    $whitelist_options['recaptcha_options_section'] = array('sdm_advanced_options');
+    return $whitelist_options;
+}
