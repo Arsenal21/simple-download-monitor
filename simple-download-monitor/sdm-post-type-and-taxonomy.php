@@ -18,7 +18,7 @@ function sdm_register_post_type() {
         'parent_item_colon' => __('Parent Download', 'simple-download-monitor'),
         'menu_name' => __('Downloads', 'simple-download-monitor')
     );
-
+    
     $sdm_permalink_base = 'sdm_downloads'; //TODO - add an option to configure in the settings maybe?
     $sdm_slug = untrailingslashit($sdm_permalink_base);
     $args = array(
@@ -43,8 +43,8 @@ function sdm_create_taxonomies() {
 
     //*****  Create CATEGORIES Taxonomy
     $labels_tags = array(
-        'name' => _x('Download Categories', 'simple-download-monitor'),
-        'singular_name' => _x('Download Category', 'simple-download-monitor'),
+        'name' => __('Download Categories', 'simple-download-monitor'),
+        'singular_name' => __('Download Category', 'simple-download-monitor'),
         'search_items' => __('Search Categories', 'simple-download-monitor'),
         'all_items' => __('All Categories', 'simple-download-monitor'),
         'parent_item' => __('Categories Genre', 'simple-download-monitor'),
@@ -67,8 +67,8 @@ function sdm_create_taxonomies() {
 
     //*****  Create TAGS Taxonomy
     $labels_tags = array(
-        'name' => _x('Download Tags', 'simple-download-monitor'),
-        'singular_name' => _x('Download Tag', 'simple-download-monitor'),
+        'name' => __('Download Tags', 'simple-download-monitor'),
+        'singular_name' => __('Download Tag', 'simple-download-monitor'),
         'search_items' => __('Search Tags', 'simple-download-monitor'),
         'all_items' => __('All Tags', 'simple-download-monitor'),
         'parent_item' => __('Tags Genre', 'simple-download-monitor'),
