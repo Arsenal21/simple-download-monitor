@@ -17,7 +17,7 @@ add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 
 /**
  * sdm_admin_menu_function_hook
- * Its hook for add advanced testings tab, and working on saving options to db, if not use it, you received error "options page not found"
+ * Its hook for add advanced testings tab, and working on saving options to db, if not used, you receive error "options page not found"
  * @param array $whitelist_options
  * @return string
  */
