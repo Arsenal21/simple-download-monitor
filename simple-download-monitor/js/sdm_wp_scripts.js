@@ -44,11 +44,13 @@ jQuery(document).ready(function($) {
         }
     });
 
+    // Download buttons with terms or captcha has this class applied to it
     $('.sdm_download_with_condition').on('click', function (e) {
         e.preventDefault();
         $(this).closest('form').trigger('submit');
     });
 
+    // Check if terms checkbox is enabled.
     if ($('.sdm-termscond-checkbox').length) {
         
         $.each($('.sdm-termscond-checkbox'), function () {
