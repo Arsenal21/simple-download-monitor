@@ -44,38 +44,40 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $('.sdm_protected_download').on('click', function (e) {
+    // Download buttons with terms or captcha has this class applied to it
+    $('.sdm_download_with_condition').on('click', function (e) {
         e.preventDefault();
         $(this).closest('form').trigger('submit');
     });
 
+    // Check if terms checkbox is enabled.
     if ($('.sdm-termscond-checkbox').length) {
         
         $.each($('.sdm-termscond-checkbox'), function () {
             if (!$(this).is(':checked')) {
                 var cur = $(this).children(':checkbox');
                 var btn = $(cur).closest('form').find('a.sdm_download');
-                $(btn).addClass('sdm-disabled');
+                $(btn).addClass('sdm_disabled_button');
             }
         });
         
         $('.sdm-download-form').on('submit', function () {
             if ($('.agree_termscond').is(':checked')) {
-                $('.sdm-termscond-checkbox').removeClass('sdm-error');
+                $('.sdm-termscond-checkbox').removeClass('sdm_general_error_msg');
                 return true;
             } else {
-                $('.sdm-termscond-checkbox').addClass('sdm-error');
+                $('.sdm-termscond-checkbox').addClass('sdm_general_error_msg');
             }
             return false;
         });
 
         $('.agree_termscond').on('click', function () {
              if ($(this).is(':checked')) {
-                 $('.sdm_protected_download').removeClass('sdm-disabled');
-                 $('.sdm-termscond-checkbox').removeClass('sdm-error');
+                 $('.sdm_download_with_condition').removeClass('sdm_disabled_button');
+                 $('.sdm-termscond-checkbox').removeClass('sdm_general_error_msg');
              } else {
-                 $('.sdm_protected_download').addClass('sdm-disabled');
-                 $('.sdm-termscond-checkbox').addClass('sdm-error');
+                 $('.sdm_download_with_condition').addClass('sdm_disabled_button');
+                 $('.sdm-termscond-checkbox').addClass('sdm_general_error_msg');
              }
         });
 

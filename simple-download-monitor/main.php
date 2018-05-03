@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.6.1
+ * Version: 3.6.2
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.1');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.2');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -746,14 +746,14 @@ class simpleDownloadManager {
     public function termscond_enable_cb() {
 	$main_opts = get_option('sdm_advanced_options');
 	echo '<input name="sdm_advanced_options[termscond_enable]" id="termscond_enable" type="checkbox" ' . checked(1, isset($main_opts['termscond_enable']), false) . ' /> ';
-        echo '<p class="description">' . __('You can disable/enable "Terms and Conditions" in donwload button.', 'simple-download-monitor') . '</p>';
+        echo '<p class="description">' . __('You can use this option to make the visitors agree to your terms before they can download the item.', 'simple-download-monitor') . '</p>';
     }
     
     public function termscond_url_cb() {
 	$main_opts = get_option('sdm_advanced_options');
         $value = isset($main_opts['termscond_url']) ? $main_opts['termscond_url'] : '';
 	echo '<input size="100" name="sdm_advanced_options[termscond_url]" id="termscond_url" type="text" value="'.$value.'" /> ';
-	echo '<p class="description">' . __('Terms Page URL', 'simple-download-monitor') . '</p>';
+	echo '<p class="description">' . __('Enter the URL of your terms and conditions page.', 'simple-download-monitor') . '</p>';
     }
 }
 

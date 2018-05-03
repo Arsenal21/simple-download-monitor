@@ -41,7 +41,7 @@
     text-align: center;
 }
 
-.sdm_fancy2_download_link a{
+.sdm_fancy2_download_dl_link{
     border: 3px solid #2D3140;    
     color: #2D3140;
     padding: 5px 10px;
@@ -49,7 +49,7 @@
     text-decoration: none !important;
 }
 
-.sdm_fancy2_download_link a:hover{
+.sdm_fancy2_download_dl_link:hover{
     color: #FFF;
     background-color: #2D3140;
 }

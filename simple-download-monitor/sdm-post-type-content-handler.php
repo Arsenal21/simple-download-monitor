@@ -52,7 +52,7 @@ function filter_sdm_post_type_content($content) {
         //Check if Terms & Condition enabled
         $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
         if ($termscond_enable) {
-            $download_button_code = sdm_get_download_form_with_termscond($id, array(),'sdm_download ' . $def_color);
+            $download_button_code = sdm_get_download_form_with_termsncond($id, array(),'sdm_download ' . $def_color);
         }
         
         //Check if reCAPTCHA enabled

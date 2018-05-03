@@ -94,7 +94,7 @@ function sdm_generate_fancy1_display_output($args) {
     //Check if Terms & Condition enabled
     $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
     if ($termscond_enable) {
-        $download_button_code = sdm_get_download_form_with_termscond($id, $shortcode_atts, 'sdm_download ' . $color);
+        $download_button_code = sdm_get_download_form_with_termsncond($id, $shortcode_atts, 'sdm_download ' . $color);
     }
     
     //Check if reCAPTCHA enabled
