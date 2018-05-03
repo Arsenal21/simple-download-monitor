@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -69,6 +69,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Option to restrict downloads to logged-in users only.
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
+* Option to add Terms and Condtions to your download buttons.
 
 View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
 
@@ -179,6 +180,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.6.2 =
+- Added new feature that allows you to show a terms and conditions checkbox for the download buttons.
 
 = 3.6.1 =
 - Tweaked a newly added function's parameter to make it compatible with an older PHP version.
