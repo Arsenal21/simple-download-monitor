@@ -67,13 +67,16 @@ function sdm_get_password_entry_form($id, $args = array(), $class = '') {
     $uuid = uniqid('sdm-pass-');
 
     $data = __('Enter Password to Download:', 'simple-download-monitor');
-    $data .= '<form action="' . $action_url . '" method="post" id="' . $uuid . '">';
+    $data .= '<form action="' . $action_url . '" method="post" id="' . $uuid . '" class="sdm-download-form">';
     $data .= '<input type="password" name="pass_text" class="sdm_pass_text" value="" /> ';
     
     $data .= sdm_get_download_with_recaptcha();
     
+    //Check if Terms & Condition enabled
+    $data .= sdm_get_checkbox_for_termscond();
+    
     $data .= '<span class="sdm-download-button">';
-    $data .= '<a href="javascript:document.getElementById(\'' . $uuid . '\').submit();" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download ' . $class . '">' . $button_text_string . '</a>';
+    $data .= '<a href="#" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download sdm_protected_download ' . $class . '">' . $button_text_string . '</a>';
     $data .= '</span>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
