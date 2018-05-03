@@ -746,14 +746,14 @@ class simpleDownloadManager {
     public function termscond_enable_cb() {
 	$main_opts = get_option('sdm_advanced_options');
 	echo '<input name="sdm_advanced_options[termscond_enable]" id="termscond_enable" type="checkbox" ' . checked(1, isset($main_opts['termscond_enable']), false) . ' /> ';
-        echo '<p class="description">' . __('You can disable/enable "Terms and Conditions" in donwload button.', 'simple-download-monitor') . '</p>';
+        echo '<p class="description">' . __('You can use this option to make the visitors agree to your terms before they can download the item.', 'simple-download-monitor') . '</p>';
     }
     
     public function termscond_url_cb() {
 	$main_opts = get_option('sdm_advanced_options');
         $value = isset($main_opts['termscond_url']) ? $main_opts['termscond_url'] : '';
 	echo '<input size="100" name="sdm_advanced_options[termscond_url]" id="termscond_url" type="text" value="'.$value.'" /> ';
-	echo '<p class="description">' . __('Terms Page URL', 'simple-download-monitor') . '</p>';
+	echo '<p class="description">' . __('Enter the URL of your terms and conditions page.', 'simple-download-monitor') . '</p>';
     }
 }
 

@@ -235,9 +235,9 @@ function sdm_get_download_form_with_recaptcha($id, $args = array(), $class = '')
     $data .= '<div class="g-recaptcha sdm-g-recaptcha"></div>';
      
     //Check if Terms & Condition enabled
-    $data .= sdm_get_checkbox_for_termscond();
+    $data .= sdm_get_checkbox_for_termsncond();
     
-    $data .= '<a href="#" class="sdm_protected_download ' . $class . '">' . $button_text_string . '</a>';
+    $data .= '<a href="#" class="sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
     $data .= '</div>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
@@ -253,7 +253,7 @@ function sdm_get_download_with_recaptcha() {
     return '';
 }
 
-function sdm_get_checkbox_for_termscond() {
+function sdm_get_checkbox_for_termsncond() {
     $main_advanced_opts = get_option('sdm_advanced_options');
     $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
     if ($termscond_enable) {
@@ -266,7 +266,7 @@ function sdm_get_checkbox_for_termscond() {
 }
 
 
-function sdm_get_download_form_with_termscond($id, $args = array(), $class = '') {
+function sdm_get_download_form_with_termsncond($id, $args = array(), $class = '') {
     $action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
 
     //Get the download button text
@@ -281,9 +281,9 @@ function sdm_get_download_form_with_termscond($id, $args = array(), $class = '')
     $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
     
     $data = '<form action="' . $action_url . '" method="post" class="sdm-download-form">';
-    $data .= sdm_get_checkbox_for_termscond();
+    $data .= sdm_get_checkbox_for_termsncond();
     $data .= '<div class="sdm-termscond-button">';
-    $data .= '<a href="#" class="sdm_protected_download ' . $class . '">' . $button_text_string . '</a>';
+    $data .= '<a href="#" class="sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
     $data .= '</div>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';

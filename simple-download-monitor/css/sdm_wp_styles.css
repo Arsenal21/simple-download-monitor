@@ -367,9 +367,9 @@
 .sdm_search_result_item:last-child {
     border-bottom: none;
 }
-.sdm-error {
-    color:#CC0000;
+.sdm_general_error_msg {
+    color: red;
 }
-.sdm-disabled {
-    color: #ccc;
+.sdm_disabled_button {
+    opacity: 0.2; /* use opacity to make the button appear disabled */
 }
