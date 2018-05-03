@@ -73,7 +73,7 @@ function sdm_get_password_entry_form($id, $args = array(), $class = '') {
     $data .= sdm_get_download_with_recaptcha();
     
     //Check if Terms & Condition enabled
-    $data .= sdm_get_checkbox_for_termscond();
+    $data .= sdm_get_checkbox_for_termsncond();
     
     $data .= '<span class="sdm-download-button">';
     $data .= '<a href="#" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
