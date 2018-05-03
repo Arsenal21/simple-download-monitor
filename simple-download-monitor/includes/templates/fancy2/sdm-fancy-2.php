@@ -88,8 +88,15 @@ function sdm_generate_fancy2_display_output($args) {
     // Read plugin settings
     $main_opts = get_option('sdm_downloads_options');
     
-    //Check if reCAPTCHA enabled
     $main_advanced_opts = get_option('sdm_advanced_options');
+   
+    //Check if Terms & Condition enabled
+    $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
+    if ($termscond_enable) {
+        $download_button_code = sdm_get_download_form_with_termscond($id, $shortcode_atts, 'sdm_fancy2_download');
+    }
+    
+    //Check if reCAPTCHA enabled
     $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
     if ($recaptcha_enable && $cpt_is_password == 'no') {
         $download_button_code = sdm_get_download_form_with_recaptcha($id, $shortcode_atts, 'sdm_fancy2_download');

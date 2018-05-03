@@ -14,6 +14,7 @@ function sdm_handle_admin_menu() {
 
 add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 
+
 /**
  * sdm_admin_menu_function_hook
  * Its hook for add advanced testings tab, and working on saving options to db, if not used, you receive error "options page not found"
@@ -23,6 +24,7 @@ add_filter('whitelist_options', 'sdm_admin_menu_function_hook');
 function sdm_admin_menu_function_hook($whitelist_options = array())
 {
     $whitelist_options['recaptcha_options_section'] = array('sdm_advanced_options');
+    $whitelist_options['termscond_options_section'] = array('sdm_advanced_options');
     return $whitelist_options;
 }
 
@@ -38,8 +40,8 @@ function sdm_create_settings_page() {
     <h1><?php _e('Simple Download Monitor Settings Page', 'simple-download-monitor') ?></h1>
 
     <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
-        Read the full plugin usage documentation <a href="https://simple-download-monitor.com/download-monitor-tutorials/" target="_blank">here</a>.
-        You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank"><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
+        <?php _e('Read the full plugin usage documentation <a href="https://simple-download-monitor.com/download-monitor-tutorials/" target="_blank">here</a>.', 'simple-download-monitor');?>
+        <?php _e('You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank">', 'simple-download-monitor')?><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
     </div>
 
     <!-- settings page form -->
@@ -190,6 +192,11 @@ function sdm_admin_menu_advanced_settings()
     do_settings_sections('recaptcha_options_section');
     settings_fields('recaptcha_options_section');
 
+    submit_button();
+    
+    do_settings_sections('termscond_options_section');
+    settings_fields('termscond_options_section');
+    
     submit_button();
     ?>
     <!-- END RECAPTCHA OPTIONS DIV -->
@@ -374,12 +381,12 @@ function sdm_create_stats_page() {
         }
         function sdm_drawDateChart() {
             var sdm_dateData = new google.visualization.DataTable();
-            sdm_dateData.addColumn('string', 'Date');
-            sdm_dateData.addColumn('number', 'Number of downloads');
+            sdm_dateData.addColumn('string', '<?php _e('Date', 'simple-download-monitor');?>');
+            sdm_dateData.addColumn('number', '<?php _e('Number of downloads', 'simple-download-monitor');?>');
             sdm_dateData.addRows([<?php echo $downloads_by_date; ?>]);
 
             var sdm_dateChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
-            sdm_dateChart.draw(sdm_dateData, {width: 700, height: 300, title: 'Downloads by Date', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
+            sdm_dateChart.draw(sdm_dateData, {width: 700, height: 300, title: '<?php _e('Downloads by Date', 'simple-download-monitor');?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
                 hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
                 vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
                 legend: 'top',

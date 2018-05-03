@@ -367,3 +367,9 @@
 .sdm_search_result_item:last-child {
     border-bottom: none;
 }
+.sdm-error {
+    color:#CC0000;
+}
+.sdm-disabled {
+    color: #ccc;
+}

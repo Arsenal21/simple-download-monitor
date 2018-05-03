@@ -44,4 +44,40 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('.sdm_protected_download').on('click', function (e) {
+        e.preventDefault();
+        $(this).closest('form').trigger('submit');
+    });
+
+    if ($('.sdm-termscond-checkbox').length) {
+        
+        $.each($('.sdm-termscond-checkbox'), function () {
+            if (!$(this).is(':checked')) {
+                var cur = $(this).children(':checkbox');
+                var btn = $(cur).closest('form').find('a.sdm_download');
+                $(btn).addClass('sdm-disabled');
+            }
+        });
+        
+        $('.sdm-download-form').on('submit', function () {
+            if ($('.agree_termscond').is(':checked')) {
+                $('.sdm-termscond-checkbox').removeClass('sdm-error');
+                return true;
+            } else {
+                $('.sdm-termscond-checkbox').addClass('sdm-error');
+            }
+            return false;
+        });
+
+        $('.agree_termscond').on('click', function () {
+             if ($(this).is(':checked')) {
+                 $('.sdm_protected_download').removeClass('sdm-disabled');
+                 $('.sdm-termscond-checkbox').removeClass('sdm-error');
+             } else {
+                 $('.sdm_protected_download').addClass('sdm-disabled');
+                 $('.sdm-termscond-checkbox').addClass('sdm-error');
+             }
+        });
+
+    }
 });

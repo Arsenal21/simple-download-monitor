@@ -334,9 +334,9 @@ class simpleDownloadManager {
 	echo '<br /><br />';
 	_e('Steps to upload a file or choose one from your media library:', 'simple-download-monitor');
 	echo '<ol>';
-	echo '<li>Hit the "Select File" button.</li>';
-	echo '<li>Upload a new file or choose an existing one from your media library.</li>';
-	echo '<li>Click the "Insert" button, this will populate the uploaded file\'s URL in the above text field.</li>';
+	echo '<li>' . __('Hit the "Select File" button.', 'simple-download-monitor') . '</li>';
+	echo '<li>' . __('Upload a new file or choose an existing one from your media library.', 'simple-download-monitor') . '</li>';
+	echo '<li>' . __('Click the "Insert" button, this will populate the uploaded file\'s URL in the above text field.', 'simple-download-monitor') . '</li>';
 	echo '</ol>';
 
 	wp_nonce_field('sdm_upload_box_nonce', 'sdm_upload_box_nonce_check');
@@ -464,7 +464,7 @@ class simpleDownloadManager {
 	echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
 
 	echo '<br /><br />';
-	echo 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.';
+	_e('Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.', 'simple-download-monitor');
     }
 
     public function sdm_save_description_meta_data($post_id) {  // Save Description metabox
@@ -571,6 +571,7 @@ class simpleDownloadManager {
         
         //add reCAPTCHA section
         add_settings_section('recaptcha_options', __('Google Captcha (reCAPTCHA)', 'simple-download-monitor'), array($this, 'recaptcha_options_cb'), 'recaptcha_options_section');
+        add_settings_section('termscond_options', __('Terms and Conditions', 'simple-download-monitor'), array($this, 'termscond_options_cb'), 'termscond_options_section');
         
 	add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 	add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
@@ -596,7 +597,10 @@ class simpleDownloadManager {
         add_settings_field('recaptcha_enable', __('Enable reCAPTCHA', 'simple-download-monitor'), array($this, 'recaptcha_enable_cb'), 'recaptcha_options_section', 'recaptcha_options');
         add_settings_field('recaptcha_site_key', __('Site Key', 'simple-download-monitor'), array($this, 'recaptcha_site_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
         add_settings_field('recaptcha_secret_key', __('Secret Key', 'simple-download-monitor'), array($this, 'recaptcha_secret_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
-        
+
+        //add Terms & Condition section fields
+        add_settings_field('termscond_enable', __('Enable Terms and Conditions', 'simple-download-monitor'), array($this, 'termscond_enable_cb'), 'termscond_options_section', 'termscond_options');
+        add_settings_field('termscond_url', __('Terms Page URL', 'simple-download-monitor'), array($this, 'termscond_url_cb'), 'termscond_options_section', 'termscond_options');
     }
 
     public function general_options_cb() {
@@ -630,6 +634,10 @@ class simpleDownloadManager {
     public function recaptcha_options_cb() {
 	//Set the message that will be shown below the debug options settings heading
 	_e('Google Captcha (reCAPTCHA) options', 'simple-download-monitor');
+    }
+    
+    public function termscond_options_cb() {
+        
     }
     
     public function recaptcha_enable_cb() {
@@ -735,6 +743,18 @@ class simpleDownloadManager {
 	__(' to reset log file.', 'simple-download-monitor') . '</p></label>';
     }
 
+    public function termscond_enable_cb() {
+	$main_opts = get_option('sdm_advanced_options');
+	echo '<input name="sdm_advanced_options[termscond_enable]" id="termscond_enable" type="checkbox" ' . checked(1, isset($main_opts['termscond_enable']), false) . ' /> ';
+        echo '<p class="description">' . __('You can disable/enable "Terms and Conditions" in donwload button.', 'simple-download-monitor') . '</p>';
+    }
+    
+    public function termscond_url_cb() {
+	$main_opts = get_option('sdm_advanced_options');
+        $value = isset($main_opts['termscond_url']) ? $main_opts['termscond_url'] : '';
+	echo '<input size="100" name="sdm_advanced_options[termscond_url]" id="termscond_url" type="text" value="'.$value.'" /> ';
+	echo '<p class="description">' . __('Terms Page URL', 'simple-download-monitor') . '</p>';
+    }
 }
 
 //End of simpleDownloadManager class
