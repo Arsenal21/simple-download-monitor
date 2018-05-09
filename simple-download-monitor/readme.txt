@@ -181,6 +181,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.6.3 =
+- German translation file updated. Thanks to Thorsten.
+
 = 3.6.2 =
 - Added new feature that allows you to show a terms and conditions checkbox for the download buttons.
 
