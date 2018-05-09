@@ -77,7 +77,7 @@ add_action('plugins_loaded', 'sdm_plugins_loaded_tasks');
 
 function sdm_plugins_loaded_tasks() {
     //Load language
-    load_plugin_textdomain('simple-download-monitor', false, dirname(plugin_basename(__FILE__)) . '/langs/');
+    load_plugin_textdomain('simple-download-monitor', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 
     //Handle db upgrade stuff
     sdm_db_update_check();
