@@ -261,7 +261,7 @@ function sdm_get_checkbox_for_termsncond() {
     $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
     if ($termscond_enable) {
         $data = '<div class="sdm-termscond-checkbox">';
-        $data .= '<input type="checkbox" class="agree_termscond" value="1"/> '.__('I agree to the <a href="'.$main_advanced_opts['termscond_url'].'" target="_blank">terms and conditions</a>', 'simple-download-monitor');
+        $data .= '<input type="checkbox" class="agree_termscond" value="1"/> '.__('I agree to the ', 'simple-download-monitor') . '<a href="'.$main_advanced_opts['termscond_url'].'" target="_blank">'.__('terms and conditions', 'simple-download-monitor').'</a>';
         $data .= '</div>';
         return $data;
     }
