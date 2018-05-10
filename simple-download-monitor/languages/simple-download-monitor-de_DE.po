@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Simple Download Monitor v2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-08 09:35+0200\n"
-"PO-Revision-Date: 2018-05-08 10:10+0200\n"
+"POT-Creation-Date: 2018-05-10 07:18+0200\n"
+"PO-Revision-Date: 2018-05-10 07:20+0200\n"
 "Last-Translator: freizeittreff-bielefeld <freizeittreff.bielefeld@gmail."
 "com>\n"
 "Language-Team: \n"
@@ -93,7 +93,7 @@ msgid ""
 "items then checkout our"
 msgstr ""
 "Wenn Sie ein funktionsreiches und unterstütztes Plugin für den Verkauf Ihrer "
-"digitalen Artikel benötigen, checken Sie unsere"
+"digitalen Artikel benötigen, checken Sie unser"
 
 # @ sdm_lang
 #: includes/sdm-admin-menu-handler.php:90
@@ -474,8 +474,12 @@ msgid "Enter Password to Download:"
 msgstr "Passwort zum Herunterladen eingeben:"
 
 #: includes/sdm-utility-functions.php:264
-msgid "I agree to the <a href=\""
-msgstr "Ich akzeptiere die <a href=\""
+msgid "I agree to the "
+msgstr "Ich akzeptiere die "
+
+#: includes/sdm-utility-functions.php:264
+msgid "terms and conditions"
+msgstr "Nutzungsbedingungen & Datenschutzerklärung"
 
 # @ sdm_lang
 #: includes/templates/fancy0/sdm-fancy-0.php:64
@@ -625,8 +629,8 @@ msgid ""
 "files (files that you uploaded to this site via this plugin or media "
 "library)."
 msgstr ""
-"Versenden Sie die Datei per PHP direkt anstatt darauf umleiten. Versand von "
-"PHP hält die Download URL versteckt. Versand funktioniert nur für lokale "
+"Versenden Sie die Datei per PHP direkt anstatt darauf umzuleiten. Der PHP "
+"Versand hält die Download URL versteckt. Versand funktioniert nur für lokale "
 "Dateien (Dateien, die Sie auf dieser Website über dieses PlugIn oder die "
 "Medien Bibliothek hochgeladen haben)."
 
