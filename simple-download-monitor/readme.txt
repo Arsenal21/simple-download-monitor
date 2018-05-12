@@ -183,6 +183,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.6.3 =
 - German translation file updated. Thanks to Thorsten.
+- When there are multiple download now buttonso n a page and the terms checkbox is enabled, it needs to be accepted on every download button.
 
 = 3.6.2 =
 - Added new feature that allows you to show a terms and conditions checkbox for the download buttons.
