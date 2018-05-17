@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -181,9 +181,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.6.3 =
+= 3.6.3 =
 - German translation file updated. Thanks to Thorsten.
-- When there are multiple download now buttonso n a page and the terms checkbox is enabled, it needs to be accepted on every download button.
+- When there are multiple download now buttons on a page and the terms checkbox is enabled, it needs to be accepted on every download button.
 
 = 3.6.2 =
 - Added new feature that allows you to show a terms and conditions checkbox for the download buttons.
