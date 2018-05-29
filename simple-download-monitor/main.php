@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.6.3
+ * Version: 3.6.4
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.3');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.4');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -865,9 +865,9 @@ function sdm_create_columns($cols) {
     unset($cols['taxonomy-sdm_tags']);
     unset($cols['taxonomy-sdm_categories']);
     unset($cols['date']);
-
-    $cols['sdm_downloads_thumbnail'] = __('Image', 'simple-download-monitor');
+    
     $cols['title'] = __('Title', 'simple-download-monitor');
+    $cols['sdm_downloads_thumbnail'] = __('Image', 'simple-download-monitor');
     $cols['sdm_downloads_id'] = __('ID', 'simple-download-monitor');
     $cols['sdm_downloads_file'] = __('File', 'simple-download-monitor');
     $cols['taxonomy-sdm_categories'] = __('Categories', 'simple-download-monitor');
@@ -909,19 +909,6 @@ function sdm_downloads_columns_content($column_name, $post_ID) {
 	$wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post_ID));
 	echo '<p class="sdm_downloads_count">' . $wpdb->num_rows . '</p>';
     }
-}
-
-// Adjust admin column widths
-add_action('admin_head', 'sdm_admin_column_width'); // Adjust column width in admin panel
-
-function sdm_admin_column_width() {
-
-    echo '<style type="text/css">';
-    echo '.column-sdm_downloads_thumbnail { width:75px !important; overflow:hidden }';
-    echo '.column-sdm_downloads_id { width:100px !important; overflow:hidden }';
-    echo '.column-taxonomy-sdm_categories { width:200px !important; overflow:hidden }';
-    echo '.column-taxonomy-sdm_tags { width:200px !important; overflow:hidden }';
-    echo '</style>';
 }
 
 /*
