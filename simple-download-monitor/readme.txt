@@ -184,7 +184,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = 3.6.4 =
 - Switched the column location of "Title" and "Image" in the downloads admin interface. This helps with the downloads admin interface working better in all devices.
 - Fixed a CSS class name in the "Image" column.
-- French langauge file updated.
+- French language file updated.
 
 = 3.6.3 =
 - German translation file updated. Thanks to Thorsten.
