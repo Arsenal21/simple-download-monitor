@@ -41,7 +41,7 @@ function sdm_create_settings_page() {
 
     <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
         <?php _e('Read the full plugin usage documentation <a href="https://simple-download-monitor.com/download-monitor-tutorials/" target="_blank">here</a>.', 'simple-download-monitor');?>
-        <?php _e('You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank">', 'simple-download-monitor')?><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
+        <?php _e('You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank">', 'simple-download-monitor')?><?php _e('follow us', 'simple-download-monitor'); ?></a> <?php _e('on Facebook, Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor'); ?>
     </div>
 
     <!-- settings page form -->
