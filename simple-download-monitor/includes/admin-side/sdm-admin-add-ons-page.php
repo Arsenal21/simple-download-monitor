@@ -33,15 +33,23 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
                 "description" => "Allows you to create hidden download buttons for your downloadable items so the actual location of the file is never revealed.",
                 "page_url" => "https://simple-download-monitor.com/hidden-downloads-for-simple-download-monitor/",
             );
-            array_push($addons_data, $addon_3);            
-                        
+            array_push($addons_data, $addon_3);
+
             $addon_4 = array(
+                "name" => "Email on Download",
+                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-email-on-download-addon-icon.png",
+                "description" => "The Email Notification Addon sends you (the site admin) an email whenever one of your files is downloaded.",
+                "page_url" => "https://simple-download-monitor.com/email-notification-on-download-addon-for-the-simple-download-monitor/",
+            );
+            array_push($addons_data, $addon_4);
+            
+            $addon_5 = array(
                 "name" => "All File Type Uploads",
                 "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-allow-uploads-addon-icon.png",
                 "description" => "WordPress by default doesn't allow you to upload all file types. This addon will remove the limitation and allow you to upload all file types.",
                 "page_url" => "https://simple-download-monitor.com/allow-more-file-types-to-be-uploaded-via-wordpress/",
             );
-            array_push($addons_data, $addon_4);     
+            array_push($addons_data, $addon_5);     
             
             /*** Show the addons list ***/
             foreach ($addons_data as $addon) {
