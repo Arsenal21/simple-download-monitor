@@ -70,10 +70,6 @@ function sdm_create_settings_page() {
     </style>
     <h1><?php _e( 'Simple Download Monitor Settings Page', 'simple-download-monitor' ) ?></h1>
 
-    <div style="background: #FFF6D5; border: 1px solid #D1B655; color: #3F2502; padding: 15px 10px">
-	<?php _e( 'Read the full plugin usage documentation <a href="https://simple-download-monitor.com/download-monitor-tutorials/" target="_blank">here</a>.', 'simple-download-monitor' ); ?>
-	<?php _e( 'You can also <a href="https://www.tipsandtricks-hq.com/development-center" target="_blank">', 'simple-download-monitor' ) ?><?php _e( 'follow us', 'simple-download-monitor' ); ?></a> <?php _e( 'on Facebook, Twitter, Google+ or via Email to stay upto date about the new features of this plugin.', 'simple-download-monitor' ); ?>
-    </div>
     <div class="sdm-settings-cont">
         <div class="sdm-settings-grid sdm-main-cont">
     	<!-- settings page form -->
@@ -122,7 +118,7 @@ function sdm_create_settings_page() {
     	<div class="postbox" style="min-width: inherit;">
     	    <h3 class="hndle"><label for="title"><?php _e( 'Plugin Documentation', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
-		    <?php echo sprintf( __( 'Please read the <a target="_blank" href="%s">Simple Download Monitor</a> plugin setup instructions and tutorials to learn how to configure and use it.', 'simple-download-monitor' ), 'https://example.com/docs-page' ); ?>
+		    <?php echo sprintf( __( 'Please read the <a target="_blank" href="%s">Simple Download Monitor</a> plugin setup instructions and tutorials to learn how to configure and use it.', 'simple-download-monitor' ), 'https://simple-download-monitor.com/download-monitor-tutorials/' ); ?>
     	    </div>
     	</div>
     	<div class="postbox" style="min-width: inherit;">
@@ -144,6 +140,20 @@ function sdm_create_settings_page() {
     			<span class="dashicons dashicons-star-filled"></span>
     		    </a>
     		</div>
+    	    </div>
+    	</div>
+    	<div class="postbox" style="min-width: inherit;">
+    	    <h3 class="hndle"><label for="title"><?php _e( 'Our Other Plugins', 'simple-download-monitor' ); ?></label></h3>
+    	    <div class="inside">
+		<?php echo sprintf( __( 'Check out <a target="_blank" href="%s">our other plugins</a>', 'simple-download-monitor' ), 'https://www.tipsandtricks-hq.com/development-center' ); ?>
+    	    </div>
+    	</div>
+    	<div class="postbox" style="min-width: inherit;">
+    	    <h3 class="hndle"><label for="title"><?php _e( 'Social', 'simple-download-monitor' ); ?></label></h3>
+    	    <div class="inside">
+		<?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> | 
+		<?php echo sprintf( __( '<a target="_blank" href="%s">Google Plus</a>', 'simple-download-monitor' ), 'https://plus.google.com/+Tipsandtricks-hq/' ); ?> | 
+		<?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
     	    </div>
     	</div>
         </div>
