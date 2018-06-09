@@ -70,47 +70,48 @@ function sdm_create_settings_page() {
     </style>
     <h1><?php _e( 'Simple Download Monitor Settings Page', 'simple-download-monitor' ) ?></h1>
 
+    <?php
+    ob_start();
+    $wpsdm_plugin_tabs	 = array(
+	'sdm-settings'				 => __( 'General Settings', 'simple-download-monitor' ),
+	'sdm-settings&action=advanced-settings'	 => __( 'Advanced Settings', 'simple-download-monitor' ),
+    );
+    $current		 = "";
+    if ( isset( $_GET[ 'page' ] ) ) {
+	$current = sanitize_text_field( $_GET[ 'page' ] );
+	if ( isset( $_GET[ 'action' ] ) ) {
+	    $current .= "&action=" . sanitize_text_field( $_GET[ 'action' ] );
+	}
+    }
+    $nav_tabs	 = '';
+    $nav_tabs	 .= '<h2 class="nav-tab-wrapper">';
+    foreach ( $wpsdm_plugin_tabs as $location => $tabname ) {
+	if ( $current == $location ) {
+	    $class = ' nav-tab-active';
+	} else {
+	    $class = '';
+	}
+	$nav_tabs .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+    }
+    $nav_tabs .= '</h2>';
+
+    if ( isset( $_GET[ 'action' ] ) ) {
+	switch ( $_GET[ 'action' ] ) {
+	    case 'advanced-settings':
+		sdm_admin_menu_advanced_settings();
+		break;
+	}
+    } else {
+	sdm_admin_menu_general_settings();
+    }
+    $settings_cont = ob_get_clean();
+    echo $nav_tabs;
+    ?>
     <div class="sdm-settings-cont">
         <div class="sdm-settings-grid sdm-main-cont">
     	<!-- settings page form -->
     	<form method="post" action="options.php">
-
-		<?php
-		$wpsdm_plugin_tabs	 = array(
-		    'sdm-settings'				 => __( 'General Settings', 'simple-download-monitor' ),
-		    'sdm-settings&action=advanced-settings'	 => __( 'Advanced Settings', 'simple-download-monitor' ),
-		);
-		$current		 = "";
-		if ( isset( $_GET[ 'page' ] ) ) {
-		    $current = sanitize_text_field( $_GET[ 'page' ] );
-		    if ( isset( $_GET[ 'action' ] ) ) {
-			$current .= "&action=" . sanitize_text_field( $_GET[ 'action' ] );
-		    }
-		}
-		$content = '';
-		$content .= '<h2 class="nav-tab-wrapper">';
-		foreach ( $wpsdm_plugin_tabs as $location => $tabname ) {
-		    if ( $current == $location ) {
-			$class = ' nav-tab-active';
-		    } else {
-			$class = '';
-		    }
-		    $content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
-		}
-		$content .= '</h2>';
-		echo $content;
-
-		if ( isset( $_GET[ 'action' ] ) ) {
-		    switch ( $_GET[ 'action' ] ) {
-			case 'advanced-settings':
-			    sdm_admin_menu_advanced_settings();
-			    break;
-		    }
-		} else {
-		    sdm_admin_menu_general_settings();
-		}
-		?>
-
+		<?php echo $settings_cont; ?>
     	    <!-- End of settings page form -->
     	</form>
         </div>
@@ -145,15 +146,15 @@ function sdm_create_settings_page() {
     	<div class="postbox" style="min-width: inherit;">
     	    <h3 class="hndle"><label for="title"><?php _e( 'Our Other Plugins', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
-		<?php echo sprintf( __( 'Check out <a target="_blank" href="%s">our other plugins</a>', 'simple-download-monitor' ), 'https://www.tipsandtricks-hq.com/development-center' ); ?>
+		    <?php echo sprintf( __( 'Check out <a target="_blank" href="%s">our other plugins</a>', 'simple-download-monitor' ), 'https://www.tipsandtricks-hq.com/development-center' ); ?>
     	    </div>
     	</div>
     	<div class="postbox" style="min-width: inherit;">
     	    <h3 class="hndle"><label for="title"><?php _e( 'Social', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
-		<?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> | 
-		<?php echo sprintf( __( '<a target="_blank" href="%s">Google Plus</a>', 'simple-download-monitor' ), 'https://plus.google.com/+Tipsandtricks-hq/' ); ?> | 
-		<?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
+		    <?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> | 
+		    <?php echo sprintf( __( '<a target="_blank" href="%s">Google Plus</a>', 'simple-download-monitor' ), 'https://plus.google.com/+Tipsandtricks-hq/' ); ?> | 
+		    <?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
     	    </div>
     	</div>
         </div>
