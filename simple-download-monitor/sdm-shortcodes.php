@@ -326,8 +326,8 @@ function sdm_handle_category_shortcode( $args ) {
 		'add_args'	 => '',
 		'current'	 => max( 1, get_query_var( 'paged' ) ),
 		'total'		 => $total_pages,
-		'prev_text'	 => '&larr;',
-		'next_text'	 => '&rarr;',
+		'prev_text'	 => '&laquo;',
+		'next_text'	 => '&raquo;',
 	    ) );
 	    $output		 .= '<div class="sdm_pagination">' . $pagination . '</div>';
 	}

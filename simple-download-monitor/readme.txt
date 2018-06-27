@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.6.4
+Stable tag: 3.6.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -70,8 +70,9 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
 * Option to add Terms and Condtions to your download buttons.
+* Ability to easily clone/copy your existing download items.
 
-View more details on the [download monitor plugin](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin) page.
+View more details on the [download monitor plugin](https://simple-download-monitor.com/) page.
 
 = Language Translations =
 
@@ -180,6 +181,11 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.6.5 =
+- Added a new feature to allow easy copying/cloning of your existing download item. Useful if you are trying to create a lot of similar downloads.
+- The list downloads from category can now accept multiple category slugs (or IDs).
+- The pagination arrow has been changed to use &raquo;
 
 = 3.6.4 =
 - Switched the column location of "Title" and "Image" in the downloads admin interface. This helps with the downloads admin interface working better in all devices.
