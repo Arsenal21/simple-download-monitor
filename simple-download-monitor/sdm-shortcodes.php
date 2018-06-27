@@ -207,7 +207,10 @@ function sdm_handle_category_shortcode( $args ) {
     else if ( ! empty( $category_id ) && empty( $category_slug ) ) {
 
 	$field	 = 'term_id';
-	$terms	 = $category_id;
+	//$terms = $category_id;
+        $terms	 = array_filter(explode(',', $category_id), function($value) {
+            return !empty($value) ? trim($value) : false;
+        });        
     }
 
     if ( isset( $args[ 'show_all' ] ) ) {
