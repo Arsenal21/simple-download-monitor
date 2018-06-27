@@ -799,7 +799,7 @@ class simpleDownloadManager {
         /*
          * Nonce verification
          */
-        if (!isset($_GET['_nonce']) || !wp_verify_nonce($_GET['_nonce'], sdm_downloads))
+        if (!isset($_GET['_nonce']) || !wp_verify_nonce($_GET['_nonce'], 'sdm_downloads'))
             return;
 
         /*
