@@ -182,6 +182,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= 3.6.6 =
+- Added the sdm_downloads_description filter to the description output. Other plugins can apply customization to the description output using this hook.
+
 = 3.6.5 =
 - Added a new feature to allow easy copying/cloning of your existing download item. Useful if you are trying to create a lot of similar downloads.
 - The list downloads from category can now accept multiple category slugs (or IDs).

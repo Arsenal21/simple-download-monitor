@@ -124,3 +124,23 @@ function filter_sdm_post_type_content($content) {
 
     return $content;
 }
+
+//The following filters are applied to the output of the SDM description field.
+add_filter('sdm_downloads_description', 'do_shortcode' );
+add_filter('sdm_downloads_description', 'wptexturize' );
+add_filter('sdm_downloads_description', 'convert_smilies' );
+add_filter('sdm_downloads_description', 'convert_chars' );
+add_filter('sdm_downloads_description', 'wpautop' );
+add_filter('sdm_downloads_description', 'shortcode_unautop' );
+add_filter('sdm_downloads_description', 'prepend_attachment' );
+
+function sdm_get_item_description_output($id) {
+    $item_description = get_post_meta($id, 'sdm_description', true);
+    $isset_item_description = isset($item_description) && !empty($item_description) ? $item_description : '';
+    //$isset_item_description = apply_filters('the_content', $isset_item_description);
+
+    //Lets apply all the filters like do_shortcode, wptexturize, convert_smilies, wpautop etc.
+    $filtered_item_description = apply_filters('sdm_downloads_description', $isset_item_description);
+    
+    return $filtered_item_description;
+}
