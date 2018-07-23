@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.6.5
+Stable tag: 3.6.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -71,6 +71,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Option to add Google reCAPTCHA to your download buttons.
 * Option to add Terms and Condtions to your download buttons.
 * Ability to easily clone/copy your existing download items.
+* Ability to insert Adsense or other Ad code inside the download item display.
 
 View more details on the [download monitor plugin](https://simple-download-monitor.com/) page.
 
@@ -183,7 +184,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = 3.6.6 =
+- Added a new feature to show adsense or other ad code below the download description.
 - Added the sdm_downloads_description filter to the description output. Other plugins can apply customization to the description output using this hook.
+- Added a new filter sdm_cpt_below_download_description
 
 = 3.6.5 =
 - Added a new feature to allow easy copying/cloning of your existing download item. Useful if you are trying to create a lot of similar downloads.

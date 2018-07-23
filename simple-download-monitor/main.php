@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.6.5
+ * Version: 3.6.6
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.5');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.6');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -570,14 +570,14 @@ class simpleDownloadManager {
 	//Register the main setting
 	register_setting('sdm_downloads_options', 'sdm_downloads_options');
 
+        /*****************************/
+        /* General Settings Section */
+        /*****************************/
+        
 	//Add all the settings section that will go under the main settings
 	add_settings_section('general_options', __('General Options', 'simple-download-monitor'), array($this, 'general_options_cb'), 'general_options_section');
         add_settings_section('admin_options', __('Admin Options', 'simple-download-monitor'), array($this, 'admin_options_cb'), 'admin_options_section');
-        
-        //add reCAPTCHA section
-        add_settings_section('recaptcha_options', __('Google Captcha (reCAPTCHA)', 'simple-download-monitor'), array($this, 'recaptcha_options_cb'), 'recaptcha_options_section');
-        add_settings_section('termscond_options', __('Terms and Conditions', 'simple-download-monitor'), array($this, 'termscond_options_cb'), 'termscond_options_section');
-        
+       
 	add_settings_section('sdm_colors', __('Colors', 'simple-download-monitor'), array($this, 'sdm_colors_cb'), 'sdm_colors_section');
 	add_settings_section('sdm_debug', __('Debug', 'simple-download-monitor'), array($this, 'sdm_debug_cb'), 'sdm_debug_section');
 	add_settings_section('sdm_deldata', __('Delete Plugin Data', 'simple-download-monitor'), array($this, 'sdm_deldata_cb'), 'sdm_deldata_section');
@@ -598,14 +598,26 @@ class simpleDownloadManager {
 
 	add_settings_field('enable_debug', __('Enable Debug', 'simple-download-monitor'), array($this, 'enable_debug_cb'), 'sdm_debug_section', 'sdm_debug');
         
-        //add reCAPTCHA section fields
+        /*****************************/
+        /* Advanced Settings Section */
+        /*****************************/
+        //Add the advanced settings section
+        add_settings_section('recaptcha_options', __('Google Captcha (reCAPTCHA)', 'simple-download-monitor'), array($this, 'recaptcha_options_cb'), 'recaptcha_options_section');
+        add_settings_section('termscond_options', __('Terms and Conditions', 'simple-download-monitor'), array($this, 'termscond_options_cb'), 'termscond_options_section');
+        add_settings_section('adsense_options', __('Adsense/Ad Insertion', 'simple-download-monitor'), array($this, 'adsense_options_cb'), 'adsense_options_section');
+        
+        //Add reCAPTCHA section fields
         add_settings_field('recaptcha_enable', __('Enable reCAPTCHA', 'simple-download-monitor'), array($this, 'recaptcha_enable_cb'), 'recaptcha_options_section', 'recaptcha_options');
         add_settings_field('recaptcha_site_key', __('Site Key', 'simple-download-monitor'), array($this, 'recaptcha_site_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
         add_settings_field('recaptcha_secret_key', __('Secret Key', 'simple-download-monitor'), array($this, 'recaptcha_secret_key_cb'), 'recaptcha_options_section', 'recaptcha_options');
 
-        //add Terms & Condition section fields
+        //Add Terms & Condition section fields
         add_settings_field('termscond_enable', __('Enable Terms and Conditions', 'simple-download-monitor'), array($this, 'termscond_enable_cb'), 'termscond_options_section', 'termscond_options');
         add_settings_field('termscond_url', __('Terms Page URL', 'simple-download-monitor'), array($this, 'termscond_url_cb'), 'termscond_options_section', 'termscond_options');
+        
+        //Add Adsense section fields
+        add_settings_field('adsense_below_description', __('Below Download Description', 'simple-download-monitor'), array($this, 'adsense_below_description_cb'), 'adsense_options_section', 'adsense_options');
+        
     }
 
     public function general_options_cb() {
@@ -637,12 +649,17 @@ class simpleDownloadManager {
     }
 
     public function recaptcha_options_cb() {
-	//Set the message that will be shown below the debug options settings heading
+	//Set the message that will be shown below the recaptcha options settings heading
 	_e('Google Captcha (reCAPTCHA) options', 'simple-download-monitor');
     }
     
     public function termscond_options_cb() {
         
+    }
+    
+    public function adsense_options_cb() {
+	//Set the message that will be shown below the adsense/ad code settings heading
+	_e('You can use this section to insert adsense or other ad code inside the download item output', 'simple-download-monitor');        
     }
     
     public function recaptcha_enable_cb() {
@@ -759,6 +776,14 @@ class simpleDownloadManager {
         $value = isset($main_opts['termscond_url']) ? $main_opts['termscond_url'] : '';
 	echo '<input size="100" name="sdm_advanced_options[termscond_url]" id="termscond_url" type="text" value="'.$value.'" /> ';
 	echo '<p class="description">' . __('Enter the URL of your terms and conditions page.', 'simple-download-monitor') . '</p>';
+    }
+    
+    public function adsense_below_description_cb() {
+	$main_opts = get_option('sdm_advanced_options');
+        $value = isset($main_opts['adsense_below_description']) ? $main_opts['adsense_below_description'] : '';
+        //echo '<input size="100" name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" type="text" value="'.$value.'" /> ';
+        echo '<textarea name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" rows="6" cols="60">'.$value.'</textarea>';
+	echo '<p class="description">' . __('Enter the Adsense or Ad code that you want to show below the download item description.', 'simple-download-monitor') . '</p>';
     }
     
     public function sdm_add_clone_record_btn($action, $post) {

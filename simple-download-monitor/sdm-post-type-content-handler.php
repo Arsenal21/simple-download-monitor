@@ -1,5 +1,6 @@
 <?php
 
+//Handles the output on the SDM individual download page (Custom Post Type)
 add_filter('the_content', 'filter_sdm_post_type_content');
 
 function filter_sdm_post_type_content($content) {
@@ -94,6 +95,9 @@ function filter_sdm_post_type_content($content) {
 
         $content .= '<div class="sdm_post_description">' . $isset_item_description . '</div>';
 
+        //This hook can be used to add content below the description
+        $content .= apply_filters('sdm_cpt_below_download_description','');
+        
         $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
 
         if (!empty($isset_item_file_size)) {//Show file size info
@@ -143,4 +147,18 @@ function sdm_get_item_description_output($id) {
     $filtered_item_description = apply_filters('sdm_downloads_description', $isset_item_description);
     
     return $filtered_item_description;
+}
+
+//Add adsense or ad code below the description (if applicable)
+add_filter('sdm_cpt_below_download_description', 'sdm_add_ad_code_below_description');
+add_filter('sdm_fancy1_below_download_description', 'sdm_add_ad_code_below_description');
+
+function sdm_add_ad_code_below_description($output){
+    $main_advanced_opts = get_option('sdm_advanced_options');
+    $adsense_below_desc = isset($main_advanced_opts['adsense_below_description']) ? $main_advanced_opts['adsense_below_description'] : '';
+    if(!empty($adsense_below_desc)){
+        //Ad code is configured in settings. Lets add it to the output.
+        $output .= '<div class="sdm_below_description_ad_code">' . $adsense_below_desc . '</div>';
+    }
+    return $output;
 }
