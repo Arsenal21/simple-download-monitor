@@ -75,6 +75,9 @@ function sdm_generate_fancy2_display_output($args) {
     }
 
     // See if new window parameter is set
+    if(empty($new_window)){
+        $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
+    }
     $window_target = empty($new_window) ? '_self' : '_blank';
 
     $homepage = get_bloginfo('url');
