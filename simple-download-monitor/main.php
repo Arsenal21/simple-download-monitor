@@ -202,6 +202,7 @@ class simpleDownloadManager {
 	    add_action('save_post', array($this, 'sdm_save_description_meta_data'));  // Save 'description' metabox
 	    add_action('save_post', array($this, 'sdm_save_upload_meta_data'));  // Save 'upload file' metabox
 	    add_action('save_post', array($this, 'sdm_save_dispatch_meta_data'));  // Save 'dispatch' metabox
+	    add_action('save_post', array($this, 'sdm_save_new_window_meta_data'));  // Save 'open new window' metabox
 	    add_action('save_post', array($this, 'sdm_save_thumbnail_meta_data'));  // Save 'thumbnail' metabox
 	    add_action('save_post', array($this, 'sdm_save_statistics_meta_data'));  // Save 'statistics' metabox
 	    add_action('save_post', array($this, 'sdm_save_other_details_meta_data'));  // Save 'other details' metabox
@@ -305,6 +306,7 @@ class simpleDownloadManager {
 	add_meta_box('sdm_description_meta_box', __('Description', 'simple-download-monitor'), array($this, 'display_sdm_description_meta_box'), 'sdm_downloads', 'normal', 'default');
 	add_meta_box('sdm_upload_meta_box', __('Downloadable File (Visitors will download this item)', 'simple-download-monitor'), array($this, 'display_sdm_upload_meta_box'), 'sdm_downloads', 'normal', 'default');
 	add_meta_box('sdm_dispatch_meta_box', __('PHP Dispatch or Redirect', 'simple-download-monitor'), array($this, 'display_sdm_dispatch_meta_box'), 'sdm_downloads', 'normal', 'default');
+        add_meta_box('sdm_newwindow_meta_box', __('Open download in new window', 'simple-download-monitor'), array($this, 'display_sdm_new_window_meta_box'), 'sdm_downloads', 'normal', 'default');// Meta box for new window open settings 
 	add_meta_box('sdm_thumbnail_meta_box', __('File Thumbnail (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_thumbnail_meta_box'), 'sdm_downloads', 'normal', 'default');
 	add_meta_box('sdm_stats_meta_box', __('Statistics', 'simple-download-monitor'), array($this, 'display_sdm_stats_meta_box'), 'sdm_downloads', 'normal', 'default');
 	add_meta_box('sdm_other_details_meta_box', __('Other Details (Optional)', 'simple-download-monitor'), array($this, 'display_sdm_other_details_meta_box'), 'sdm_downloads', 'normal', 'default');
@@ -365,6 +367,22 @@ class simpleDownloadManager {
 	echo '<label for="sdm_item_dispatch">' . __('Dispatch the file via PHP directly instead of redirecting to it. PHP Dispatching keeps the download URL hidden. Dispatching works only for local files (files that you uploaded to this site via this plugin or media library).', 'simple-download-monitor') . '</label>';
 
 	wp_nonce_field('sdm_dispatch_box_nonce', 'sdm_dispatch_box_nonce_check');
+    }
+    // Open Download in new window 
+    public function display_sdm_new_window_meta_box($post) {
+	$new_window = get_post_meta($post->ID, 'sdm_item_new_window', true);
+	if ($new_window === '') {
+	    // No value yet (either new item or saved with older version of plugin)
+	    $screen = get_current_screen();
+	    if ($screen->action === 'add') {
+		// New item: set default value as per plugin settings.
+		$main_opts = get_option('sdm_downloads_options');
+		$new_window = isset($main_opts['general_default_open_new_window_value']) && $main_opts['general_default_open_new_window_value'];
+	    }
+	}
+	echo '<input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked(true, $new_window, false) . ' />';
+	echo '<label for="sdm_item_new_window">' . __('Open download in new window.', 'simple-download-monitor') . '</label>';
+	wp_nonce_field('sdm_new_window_box_nonce', 'sdm_new_window_box_nonce_check');
     }
 
     public function display_sdm_thumbnail_meta_box($post) {  // Thumbnail upload metabox
@@ -505,6 +523,18 @@ class simpleDownloadManager {
 	// Get POST-ed data as boolean value
 	$value = filter_input(INPUT_POST, 'sdm_item_dispatch', FILTER_VALIDATE_BOOLEAN);
 	update_post_meta($post_id, 'sdm_item_dispatch', $value);
+    }
+    
+    public function sdm_save_new_window_meta_data($post_id) { // Save "Open New Window" metabox
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+	    return;
+	}
+	if (!isset($_POST['sdm_new_window_box_nonce_check']) || !wp_verify_nonce($_POST['sdm_new_window_box_nonce_check'], 'sdm_new_window_box_nonce')) {
+	    return;
+	}
+	// Get POST-ed data as boolean value
+	$value = filter_input(INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN);
+	update_post_meta($post_id, 'sdm_item_new_window', $value);
     }
 
     public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox

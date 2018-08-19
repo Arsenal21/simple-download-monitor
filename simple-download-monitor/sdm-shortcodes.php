@@ -88,6 +88,9 @@ function sdm_create_download_shortcode( $atts ) {
     $item_title	 = get_the_title( $id );
 
     //*** Generate the download now button code ***
+    if(empty($new_window)){
+        $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
+    }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
 
     $homepage		 = get_bloginfo( 'url' );
@@ -268,7 +271,10 @@ function sdm_handle_category_shortcode( $args ) {
 
 	    // Setup download location
 	    $homepage = get_bloginfo( 'url' );
-
+            if(empty($new_window)){
+                $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
+            }
+  
 	    $window_target = empty( $new_window ) ? '_self' : '_blank';
 
 	    // Iterate cpt's
