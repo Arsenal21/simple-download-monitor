@@ -44,9 +44,13 @@ function filter_sdm_post_type_content($content) {
         //*** Generate the download now button code ***
         $button_text_string = __('Download Now!', 'simple-download-monitor');
 
+        // See if new window parameter is set
+        $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
+        $window_target = empty($new_window) ? '_self' : '_blank';
+    
         $homepage = get_bloginfo('url');
         $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
-        $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '">' . $button_text_string . '</a>';
+        $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" target="' . $window_target . '">' . $button_text_string . '</a>';
         
         $main_advanced_opts = get_option('sdm_advanced_options');
         

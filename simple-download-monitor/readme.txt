@@ -183,6 +183,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.6.7 =
+- You can configure the "new_window" property by editing the download item from the admin dashboard.
+
 = 3.6.6 =
 - Added a new feature to show adsense or other ad code below the download description.
 - Added the sdm_downloads_description filter to the description output. Other plugins can apply customization to the description output using this hook.
