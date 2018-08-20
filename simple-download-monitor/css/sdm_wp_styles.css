@@ -101,6 +101,9 @@
 .sdm_post_download_version{
     font-weight: bold;
 }
+.sdm_post_download_published_date{
+    font-weight: bold;
+}
 .sdm_post_download_section{
     margin: 15px 0;
 }

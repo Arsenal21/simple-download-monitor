@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.6.6
+ * Version: 3.6.7
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.6');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.6.7');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -456,32 +456,41 @@ class simpleDownloadManager {
     public function display_sdm_other_details_meta_box($post) { //Other details metabox
         
         $show_date_fd = get_post_meta($post->ID, 'sdm_item_show_date_fd', true);
+        $sdm_item_show_file_size_fd = get_post_meta($post->ID, 'sdm_item_show_file_size_fd', true);
+        $sdm_item_show_item_version_fd = get_post_meta($post->ID, 'sdm_item_show_item_version_fd', true);
 
 	$file_size = get_post_meta($post->ID, 'sdm_item_file_size', true);
 	$file_size = isset($file_size) ? $file_size : '';
 
 	$version = get_post_meta($post->ID, 'sdm_item_version', true);
 	$version = isset($version) ? $version : '';
-               
-        echo '<div class="sdm-download-edit-show-publish-date">';
-	echo '<p> <input id="sdm_item_show_date_fd" type="checkbox" name="sdm_item_show_date_fd" value="yes"' . checked(true, $show_date_fd, false) . ' />';
-	echo '<label for="sdm_item_show_date_fd">' . __('Show download publish date in fancy display.', 'simple-download-monitor') . '</label> </p>';
-        echo '</div>';
         
 	echo '<div class="sdm-download-edit-filesize">';
-	_e('File Size: ', 'simple-download-monitor');
+        echo '<strong>'.__('File Size: ', 'simple-download-monitor').'</strong>';
 	echo '<br />';
 	echo ' <input type="text" name="sdm_item_file_size" value="' . esc_attr($file_size) . '" size="20" />';
-	echo '<p class="description">' . __('Enter the size of this file (example value: 2.15 MB). You can show this value in the fancy display by using a shortcode parameter.', 'simple-download-monitor') . '</p>';
-	echo '</div>';
+	echo '<p class="description">' . __('Enter the size of this file (example value: 2.15 MB).', 'simple-download-monitor') . '</p>';
+	echo '<div class="sdm-download-edit-show-file-size"> <input id="sdm_item_show_file_size_fd" type="checkbox" name="sdm_item_show_file_size_fd" value="yes"' . checked(true, $sdm_item_show_file_size_fd, false) . ' />';
+	echo '<label for="sdm_item_show_file_size_fd">' . __('Show file size in fancy display.', 'simple-download-monitor') . '</label> </div>';	
+        echo '</div>';
+        echo '<hr />';
 
 	echo '<div class="sdm-download-edit-version">';
-	_e('Version: ', 'simple-download-monitor');
+        echo '<strong>'.__('Version: ', 'simple-download-monitor').'</strong>';
 	echo '<br />';
 	echo ' <input type="text" name="sdm_item_version" value="' . esc_attr($version) . '" size="20" />';
-	echo '<p class="description">' . __('Enter the version number for this item if any (example value: v2.5.10). You can show this value in the fancy display by using a shortcode parameter.', 'simple-download-monitor') . '</p>';
+	echo '<p class="description">' . __('Enter the version number for this item if any (example value: v2.5.10).', 'simple-download-monitor') . '</p>';
+	echo '<div class="sdm-download-edit-show-item-version"> <input id="sdm_item_show_item_version_fd" type="checkbox" name="sdm_item_show_item_version_fd" value="yes"' . checked(true, $sdm_item_show_item_version_fd, false) . ' />';
+	echo '<label for="sdm_item_show_item_version_fd">' . __('Show version number in fancy display.', 'simple-download-monitor') . '</label> </div>';        
 	echo '</div>';
-
+        echo '<hr />';
+               
+        echo '<div class="sdm-download-edit-show-publish-date">';
+        echo '<strong>'.__('Publish Date: ', 'simple-download-monitor').'</strong>';
+	echo '<br /> <input id="sdm_item_show_date_fd" type="checkbox" name="sdm_item_show_date_fd" value="yes"' . checked(true, $show_date_fd, false) . ' />';
+	echo '<label for="sdm_item_show_date_fd">' . __('Show download published date in fancy display.', 'simple-download-monitor') . '</label>';
+        echo '</div>';
+        
 	wp_nonce_field('sdm_other_details_nonce', 'sdm_other_details_nonce_check');
     }
 
@@ -590,7 +599,13 @@ class simpleDownloadManager {
 
         $show_date_fd = filter_input(INPUT_POST, 'sdm_item_show_date_fd', FILTER_VALIDATE_BOOLEAN);
         update_post_meta($post_id, 'sdm_item_show_date_fd', $show_date_fd);
-                
+
+        $sdm_item_show_file_size_fd = filter_input(INPUT_POST, 'sdm_item_show_file_size_fd', FILTER_VALIDATE_BOOLEAN);
+        update_post_meta($post_id, 'sdm_item_show_file_size_fd', $sdm_item_show_file_size_fd);
+
+        $sdm_item_show_item_version_fd = filter_input(INPUT_POST, 'sdm_item_show_item_version_fd', FILTER_VALIDATE_BOOLEAN);
+        update_post_meta($post_id, 'sdm_item_show_item_version_fd', $sdm_item_show_item_version_fd);
+        
 	if (isset($_POST['sdm_item_file_size'])) {
 	    update_post_meta($post_id, 'sdm_item_file_size', sanitize_text_field($_POST['sdm_item_file_size']));
 	}

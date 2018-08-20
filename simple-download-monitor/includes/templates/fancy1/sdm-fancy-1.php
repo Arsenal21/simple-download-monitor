@@ -83,18 +83,29 @@ function sdm_generate_fancy1_display_output($args) {
 
     //Get item file size
     $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
+    //Check if show file size is enabled
+    if(empty($show_size)){
+        //Disabled in shortcode. Lets check if it is enabled in the download meta.
+        $show_size =  get_post_meta($id, 'sdm_item_show_file_size_fd', true);
+    }
     $isset_item_file_size = ($show_size && isset($item_file_size)) ? $item_file_size : ''; //check if show_size is enabled and if there is a size value
+    
     //Get item version
     $item_version = get_post_meta($id, 'sdm_item_version', true);
+    //Check if show version is enabled
+    if(empty($show_version)){
+        //Disabled in shortcode. Lets check if it is enabled in the download meta.
+        $show_version =  get_post_meta($id, 'sdm_item_show_item_version_fd', true);
+    }
     $isset_item_version = ($show_version && isset($item_version)) ? $item_version : ''; //check if show_version is enabled and if there is a version value
     
-    // Check to see if the download link cpt is password protected
+    //Check to see if the download link cpt is password protected
     $get_cpt_object = get_post($id);
     $cpt_is_password = !empty($get_cpt_object->post_password) ? 'yes' : 'no';  // yes = download is password protected;    
     
-    // check show date in fancy display 
+    //Check if show date is enabled
     $show_date_fd =  get_post_meta($id, 'sdm_item_show_date_fd', true);
-    // Get item date 
+    //Get item date 
     $download_date = get_the_date(get_option('date_format'), $id) ; 
    
     $main_advanced_opts = get_option('sdm_advanced_options');
@@ -149,7 +160,7 @@ function sdm_generate_fancy1_display_output($args) {
     
     if ($show_date_fd) {//Show date 
         $output .= '<div class="sdm_download_date">';
-        $output .= '<span class="sdm_download_date_label">' . __('Date: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_download_date_label">' . __('Published: ', 'simple-download-monitor') . '</span>';
         $output .= '<span class="sdm_download_date_value">' . $download_date . '</span>';
         $output .= '</div>';
     }

@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 4.9
-Stable tag: 3.6.6
+Stable tag: 3.6.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -66,6 +66,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * You can also choose to only monitor downloads from unique IP address only.
 * Option to specify file size info so it can be shown to your visitors. [View the tutorial](https://simple-download-monitor.com/how-to-show-file-size-info-of-your-downloads/)
 * Option to specify version number info for the download item so it can be shown to your visitors.
+* Option to show the download published date.
 * Option to restrict downloads to logged-in users only.
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
@@ -183,8 +184,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.6.7 =
+= 3.6.7 =
 - You can configure the "new_window" property by editing the download item from the admin dashboard.
+- Added a new feature to show the download published date in the fancy display. You can edit a download and check the "Publish Date" option to show this info.
+- There are also checkboxes to show the file size and version number.
 
 = 3.6.6 =
 - Added a new feature to show adsense or other ad code below the download description.

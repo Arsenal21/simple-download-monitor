@@ -121,9 +121,19 @@ function sdm_generate_fancy2_display_output($args) {
 
     //Get item file size
     $item_file_size = get_post_meta($id, 'sdm_item_file_size', true);
+    //Check if show file size is enabled
+    if(empty($show_size)){
+        //Disabled in shortcode. Lets check if it is enabled in the download meta.
+        $show_size =  get_post_meta($id, 'sdm_item_show_file_size_fd', true);
+    }    
     $isset_item_file_size = ($show_size && isset($item_file_size)) ? $item_file_size : ''; //check if show_size is enabled and if there is a size value
     //Get item version
     $item_version = get_post_meta($id, 'sdm_item_version', true);
+    //Check if show version is enabled
+    if(empty($show_version)){
+        //Disabled in shortcode. Lets check if it is enabled in the download meta.
+        $show_version =  get_post_meta($id, 'sdm_item_show_item_version_fd', true);
+    }    
     $isset_item_version = ($show_version && isset($item_version)) ? $item_version : ''; //check if show_version is enabled and if there is a version value
     
     // check show date in fancy display 
@@ -157,7 +167,7 @@ function sdm_generate_fancy2_display_output($args) {
     
     if ($show_date_fd) {//Show version info if specified in the shortcode
         $output .= '<div class="sdm_fancy2_download_date">';
-        $output .= '<span class="sdm_fancy2_download_date_label">' . __('Date: ', 'simple-download-monitor') . '</span>';
+        $output .= '<span class="sdm_fancy2_download_date_label">' . __('Published: ', 'simple-download-monitor') . '</span>';
         $output .= '<span class="sdm_fancy2_download_date_value">' . $download_date . '</span>';
         $output .= '</div>';
     }
