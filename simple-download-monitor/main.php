@@ -373,7 +373,6 @@ class simpleDownloadManager {
         
         //Check the open in new window value
 	$new_window = get_post_meta($post->ID, 'sdm_item_new_window', true);
-	$show_date_fd = get_post_meta($post->ID, 'sdm_item_show_date_fd', true);
 	if ($new_window === '') {
 	    // No value yet (either new item or saved with older version of plugin)
 	    $screen = get_current_screen();
@@ -385,9 +384,6 @@ class simpleDownloadManager {
         
 	echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked(true, $new_window, false) . ' />';
 	echo '<label for="sdm_item_new_window">' . __('Open download in a new window.', 'simple-download-monitor') . '</label> </p>';
-        
-	echo '<p> <input id="sdm_item_show_date_fd" type="checkbox" name="sdm_item_show_date_fd" value="yes"' . checked(true, $show_date_fd, false) . ' />';
-	echo '<label for="sdm_item_show_date_fd">' . __('Show publish date in fancy display.', 'simple-download-monitor') . '</label> </p>';
         
 	wp_nonce_field('sdm_misc_properties_box_nonce', 'sdm_misc_properties_box_nonce_check');
     }
@@ -458,12 +454,20 @@ class simpleDownloadManager {
     }
 
     public function display_sdm_other_details_meta_box($post) { //Other details metabox
+        
+        $show_date_fd = get_post_meta($post->ID, 'sdm_item_show_date_fd', true);
+
 	$file_size = get_post_meta($post->ID, 'sdm_item_file_size', true);
 	$file_size = isset($file_size) ? $file_size : '';
 
 	$version = get_post_meta($post->ID, 'sdm_item_version', true);
 	$version = isset($version) ? $version : '';
-
+               
+        echo '<div class="sdm-download-edit-show-publish-date">';
+	echo '<p> <input id="sdm_item_show_date_fd" type="checkbox" name="sdm_item_show_date_fd" value="yes"' . checked(true, $show_date_fd, false) . ' />';
+	echo '<label for="sdm_item_show_date_fd">' . __('Show download publish date in fancy display.', 'simple-download-monitor') . '</label> </p>';
+        echo '</div>';
+        
 	echo '<div class="sdm-download-edit-filesize">';
 	_e('File Size: ', 'simple-download-monitor');
 	echo '<br />';
@@ -541,9 +545,8 @@ class simpleDownloadManager {
 	}
 	// Get POST-ed data as boolean value
 	$new_window_open = filter_input(INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN);
-	$show_date_fd = filter_input(INPUT_POST, 'sdm_item_show_date_fd', FILTER_VALIDATE_BOOLEAN);
+
 	update_post_meta($post_id, 'sdm_item_new_window', $new_window_open);
-	update_post_meta($post_id, 'sdm_item_show_date_fd', $show_date_fd);
     }
 
     public function sdm_save_thumbnail_meta_data($post_id) {  // Save Thumbnail Upload metabox
@@ -585,6 +588,9 @@ class simpleDownloadManager {
 	    return;
 	}
 
+        $show_date_fd = filter_input(INPUT_POST, 'sdm_item_show_date_fd', FILTER_VALIDATE_BOOLEAN);
+        update_post_meta($post_id, 'sdm_item_show_date_fd', $show_date_fd);
+                
 	if (isset($_POST['sdm_item_file_size'])) {
 	    update_post_meta($post_id, 'sdm_item_file_size', sanitize_text_field($_POST['sdm_item_file_size']));
 	}
