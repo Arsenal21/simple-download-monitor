@@ -108,8 +108,12 @@ function sdm_generate_fancy0_display_output($args) {
     if ($cpt_is_password !== 'no') {//This is a password protected download so replace the download now button with password requirement
         $download_button_code = sdm_get_password_entry_form($id, $args, 'sdm_download ' . $def_color);
     }
-
+    
     $output = "";
+
+    //apply filter on button HTML code
+    $download_button_code=apply_filters('sdm_download_button_code_html', $download_button_code );
+
     $output .= '<div class="sdm_download_button_box_default"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
 
     return $output;

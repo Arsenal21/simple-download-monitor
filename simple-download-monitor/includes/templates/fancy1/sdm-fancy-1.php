@@ -167,6 +167,10 @@ function sdm_generate_fancy1_display_output($args) {
     
 
     $output .= '<div class="sdm_download_link">';
+    
+    //apply filter on button HTML code
+    $download_button_code=apply_filters('sdm_download_button_code_html', $download_button_code );
+    
     $output .= '<span class="sdm_download_button">' . $download_button_code . '</span>';
     if (!isset($main_opts['general_hide_donwload_count'])) {//The hide download count is enabled.
         $output .= '<span class="sdm_download_item_count">' . $download_count_string . '</span>';

@@ -171,6 +171,9 @@ function sdm_generate_fancy2_display_output($args) {
         $output .= '<span class="sdm_fancy2_download_date_value">' . $download_date . '</span>';
         $output .= '</div>';
     }
+    
+    //apply filter on button HTML code
+    $download_button_code=apply_filters('sdm_download_button_code_html', $download_button_code );
 
     $output .= '<div class="sdm_fancy2_download_link">' . $download_button_code . '</div>';
 
