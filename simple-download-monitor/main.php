@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Simple Download Monitor
- * Plugin URI: https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin
+ * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
  * Version: 3.6.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe

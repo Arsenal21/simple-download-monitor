@@ -185,6 +185,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = 3.6.8 =
+
 - Fixed Terms and Conditions box conflict with Hidden Downloads addon (requires addon version 1.3+).
 
 = 3.6.7 =
