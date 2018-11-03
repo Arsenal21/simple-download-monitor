@@ -985,3 +985,16 @@ msgstr ""
 #: includes/sdm-utility-functions.php:264
 msgid "terms and conditions"
 msgstr ""
+
+
+### Translation strings for the addons
+# Squeeze form addon
+
+msgid "The download has been sent to your email. Please check your inbox."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Email"
+msgstr ""

@@ -1,0 +1,16 @@
+
+Add the following translation strings to the simple-download-monitor.pot file AFTER you generate a new .pot file. These are for the language strings from the addons.
+=================================
+
+
+### Translation strings for the addons
+# Squeeze form addon
+
+msgid "The download has been sent to your email. Please check your inbox."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Email"
+msgstr ""
