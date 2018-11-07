@@ -184,8 +184,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= 3.6.8 =
+= WIP 3.6.9 =
+- Added two filter hooks for template 1 and template 2 to allow customization of the thumbnail output.
 
+= 3.6.8 =
 - Fixed Terms and Conditions box conflict with Hidden Downloads addon (requires addon version 1.3+).
 
 = 3.6.7 =

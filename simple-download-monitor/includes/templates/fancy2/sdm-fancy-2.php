@@ -112,6 +112,7 @@ function sdm_generate_fancy2_display_output($args) {
     // Get item thumbnail
     $item_download_thumbnail = get_post_meta($id, 'sdm_upload_thumbnail', true);
     $isset_download_thumbnail = isset($item_download_thumbnail) && !empty($item_download_thumbnail) ? '<img class="sdm_fancy2_thumb_image" src="' . $item_download_thumbnail . '" />' : '';
+    $isset_download_thumbnail = apply_filters('sdm_download_fancy_2_thumbnail', $isset_download_thumbnail, $args);//Apply filter so it can be customized.
 
     // Get item title
     $item_title = get_the_title($id);
