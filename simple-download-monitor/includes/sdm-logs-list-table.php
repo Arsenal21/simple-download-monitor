@@ -43,7 +43,7 @@ class sdm_List_Table extends WP_List_Table {
         //Build row actions
         $actions = array(
             'edit' => sprintf('<a href="' . admin_url('post.php?post=' . $item['ID'] . '&action=edit') . '">' . __('Edit', 'simple-download-monitor') . '</a>'),
-            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=logs&action=%s&download=%s&row_id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete this entry?\')">' . __('Delete', 'simple-download-monitor') . '</a>', 'delete', $item['ID'], $item['row_id'], $delete_log_nonce),
+            'delete' => sprintf('<a href="?post_type=sdm_downloads&page=sdm-logs&action=%s&download=%s&row_id=%s&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete this entry?\')">' . __('Delete', 'simple-download-monitor') . '</a>', 'delete', $item['ID'], $item['row_id'], $delete_log_nonce),
         );
 
         //Return the title contents
