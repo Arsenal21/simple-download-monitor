@@ -49,7 +49,15 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
                 "description" => "WordPress by default doesn't allow you to upload all file types. This addon will remove the limitation and allow you to upload all file types.",
                 "page_url" => "https://simple-download-monitor.com/allow-more-file-types-to-be-uploaded-via-wordpress/",
             );
-            array_push($addons_data, $addon_5);     
+            array_push($addons_data, $addon_5);
+            
+            $addon_6 = array(
+                "name" => "Dropbox Integration",
+                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-dropbox-integration-addon.png",
+                "description" => "Allows you to configure downloads from your Dropbox account so the visitors can download it from your site.",
+                "page_url" => "https://simple-download-monitor.com/dropbox-addon-for-the-simple-download-monitor/",
+            );
+            array_push($addons_data, $addon_6);            
             
             /*** Show the addons list ***/
             foreach ($addons_data as $addon) {
