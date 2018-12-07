@@ -184,7 +184,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.7.0.=
+= 3.7.0.=
 - Fixed "Open in new window" option was ignored when for downloads with reCaptcha, password and/or Terms and Conditions.
 
 = 3.6.9 =
