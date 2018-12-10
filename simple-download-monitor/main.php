@@ -220,6 +220,35 @@ class simpleDownloadManager {
 	}
         
     }
+    
+    /**
+    * put your comment there...
+    * 
+    * @param mixed $downloadId
+    */
+    public function get_download_button_text($downloadId)
+    {
+        
+        $metaText = get_post_meta($downloadId, 'sdm_download_button_text', true);
+        
+        return $metaText;
+    }
+    
+    /**
+    * put your comment there...
+    * 
+    * @param mixed $downloadId
+    */
+    public function get_download_button_display_text($downloadId)
+    {
+        
+        $defaultText = __('Download Now!', 'simple-download-monitor');
+        $metaText = $this->get_download_button_text($downloadId);
+        
+        $text = $metaText ? $metaText : $defaultText;
+        
+        return $text;
+    }
 
     public function sdm_admin_scripts() {
 
@@ -321,6 +350,15 @@ class simpleDownloadManager {
 	$sdm_description_field = array('textarea_name' => 'sdm_description');
 	wp_editor($old_description, "sdm_description_editor_content", $sdm_description_field);
 
+    $downloadButtonText =   !empty($_POST['sdm_download_button_text']) ?
+                            $_POST['sdm_download_button_text'] :
+                            $this->get_download_button_text($post->ID);
+    
+    echo '<br />';
+    _e('Download Button Text', 'simple-download-monitor');
+    echo '<br /><br />';
+    echo "<input id='sdm-download-button-text' type='text' name='sdm_download_button_text' value='{$downloadButtonText}' />";
+        
 	wp_nonce_field('sdm_description_box_nonce', 'sdm_description_box_nonce_check');
     }
 
@@ -520,6 +558,9 @@ class simpleDownloadManager {
 	if (isset($_POST['sdm_description'])) {
 	    update_post_meta($post_id, 'sdm_description', wp_kses_post($_POST['sdm_description']));
 	}
+    if (isset($_POST['sdm_download_button_text'])) {
+        update_post_meta($post_id, 'sdm_download_button_text', $_POST['sdm_download_button_text']);
+    }
     }
 
     public function sdm_save_upload_meta_data($post_id) {  // Save File Upload metabox
