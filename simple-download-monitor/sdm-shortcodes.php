@@ -65,7 +65,7 @@ function sdm_create_download_shortcode( $atts ) {
     shortcode_atts( array(
 	'id'		 => '',
 	'fancy'		 => '0',
-	'button_text'	 => __( 'Download Now!', 'simple-download-monitor' ),
+	'button_text'     => $GLOBALS['simpleDownloadManager']->get_download_button_display_text($atts['id']),
 	'new_window'	 => '',
 	'color'		 => '',
 	'css_class'	 => '',
