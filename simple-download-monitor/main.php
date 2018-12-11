@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.0
+ * Version: 3.7.1
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WP_SIMPLE_DL_MONITOR_VERSION', '3.7.0');
+define('WP_SIMPLE_DL_MONITOR_VERSION', '3.7.1');
 define('WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname(plugin_basename(__FILE__)));
 define('WP_SIMPLE_DL_MONITOR_URL', plugins_url('', __FILE__));
 define('WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path(__FILE__));
@@ -221,35 +221,6 @@ class simpleDownloadManager {
         
     }
     
-    /**
-    * put your comment there...
-    * 
-    * @param mixed $downloadId
-    */
-    public function get_download_button_text($downloadId)
-    {
-        
-        $metaText = get_post_meta($downloadId, 'sdm_download_button_text', true);
-        
-        return $metaText;
-    }
-    
-    /**
-    * put your comment there...
-    * 
-    * @param mixed $downloadId
-    */
-    public function get_download_button_display_text($downloadId)
-    {
-        
-        $defaultText = __('Download Now!', 'simple-download-monitor');
-        $metaText = $this->get_download_button_text($downloadId);
-        
-        $text = $metaText ? $metaText : $defaultText;
-        
-        return $text;
-    }
-
     public function sdm_admin_scripts() {
 
 	global $current_screen, $post;
@@ -349,15 +320,6 @@ class simpleDownloadManager {
 	$old_description = get_post_meta($post->ID, 'sdm_description', true);
 	$sdm_description_field = array('textarea_name' => 'sdm_description');
 	wp_editor($old_description, "sdm_description_editor_content", $sdm_description_field);
-
-    $downloadButtonText =   !empty($_POST['sdm_download_button_text']) ?
-                            $_POST['sdm_download_button_text'] :
-                            $this->get_download_button_text($post->ID);
-    
-    echo '<br />';
-    _e('Download Button Text', 'simple-download-monitor');
-    echo '<br /><br />';
-    echo "<input id='sdm-download-button-text' type='text' name='sdm_download_button_text' value='{$downloadButtonText}' />";
         
 	wp_nonce_field('sdm_description_box_nonce', 'sdm_description_box_nonce_check');
     }
@@ -503,6 +465,9 @@ class simpleDownloadManager {
 	$version = get_post_meta($post->ID, 'sdm_item_version', true);
 	$version = isset($version) ? $version : '';
         
+	$download_button_text = get_post_meta($post->ID, 'sdm_download_button_text', true);
+	$download_button_text = isset($download_button_text) ? $download_button_text : '';
+        
 	echo '<div class="sdm-download-edit-filesize">';
         echo '<strong>'.__('File Size: ', 'simple-download-monitor').'</strong>';
 	echo '<br />';
@@ -528,7 +493,14 @@ class simpleDownloadManager {
 	echo '<br /> <input id="sdm_item_show_date_fd" type="checkbox" name="sdm_item_show_date_fd" value="yes"' . checked(true, $show_date_fd, false) . ' />';
 	echo '<label for="sdm_item_show_date_fd">' . __('Show download published date in fancy display.', 'simple-download-monitor') . '</label>';
         echo '</div>';
+        echo '<hr />';
         
+        echo '<div class="sdm-download-edit-button-text">';
+        echo '<strong>'.__('Download Button Text: ', 'simple-download-monitor').'</strong>';
+        echo '<br />';
+        echo "<input id='sdm-download-button-text' type='text' name='sdm_download_button_text' value='{$download_button_text}' />";
+        echo '<p class="description">' . __('You can use this field to customize the download now button text of this item.', 'simple-download-monitor') . '</p>';
+
 	wp_nonce_field('sdm_other_details_nonce', 'sdm_other_details_nonce_check');
     }
 
@@ -558,9 +530,6 @@ class simpleDownloadManager {
 	if (isset($_POST['sdm_description'])) {
 	    update_post_meta($post_id, 'sdm_description', wp_kses_post($_POST['sdm_description']));
 	}
-    if (isset($_POST['sdm_download_button_text'])) {
-        update_post_meta($post_id, 'sdm_download_button_text', $_POST['sdm_download_button_text']);
-    }
     }
 
     public function sdm_save_upload_meta_data($post_id) {  // Save File Upload metabox
@@ -654,6 +623,11 @@ class simpleDownloadManager {
 	if (isset($_POST['sdm_item_version'])) {
 	    update_post_meta($post_id, 'sdm_item_version', sanitize_text_field($_POST['sdm_item_version']));
 	}
+        
+        if (isset($_POST['sdm_download_button_text'])) {
+            update_post_meta($post_id, 'sdm_download_button_text', sanitize_text_field($_POST['sdm_download_button_text']));
+        }
+    
     }
 
     public function sdm_remove_view_link_cpt($action, $post) {

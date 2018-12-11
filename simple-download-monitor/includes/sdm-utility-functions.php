@@ -287,3 +287,11 @@ function sdm_get_download_form_with_termsncond($id, $args = array(), $class = ''
     $data .= '</form>';
     return $data;
 }
+
+function sdm_get_default_download_button_text($download_id){
+    $default_text = __('Download Now!', 'simple-download-monitor');
+    $meta_text = get_post_meta($download_id, 'sdm_download_button_text', true);
+
+    $button_text = !empty($meta_text) ? $meta_text : $default_text;
+    return $button_text;
+}

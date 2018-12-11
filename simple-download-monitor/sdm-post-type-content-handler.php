@@ -47,7 +47,7 @@ function filter_sdm_post_type_content($content) {
         //Download counter
         //$dl_counter = sdm_create_counter_shortcode(array('id'=>$id));
         //*** Generate the download now button code ***
-        $button_text_string = $GLOBALS['simpleDownloadManager']->get_download_button_display_text($post->ID);
+        $button_text_string = sdm_get_default_download_button_text($post->ID);
 
         // See if new window parameter is set
         $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
