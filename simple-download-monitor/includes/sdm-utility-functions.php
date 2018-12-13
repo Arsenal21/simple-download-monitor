@@ -41,10 +41,10 @@ function sdm_get_download_count_for_post($id) {
 function sdm_get_password_entry_form($id, $args = array(), $class = '') {
     $action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
 
-//Get the download button text
+    //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
-	$button_text_string = __('Download Now!', 'simple-download-monitor');
+	$button_text_string = sdm_get_default_download_button_text($id);
     } else {//Use the custom text
 	$button_text_string = $button_text;
     }
@@ -214,7 +214,7 @@ function sdm_get_download_form_with_recaptcha($id, $args = array(), $class = '')
     //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
-	$button_text_string = __('Download Now!', 'simple-download-monitor');
+	$button_text_string = sdm_get_default_download_button_text($id);
     } else {//Use the custom text
 	$button_text_string = $button_text;
     }
@@ -267,11 +267,11 @@ function sdm_get_download_form_with_termsncond($id, $args = array(), $class = ''
     //Get the download button text
     $button_text = isset($args['button_text']) ? $args['button_text'] : '';
     if (empty($button_text)) {//Use the default text for the button
-	$button_text_string = __('Download Now!', 'simple-download-monitor');
+	$button_text_string = sdm_get_default_download_button_text($id);
     } else {//Use the custom text
 	$button_text_string = $button_text;
     }
- 
+
     $main_advanced_opts = get_option('sdm_advanced_options');
     $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
     
