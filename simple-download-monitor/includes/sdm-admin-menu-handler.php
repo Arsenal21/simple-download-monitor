@@ -278,8 +278,56 @@ function sdm_admin_menu_advanced_settings() {
 /*
  * * Logs menu page
  */
+function sdm_create_logs_page(){
+    if (!current_user_can('manage_options')) {
+        wp_die('You do not have permission to access this settings page.');
+    }
 
-function sdm_create_logs_page() {
+    echo '<div class="wrap">';
+            
+    $sdm_logs_menu_tabs = array(
+        'sdm-logs' => __('Main Logs', 'simple-download-monitor'),
+        'sdm-logs&action=sdm-logs-by-download' => __('Specific Item Logs', 'simple-download-monitor'),
+    );
+
+    $current = "";
+    if (isset($_GET['page'])) {
+        $current = sanitize_text_field($_GET['page']);
+        if (isset($_GET['action'])) {
+            $current .= "&action=" . sanitize_text_field($_GET['action']);
+        }
+    }
+    $content = '';
+    $content .= '<h2 class="nav-tab-wrapper">';
+    foreach ($sdm_logs_menu_tabs as $location => $tabname) {
+        if ($current == $location) {
+            $class = ' nav-tab-active';
+        } else {
+            $class = '';
+        }
+        $content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+    }
+    $content .= '</h2>';
+    echo $content;
+    
+    if (isset($_GET['action'])) {
+        switch ($_GET['action']) {
+            case 'sdm-logs-by-download':
+                include_once (WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php');
+                sdm_handle_individual_logs_tab_page();
+                break;
+	    default:
+                sdm_handle_logs_main_tab_page();
+                break;
+        }
+    } else {
+        sdm_handle_logs_main_tab_page();
+    }
+    
+    echo '</div>';//<!-- end of wrap -->
+}
+
+function sdm_handle_logs_main_tab_page() {
     global $wpdb;
 
     if ( isset( $_POST[ 'sdm_export_log_entries' ] ) ) {
@@ -306,8 +354,7 @@ function sdm_create_logs_page() {
     $sdmListTable = new sdm_List_Table();
     //Fetch, prepare, sort, and filter our data...
     $sdmListTable->prepare_items();
-    ?>
-    <div class="wrap">
+    ?>    
 
         <h2><?php _e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
 
@@ -326,7 +373,8 @@ function sdm_create_logs_page() {
     			    <input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>" />
     			</div>
     		    </form>
-    		</div></div>
+    		</div>
+            </div>
 
     	    <!-- Log reset button -->
     	    <div class="postbox">
@@ -337,7 +385,8 @@ function sdm_create_logs_page() {
     			    <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
     			</div>
     		    </form>
-    		</div></div>
+    		</div>
+            </div>
 
     	</div></div><!-- end of .poststuff and .post-body -->
 
@@ -348,7 +397,6 @@ function sdm_create_logs_page() {
 	    <?php $sdmListTable->display() ?>
         </form>
 
-    </div><!-- end of wrap -->
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
     	$('.fade').click(function () {
