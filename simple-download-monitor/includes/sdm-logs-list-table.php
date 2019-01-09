@@ -179,10 +179,20 @@ class sdm_List_Table extends WP_List_Table {
 
         //Do a query to find the total number of rows then calculate the query limit
         $table_name = $wpdb->prefix . 'sdm_downloads';
-        $query = "SELECT COUNT(*) FROM $table_name";
-        $total_items = $wpdb->get_var($query);//For pagination requirement
+        
+        if(isset($_REQUEST['sdm_logs_dl_id']) && !empty($_REQUEST['sdm_logs_dl_id'])){
+            //For specific download logs
+            $dl_id = sanitize_text_field($_REQUEST['sdm_logs_dl_id']);
+            $query = "SELECT COUNT(*) FROM $table_name WHERE post_id = $dl_id";
+            $total_items = $wpdb->get_var($query);//For pagination requirement
+            $query = "SELECT * FROM $table_name WHERE post_id = $dl_id ORDER BY $orderby_column $sort_order";
+        } else {
+            //For all download logs
+            $query = "SELECT COUNT(*) FROM $table_name";
+            $total_items = $wpdb->get_var($query);//For pagination requirement
 
-        $query = "SELECT * FROM $table_name ORDER BY $orderby_column $sort_order";
+            $query = "SELECT * FROM $table_name ORDER BY $orderby_column $sort_order";
+        }
 
         $offset = ($current_page - 1) * $per_page;
         $query.=' LIMIT ' . (int) $offset . ',' . (int) $per_page;//Limit to query to only load a limited number of records

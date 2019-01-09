@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.0
-Stable tag: 3.7.2
+Stable tag: 3.7.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -183,6 +183,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.7.3 =
+- Added a new feature in the "Logs" menu that allows you to view the log entries of a specific download item.
 
 = 3.7.2 = 
 - Bugfix: the new custom button text option did not work when used with the recaptcha feature.
