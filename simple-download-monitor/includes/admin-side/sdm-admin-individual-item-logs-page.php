@@ -11,7 +11,7 @@ function sdm_handle_individual_logs_tab_page(){
         $sdm_specific_download_id = isset($_REQUEST['sdm_specific_download_id'])? sanitize_text_field($_REQUEST['sdm_specific_download_id']): '';
         if(!empty($sdm_specific_download_id)){
             $target_url = 'edit.php?post_type=sdm_downloads&page=sdm-logs&action=sdm-logs-by-download&sdm_logs_dl_id='.$sdm_specific_download_id;
-            wp_redirect( $target_url );
+            sdm_redirect_to_url( $target_url );
             exit;
         }
     }

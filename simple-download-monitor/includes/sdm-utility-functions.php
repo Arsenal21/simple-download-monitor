@@ -295,3 +295,24 @@ function sdm_get_default_download_button_text($download_id){
     $button_text = !empty($meta_text) ? $meta_text : $default_text;
     return $button_text;
 }
+
+/*
+ * Use this function to redirect to a URL
+ */
+function sdm_redirect_to_url($url, $delay = '0', $exit = '1') {
+    $url = apply_filters('sdm_before_redirect_to_url', $url);
+    if (empty($url)) {
+	echo '<strong>';
+	_e('Error! The URL value is empty. Please specify a correct URL value to redirect to!', 'simple-download-monitor');
+	echo '</strong>';
+	exit;
+    }
+    if (!headers_sent()) {
+	header('Location: ' . $url);
+    } else {
+	echo '<meta http-equiv="refresh" content="' . $delay . ';url=' . $url . '" />';
+    }
+    if ($exit == '1') {//exit
+	exit;
+    }
+}
