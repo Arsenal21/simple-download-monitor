@@ -13,11 +13,11 @@ function handle_sdm_download_via_direct_post() {
 	    wp_die(__('Error! Incorrect download item id.', 'simple-download-monitor'));
 	}
 	if (empty($download_link)) {
-	    wp_die(__('Error! This download item (' . $download_id . ') does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'));
+	    wp_die(printf(__('Error! This download item (%s) does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor'), $download_id));
 	}
 
         sdm_recaptcha_verify();
-        
+
 	//Check download password (if applicable for this download)
 	$post_object = get_post($download_id); // Get post object
 	$post_pass = $post_object->post_password; // Get post password
@@ -42,16 +42,16 @@ function handle_sdm_download_via_direct_post() {
 	//End of password check
 
         $main_option = get_option('sdm_downloads_options');
-        
+
         $ipaddress = '';
         //Check if do not capture IP is enabled.
         if (!isset($main_option['admin_do_not_capture_ip'])) {
             $ipaddress = sdm_get_ip_address();
         }
-        
+
 	$date_time = current_time('mysql');
 	$visitor_country = !empty($ipaddress) ? sdm_ip_info($ipaddress, 'country') : '';
-	
+
 	$visitor_name = sdm_get_logged_in_user();
 
 	// Check if we only allow the download for logged-in users
