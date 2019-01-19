@@ -184,6 +184,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP - 3.7.3.1 = 
+- Updated broken i18n string to properly use printf w/ variable replacement. Thanks to Garrett for fixing this.
+
 = 3.7.3 =
 - Added a new feature in the "Logs" menu that allows you to view the log entries of a specific download item.
 
