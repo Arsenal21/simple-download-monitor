@@ -2,6 +2,28 @@
 
 //TODO write a function for doing grid display then the conditional function calls this grid display function
 
+function sdm_generate_fancy2_popular_downloads_display_output($get_posts, $args) {
+
+    $output = "";
+    $output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
+
+    $count = 1;
+    //$output .= '<ul class="sdm_fancy2_category_items">';
+    foreach ($get_posts as $item) {
+        $output .= sdm_generate_fancy2_display_output(
+                array_merge(array($args), array('id' => $item->ID))
+        );
+
+        if ($count % 3 == 0) {//Clear after every 3 items in the grid
+            $output .= '<div class="sdm_clear_float"></div>';
+        }
+        $count++;
+    }
+    //$output .= '</ul>';
+    $output .= '<div class="sdm_clear_float"></div>';
+    return $output;
+}
+
 function sdm_generate_fancy2_latest_downloads_display_output($get_posts, $args) {
 
     $output = "";

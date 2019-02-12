@@ -16,6 +16,7 @@ function sdm_register_shortcodes() {
     add_shortcode( 'sdm-download-counter', 'sdm_create_counter_shortcode' );  // For counter shortcode (for backwards compatibility)
     add_shortcode( 'sdm_latest_downloads', 'sdm_show_latest_downloads' ); // For showing X number of latest downloads
     add_shortcode( 'sdm-latest-downloads', 'sdm_show_latest_downloads' );  // For showing X number of latest downloads(for backwards compatibility)
+    add_shortcode( 'sdm_popular_downloads', 'sdm_show_popular_downloads' ); // For showing X number of popular downloads
 
     add_shortcode( 'sdm_download_link', 'sdm_create_simple_download_link' );
 
@@ -65,7 +66,7 @@ function sdm_create_download_shortcode( $atts ) {
     shortcode_atts( array(
 	'id'		 => '',
 	'fancy'		 => '0',
-	'button_text'     => sdm_get_default_download_button_text($atts['id']),
+	'button_text'	 => sdm_get_default_download_button_text( $atts[ 'id' ] ),
 	'new_window'	 => '',
 	'color'		 => '',
 	'css_class'	 => '',
@@ -88,8 +89,8 @@ function sdm_create_download_shortcode( $atts ) {
     $item_title	 = get_the_title( $id );
 
     //*** Generate the download now button code ***
-    if(empty($new_window)){
-        $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
+    if ( empty( $new_window ) ) {
+	$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
     }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
 
@@ -97,25 +98,25 @@ function sdm_create_download_shortcode( $atts ) {
     $download_url		 = $homepage . '/?smd_process_download=1&download_id=' . $id;
     $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
-    $main_advanced_opts = get_option('sdm_advanced_options');
-  
+    $main_advanced_opts = get_option( 'sdm_advanced_options' );
+
     //Check if Terms & Condition enabled
-    $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
-    if ($termscond_enable) {
-        $download_button_code = sdm_get_download_form_with_termsncond($id, $shortcode_atts,'sdm_download ' . $color);
+    $termscond_enable = isset( $main_advanced_opts[ 'termscond_enable' ] ) ? true : false;
+    if ( $termscond_enable ) {
+	$download_button_code = sdm_get_download_form_with_termsncond( $id, $shortcode_atts, 'sdm_download ' . $color );
     }
-    
+
     //Check if reCAPTCHA enabled
-    $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
-    if ($recaptcha_enable && $cpt_is_password == 'no') {
-        $download_button_code = sdm_get_download_form_with_recaptcha($id, $shortcode_atts, 'sdm_download ' . $color);
+    $recaptcha_enable = isset( $main_advanced_opts[ 'recaptcha_enable' ] ) ? true : false;
+    if ( $recaptcha_enable && $cpt_is_password == 'no' ) {
+	$download_button_code = sdm_get_download_form_with_recaptcha( $id, $shortcode_atts, 'sdm_download ' . $color );
     }
-    
+
     if ( $cpt_is_password !== 'no' ) {//This is a password protected download so replace the download now button with password requirement
 	$download_button_code = sdm_get_password_entry_form( $id, $shortcode_atts, 'sdm_download ' . $color );
     }
     //End of download now button code generation
-   
+
     $output = '';
     switch ( $fancy ) {
 	case '1':
@@ -200,20 +201,20 @@ function sdm_handle_category_shortcode( $args ) {
     // Else setup query arguments for category_slug
     if ( ! empty( $category_slug ) && empty( $category_id ) ) {
 
-	$field	 = 'slug';
-        
-        $terms	 = array_filter(explode(',', $category_slug), function($value) {
-            return !empty($value) ? trim($value) : false;
-        });
+	$field = 'slug';
+
+	$terms = array_filter( explode( ',', $category_slug ), function($value) {
+	    return ! empty( $value ) ? trim( $value ) : false;
+	} );
     }
     // Else setup query arguments for category_id
     else if ( ! empty( $category_id ) && empty( $category_slug ) ) {
 
 	$field	 = 'term_id';
 	//$terms = $category_id;
-        $terms	 = array_filter(explode(',', $category_id), function($value) {
-            return !empty($value) ? trim($value) : false;
-        });        
+	$terms	 = array_filter( explode( ',', $category_id ), function($value) {
+	    return ! empty( $value ) ? trim( $value ) : false;
+	} );
     }
 
     if ( isset( $args[ 'show_all' ] ) ) {
@@ -271,10 +272,10 @@ function sdm_handle_category_shortcode( $args ) {
 
 	    // Setup download location
 	    $homepage = get_bloginfo( 'url' );
-            if(empty($new_window)){
-                $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
-            }
-  
+	    if ( empty( $new_window ) ) {
+		$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
+	    }
+
 	    $window_target = empty( $new_window ) ? '_self' : '_blank';
 
 	    // Iterate cpt's
@@ -290,21 +291,21 @@ function sdm_handle_category_shortcode( $args ) {
 		// Setup download button code
 		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
-               
-                $main_advanced_opts = get_option('sdm_advanced_options');
-                
-                //Check if Terms & Condition enabled
-                $termscond_enable = isset($main_advanced_opts['termscond_enable']) ? true : false;
-                if ($termscond_enable) {
-                    $download_button_code = sdm_get_download_form_with_termsncond($id, $args,'sdm_download ' . $def_color);
-                }
-                
-                //Check if reCAPTCHA enabled
-                $recaptcha_enable = isset($main_advanced_opts['recaptcha_enable']) ? true : false;
-                if ($recaptcha_enable) {
-                    $download_button_code = sdm_get_download_form_with_recaptcha($id, $args, 'sdm_download ' . $def_color);
-                }
-                
+
+		$main_advanced_opts = get_option( 'sdm_advanced_options' );
+
+		//Check if Terms & Condition enabled
+		$termscond_enable = isset( $main_advanced_opts[ 'termscond_enable' ] ) ? true : false;
+		if ( $termscond_enable ) {
+		    $download_button_code = sdm_get_download_form_with_termsncond( $id, $args, 'sdm_download ' . $def_color );
+		}
+
+		//Check if reCAPTCHA enabled
+		$recaptcha_enable = isset( $main_advanced_opts[ 'recaptcha_enable' ] ) ? true : false;
+		if ( $recaptcha_enable ) {
+		    $download_button_code = sdm_get_download_form_with_recaptcha( $id, $args, 'sdm_download ' . $def_color );
+		}
+
 		// Generate download buttons
 		$output .= '<div class="sdm_download_link">' . $download_button_code . '</div><br />';
 	    }  // End foreach

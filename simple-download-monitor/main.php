@@ -32,6 +32,7 @@ include_once('includes/sdm-utility-functions-admin-side.php');
 include_once('includes/sdm-download-request-handler.php');
 include_once('includes/sdm-logs-list-table.php');
 include_once('includes/sdm-latest-downloads.php');
+include_once('includes/sdm-popular-downloads.php');
 include_once('includes/sdm-search-shortcode-handler.php');
 include_once('sdm-post-type-and-taxonomy.php');
 include_once('sdm-shortcodes.php');

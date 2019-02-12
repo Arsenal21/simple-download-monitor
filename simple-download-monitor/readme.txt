@@ -185,6 +185,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP - 3.7.3.1 =
+- Added new shortcode [sdm_popular_downloads] to display popular downloads.
 - Updated broken i18n string to properly use printf w/ variable replacement. Thanks to Garrett for fixing this.
 
 = 3.7.3 =
