@@ -184,19 +184,19 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP - 3.7.3.1 = 
+= WIP - 3.7.3.1 =
 - Updated broken i18n string to properly use printf w/ variable replacement. Thanks to Garrett for fixing this.
 
 = 3.7.3 =
 - Added a new feature in the "Logs" menu that allows you to view the log entries of a specific download item.
 
-= 3.7.2 = 
+= 3.7.2 =
 - Bugfix: the new custom button text option did not work when used with the recaptcha feature.
 
 = 3.7.1 =
 - There is a new option to specify a custom button text for the download item. Check the "Download Button Text" field under the other details section.
 
-= 3.7.0=
+= 3.7.0 =
 - Fixed "Open in new window" option was ignored when for downloads with reCaptcha, password and/or Terms and Conditions.
 
 = 3.6.9 =
