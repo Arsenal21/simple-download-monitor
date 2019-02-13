@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.0
-Stable tag: 3.7.3
+Stable tag: 3.7.4
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -62,6 +62,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Export all the file download logs to a CSV file.
 * Ability to reset the log entries.
 * Shortcode to show a number of latest downloads to your visitors.
+* Shortcode to show a number of popular downloads to your visitors.
 * Ability to disable the download monitoring (logging) for certain items (or all items).
 * You can also choose to only monitor downloads from unique IP address only.
 * Option to specify file size info so it can be shown to your visitors. [View the tutorial](https://simple-download-monitor.com/how-to-show-file-size-info-of-your-downloads/)
@@ -184,7 +185,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP - 3.7.3.1 =
+= 3.7.4 =
 - Added new shortcode [sdm_popular_downloads] to display popular downloads.
 - Updated broken i18n string to properly use printf w/ variable replacement. Thanks to Garrett for fixing this.
 
