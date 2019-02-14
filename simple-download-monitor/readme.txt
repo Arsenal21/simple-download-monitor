@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.0
-Stable tag: 3.7.4
+Stable tag: 3.7.4.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -184,6 +184,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.7.4.1 =
+- Updated the popular downloads shortcode to factor in the download counter offset setting.
 
 = 3.7.4 =
 - Added new shortcode [sdm_popular_downloads] to display popular downloads.
