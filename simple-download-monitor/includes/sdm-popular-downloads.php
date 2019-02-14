@@ -15,9 +15,10 @@ function sdm_show_popular_downloads( $args ) {
     global $wpdb;
     //Check if the query needs to be for a category
     if ( ! empty( $category_slug ) ) {
-	$q	 = "SELECT posts.*, downloads.id, downloads.post_id, terms.*, termrel.*, COUNT(downloads.post_id) AS cnt"
-	. " FROM " . $wpdb->prefix . "posts as posts, " . $wpdb->prefix . "sdm_downloads as downloads, " . $wpdb->prefix . "terms as terms, " . $wpdb->prefix . "term_relationships as termrel WHERE"
+	$q	 = "SELECT posts.*, downloads.id, downloads.post_id, terms.*, termrel.*, postmeta.*, (COUNT(downloads.post_id) + postmeta.meta_value) AS cnt"
+	. " FROM " . $wpdb->prefix . "posts as posts, " . $wpdb->prefix . "sdm_downloads as downloads, " . $wpdb->prefix . "terms as terms, " . $wpdb->prefix . "term_relationships as termrel, " . $wpdb->prefix . "postmeta as postmeta WHERE"
 	. " posts.id=downloads.post_id"
+	. " AND (postmeta.meta_key='sdm_count_offset' AND postmeta.post_id=downloads.post_id)"
 	. " AND (terms.slug= %s AND termrel.object_id=downloads.post_id AND termrel.term_taxonomy_id=terms.term_id)"
 	. " GROUP BY downloads.post_id"
 	. " ORDER BY cnt DESC, %s %s"
@@ -25,9 +26,10 @@ function sdm_show_popular_downloads( $args ) {
 	$q	 = $wpdb->prepare( $q, $category_slug, $orderby, $order, $number );
     } else {
 	//no categury_slug present
-	$q	 = "SELECT posts.*, downloads.id, downloads.post_id, COUNT(downloads.post_id) AS cnt"
-	. " FROM " . $wpdb->prefix . "posts as posts, " . $wpdb->prefix . "sdm_downloads as downloads WHERE"
+	$q	 = "SELECT posts.*, downloads.id, downloads.post_id, postmeta.*, (COUNT(downloads.post_id) + postmeta.meta_value) AS cnt"
+	. " FROM " . $wpdb->prefix . "posts as posts, " . $wpdb->prefix . "sdm_downloads as downloads, " . $wpdb->prefix . "postmeta as postmeta WHERE"
 	. " posts.id=downloads.post_id"
+	. " AND (postmeta.meta_key='sdm_count_offset' AND postmeta.post_id=downloads.post_id)"
 	. " GROUP BY downloads.post_id"
 	. " ORDER BY cnt DESC, %s %s"
 	. " LIMIT %d;";
