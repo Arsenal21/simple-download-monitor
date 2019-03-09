@@ -5,9 +5,9 @@ function sdm_generate_fancy1_popular_downloads_display_output( $get_posts, $args
     $output = "";
 
     foreach ( $get_posts as $item ) {
-	$output .= sdm_generate_fancy1_display_output(
-	array_merge( array( $args ), array( 'id' => $item->ID ) )
-	);
+	$opts		 = $args;
+	$opts[ 'id' ]	 = $item->ID;
+	$output		 .= sdm_generate_fancy1_display_output( $opts );
     }
     $output .= '<div class="sdm_clear_float"></div>';
     return $output;

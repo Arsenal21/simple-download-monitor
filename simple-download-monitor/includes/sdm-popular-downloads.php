@@ -49,8 +49,7 @@ function sdm_show_popular_downloads( $args ) {
 	if ( $fancy == '0' ) {
 	    include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy0/sdm-fancy-0.php');
 	    $output .= sdm_generate_fancy0_popular_downloads_display_output( $get_posts, $args );
-	}
-	if ( $fancy == '1' ) {
+	} else if ( $fancy == '1' ) {
 	    include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy1/sdm-fancy-1.php');
 	    $output .= sdm_generate_fancy1_popular_downloads_display_output( $get_posts, $args );
 	} else if ( $fancy == '2' ) {

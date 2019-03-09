@@ -10,9 +10,9 @@ function sdm_generate_fancy2_popular_downloads_display_output( $get_posts, $args
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
     foreach ( $get_posts as $item ) {
-	$output .= sdm_generate_fancy2_display_output(
-	array_merge( array( $args ), array( 'id' => $item->ID ) )
-	);
+	$opts		 = $args;
+	$opts[ 'id' ]	 = $item->ID;
+	$output		 .= sdm_generate_fancy2_display_output( $opts );
 
 	if ( $count % 3 == 0 ) {//Clear after every 3 items in the grid
 	    $output .= '<div class="sdm_clear_float"></div>';
@@ -110,7 +110,7 @@ function sdm_generate_fancy2_display_output( $args ) {
     $get_cpt_object	 = get_post( $id );
     $cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;    
     // Read plugin settings
-    $main_opts = get_option( 'sdm_downloads_options' );
+    $main_opts	 = get_option( 'sdm_downloads_options' );
 
     $main_advanced_opts = get_option( 'sdm_advanced_options' );
 
@@ -135,7 +135,7 @@ function sdm_generate_fancy2_display_output( $args ) {
     $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_fancy2_thumb_image" src="' . $item_download_thumbnail . '" />' : '';
     $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_2_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
     // Get item title
-    $item_title = get_the_title( $id );
+    $item_title			 = get_the_title( $id );
 
     // Get item description
     $isset_item_description = sdm_get_item_description_output( $id );
@@ -155,11 +155,11 @@ function sdm_generate_fancy2_display_output( $args ) {
 	//Disabled in shortcode. Lets check if it is enabled in the download meta.
 	$show_version = get_post_meta( $id, 'sdm_item_show_item_version_fd', true );
     }
-    $isset_item_version = ($show_version && isset( $item_version )) ? $item_version : ''; //check if show_version is enabled and if there is a version value
+    $isset_item_version	 = ($show_version && isset( $item_version )) ? $item_version : ''; //check if show_version is enabled and if there is a version value
     // check show date in fancy display 
-    $show_date_fd	 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
+    $show_date_fd		 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
     // Get item date 
-    $download_date	 = get_the_date( get_option( 'date_format' ), $id );
+    $download_date		 = get_the_date( get_option( 'date_format' ), $id );
 
     $output	 = '';
     $output	 .= '<div class="sdm_fancy2_item ' . $css_class . '">';
