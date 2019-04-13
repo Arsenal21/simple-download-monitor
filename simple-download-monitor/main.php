@@ -308,6 +308,7 @@ class simpleDownloadManager {
 	add_meta_box( 'sdm_misc_properties_meta_box', __( 'Miscellaneous Download Properties', 'simple-download-monitor' ), array( $this, 'display_sdm_misc_properties_meta_box' ), 'sdm_downloads', 'normal', 'default' ); // Meta box for misc properies/settings
 	add_meta_box( 'sdm_thumbnail_meta_box', __( 'File Thumbnail (Optional)', 'simple-download-monitor' ), array( $this, 'display_sdm_thumbnail_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	add_meta_box( 'sdm_stats_meta_box', __( 'Statistics', 'simple-download-monitor' ), array( $this, 'display_sdm_stats_meta_box' ), 'sdm_downloads', 'normal', 'default' );
+	do_action( 'sdm_admin_add_edit_download_before_other_details_meta_box_action' );
 	add_meta_box( 'sdm_other_details_meta_box', __( 'Other Details (Optional)', 'simple-download-monitor' ), array( $this, 'display_sdm_other_details_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	add_meta_box( 'sdm_shortcode_meta_box', __( 'Shortcodes', 'simple-download-monitor' ), array( $this, 'display_sdm_shortcode_meta_box' ), 'sdm_downloads', 'normal', 'default' );
     }
@@ -499,6 +500,7 @@ class simpleDownloadManager {
 	echo '<br />';
 	echo "<input id='sdm-download-button-text' type='text' name='sdm_download_button_text' value='{$download_button_text}' />";
 	echo '<p class="description">' . __( 'You can use this field to customize the download now button text of this item.', 'simple-download-monitor' ) . '</p>';
+	echo '</div>';
 
 	wp_nonce_field( 'sdm_other_details_nonce', 'sdm_other_details_nonce_check' );
     }
@@ -1044,7 +1046,7 @@ function sdm_pop_cats_ajax_call() {
     $cat_slug	 = sanitize_text_field( $_POST[ 'cat_slug' ] );  // Get button cpt slug
     $parent_id	 = intval( $_POST[ 'parent_id' ] );  // Get button cpt id
     // Query custom posts based on taxonomy slug
-    $posts = get_posts( array(
+    $posts		 = get_posts( array(
 	'post_type'	 => 'sdm_downloads',
 	'numberposts'	 => -1,
 	'tax_query'	 => array(
@@ -1089,23 +1091,23 @@ function sdm_create_columns( $cols ) {
     unset( $cols[ 'date' ] );
 
     $cols[ 'title' ]			 = __( 'Title', 'simple-download-monitor' );
-    $cols[ 'sdm_downloads_thumbnail' ] = __( 'Image', 'simple-download-monitor' );
-    $cols[ 'sdm_downloads_id' ]	 = __( 'ID', 'simple-download-monitor' );
-    $cols[ 'sdm_downloads_file' ]	 = __( 'File', 'simple-download-monitor' );
-    $cols[ 'taxonomy-sdm_categories' ] = __( 'Categories', 'simple-download-monitor' );
-    $cols[ 'taxonomy-sdm_tags' ]	 = __( 'Tags', 'simple-download-monitor' );
-    $cols[ 'sdm_downloads_count' ]	 = __( 'Downloads', 'simple-download-monitor' );
-    $cols[ 'date' ]			 = __( 'Date Posted', 'simple-download-monitor' );
+    $cols[ 'sdm_downloads_thumbnail' ]	 = __( 'Image', 'simple-download-monitor' );
+    $cols[ 'sdm_downloads_id' ]		 = __( 'ID', 'simple-download-monitor' );
+    $cols[ 'sdm_downloads_file' ]		 = __( 'File', 'simple-download-monitor' );
+    $cols[ 'taxonomy-sdm_categories' ]	 = __( 'Categories', 'simple-download-monitor' );
+    $cols[ 'taxonomy-sdm_tags' ]		 = __( 'Tags', 'simple-download-monitor' );
+    $cols[ 'sdm_downloads_count' ]		 = __( 'Downloads', 'simple-download-monitor' );
+    $cols[ 'date' ]				 = __( 'Date Posted', 'simple-download-monitor' );
     return $cols;
 }
 
 function sdm_downloads_sortable( $cols ) {
 
-    $cols[ 'sdm_downloads_id' ]	 = 'sdm_downloads_id';
-    $cols[ 'sdm_downloads_file' ]	 = 'sdm_downloads_file';
-    $cols[ 'sdm_downloads_count' ]	 = 'sdm_downloads_count';
-    $cols[ 'taxonomy-sdm_categories' ] = 'taxonomy-sdm_categories';
-    $cols[ 'taxonomy-sdm_tags' ]	 = 'taxonomy-sdm_tags';
+    $cols[ 'sdm_downloads_id' ]		 = 'sdm_downloads_id';
+    $cols[ 'sdm_downloads_file' ]		 = 'sdm_downloads_file';
+    $cols[ 'sdm_downloads_count' ]		 = 'sdm_downloads_count';
+    $cols[ 'taxonomy-sdm_categories' ]	 = 'taxonomy-sdm_categories';
+    $cols[ 'taxonomy-sdm_tags' ]		 = 'taxonomy-sdm_tags';
     return $cols;
 }
 
