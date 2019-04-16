@@ -232,7 +232,7 @@ function sdm_get_download_form_with_recaptcha($id, $args = array(), $class = '')
     //Check if Terms & Condition enabled
     $data .= sdm_get_checkbox_for_termsncond();
     
-    $data .= '<a href="#" class="sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
+    $data .= '<a href="#" class="' . $class . ' sdm_download_with_condition">' . $button_text_string . '</a>';
     $data .= '</div>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
@@ -281,7 +281,7 @@ function sdm_get_download_form_with_termsncond($id, $args = array(), $class = ''
     $data = '<form action="' . $action_url . '" method="post" class="sdm-download-form"'.$window_target.'>';
     $data .= sdm_get_checkbox_for_termsncond();
     $data .= '<div class="sdm-termscond-button">';
-    $data .= '<a href="#" class="sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
+    $data .= '<a href="#" class="' . $class . ' sdm_download_with_condition">' . $button_text_string . '</a>';
     $data .= '</div>';
     $data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
     $data .= '</form>';
