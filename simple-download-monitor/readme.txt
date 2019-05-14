@@ -185,7 +185,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.7.5 =
+= 3.7.5 =
+- Added an option to configure "after download redirect" in the hidden downloads addon.
 
 = 3.7.4.2 =
 - Fixed [sdm_popular_downloads] shortcode was ignoring button_text parameter for fancy 1 and fancy 2 templates.
