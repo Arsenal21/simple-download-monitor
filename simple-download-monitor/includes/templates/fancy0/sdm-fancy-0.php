@@ -83,6 +83,8 @@ function sdm_generate_fancy0_display_output( $args ) {
     $color_opt	 = $main_opts[ 'download_button_color' ];
     $def_color	 = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : __( 'green', 'simple-download-monitor' );
 
+    $def_color = empty( $args[ 'color' ] ) ? $def_color : $args['color'];
+
     //See if new window parameter is seet
     $window_target = '';
     if ( isset( $args[ 'new_window' ] ) && $args[ 'new_window' ] == '1' ) {
