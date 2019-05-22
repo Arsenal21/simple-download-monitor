@@ -193,7 +193,7 @@ class simpleDownloadManager {
 	add_action( 'init', 'sdm_register_post_type' );  // Create 'sdm_downloads' custom post type
 	add_action( 'init', 'sdm_create_taxonomies' );  // Register 'tags' and 'categories' taxonomies
 	add_action( 'init', 'sdm_register_shortcodes' ); //Register the shortcodes
-	add_action( 'wp_enqueue_scripts', array( 'simpleDownloadManager', 'sdm_frontend_scripts' ) );  // Register frontend scripts
+	add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );  // Register frontend scripts
 	include_once('includes/sdm-blocks.php');
 
 	if ( is_admin() ) {
@@ -268,7 +268,7 @@ class simpleDownloadManager {
 	<?php
     }
 
-    public static function sdm_frontend_scripts() {
+    public function sdm_frontend_scripts() {
 	//Use this function to enqueue fron-end js scripts.
 	wp_enqueue_style( 'sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css' );
 	wp_register_script( 'sdm-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_wp_scripts.js', array( 'jquery' ) );

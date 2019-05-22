@@ -12,6 +12,8 @@ class SDMBlocks {
 	    return;
 	}
 
+	wp_enqueue_style( 'sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css' );
+
 	wp_register_script(
 	'sdm-blocks-script', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_blocks.js', array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ), WP_SIMPLE_DL_MONITOR_VERSION );
 
@@ -41,7 +43,7 @@ class SDMBlocks {
 	    'fancyHelp'	 => __( 'Select download item template.', 'simple-download-monitor' ),
 	    'newWindow'	 => __( 'Open Download in a New Window', 'simple-download-monitor' ),
 	    'color'		 => __( 'Button Color', 'simple-download-monitor' ),
-	    'colorHelp'	 => __( 'Select button color. Note this settings doesn\'t work for some templates.', 'simple-download-monitor' ),
+	    'colorHelp'	 => __( 'Select button color. Note this option isn\'t working for some templates.', 'simple-download-monitor' ),
 	) );
 
 	register_block_type( 'simple-download-monitor/download-item', array(
@@ -73,8 +75,6 @@ class SDMBlocks {
     }
 
     function render_item_block( $atts ) {
-
-	add_action( 'admin_enqueue_scripts', array( 'simpleDownloadManager', 'sdm_frontend_scripts' ) );  // Register frontend scripts
 
 	$itemId		 = ! empty( $atts[ 'itemId' ] ) ? intval( $atts[ 'itemId' ] ) : 0;
 	$fancyId	 = ! empty( $atts[ 'fancyId' ] ) ? intval( $atts[ 'fancyId' ] ) : 0;
