@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.2
-Stable tag: 3.7.5
+Stable tag: 3.7.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -13,7 +13,7 @@ Easily manage downloadable files and monitor downloads of your digital files fro
 
 I developed the Simple Download Monitor plugin because I needed a nice way to manage my digital downloads and monitor the number of downloads of my files and documents.
 
-This plugin is very useful for managing and tracking your digital file download counts. 
+This plugin is very useful for managing and tracking your digital file download counts.
 
 You can password protect your downloadable files and documents too (visitors will require a password before downloading the file when you use this option).
 
@@ -184,6 +184,10 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.7.6 =
+- Added "SDM Download" Gutenberg block.
+- Fixed "color" shortcode parameter was ignored for default template (fancy 0).
 
 = 3.7.5 =
 - Added an option to configure "after download redirect" in the hidden downloads addon.

@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.5
+ * Version: 3.7.6
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.5' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.6' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -193,7 +193,8 @@ class simpleDownloadManager {
 	add_action( 'init', 'sdm_register_post_type' );  // Create 'sdm_downloads' custom post type
 	add_action( 'init', 'sdm_create_taxonomies' );  // Register 'tags' and 'categories' taxonomies
 	add_action( 'init', 'sdm_register_shortcodes' ); //Register the shortcodes
-	add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );  // Register frontend scripts
+	add_action( 'wp_enqueue_scripts', array( 'simpleDownloadManager', 'sdm_frontend_scripts' ) );  // Register frontend scripts
+	include_once('includes/sdm-blocks.php');
 
 	if ( is_admin() ) {
 	    add_action( 'admin_menu', array( $this, 'sdm_create_menu_pages' ) );  // Create admin pages
@@ -267,7 +268,7 @@ class simpleDownloadManager {
 	<?php
     }
 
-    public function sdm_frontend_scripts() {
+    public static function sdm_frontend_scripts() {
 	//Use this function to enqueue fron-end js scripts.
 	wp_enqueue_style( 'sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css' );
 	wp_register_script( 'sdm-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_wp_scripts.js', array( 'jquery' ) );
