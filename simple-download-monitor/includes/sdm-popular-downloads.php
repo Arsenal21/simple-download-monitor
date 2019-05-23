@@ -55,6 +55,9 @@ function sdm_show_popular_downloads( $args ) {
 	} else if ( $fancy == '2' ) {
 	    include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy2/sdm-fancy-2.php');
 	    $output .= sdm_generate_fancy2_popular_downloads_display_output( $get_posts, $args );
+	} else if ( $fancy == '3' ) {
+	    include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy3/sdm-fancy-3.php');
+	    $output .= sdm_generate_fancy3_popular_downloads_display_output( $get_posts, $args );
 	}
 
 	// Return results

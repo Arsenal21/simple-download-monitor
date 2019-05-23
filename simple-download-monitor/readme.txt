@@ -74,6 +74,7 @@ https://www.youtube.com/watch?v=utYIH0fILuQ
 * Option to add Terms and Condtions to your download buttons.
 * Ability to easily clone/copy your existing download items.
 * Ability to insert Adsense or other Ad code inside the download item display.
+* Gutenberg block to insert download now buttons on a post or page.
 
 View more details on the [download monitor plugin](https://simple-download-monitor.com/) page.
 
@@ -188,6 +189,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = 3.7.6 =
 - Added "SDM Download" Gutenberg block.
 - Fixed "color" shortcode parameter was ignored for default template (fancy 0).
+- Added a new compact template (fancy3). This can be useful in displaying a list of downloads in a compact form (maybe in a sidebar widget).
 
 = 3.7.5 =
 - Added an option to configure "after download redirect" in the hidden downloads addon.

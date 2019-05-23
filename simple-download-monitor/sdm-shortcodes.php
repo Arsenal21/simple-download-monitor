@@ -130,6 +130,11 @@ function sdm_create_download_shortcode( $atts ) {
 	    $output	 .= sdm_generate_fancy2_display_output( $shortcode_atts );
 	    $output	 .= '<div class="sdm_clear_float"></div>';
 	    break;
+	case '3':
+	    include_once('includes/templates/fancy3/sdm-fancy-3.php');
+	    $output	 .= sdm_generate_fancy3_display_output( $shortcode_atts );
+	    $output	 .= '<div class="sdm_clear_float"></div>';
+	    break;        
 	default: // Default output is the standard download now button (fancy 0)
 	    include_once('includes/templates/fancy0/sdm-fancy-0.php');
 	    $output	 .= sdm_generate_fancy0_display_output( $shortcode_atts );
@@ -318,6 +323,9 @@ function sdm_handle_category_shortcode( $args ) {
 	} else if ( $fancy == '2' ) {
 	    include_once('includes/templates/fancy2/sdm-fancy-2.php');
 	    $output .= sdm_generate_fancy2_category_display_output( $get_posts, $args );
+	} else if ( $fancy == '3' ) {
+	    include_once('includes/templates/fancy3/sdm-fancy-3.php');
+	    $output .= sdm_generate_fancy3_category_display_output( $get_posts, $args );
 	}
 
 	// Pagination related
