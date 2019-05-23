@@ -43,7 +43,7 @@ class SDMBlocks {
 	    'fancyHelp'	 => __( 'Select download item template.', 'simple-download-monitor' ),
 	    'newWindow'	 => __( 'Open Download in a New Window', 'simple-download-monitor' ),
 	    'color'		 => __( 'Button Color', 'simple-download-monitor' ),
-	    'colorHelp'	 => __( 'Select button color. Note this option isn\'t working for some templates.', 'simple-download-monitor' ),
+	    'colorHelp'	 => __( 'Select button color. Note that this option may not work for some templates.', 'simple-download-monitor' ),
 	) );
 
 	register_block_type( 'simple-download-monitor/download-item', array(
