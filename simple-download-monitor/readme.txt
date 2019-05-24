@@ -25,7 +25,7 @@ The plugin will log the IP addresses of the users who download your digital file
 
 It has a very user-friendly interface for uploading, managing, monitoring and tracking file downloads.
 
-https://www.youtube.com/watch?v=utYIH0fILuQ
+https://www.youtube.com/watch?v=SjVaanbulRU
 
 = Simple Download Monitor Features =
 
