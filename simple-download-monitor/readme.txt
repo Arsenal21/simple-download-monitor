@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.7.7 =
+- Added CSS class to the "Enter Password" label (for password protected downloads).
+
 = 3.7.6 =
 - Added "SDM Download" Gutenberg block.
 - Fixed "color" shortcode parameter was ignored for default template (fancy 0).

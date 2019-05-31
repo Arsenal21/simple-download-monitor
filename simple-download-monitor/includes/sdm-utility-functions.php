@@ -51,11 +51,18 @@ function sdm_get_password_entry_form($id, $args = array(), $class = '') {
 
     $uuid = uniqid('sdm-pass-');
 
-    $data = __('Enter Password to Download:', 'simple-download-monitor');
+    $data = '';
     
+    //Enter password label
+    $enter_password_label = __('Enter Password to Download:', 'simple-download-monitor');
+    $enter_password_label = apply_filters('sdm_enter_password_to_download_label', $enter_password_label);
+    $data .= '<span class="sdm_enter_password_label_text">' . $enter_password_label . '</span>';
+    
+    //Check if new window is enabled
     $new_window = get_post_meta( $id, 'sdm_item_new_window', true ); 
     $window_target=empty($new_window) ? '' : ' target="_blank"';
 
+    //Form code
     $data .= '<form action="' . $action_url . '" method="post" id="' . $uuid . '" class="sdm-download-form"'.$window_target.'>';
     $data .= '<input type="password" name="pass_text" class="sdm_pass_text" value="" /> ';
     
