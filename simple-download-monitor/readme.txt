@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.2
-Stable tag: 3.7.6
+Stable tag: 3.7.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -186,7 +186,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.7.7 =
+= 3.7.7 =
+- Fixed password protected download error when reCapcha is enabeld.
 - Added CSS class to the "Enter Password" label (for password protected downloads).
 
 = 3.7.6 =

@@ -248,7 +248,7 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 
 function sdm_get_download_with_recaptcha() {
     $main_advanced_opts	 = get_option( 'sdm_advanced_options' );
-    $recaptcha_enable	 = isset( $main_advanced_opts[ 'termscond_enable' ] ) ? true : false;
+    $recaptcha_enable	 = isset( $main_advanced_opts[ 'recaptcha_enable' ] ) ? true : false;
     if ( $recaptcha_enable ) {
 	return '<div class="g-recaptcha sdm-g-recaptcha"></div>';
     }
