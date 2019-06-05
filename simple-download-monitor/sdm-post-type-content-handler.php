@@ -155,11 +155,11 @@ add_filter( 'sdm_downloads_description', 'shortcode_unautop' );
 add_filter( 'sdm_downloads_description', 'prepend_attachment' );
 
 function sdm_get_item_description_output( $id ) {
-    $item_description	 = get_post_meta( $id, 'sdm_description', true );
-    $isset_item_description	 = isset( $item_description ) && ! empty( $item_description ) ? $item_description : '';
+    $item_description		 = get_post_meta( $id, 'sdm_description', true );
+    $isset_item_description		 = isset( $item_description ) && ! empty( $item_description ) ? $item_description : '';
     //$isset_item_description = apply_filters('the_content', $isset_item_description);
     //Lets apply all the filters like do_shortcode, wptexturize, convert_smilies, wpautop etc.
-    $filtered_item_description = apply_filters( 'sdm_downloads_description', $isset_item_description );
+    $filtered_item_description	 = apply_filters( 'sdm_downloads_description', $isset_item_description );
 
     return $filtered_item_description;
 }

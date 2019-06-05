@@ -134,7 +134,7 @@ function sdm_create_download_shortcode( $atts ) {
 	    include_once('includes/templates/fancy3/sdm-fancy-3.php');
 	    $output	 .= sdm_generate_fancy3_display_output( $shortcode_atts );
 	    $output	 .= '<div class="sdm_clear_float"></div>';
-	    break;        
+	    break;
 	default: // Default output is the standard download now button (fancy 0)
 	    include_once('includes/templates/fancy0/sdm-fancy-0.php');
 	    $output	 .= sdm_generate_fancy0_display_output( $shortcode_atts );
