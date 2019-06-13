@@ -11,8 +11,19 @@ function filter_sdm_post_type_content( $content ) {
 	//$content = sdm_create_download_shortcode($args);
 	$id = $post->ID;
 
+        //Check if the single download page is disabled.
+        $sdm_item_disable_single_download_page = get_post_meta( $id, 'sdm_item_disable_single_download_page', true );
+        if ($sdm_item_disable_single_download_page){
+            //Page is disabled. Show message and return.
+            $content .= '<div class="sdm_post_single_download_page_disabled_msg">';
+            $msg = __('The admin of this site has disabled this download item page.', 'simple-download-monitor');
+            $content .= apply_filters('sdm_post_single_download_page_disabled_msg', $msg);
+            $content .= '</div>';
+            return $content;
+        }
+        
 	//Check to see if the download link cpt is password protected
-	$get_cpt_object			 = get_post( $id );
+	$get_cpt_object			 = get_post( $id );       
 	$cpt_is_password		 = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
 	//Get item thumbnail
 	$item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );

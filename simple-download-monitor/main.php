@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.7
+ * Version: 3.7.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.7' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.8' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -306,7 +306,7 @@ class simpleDownloadManager {
 	add_meta_box( 'sdm_description_meta_box', __( 'Description', 'simple-download-monitor' ), array( $this, 'display_sdm_description_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	add_meta_box( 'sdm_upload_meta_box', __( 'Downloadable File (Visitors will download this item)', 'simple-download-monitor' ), array( $this, 'display_sdm_upload_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	add_meta_box( 'sdm_dispatch_meta_box', __( 'PHP Dispatch or Redirect', 'simple-download-monitor' ), array( $this, 'display_sdm_dispatch_meta_box' ), 'sdm_downloads', 'normal', 'default' );
-	add_meta_box( 'sdm_misc_properties_meta_box', __( 'Miscellaneous Download Properties', 'simple-download-monitor' ), array( $this, 'display_sdm_misc_properties_meta_box' ), 'sdm_downloads', 'normal', 'default' ); // Meta box for misc properies/settings
+	add_meta_box( 'sdm_misc_properties_meta_box', __( 'Miscellaneous Download Item Properties', 'simple-download-monitor' ), array( $this, 'display_sdm_misc_properties_meta_box' ), 'sdm_downloads', 'normal', 'default' ); // Meta box for misc properies/settings
 	add_meta_box( 'sdm_thumbnail_meta_box', __( 'File Thumbnail (Optional)', 'simple-download-monitor' ), array( $this, 'display_sdm_thumbnail_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	add_meta_box( 'sdm_stats_meta_box', __( 'Statistics', 'simple-download-monitor' ), array( $this, 'display_sdm_stats_meta_box' ), 'sdm_downloads', 'normal', 'default' );
 	do_action( 'sdm_admin_add_edit_download_before_other_details_meta_box_action' );
@@ -383,10 +383,16 @@ class simpleDownloadManager {
 		//Does nothing at the moment.
 	    }
 	}
-
+        
+	//Check the sdm_item_disable_single_download_page value
+	$sdm_item_disable_single_download_page = get_post_meta( $post->ID, 'sdm_item_disable_single_download_page', true );
+        
 	echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked( true, $new_window, false ) . ' />';
 	echo '<label for="sdm_item_new_window">' . __( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
+	echo '<p> <input id="sdm_item_disable_single_download_page" type="checkbox" name="sdm_item_disable_single_download_page" value="yes"' . checked( true, $sdm_item_disable_single_download_page, false ) . ' />';
+	echo '<label for="sdm_item_disable_single_download_page">' . __( 'Disable the Single Download Page for This Download Item.', 'simple-download-monitor' ) . '</label> </p>';        
+        
 	wp_nonce_field( 'sdm_misc_properties_box_nonce', 'sdm_misc_properties_box_nonce_check' );
     }
 
@@ -566,8 +572,11 @@ class simpleDownloadManager {
 	}
 	// Get POST-ed data as boolean value
 	$new_window_open = filter_input( INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN );
-
+        $sdm_item_disable_single_download_page = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
+        
+        //Save the data
 	update_post_meta( $post_id, 'sdm_item_new_window', $new_window_open );
+        update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );
     }
 
     public function sdm_save_thumbnail_meta_data( $post_id ) {  // Save Thumbnail Upload metabox
