@@ -391,7 +391,12 @@ class simpleDownloadManager {
 	echo '<label for="sdm_item_new_window">' . __( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
 	echo '<p> <input id="sdm_item_disable_single_download_page" type="checkbox" name="sdm_item_disable_single_download_page" value="yes"' . checked( true, $sdm_item_disable_single_download_page, false ) . ' />';
-	echo '<label for="sdm_item_disable_single_download_page">' . __( 'Disable the Single Download Page for This Download Item.', 'simple-download-monitor' ) . '</label> </p>';        
+	echo '<label for="sdm_item_disable_single_download_page">';
+        $disable_single_dl_label = __( 'Disable the Single Download Page for This Download Item. ', 'simple-download-monitor' );
+        $disable_single_dl_label .= __( 'This can be useful if you are using an addon like the ', 'simple-download-monitor' );
+        $disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>';
+        echo $disable_single_dl_label . '</label>';
+        echo '</p>';
         
 	wp_nonce_field( 'sdm_misc_properties_box_nonce', 'sdm_misc_properties_box_nonce_check' );
     }
