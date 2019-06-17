@@ -386,10 +386,19 @@ class simpleDownloadManager {
         
 	//Check the sdm_item_disable_single_download_page value
 	$sdm_item_disable_single_download_page = get_post_meta( $post->ID, 'sdm_item_disable_single_download_page', true );
+        $sdm_item_hide_dl_button_single_download_page = get_post_meta( $post->ID, 'sdm_item_hide_dl_button_single_download_page', true );
         
 	echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked( true, $new_window, false ) . ' />';
 	echo '<label for="sdm_item_new_window">' . __( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
+        //the new window will have no download button      
+        echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
+	echo '<label for="sdm_item_hide_dl_button_single_download_page">';
+        
+        $disable_dl_button_label = __( 'The new download window will have no download button.', 'simple-download-monitor' );
+        echo $disable_dl_button_label . '</label>';
+        echo '</p>';
+        
 	echo '<p> <input id="sdm_item_disable_single_download_page" type="checkbox" name="sdm_item_disable_single_download_page" value="yes"' . checked( true, $sdm_item_disable_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_disable_single_download_page">';
         $disable_single_dl_label = __( 'Disable the Single Download Page for This Download Item. ', 'simple-download-monitor' );
@@ -577,11 +586,14 @@ class simpleDownloadManager {
 	}
 	// Get POST-ed data as boolean value
 	$new_window_open = filter_input( INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN );
+        $sdm_item_hide_dl_button_single_download_page =  filter_input( INPUT_POST, 'sdm_item_hide_dl_button_single_download_page', FILTER_VALIDATE_BOOLEAN );
         $sdm_item_disable_single_download_page = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
-        
+       
         //Save the data
 	update_post_meta( $post_id, 'sdm_item_new_window', $new_window_open );
+        update_post_meta( $post_id, 'sdm_item_hide_dl_button_single_download_page', $sdm_item_hide_dl_button_single_download_page );
         update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );
+        
     }
 
     public function sdm_save_thumbnail_meta_data( $post_id ) {  // Save Thumbnail Upload metabox

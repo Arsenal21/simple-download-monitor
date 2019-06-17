@@ -3,7 +3,7 @@
 //Handles the output on the SDM individual download page (Custom Post Type)
 add_filter( 'the_content', 'filter_sdm_post_type_content' );
 
-function filter_sdm_post_type_content( $content ) {
+function filter_sdm_post_type_content( $content ) {    
     global $post;
     if ( isset( $post->post_type ) && $post->post_type == "sdm_downloads" ) {//Handle the content for sdm_downloads type post
 	//$download_id = $post->ID;
@@ -21,7 +21,7 @@ function filter_sdm_post_type_content( $content ) {
             $content .= '</div>';
             return $content;
         }
-        
+                
 	//Check to see if the download link cpt is password protected
 	$get_cpt_object			 = get_post( $id );       
 	$cpt_is_password		 = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
@@ -118,8 +118,18 @@ function filter_sdm_post_type_content( $content ) {
 	//This hook can be used to add content below the description
 	$content .= apply_filters( 'sdm_cpt_below_download_description', '' );
 
-	$content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
-
+        //Check if the button of the single download page is disabled.
+        $sdm_item_hide_dl_button_single_download_page = get_post_meta( $id, 'sdm_item_hide_dl_button_single_download_page', true );
+        if ($sdm_item_hide_dl_button_single_download_page){
+            //the download button is disabled. 
+            $content .= '<div class="sdm_post_single_download_page_disabled_dl_button_msg">';
+            $msg = __('The admin of this site has disabled the download button for this page.', 'simple-download-monitor');
+            $content .= apply_filters('sdm_post_single_download_page_disabled_dl_button_msg', $msg);
+            $content .= '</div>';
+        } else {
+            $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
+        }
+        
 	if ( ! empty( $isset_item_file_size ) ) {//Show file size info
 	    $content .= '<div class="sdm_post_download_file_size">';
 	    $content .= '<span class="sdm_post_download_size_label">' . __( 'Size: ', 'simple-download-monitor' ) . '</span>';
