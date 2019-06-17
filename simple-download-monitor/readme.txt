@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.7.9 =
+- Added a new option in the download configuration to disable the download button on the individual download page of an item.
+
 = 3.7.8 = 
 - Added a new option in the download configuration to disable the individual download page of an item. Can be useful if you only want to allow downloading of the item from where you embed it.
 

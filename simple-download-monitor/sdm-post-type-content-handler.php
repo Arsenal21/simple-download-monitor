@@ -123,7 +123,7 @@ function filter_sdm_post_type_content( $content ) {
         if ($sdm_item_hide_dl_button_single_download_page){
             //the download button is disabled. 
             $content .= '<div class="sdm_post_single_download_page_disabled_dl_button_msg">';
-            $msg = __('The admin of this site has disabled the download button for this page.', 'simple-download-monitor');
+            $msg = '<p>' . __('The admin of this site has disabled the download button for this page.', 'simple-download-monitor') . '</p>';
             $content .= apply_filters('sdm_post_single_download_page_disabled_dl_button_msg', $msg);
             $content .= '</div>';
         } else {
