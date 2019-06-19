@@ -193,7 +193,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Added a new option in the download configuration to disable the individual download page of an item. Can be useful if you only want to allow downloading of the item from where you embed it.
 
 = 3.7.7 =
-- Fixed password protected download error when reCapcha is enabeld.
+- Fixed password protected download error when reCapcha is enabled.
 - Added CSS class to the "Enter Password" label (for password protected downloads).
 
 = 3.7.6 =
