@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.8
+ * Version: 3.7.9
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.8' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.9' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -81,6 +81,7 @@ function sdm_plugins_loaded_tasks() {
 
     //Handle db upgrade stuff
     sdm_db_update_check();
+    
 }
 
 /*
@@ -92,6 +93,22 @@ add_action( 'admin_init', 'sdm_admin_init_time_tasks' );
 function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
+    
+    //Check if the redirect option is being used 
+    if(isset($_REQUEST['sdm_redirect_to']) && !empty($_REQUEST['sdm_redirect_to'])){
+        //Check if the "redirect_user_back_to_download_page" feature is enabled on this site.
+        $main_option = get_option( 'sdm_downloads_options' );
+        if ( isset( $main_option[ 'redirect_user_back_to_download_page' ] ) ) {
+            //Check if the user is logged-in (since we only want to redirect a logged-in user.
+            $visitor_name = sdm_get_logged_in_user();
+            if ($visitor_name !== false ) {
+                $redirect_url = urldecode($_REQUEST['sdm_redirect_to']);
+                wp_safe_redirect( $redirect_url );//user wp safe redirect.
+                exit;
+            }
+        }
+    }
+        
     if ( is_admin() ) {
 	//Register Google Charts library
 	wp_register_script( 'sdm_google_charts', 'https://www.gstatic.com/charts/loader.js', array(), null, true );
@@ -395,15 +412,15 @@ class simpleDownloadManager {
         echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_hide_dl_button_single_download_page">';
         
-        $disable_dl_button_label = __( 'Hide the Download Button on the Single Download Page.', 'simple-download-monitor' );
+        $disable_dl_button_label = __( 'Hide the download button on the single download page of this item.', 'simple-download-monitor' );
         echo $disable_dl_button_label . '</label>';
         echo '</p>';
         
 	echo '<p> <input id="sdm_item_disable_single_download_page" type="checkbox" name="sdm_item_disable_single_download_page" value="yes"' . checked( true, $sdm_item_disable_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_disable_single_download_page">';
-        $disable_single_dl_label = __( 'Disable the Single Download Page for This Download Item. ', 'simple-download-monitor' );
+        $disable_single_dl_label = __( 'Disable the single download page for this download item. ', 'simple-download-monitor' );
         $disable_single_dl_label .= __( 'This can be useful if you are using an addon like the ', 'simple-download-monitor' );
-        $disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>';
+        $disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>' . '.';
         echo $disable_single_dl_label . '</label>';
         echo '</p>';
         
@@ -677,6 +694,7 @@ class simpleDownloadManager {
 
 	//Add all the settings section that will go under the main settings
 	add_settings_section( 'general_options', __( 'General Options', 'simple-download-monitor' ), array( $this, 'general_options_cb' ), 'general_options_section' );
+        add_settings_section( 'user_login_options', __( 'User Login Related', 'simple-download-monitor' ), array( $this, 'user_login_options_cb' ), 'user_login_options_section' );
 	add_settings_section( 'admin_options', __( 'Admin Options', 'simple-download-monitor' ), array( $this, 'admin_options_cb' ), 'admin_options_section' );
 
 	add_settings_section( 'sdm_colors', __( 'Colors', 'simple-download-monitor' ), array( $this, 'sdm_colors_cb' ), 'sdm_colors_section' );
@@ -686,9 +704,11 @@ class simpleDownloadManager {
 	//Add all the individual settings fields that goes under the sections
 	add_settings_field( 'general_hide_donwload_count', __( 'Hide Download Count', 'simple-download-monitor' ), array( $this, 'hide_download_count_cb' ), 'general_options_section', 'general_options' );
 	add_settings_field( 'general_default_dispatch_value', __( 'PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_default_dispatch_value_cb' ), 'general_options_section', 'general_options' );
-	add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'general_options_section', 'general_options' );
-	add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'general_options_section', 'general_options' );
-
+	
+        add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
+	add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
+        add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users Back to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
+        
 	add_settings_field( 'admin_tinymce_button', __( 'Remove Tinymce Button', 'simple-download-monitor' ), array( $this, 'admin_tinymce_button_cb' ), 'admin_options_section', 'admin_options' );
 	add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 	add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
@@ -725,6 +745,11 @@ class simpleDownloadManager {
 	_e( 'General options settings', 'simple-download-monitor' );
     }
 
+    public function user_login_options_cb() {
+	//Set the message that will be shown below the user login related settings heading
+	_e( 'Visitor login related settings (useful if you only want to allow logged-in users to be able to download files.', 'simple-download-monitor' );
+    }
+    
     public function admin_options_cb() {
 	//Set the message that will be shown below the admin options settings heading
 	_e( 'Admin options settings', 'simple-download-monitor' );
@@ -803,6 +828,13 @@ class simpleDownloadManager {
 	echo '<label for="only_logged_in_can_download">' . __( 'Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message.', 'simple-download-monitor' ) . '</label>';
     }
 
+    public function redirect_user_back_to_download_page_cb() {
+	$main_opts	 = get_option( 'sdm_downloads_options' );
+	$value		 = isset( $main_opts[ 'redirect_user_back_to_download_page' ] ) && $main_opts[ 'redirect_user_back_to_download_page' ];
+	echo '<input name="sdm_downloads_options[redirect_user_back_to_download_page]" id="redirect_user_back_to_download_page" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
+	echo '<label for="redirect_user_back_to_download_page">' . __( 'Only works if you have set a Login Page URL value above. Enable this option if you want to redirect the users back to the download page after they log into the site.', 'simple-download-monitor' ) . '</label>';
+    }
+    
     public function general_login_page_url_cb() {
 	$main_opts	 = get_option( 'sdm_downloads_options' );
 	$value		 = isset( $main_opts[ 'general_login_page_url' ] ) ? $main_opts[ 'general_login_page_url' ] : '';
@@ -1170,7 +1202,7 @@ $main_option		 = get_option( 'sdm_downloads_options' );
 $tiny_button_option	 = isset( $main_option[ 'admin_tinymce_button' ] );
 if ( $tiny_button_option != true ) {
 
-// Okay.. we're good.  Add the button.
+    // Okay.. we're good.  Add the button.
     add_action( 'init', 'sdm_downloads_tinymce_button' );
 
     function sdm_downloads_tinymce_button() {

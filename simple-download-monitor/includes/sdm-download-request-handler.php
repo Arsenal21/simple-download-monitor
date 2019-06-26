@@ -62,8 +62,17 @@ function handle_sdm_download_via_direct_post() {
 		$loginMsg = '';
 		if ( isset( $main_option[ 'general_login_page_url' ] ) && ! empty( $main_option[ 'general_login_page_url' ] ) ) {
 		    //We have a login page URL set. Lets use it.
-		    $tpl		 = __( "__Click here__ to go to login page.", 'simple-download-monitor' );
-		    $loginMsg	 = preg_replace( '/__(.*)__/', ' <a href="' . $main_option[ 'general_login_page_url' ] . '">$1</a> $2', $tpl );
+                    
+                    if ( isset( $main_option[ 'redirect_user_back_to_download_page' ] ) ) {
+                        //Redirect to download page after login feature is enabled.
+                        $redirect_url = sdm_get_current_page_url();
+                        $login_page_url = add_query_arg( array( 'sdm_redirect_to' => urlencode($redirect_url) ), $main_option[ 'general_login_page_url' ] );
+                    } else {
+                        $login_page_url = $main_option[ 'general_login_page_url' ];
+                    }
+        
+		    $tpl = __( "__Click here__ to go to login page.", 'simple-download-monitor' );
+		    $loginMsg	 = preg_replace( '/__(.*)__/', ' <a href="' . $login_page_url . '">$1</a> $2', $tpl );
 		}
 		wp_die( __( 'You need to be logged in to download this file.', 'simple-download-monitor' ) . $loginMsg );
 	    }

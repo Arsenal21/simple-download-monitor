@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.2
-Stable tag: 3.7.8
+Stable tag: 3.7.9
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -186,8 +186,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.7.9 =
+= 3.7.9 =
 - Added a new option in the download configuration to disable the download button on the individual download page of an item.
+- Added a new utility function to read the current page's URL.
+- Moved the user login related options under a new settings section called "User Login Related".
+- Added a new feature to enable redirection of users back to the download page when they click on the login link and log into the site.
 
 = 3.7.8 = 
 - Added a new option in the download configuration to disable the individual download page of an item. Can be useful if you only want to allow downloading of the item from where you embed it.

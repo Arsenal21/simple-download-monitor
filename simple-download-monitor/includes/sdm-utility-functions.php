@@ -303,9 +303,34 @@ function sdm_get_default_download_button_text( $download_id ) {
 }
 
 /*
+ * Use this function to read the current page's URL
+ */
+function sdm_get_current_page_url() {
+    $page_url = 'http';
+
+    if (isset($_SERVER['SCRIPT_URI']) && !empty($_SERVER['SCRIPT_URI'])) {
+        $page_url = $_SERVER['SCRIPT_URI'];
+        $page_url = apply_filters('sdm_get_current_page_url', $page_url);
+        return $page_url;
+    }
+
+    if (isset($_SERVER["HTTPS"]) && ($_SERVER["HTTPS"] == "on")) {
+        $page_url .= "s";
+    }
+    $page_url .= "://";
+    if (isset($_SERVER["SERVER_PORT"]) && ($_SERVER["SERVER_PORT"] != "80")) {
+        $page_url .= ltrim($_SERVER["SERVER_NAME"], ".*") . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } else {
+        $page_url .= ltrim($_SERVER["SERVER_NAME"], ".*") . $_SERVER["REQUEST_URI"];
+    }
+    
+    $page_url = apply_filters('sdm_get_current_page_url', $page_url);
+    return $page_url;
+}
+
+/*
  * Use this function to redirect to a URL
  */
-
 function sdm_redirect_to_url( $url, $delay = '0', $exit = '1' ) {
     $url = apply_filters( 'sdm_before_redirect_to_url', $url );
     if ( empty( $url ) ) {

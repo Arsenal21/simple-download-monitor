@@ -183,6 +183,15 @@ function sdm_admin_menu_general_settings() {
     ?>
     <!-- END GENERAL OPTIONS DIV -->
 
+    <!-- BEGIN USER LOGIN OPTIONS DIV -->
+    <?php
+    // This prints out all hidden setting fields
+    do_settings_sections( 'user_login_options_section' );
+    settings_fields( 'sdm_downloads_options' );
+
+    submit_button();
+    ?>
+    <!-- END USER LOGIN OPTIONS DIV -->    
 
     <!-- BEGIN ADMIN OPTIONS DIV -->
     <?php
