@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.9
+ * Version: 3.7.9.1
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.9' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.9.1' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -29,6 +29,7 @@ include_once('includes/sdm-debug.php');
 include_once('includes/sdm-utility-functions.php');
 include_once('includes/sdm-utility-functions-admin-side.php');
 include_once('includes/sdm-download-request-handler.php');
+include_once('includes/sdm-user-login-related.php');
 include_once('includes/sdm-logs-list-table.php');
 include_once('includes/sdm-latest-downloads.php');
 include_once('includes/sdm-popular-downloads.php');
@@ -95,19 +96,7 @@ function sdm_init_time_tasks() {
     handle_sdm_download_via_direct_post();
     
     //Check if the redirect option is being used 
-    if(isset($_REQUEST['sdm_redirect_to']) && !empty($_REQUEST['sdm_redirect_to'])){
-        //Check if the "redirect_user_back_to_download_page" feature is enabled on this site.
-        $main_option = get_option( 'sdm_downloads_options' );
-        if ( isset( $main_option[ 'redirect_user_back_to_download_page' ] ) ) {
-            //Check if the user is logged-in (since we only want to redirect a logged-in user.
-            $visitor_name = sdm_get_logged_in_user();
-            if ($visitor_name !== false ) {
-                $redirect_url = urldecode($_REQUEST['sdm_redirect_to']);
-                wp_safe_redirect( $redirect_url );//user wp safe redirect.
-                exit;
-            }
-        }
-    }
+    sdm_check_redirect_query_and_settings();
         
     if ( is_admin() ) {
 	//Register Google Charts library
@@ -707,7 +696,7 @@ class simpleDownloadManager {
 	
         add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
 	add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
-        add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users Back to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
+        add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
         
 	add_settings_field( 'admin_tinymce_button', __( 'Remove Tinymce Button', 'simple-download-monitor' ), array( $this, 'admin_tinymce_button_cb' ), 'admin_options_section', 'admin_options' );
 	add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
@@ -832,7 +821,7 @@ class simpleDownloadManager {
 	$main_opts	 = get_option( 'sdm_downloads_options' );
 	$value		 = isset( $main_opts[ 'redirect_user_back_to_download_page' ] ) && $main_opts[ 'redirect_user_back_to_download_page' ];
 	echo '<input name="sdm_downloads_options[redirect_user_back_to_download_page]" id="redirect_user_back_to_download_page" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
-	echo '<label for="redirect_user_back_to_download_page">' . __( 'Only works if you have set a Login Page URL value above. Enable this option if you want to redirect the users back to the download page after they log into the site.', 'simple-download-monitor' ) . '</label>';
+	echo '<label for="redirect_user_back_to_download_page">' . __( 'Only works if you have set a Login Page URL value above. Enable this option if you want to redirect the users to the download page after they log into the site.', 'simple-download-monitor' ) . '</label>';
     }
     
     public function general_login_page_url_cb() {

@@ -65,7 +65,8 @@ function handle_sdm_download_via_direct_post() {
                     
                     if ( isset( $main_option[ 'redirect_user_back_to_download_page' ] ) ) {
                         //Redirect to download page after login feature is enabled.
-                        $redirect_url = sdm_get_current_page_url();
+                        $dl_post_url = get_permalink( $download_id );//The single download item page
+                        $redirect_url = apply_filters('sdm_after_login_redirect_query_arg', $dl_post_url);
                         $login_page_url = add_query_arg( array( 'sdm_redirect_to' => urlencode($redirect_url) ), $main_option[ 'general_login_page_url' ] );
                     } else {
                         $login_page_url = $main_option[ 'general_login_page_url' ];
