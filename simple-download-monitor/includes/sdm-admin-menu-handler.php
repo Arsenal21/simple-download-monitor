@@ -156,7 +156,6 @@ function sdm_create_settings_page() {
     	    <h3 class="hndle"><label for="title"><?php _e( 'Social', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
 		    <?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> | 
-		    <?php echo sprintf( __( '<a target="_blank" href="%s">Google Plus</a>', 'simple-download-monitor' ), 'https://plus.google.com/+Tipsandtricks-hq/' ); ?> | 
 		    <?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
     	    </div>
     	</div>
