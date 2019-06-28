@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.8.0 =
+- "Downloads by country" stats tab now requires Google Maps API Key to work properly.
+
 = 3.7.9.1 =
 - Improved the after login redirection feature so it is compatible with login via wp-login.php.
 - Added a new filter hook.

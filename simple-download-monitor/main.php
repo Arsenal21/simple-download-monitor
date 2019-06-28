@@ -82,7 +82,6 @@ function sdm_plugins_loaded_tasks() {
 
     //Handle db upgrade stuff
     sdm_db_update_check();
-    
 }
 
 /*
@@ -94,10 +93,10 @@ add_action( 'admin_init', 'sdm_admin_init_time_tasks' );
 function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
-    
+
     //Check if the redirect option is being used 
     sdm_check_redirect_query_and_settings();
-        
+
     if ( is_admin() ) {
 	//Register Google Charts library
 	wp_register_script( 'sdm_google_charts', 'https://www.gstatic.com/charts/loader.js', array(), null, true );
@@ -389,30 +388,30 @@ class simpleDownloadManager {
 		//Does nothing at the moment.
 	    }
 	}
-        
+
 	//Check the sdm_item_disable_single_download_page value
-	$sdm_item_disable_single_download_page = get_post_meta( $post->ID, 'sdm_item_disable_single_download_page', true );
-        $sdm_item_hide_dl_button_single_download_page = get_post_meta( $post->ID, 'sdm_item_hide_dl_button_single_download_page', true );
-        
+	$sdm_item_disable_single_download_page		 = get_post_meta( $post->ID, 'sdm_item_disable_single_download_page', true );
+	$sdm_item_hide_dl_button_single_download_page	 = get_post_meta( $post->ID, 'sdm_item_hide_dl_button_single_download_page', true );
+
 	echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked( true, $new_window, false ) . ' />';
 	echo '<label for="sdm_item_new_window">' . __( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
-        //the new window will have no download button      
-        echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
+	//the new window will have no download button      
+	echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_hide_dl_button_single_download_page">';
-        
-        $disable_dl_button_label = __( 'Hide the download button on the single download page of this item.', 'simple-download-monitor' );
-        echo $disable_dl_button_label . '</label>';
-        echo '</p>';
-        
+
+	$disable_dl_button_label = __( 'Hide the download button on the single download page of this item.', 'simple-download-monitor' );
+	echo $disable_dl_button_label . '</label>';
+	echo '</p>';
+
 	echo '<p> <input id="sdm_item_disable_single_download_page" type="checkbox" name="sdm_item_disable_single_download_page" value="yes"' . checked( true, $sdm_item_disable_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_disable_single_download_page">';
-        $disable_single_dl_label = __( 'Disable the single download page for this download item. ', 'simple-download-monitor' );
-        $disable_single_dl_label .= __( 'This can be useful if you are using an addon like the ', 'simple-download-monitor' );
-        $disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>' . '.';
-        echo $disable_single_dl_label . '</label>';
-        echo '</p>';
-        
+	$disable_single_dl_label = __( 'Disable the single download page for this download item. ', 'simple-download-monitor' );
+	$disable_single_dl_label .= __( 'This can be useful if you are using an addon like the ', 'simple-download-monitor' );
+	$disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>' . '.';
+	echo $disable_single_dl_label . '</label>';
+	echo '</p>';
+
 	wp_nonce_field( 'sdm_misc_properties_box_nonce', 'sdm_misc_properties_box_nonce_check' );
     }
 
@@ -591,14 +590,14 @@ class simpleDownloadManager {
 	    return;
 	}
 	// Get POST-ed data as boolean value
-	$new_window_open = filter_input( INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN );
-        $sdm_item_hide_dl_button_single_download_page =  filter_input( INPUT_POST, 'sdm_item_hide_dl_button_single_download_page', FILTER_VALIDATE_BOOLEAN );
-        $sdm_item_disable_single_download_page = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
-       
-        //Save the data
+	$new_window_open				 = filter_input( INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN );
+	$sdm_item_hide_dl_button_single_download_page	 = filter_input( INPUT_POST, 'sdm_item_hide_dl_button_single_download_page', FILTER_VALIDATE_BOOLEAN );
+	$sdm_item_disable_single_download_page		 = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
+
+	//Save the data
 	update_post_meta( $post_id, 'sdm_item_new_window', $new_window_open );
-        update_post_meta( $post_id, 'sdm_item_hide_dl_button_single_download_page', $sdm_item_hide_dl_button_single_download_page );
-        update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );
+	update_post_meta( $post_id, 'sdm_item_hide_dl_button_single_download_page', $sdm_item_hide_dl_button_single_download_page );
+	update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );
     }
 
     public function sdm_save_thumbnail_meta_data( $post_id ) {  // Save Thumbnail Upload metabox
@@ -683,7 +682,7 @@ class simpleDownloadManager {
 
 	//Add all the settings section that will go under the main settings
 	add_settings_section( 'general_options', __( 'General Options', 'simple-download-monitor' ), array( $this, 'general_options_cb' ), 'general_options_section' );
-        add_settings_section( 'user_login_options', __( 'User Login Related', 'simple-download-monitor' ), array( $this, 'user_login_options_cb' ), 'user_login_options_section' );
+	add_settings_section( 'user_login_options', __( 'User Login Related', 'simple-download-monitor' ), array( $this, 'user_login_options_cb' ), 'user_login_options_section' );
 	add_settings_section( 'admin_options', __( 'Admin Options', 'simple-download-monitor' ), array( $this, 'admin_options_cb' ), 'admin_options_section' );
 
 	add_settings_section( 'sdm_colors', __( 'Colors', 'simple-download-monitor' ), array( $this, 'sdm_colors_cb' ), 'sdm_colors_section' );
@@ -693,11 +692,11 @@ class simpleDownloadManager {
 	//Add all the individual settings fields that goes under the sections
 	add_settings_field( 'general_hide_donwload_count', __( 'Hide Download Count', 'simple-download-monitor' ), array( $this, 'hide_download_count_cb' ), 'general_options_section', 'general_options' );
 	add_settings_field( 'general_default_dispatch_value', __( 'PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_default_dispatch_value_cb' ), 'general_options_section', 'general_options' );
-	
-        add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
+
+	add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
 	add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
-        add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
-        
+	add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
+
 	add_settings_field( 'admin_tinymce_button', __( 'Remove Tinymce Button', 'simple-download-monitor' ), array( $this, 'admin_tinymce_button_cb' ), 'admin_options_section', 'admin_options' );
 	add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 	add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
@@ -715,6 +714,7 @@ class simpleDownloadManager {
 	add_settings_section( 'recaptcha_options', __( 'Google Captcha (reCAPTCHA)', 'simple-download-monitor' ), array( $this, 'recaptcha_options_cb' ), 'recaptcha_options_section' );
 	add_settings_section( 'termscond_options', __( 'Terms and Conditions', 'simple-download-monitor' ), array( $this, 'termscond_options_cb' ), 'termscond_options_section' );
 	add_settings_section( 'adsense_options', __( 'Adsense/Ad Insertion', 'simple-download-monitor' ), array( $this, 'adsense_options_cb' ), 'adsense_options_section' );
+	add_settings_section( 'maps_api_options', __( 'Google Maps API Key', 'simple-download-monitor' ), array( $this, 'maps_api_options_cb' ), 'maps_api_options_section' );
 
 	//Add reCAPTCHA section fields
 	add_settings_field( 'recaptcha_enable', __( 'Enable reCAPTCHA', 'simple-download-monitor' ), array( $this, 'recaptcha_enable_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
@@ -727,6 +727,9 @@ class simpleDownloadManager {
 
 	//Add Adsense section fields
 	add_settings_field( 'adsense_below_description', __( 'Below Download Description', 'simple-download-monitor' ), array( $this, 'adsense_below_description_cb' ), 'adsense_options_section', 'adsense_options' );
+
+	//Maps API section fields
+	add_settings_field( 'maps_api_key', __( 'API Key', 'simple-download-monitor' ), array( $this, 'maps_api_key_cb' ), 'maps_api_options_section', 'maps_api_options' );
     }
 
     public function general_options_cb() {
@@ -738,7 +741,7 @@ class simpleDownloadManager {
 	//Set the message that will be shown below the user login related settings heading
 	_e( 'Visitor login related settings (useful if you only want to allow logged-in users to be able to download files.', 'simple-download-monitor' );
     }
-    
+
     public function admin_options_cb() {
 	//Set the message that will be shown below the admin options settings heading
 	_e( 'Admin options settings', 'simple-download-monitor' );
@@ -774,6 +777,10 @@ class simpleDownloadManager {
     public function adsense_options_cb() {
 	//Set the message that will be shown below the adsense/ad code settings heading
 	_e( 'You can use this section to insert adsense or other ad code inside the download item output', 'simple-download-monitor' );
+    }
+
+    public function maps_api_options_cb() {
+	_e( 'Google Maps API key is required for proper "Downloads by country" chart display.', 'simple-download-monitor' );
     }
 
     public function recaptcha_enable_cb() {
@@ -823,7 +830,7 @@ class simpleDownloadManager {
 	echo '<input name="sdm_downloads_options[redirect_user_back_to_download_page]" id="redirect_user_back_to_download_page" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
 	echo '<label for="redirect_user_back_to_download_page">' . __( 'Only works if you have set a Login Page URL value above. Enable this option if you want to redirect the users to the download page after they log into the site.', 'simple-download-monitor' ) . '</label>';
     }
-    
+
     public function general_login_page_url_cb() {
 	$main_opts	 = get_option( 'sdm_downloads_options' );
 	$value		 = isset( $main_opts[ 'general_login_page_url' ] ) ? $main_opts[ 'general_login_page_url' ] : '';
@@ -905,6 +912,13 @@ class simpleDownloadManager {
 	//echo '<input size="100" name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" type="text" value="'.$value.'" /> ';
 	echo '<textarea name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" rows="6" cols="60">' . $value . '</textarea>';
 	echo '<p class="description">' . __( 'Enter the Adsense or Ad code that you want to show below the download item description.', 'simple-download-monitor' ) . '</p>';
+    }
+
+    public function maps_api_key_cb() {
+	$main_opts	 = get_option( 'sdm_advanced_options' );
+	$value		 = isset( $main_opts[ 'maps_api_key' ] ) ? $main_opts[ 'maps_api_key' ] : '';
+	echo '<input size="100" name="sdm_advanced_options[maps_api_key]" id="maps_api_key" type="text" value="' . $value . '" />';
+	echo '<p class="description">' . __( 'Enter your Google Maps API key. You can create new key using these <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">instructions</a>.', 'simple-download-monitor' ) . '</p>';
     }
 
     public function sdm_add_clone_record_btn( $action, $post ) {

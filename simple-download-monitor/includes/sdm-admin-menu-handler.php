@@ -21,10 +21,11 @@ add_filter( 'whitelist_options', 'sdm_admin_menu_function_hook' );
  * @return string
  */
 function sdm_admin_menu_function_hook( $whitelist_options = array() ) {
-    $whitelist_options[ 'recaptcha_options_section' ] = array( 'sdm_advanced_options' );
-    $whitelist_options[ 'termscond_options_section' ] = array( 'sdm_advanced_options' );
-    $whitelist_options[ 'adsense_options_section' ] = array( 'sdm_advanced_options' );
-    
+    $whitelist_options[ 'recaptcha_options_section' ]	 = array( 'sdm_advanced_options' );
+    $whitelist_options[ 'termscond_options_section' ]	 = array( 'sdm_advanced_options' );
+    $whitelist_options[ 'adsense_options_section' ]		 = array( 'sdm_advanced_options' );
+    $whitelist_options[ 'maps_api_options_section' ]	 = array( 'sdm_advanced_options' );
+
     return $whitelist_options;
 }
 
@@ -245,7 +246,7 @@ function sdm_admin_menu_general_settings() {
     			    jQuery(location).attr('href', '<?php echo get_admin_url() . 'plugins.php'; ?>');
     			    return true;
     			} else {
-    			    alert('<?php echo __( 'Error occured.', 'simple-download-monitor' ); ?>');
+    			    alert('<?php echo __( 'Error occurred.', 'simple-download-monitor' ); ?>');
     			}
     		    });
     	} else {
@@ -268,7 +269,6 @@ function sdm_admin_menu_general_settings() {
 
 function sdm_admin_menu_advanced_settings() {
     //More advanced options will be added here in the future.
-
     // This prints out all hidden setting fields
     do_settings_sections( 'recaptcha_options_section' );
     settings_fields( 'recaptcha_options_section' );
@@ -281,59 +281,63 @@ function sdm_admin_menu_advanced_settings() {
     do_settings_sections( 'adsense_options_section' );
     settings_fields( 'adsense_options_section' );
     submit_button();
-    
+
+    do_settings_sections( 'maps_api_options_section' );
+    settings_fields( 'maps_api_options_section' );
+    submit_button();
 }
 
 /*
  * * Logs menu page
  */
-function sdm_create_logs_page(){
-    if (!current_user_can('manage_options')) {
-        wp_die('You do not have permission to access this settings page.');
+
+function sdm_create_logs_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+	wp_die( 'You do not have permission to access this settings page.' );
     }
 
     echo '<div class="wrap">';
-            
+
     $sdm_logs_menu_tabs = array(
-        'sdm-logs' => __('Main Logs', 'simple-download-monitor'),
-        'sdm-logs&action=sdm-logs-by-download' => __('Specific Item Logs', 'simple-download-monitor'),
+	'sdm-logs'				 => __( 'Main Logs', 'simple-download-monitor' ),
+	'sdm-logs&action=sdm-logs-by-download'	 => __( 'Specific Item Logs', 'simple-download-monitor' ),
     );
 
     $current = "";
-    if (isset($_GET['page'])) {
-        $current = sanitize_text_field($_GET['page']);
-        if (isset($_GET['action'])) {
-            $current .= "&action=" . sanitize_text_field($_GET['action']);
-        }
+    if ( isset( $_GET[ 'page' ] ) ) {
+	$current = sanitize_text_field( $_GET[ 'page' ] );
+	if ( isset( $_GET[ 'action' ] ) ) {
+	    $current .= "&action=" . sanitize_text_field( $_GET[ 'action' ] );
+	}
     }
     $content = '';
     $content .= '<h2 class="nav-tab-wrapper">';
-    foreach ($sdm_logs_menu_tabs as $location => $tabname) {
-        if ($current == $location) {
-            $class = ' nav-tab-active';
-        } else {
-            $class = '';
-        }
-        $content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+    foreach ( $sdm_logs_menu_tabs as $location => $tabname ) {
+	if ( $current == $location ) {
+	    $class = ' nav-tab-active';
+	} else {
+	    $class = '';
+	}
+	$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
     }
     $content .= '</h2>';
     echo $content;
-    
-    if (isset($_GET['action'])) {
-        switch ($_GET['action']) {
-            case 'sdm-logs-by-download':
-                include_once (WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php');
-                sdm_handle_individual_logs_tab_page();
-                break;
+
+    if ( isset( $_GET[ 'action' ] ) ) {
+	switch ( $_GET[ 'action' ] ) {
+	    case 'sdm-logs-by-download':
+		include_once (WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php');
+		sdm_handle_individual_logs_tab_page();
+		break;
 	    default:
-                sdm_handle_logs_main_tab_page();
-                break;
-        }
+		sdm_handle_logs_main_tab_page();
+		break;
+	}
     } else {
-        sdm_handle_logs_main_tab_page();
+	sdm_handle_logs_main_tab_page();
     }
-    
-    echo '</div>';//<!-- end of wrap -->
+
+    echo '</div>'; //<!-- end of wrap -->
 }
 
 function sdm_handle_logs_main_tab_page() {
@@ -365,46 +369,46 @@ function sdm_handle_logs_main_tab_page() {
     $sdmListTable->prepare_items();
     ?>    
 
-        <h2><?php _e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
+    <h2><?php _e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
 
-        <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-    	<p><?php _e( 'This page lists all tracked downloads.', 'simple-download-monitor' ); ?></p>
-        </div>
+    <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
+        <p><?php _e( 'This page lists all tracked downloads.', 'simple-download-monitor' ); ?></p>
+    </div>
 
-        <div id="poststuff"><div id="post-body">
+    <div id="poststuff"><div id="post-body">
 
-    	    <!-- Log export button -->
-    	    <div class="postbox">
-    		<h3 class="hndle"><label for="title"><?php _e( 'Export Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
-    		<div class="inside">
-    		    <form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >
-    			<div class="submit">
-    			    <input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>" />
-    			</div>
-    		    </form>
-    		</div>
-            </div>
+    	<!-- Log export button -->
+    	<div class="postbox">
+    	    <h3 class="hndle"><label for="title"><?php _e( 'Export Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
+    	    <div class="inside">
+    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >
+    		    <div class="submit">
+    			<input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>" />
+    		    </div>
+    		</form>
+    	    </div>
+    	</div>
 
-    	    <!-- Log reset button -->
-    	    <div class="postbox">
-    		<h3 class="hndle"><label for="title"><?php _e( 'Reset Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
-    		<div class="inside">
-    		    <form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >
-    			<div class="submit">
-    			    <input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
-    			</div>
-    		    </form>
-    		</div>
-            </div>
+    	<!-- Log reset button -->
+    	<div class="postbox">
+    	    <h3 class="hndle"><label for="title"><?php _e( 'Reset Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
+    	    <div class="inside">
+    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >
+    		    <div class="submit">
+    			<input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
+    		    </div>
+    		</form>
+    	    </div>
+    	</div>
 
-    	</div></div><!-- end of .poststuff and .post-body -->
+        </div></div><!-- end of .poststuff and .post-body -->
 
-        <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
-        <form id="sdm_downloads-filter" method="post">
-    	<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST[ 'page' ] ) ?>" />
-    	<!-- Now we can render the completed list table -->
-	    <?php $sdmListTable->display() ?>
-        </form>
+    <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
+    <form id="sdm_downloads-filter" method="post">
+        <input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST[ 'page' ] ) ?>" />
+        <!-- Now we can render the completed list table -->
+	<?php $sdmListTable->display() ?>
+    </form>
 
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
@@ -449,7 +453,22 @@ function sdm_create_stats_page() {
     $downloads_by_date = sdm_get_downloads_by_date( $start_date, $end_date );
 
     $downloads_by_country = sdm_get_downloads_by_country( $start_date, $end_date );
+
+    $adv_opts = get_option( 'sdm_advanced_options' );
+
+    $api_key = '';
+    if ( isset( $adv_opts[ 'maps_api_key' ] ) ) {
+	$api_key = $adv_opts[ 'maps_api_key' ];
+    }
     ?>
+    <style>
+        #sdm-api-key-warning {
+    	padding: 5px 0;
+    	width: auto;
+    	margin: 5px 0;
+    	display: none;
+        }
+    </style>
     <div class="wrap">
         <h2><?php _e( 'Stats', 'simple-download-monitor' ); ?></h2>
         <div id="poststuff"><div id="post-body">
@@ -483,6 +502,10 @@ function sdm_create_stats_page() {
     		    <div id="downloads_chart" style="width: 700px;"></div>
     		</div>
     		<div data-tab-name="geochart" class="sdm-tab"<?php echo ($active_tab == 'geochart' ? '' : ' style="display:none;"'); ?>>
+    		    <div id="sdm-api-key-warning">
+    			<span class="dashicons dashicons-warning" style="color: #ffae42;"></span>
+			    <?php _e( 'Enter your Google Maps API Key <a href="edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key" target="_blank">in the settings</a> in order to properly display the chart.', 'simple-download-monitor' ); ?>
+    		    </div>
     		    <div id="country_chart" style="width: 700px;height:437px;"></div>
     		</div>
     	    </div>
@@ -493,18 +516,27 @@ function sdm_create_stats_page() {
         sdm.datechart = false;
         sdm.geochart = false;
         sdm.activeTab = '<?php echo $active_tab; ?>';
+        sdm.apiKey = '<?php echo esc_js( $api_key ); ?>';
         jQuery('#sdm_date_buttons button').click(function (e) {
     	jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
     	jQuery('#sdm_choose_date').find('input[name="sdm_stats_end_date"]').val(jQuery(this).attr('data-end-date'));
         });
         function sdm_init_chart(tab) {
-    	if (!sdm.datechart && tab == 'datechart') {
+    	if (!sdm.datechart && tab === 'datechart') {
     	    sdm.datechart = true;
     	    google.charts.load('current', {'packages': ['corechart']});
     	    google.charts.setOnLoadCallback(sdm_drawDateChart);
-    	} else if (!sdm.geochart && tab == 'geochart') {
+    	} else if (!sdm.geochart && tab === 'geochart') {
     	    sdm.geochart = true;
-    	    google.charts.load('current', {'packages': ['geochart'], 'mapsApiKey': 'AIzaSyAjtHaEc8TX3JbzxWgjS96MiN7p7ePQilM'});
+    	    var chartOpts = {};
+    	    chartOpts.packages = ['geochart'];
+    	    if (sdm.apiKey) {
+    		chartOpts.mapsApiKey = sdm.apiKey;
+    	    } else {
+    		//show API Key warning
+    		jQuery('#sdm-api-key-warning').fadeIn('slow');
+    	    }
+    	    google.charts.load('current', chartOpts);
     	    google.charts.setOnLoadCallback(sdm_drawGeoChart);
     	}
         }
@@ -518,7 +550,7 @@ function sdm_create_stats_page() {
     	sdm_dateChart.draw(sdm_dateData, {width: 700, height: 300, title: '<?php _e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
     	    hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
     	    vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
-    	    legend: 'top',
+    	    legend: 'top'
     	});
         }
         function sdm_drawGeoChart() {
