@@ -59,6 +59,37 @@
 .sdm-g-recaptcha{
     margin-bottom: 10px;
 }
+
+/************************************/
+/*** Various Colored Boxes Styles ***/
+/************************************/
+.sdm_yellow_box {
+background: #FFF6D5;
+border: 1px solid #D1B655;
+color: #3F2502;
+margin: 10px 0px 10px 0px;
+padding: 5px 5px 5px 10px;
+text-shadow: 1px 1px #FFFFFF;
+}
+
+.sdm_grey_box{
+background: #ECECEC;
+border: 1px solid #CFCFCF;
+color: #363636;
+margin: 10px 0px 15px 0px;
+padding: 5px 5px 5px 10px;
+text-shadow: 1px 1px #FFFFFF;	
+}
+
+.sdm_blue_box{
+background: #D7E7F5;
+border: 1px solid #AACEE6;
+color: #1D263B;
+margin: 10px 0px 15px 0px;
+padding: 5px 5px 5px 10px;
+text-shadow: 1px 1px #FFFFFF;	
+}
+
 /********************************************/
 /*** Individual Download Item View Styles ***/
 /********************************************/

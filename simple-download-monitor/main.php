@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.7.9.1
+ * Version: 3.8.0
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.7.9.1' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.8.0' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -780,7 +780,7 @@ class simpleDownloadManager {
     }
 
     public function maps_api_options_cb() {
-	_e( 'Google Maps API key is required for proper "Downloads by country" chart display.', 'simple-download-monitor' );
+	_e( 'Google Maps API key is required to display the "Downloads by Country" chart.', 'simple-download-monitor' );
     }
 
     public function recaptcha_enable_cb() {
@@ -918,7 +918,7 @@ class simpleDownloadManager {
 	$main_opts	 = get_option( 'sdm_advanced_options' );
 	$value		 = isset( $main_opts[ 'maps_api_key' ] ) ? $main_opts[ 'maps_api_key' ] : '';
 	echo '<input size="100" name="sdm_advanced_options[maps_api_key]" id="maps_api_key" type="text" value="' . $value . '" />';
-	echo '<p class="description">' . __( 'Enter your Google Maps API key. You can create new key using these <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">instructions</a>.', 'simple-download-monitor' ) . '</p>';
+	echo '<p class="description">' . __( 'Enter your Google Maps API key. You can create new API key using <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">this instruction</a>.', 'simple-download-monitor' ) . '</p>';
     }
 
     public function sdm_add_clone_record_btn( $action, $post ) {
