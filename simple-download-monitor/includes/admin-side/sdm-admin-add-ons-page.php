@@ -12,20 +12,20 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
             $addons_data = array();
             
             $addon_1 = array(
-                "name" => "Amazon S3 Integration",
-                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-amazon-s3-addon-icon.png",
-                "description" => "Allows you to securely store and deliver digital downloads using Amazon's Simple Storage Service (S3)",
-                "page_url" => "https://simple-download-monitor.com/amazon-s3-integration-addon/",
-            );
-            array_push($addons_data, $addon_1);
-
-            $addon_2 = array(
                 "name" => "Squeeze Form Addon",
                 "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-squeeze-form-addon-icon.png",
                 "description" => "This addone lets you collect visitor's name and email address in exchange for a downloadable item of your site.",
                 "page_url" => "https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/",
             );
-            array_push($addons_data, $addon_2);
+            array_push($addons_data, $addon_1);
+            
+            $addon_2 = array(
+                "name" => "Email on Download",
+                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-email-on-download-addon-icon.png",
+                "description" => "The Email Notification Addon sends you (the site admin) an email whenever one of your files is downloaded.",
+                "page_url" => "https://simple-download-monitor.com/email-notification-on-download-addon-for-the-simple-download-monitor/",
+            );
+            array_push($addons_data, $addon_2);            
 
             $addon_3 = array(
                 "name" => "Hidden Downloads",
@@ -34,12 +34,12 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
                 "page_url" => "https://simple-download-monitor.com/hidden-downloads-for-simple-download-monitor/",
             );
             array_push($addons_data, $addon_3);
-
+            
             $addon_4 = array(
-                "name" => "Email on Download",
-                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-email-on-download-addon-icon.png",
-                "description" => "The Email Notification Addon sends you (the site admin) an email whenever one of your files is downloaded.",
-                "page_url" => "https://simple-download-monitor.com/email-notification-on-download-addon-for-the-simple-download-monitor/",
+                "name" => "Amazon S3 Integration",
+                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-amazon-s3-addon-icon.png",
+                "description" => "Allows you to securely store and deliver digital downloads using Amazon's Simple Storage Service (S3)",
+                "page_url" => "https://simple-download-monitor.com/amazon-s3-integration-addon/",
             );
             array_push($addons_data, $addon_4);
             
