@@ -501,8 +501,8 @@ function sdm_create_stats_page() {
     		    <div id="downloads_chart" style="width: 700px;"></div>
     		</div>
     		<div data-tab-name="geochart" class="sdm-tab"<?php echo ($active_tab == 'geochart' ? '' : ' style="display:none;"'); ?>>
-                    <div class="sdm_yellow_box">
-                        <div id="sdm-api-key-warning">
+                    <div id="sdm-api-key-warning">
+                        <div class="sdm_yellow_box">
                             <span class="dashicons dashicons-warning" style="color: #ffae42;"></span>
                                 <?php _e( 'Enter your Google Maps API Key <a href="edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key" target="_blank">in the settings</a> to properly display the chart.', 'simple-download-monitor' ); ?>
                         </div>
