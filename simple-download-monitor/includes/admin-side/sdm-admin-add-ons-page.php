@@ -25,7 +25,7 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
                 "description" => "The Email Notification Addon sends you (the site admin) an email whenever one of your files is downloaded.",
                 "page_url" => "https://simple-download-monitor.com/email-notification-on-download-addon-for-the-simple-download-monitor/",
             );
-            array_push($addons_data, $addon_2);            
+            array_push($addons_data, $addon_2);
 
             $addon_3 = array(
                 "name" => "Hidden Downloads",
@@ -57,7 +57,15 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
                 "description" => "Allows you to configure downloads from your Dropbox account so the visitors can download it from your site.",
                 "page_url" => "https://simple-download-monitor.com/dropbox-addon-for-the-simple-download-monitor/",
             );
-            array_push($addons_data, $addon_6);            
+            array_push($addons_data, $addon_6);
+            
+            $addon_7 = array(
+                "name" => "WP eMember Integration",
+                "thumbnail" => WP_SIMPLE_DL_MONITOR_URL . "/images/addons/sdm-emember-integration.png",
+                "description" => "Allows you to view which member is downloading which item(s). So you can create more downloads that members will like.",
+                "page_url" => "https://simple-download-monitor.com/tracking-member-downloads/",
+            );
+            array_push($addons_data, $addon_7);            
             
             /*** Show the addons list ***/
             foreach ($addons_data as $addon) {
