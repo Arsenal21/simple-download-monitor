@@ -495,6 +495,7 @@ function sdm_create_stats_page() {
     	    <div class="nav-tab-wrapper sdm-tabs">
     		<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart"><?php _e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
     		<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart"><?php _e( 'Downloads by country', 'simple-download-monitor' ); ?></a>
+                <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ($active_tab == 'countrylistchart' ? ' nav-tab-active' : ''); ?>" data-tab-name="countrylistchart"><?php _e('Downloads by country list', 'simple-download-monitor'); ?></a>
     	    </div>
     	    <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
     		<div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
@@ -510,6 +511,38 @@ function sdm_create_stats_page() {
                     
     		    <div id="country_chart" style="width: 700px;height:437px;"></div>
     		</div>
+                
+                <div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ($active_tab == 'countrylistchart' ? '' : ' style="display:none;"'); ?>>
+                    <div class="wrap">                                
+                        <table class="widefat">
+                            <thead>
+                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>                                      
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th> 
+                            </thead>                               
+                            <tbody>                                  
+                                <?php
+                                //An array containing the downloads.
+                                $downloads_by_country_array = sdm_get_downloads_by_country($start_date, $end_date, false);
+                                foreach ($downloads_by_country_array as $item) {
+                                    if(empty($item['country'])){
+                                        //Lets skip any unknown country rows
+                                        continue;
+                                    }
+                                    echo '<tr>';
+                                    echo '<td>' . $item['country'] . '</td>';
+                                    echo '<td>' . $item['cnt'] . '</td>';
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
+                            <tfoot>
+                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>                                        
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th> 
+                            </tfoot>                            
+                        </table>
+                    </div>
+                </div><!-- end of countrylistchart -->
+                
     	    </div>
     	</div></div>
     </div>
