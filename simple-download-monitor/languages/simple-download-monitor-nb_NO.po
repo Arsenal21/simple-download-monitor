@@ -1,0 +1,1406 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Download Monitor\n"
+"POT-Creation-Date: 2019-09-11 10:45+0200\n"
+"PO-Revision-Date: 2019-09-12 15:04+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: main.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:5
+msgid "Specific Download Item Logs"
+msgstr "Logg for bestemte nedlastingsobjekter"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:22
+msgid "This menu allows you to view the download logs of individual items."
+msgstr "Denne menyen lar deg se nedlastingslogg for individuelle objekter."
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:28
+msgid "View Specific Item Logs"
+msgstr "Vis logg for spesifikke objekter"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:31
+msgid "Enter the Download ID of the item: "
+msgstr "Angi nedlastings ID for objektet: "
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:34
+msgid ""
+"You can find the Download ID of an item from the Downloads menu of the "
+"plugin."
+msgstr ""
+"Du kan finne nedlastings ID for et objekt fra nedlastingsmenyen i denne "
+"utvidelsen."
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:37
+msgid "View Logs"
+msgstr "Vis logger"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:54
+msgid ""
+"The following table shows the download logs of the item with Download ID: "
+msgstr ""
+"Følgende tabell viser nedlastingsloggene for elementet med nedlastings ID: "
+
+#: includes/sdm-admin-menu-handler.php:9
+msgid "Logs"
+msgstr "Logger"
+
+#: includes/sdm-admin-menu-handler.php:10
+#: includes/sdm-admin-menu-handler.php:472
+msgid "Stats"
+msgstr "Statistikk"
+
+#: includes/sdm-admin-menu-handler.php:11 main.php:187
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: includes/sdm-admin-menu-handler.php:12
+#: includes/sdm-admin-menu-handler.php:129
+msgid "Add-ons"
+msgstr "Tillegg"
+
+#: includes/sdm-admin-menu-handler.php:74
+msgid "Simple Download Monitor Settings Page"
+msgstr "Simple Download Monitor - Innstillinger"
+
+#: includes/sdm-admin-menu-handler.php:79
+msgid "General Settings"
+msgstr "Generelle innstillinger"
+
+#: includes/sdm-admin-menu-handler.php:80
+msgid "Advanced Settings"
+msgstr "Avanserte innstillinger"
+
+#: includes/sdm-admin-menu-handler.php:123
+msgid "Plugin Documentation"
+msgstr "Plugin Dokumentasjon"
+
+#: includes/sdm-admin-menu-handler.php:125
+#, php-format
+msgid ""
+"Please read the <a target=\"_blank\" href=\"%s\">Simple Download Monitor</a> "
+"plugin setup instructions and tutorials to learn how to configure and use it."
+msgstr ""
+"Vennligst les <a target=\"_blank\" href=\"%s\">Simplee Download Monitor</a> "
+"plugin installasjonsinstruksjoner og opplæringsprogrammer for å lære hvordan "
+"du konfigurerer og bruker den."
+
+#: includes/sdm-admin-menu-handler.php:131
+#, php-format
+msgid ""
+"Want additional functionality? Check out our <a target=\"_blank\" href=\"%s"
+"\">Add-Ons!</a>"
+msgstr ""
+"Vil du ha mer funksjonalitet? Sjekk ut våre <a target=\"_blank\" href=\"%s"
+"\">tillegg!</a>"
+
+#: includes/sdm-admin-menu-handler.php:135
+msgid "Rate Us"
+msgstr "Ranger oss"
+
+#: includes/sdm-admin-menu-handler.php:137
+#, php-format
+msgid ""
+"Like the plugin? Please give us a <a href=\"%s\" target=\"_blank\">rating!</"
+"a>"
+msgstr ""
+"Liker du utvidelsen? Vennligst gi oss en <a href=\"%s\" target=\"_blank"
+"\">vurdering!</a>"
+
+#: includes/sdm-admin-menu-handler.php:150
+msgid "Our Other Plugins"
+msgstr "Våre andre utvidelser"
+
+#: includes/sdm-admin-menu-handler.php:152
+#, php-format
+msgid "Check out <a target=\"_blank\" href=\"%s\">our other plugins</a>"
+msgstr "Sjekk ut <a target=\"_blank\" href=\"%s\">våre andre utvidelser</a>"
+
+#: includes/sdm-admin-menu-handler.php:156
+msgid "Social"
+msgstr "Sosial"
+
+#: includes/sdm-admin-menu-handler.php:158
+#, php-format
+msgid "<a target=\"_blank\" href=\"%s\">Facebook</a>"
+msgstr "<a target=\"_blank\" href=\"%s\">Facebook</a>"
+
+#: includes/sdm-admin-menu-handler.php:159
+#, php-format
+msgid "<a target=\"_blank\" href=\"%s\">Twitter</a>"
+msgstr "<a target=\"_blank\" href=\"%s\">Twitter</a>"
+
+#: includes/sdm-admin-menu-handler.php:166
+msgid ""
+"If you need a feature rich and supported plugin for selling your digital "
+"items then checkout our"
+msgstr ""
+"Hvis du trenger en funksjonsrik og supported utvidelse for å selge dine "
+"digitale objekter bør du sjekke ut vår"
+
+#: includes/sdm-admin-menu-handler.php:166
+msgid "WP eStore Plugin"
+msgstr "WP eStore Plugin"
+
+#: includes/sdm-admin-menu-handler.php:239
+msgid "Are you sure want to delete all plugin's data and deactivate plugin?"
+msgstr "Er du sikker på at vil slette alle data og deaktivere utvidelsen?"
+
+#: includes/sdm-admin-menu-handler.php:244
+msgid ""
+"Data has been deleted and plugin deactivated. Click OK to go to Plugins page."
+msgstr ""
+"Data har blitt slettet og utvidelsen deaktivert. Klikk OK for å gå til siden "
+"for utvidelsen."
+
+#: includes/sdm-admin-menu-handler.php:248
+msgid "Error occurred."
+msgstr "Det oppstod en feil."
+
+#: includes/sdm-admin-menu-handler.php:301
+msgid "Main Logs"
+msgstr "Hovedlogger"
+
+#: includes/sdm-admin-menu-handler.php:302
+msgid "Specific Item Logs"
+msgstr "Logg for spesifikke objekter"
+
+#: includes/sdm-admin-menu-handler.php:349
+msgid "Log entries exported! Click on the following link to download the file."
+msgstr ""
+"Loggoppføringer eksportert! Klikk på følgende link for å laste ned filen."
+
+#: includes/sdm-admin-menu-handler.php:350
+msgid "Download Logs CSV File"
+msgstr "Last ned logger som CSV-fil"
+
+#: includes/sdm-admin-menu-handler.php:360
+msgid "Download log entries deleted!"
+msgstr "Oppføringer i nedlastingslogg slettet!"
+
+#: includes/sdm-admin-menu-handler.php:371
+msgid "Download Logs"
+msgstr "Nedlastingslogger"
+
+#: includes/sdm-admin-menu-handler.php:374
+msgid "This page lists all tracked downloads."
+msgstr "Denne siden viser alle sporede nedlastinger."
+
+#: includes/sdm-admin-menu-handler.php:381
+msgid "Export Download Log Entries"
+msgstr "Eksporter oppføringer i nedlastingslogg"
+
+#: includes/sdm-admin-menu-handler.php:385
+msgid "Export Log Entries to CSV File"
+msgstr "Eksporter loggoppføringer til CSV-fil"
+
+#: includes/sdm-admin-menu-handler.php:393
+msgid "Reset Download Log Entries"
+msgstr "Tilbakestill oppføringer i nedlastingslogg"
+
+#: includes/sdm-admin-menu-handler.php:397
+msgid "Reset Log Entries"
+msgstr "Tilbakestill loggoppføringer"
+
+#: includes/sdm-admin-menu-handler.php:476
+msgid "Choose Date Range (yyyy-mm-dd)"
+msgstr "Velg datointervall (ÅÅÅÅ-MM-DD)"
+
+#: includes/sdm-admin-menu-handler.php:480
+msgid "Start Date: "
+msgstr "Start dato: "
+
+#: includes/sdm-admin-menu-handler.php:481
+msgid "End Date: "
+msgstr "Sluttdato: "
+
+#: includes/sdm-admin-menu-handler.php:483
+msgid "This Month"
+msgstr "Denne måneden"
+
+#: includes/sdm-admin-menu-handler.php:484
+msgid "Last Month"
+msgstr "Siste måned"
+
+#: includes/sdm-admin-menu-handler.php:485
+msgid "This Year"
+msgstr "Dette året"
+
+#: includes/sdm-admin-menu-handler.php:486
+msgid "Last Year"
+msgstr "Siste ar"
+
+#: includes/sdm-admin-menu-handler.php:487
+msgid "All Time"
+msgstr "Siden starten"
+
+#: includes/sdm-admin-menu-handler.php:490
+msgid "View Stats"
+msgstr "Vis statistikk"
+
+#: includes/sdm-admin-menu-handler.php:496
+msgid "Downloads by date"
+msgstr "Nedlastinger etter dato"
+
+#: includes/sdm-admin-menu-handler.php:497
+msgid "Downloads by country"
+msgstr "Nedlastinger etter land"
+
+#: includes/sdm-admin-menu-handler.php:498
+msgid "Downloads by country list"
+msgstr "Nedlastinger etter liste for land"
+
+#: includes/sdm-admin-menu-handler.php:508
+msgid ""
+"Enter your Google Maps API Key <a href=\"edit.php?"
+"post_type=sdm_downloads&page=sdm-settings&action=advanced-"
+"settings#maps_api_key\" target=\"_blank\">in the settings</a> to properly "
+"display the chart."
+msgstr ""
+"Angi Google karts API-nøkkel <a href=\"edit.php?"
+"post_type=sdm_downloads&page=sdm-settings&action=advanced-"
+"settings#maps_api_key\" target=\"_blank\">i innstillingene</a> for å vise "
+"diagrammet på riktig måte."
+
+#: includes/sdm-admin-menu-handler.php:519
+#: includes/sdm-admin-menu-handler.php:539
+msgid "Country Name"
+msgstr "Navn på land"
+
+#: includes/sdm-admin-menu-handler.php:520
+#: includes/sdm-admin-menu-handler.php:540
+msgid "Total Downloads"
+msgstr "Totalt antall nedlastinger"
+
+#: includes/sdm-admin-menu-handler.php:580 includes/sdm-logs-list-table.php:73
+msgid "Date"
+msgstr "Dato"
+
+#: includes/sdm-admin-menu-handler.php:581
+msgid "Number of downloads"
+msgstr "Antall nedlastinger"
+
+#: includes/sdm-admin-menu-handler.php:585
+msgid "Downloads by Date"
+msgstr "Nedlastinger etter dato"
+
+#: includes/sdm-blocks.php:28
+msgid "Default"
+msgstr "Standard"
+
+#: includes/sdm-blocks.php:37
+msgid "SDM Download"
+msgstr "SDM-nedlasting"
+
+#: includes/sdm-blocks.php:38
+msgid "Download Item"
+msgstr "Last ned objekt"
+
+#: includes/sdm-blocks.php:39
+msgid "Select download item."
+msgstr "Velg nedlastingsobjekt."
+
+#: includes/sdm-blocks.php:40
+msgid "Button Text"
+msgstr "Tekst for knapp"
+
+#: includes/sdm-blocks.php:41
+msgid ""
+"Customized text for the download button. Leave it blank to use default text."
+msgstr ""
+"Tilpasset tekst for nedlasting-knappen. La det stå tomt hvis du vil bruke "
+"standardtekst."
+
+#: includes/sdm-blocks.php:42
+msgid "Template"
+msgstr "Mal"
+
+#: includes/sdm-blocks.php:43
+msgid "Select download item template."
+msgstr "Velg mal for nedlastingsobjekt."
+
+#: includes/sdm-blocks.php:44
+msgid "Open Download in a New Window"
+msgstr "Åpne nedlasting i et nytt vindu"
+
+#: includes/sdm-blocks.php:45 main.php:268
+msgid "Button Color"
+msgstr "Knappefarge"
+
+#: includes/sdm-blocks.php:46
+msgid ""
+"Select button color. Note that this option may not work for some templates."
+msgstr ""
+"Velg farge på knap. Vær oppmerksom på at dette alternativet kanskje ikke "
+"fungerer i enkelte maler."
+
+#: includes/sdm-blocks.php:86
+msgid "Select item to view"
+msgstr "Velg objekt du vil se"
+
+#: includes/sdm-blocks.php:107
+msgid "(Select item)"
+msgstr "(Velg objekt)"
+
+#: includes/sdm-download-request-handler.php:13
+msgid "Error! Incorrect download item id."
+msgstr "Feil! Feil ID for nedlastingsobjekt."
+
+#: includes/sdm-download-request-handler.php:16
+#, php-format
+msgid ""
+"Error! This download item (%s) does not have any download link. Edit this "
+"item and specify a downloadable file URL for it."
+msgstr ""
+"Feil! Dette nedlastingsobjektet ( %s) har ingen lenke for nedlasting. "
+"Rediger dette objektet, og angi en nedlastbar URL-adresse for filen."
+
+#: includes/sdm-download-request-handler.php:28
+msgid "Error! This download requires a password."
+msgstr "Feil! Denne nedlastingen krever et passord."
+
+#: includes/sdm-download-request-handler.php:30 main.php:890 main.php:892
+msgid "Click here"
+msgstr "Klikk her"
+
+#: includes/sdm-download-request-handler.php:31
+msgid " and enter a valid password for this item"
+msgstr " og skriv inn et gyldig passord for dette objektet"
+
+#: includes/sdm-download-request-handler.php:37
+msgid "Error! Incorrect password. This download requires a valid password."
+msgstr "Feil! Feil passord. Denne nedlastingen krever et gyldig passord."
+
+#: includes/sdm-download-request-handler.php:75
+msgid "__Click here__ to go to login page."
+msgstr "__Klikk her__ for å gå til påloggingssiden."
+
+#: includes/sdm-download-request-handler.php:78
+msgid "You need to be logged in to download this file."
+msgstr "Du må være innlogget for å laste ned denne filen."
+
+#: includes/sdm-download-request-handler.php:82
+msgid "Not Logged In"
+msgstr "Ikke pålogget"
+
+#: includes/sdm-download-request-handler.php:140
+msgid "Error! Failed to log the download request in the database table"
+msgstr "Feil! Kan ikke logge forespørselen om nedlasting i databasetabellen"
+
+#: includes/sdm-download-request-handler.php:212
+#: includes/sdm-download-request-handler.php:216
+msgid "ERROR:"
+msgstr "FEIL:"
+
+#: includes/sdm-download-request-handler.php:212
+#: includes/sdm-download-request-handler.php:216
+msgid "Google reCAPTCHA verification failed."
+msgstr "Google reCAPTCHA-verifisering mislyktes."
+
+#: includes/sdm-download-request-handler.php:212
+#: includes/sdm-download-request-handler.php:216
+msgid "Back"
+msgstr "Tilbake"
+
+#: includes/sdm-download-request-handler.php:216
+msgid "Do you have JavaScript enabled?"
+msgstr "Har du aktivert JavaScript?"
+
+#: includes/sdm-latest-downloads.php:43 includes/sdm-popular-downloads.php:43
+msgid "There are no download items matching this shortcode criteria."
+msgstr ""
+"Der er ingen nedlastingsobjeketer som passer til denne kortkodekriterie."
+
+#: includes/sdm-logs-list-table.php:19
+#: includes/templates/fancy1/sdm-fancy-1.php:140
+#: sdm-post-type-content-handler.php:98 sdm-shortcodes.php:172
+msgid "Download"
+msgstr "Last ned"
+
+#: includes/sdm-logs-list-table.php:20
+#: includes/templates/fancy1/sdm-fancy-1.php:140 main.php:1160
+#: sdm-post-type-and-taxonomy.php:7 sdm-post-type-and-taxonomy.php:8
+#: sdm-post-type-and-taxonomy.php:13 sdm-post-type-and-taxonomy.php:19
+#: sdm-post-type-content-handler.php:98 sdm-shortcodes.php:172
+msgid "Downloads"
+msgstr "Nedlastinger"
+
+#: includes/sdm-logs-list-table.php:45
+msgid "Edit"
+msgstr "Rediger"
+
+#: includes/sdm-logs-list-table.php:46
+msgid "Delete"
+msgstr "Slett"
+
+#: includes/sdm-logs-list-table.php:70 main.php:1154
+msgid "Title"
+msgstr "Tittel"
+
+#: includes/sdm-logs-list-table.php:71 main.php:1157
+msgid "File"
+msgstr "Fil"
+
+#: includes/sdm-logs-list-table.php:72
+msgid "Visitor IP"
+msgstr "Besøkendes IP"
+
+#: includes/sdm-logs-list-table.php:74
+msgid "Country"
+msgstr "Land"
+
+#: includes/sdm-logs-list-table.php:75
+msgid "Username"
+msgstr "Brukernavn"
+
+#: includes/sdm-logs-list-table.php:96
+msgid "Delete Permanently"
+msgstr "Slett permanent"
+
+#: includes/sdm-logs-list-table.php:111 includes/sdm-logs-list-table.php:142
+msgid "Nope! Security check failed!"
+msgstr "Nei! Sikkerhetskontrollen mislyktes!"
+
+#: includes/sdm-logs-list-table.php:115
+msgid "No entries were selected."
+msgstr "Ingen oppføringer ble valgt."
+
+#: includes/sdm-logs-list-table.php:115 includes/sdm-logs-list-table.php:129
+#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:151
+#: includes/sdm-logs-list-table.php:153
+msgid "Click to Dismiss"
+msgstr "Klikk for å forkaste"
+
+#: includes/sdm-logs-list-table.php:122
+msgid "Error! The row id value of a log entry must be numeric."
+msgstr "Feil! Rad-ID-verdien for en loggoppføring må være numerisk."
+
+#: includes/sdm-logs-list-table.php:129
+msgid "Entries Deleted!"
+msgstr "Oppføringer slettet!"
+
+#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:153
+msgid "Error"
+msgstr "Feil"
+
+#: includes/sdm-logs-list-table.php:151
+msgid "Entry Deleted!"
+msgstr "Oppføring slettet!"
+
+#: includes/sdm-search-shortcode-handler.php:65
+msgid "Showing search results for "
+msgstr "Viser søkeresultater for "
+
+#: includes/sdm-search-shortcode-handler.php:66
+msgid "Number of items found: "
+msgstr "Antall objekter funnet: "
+
+#: includes/sdm-search-shortcode-handler.php:67
+msgid "Keywords searched: "
+msgstr "Søkt nøkkelord: "
+
+#: includes/sdm-search-shortcode-handler.php:70
+msgid "Nothing found for "
+msgstr "Ingenting funnet for "
+
+#: includes/sdm-utility-functions.php:9
+msgid "Green"
+msgstr "Grønn"
+
+#: includes/sdm-utility-functions.php:10
+msgid "Blue"
+msgstr "Blå"
+
+#: includes/sdm-utility-functions.php:11
+msgid "Purple"
+msgstr "Lilla"
+
+#: includes/sdm-utility-functions.php:12
+msgid "Teal"
+msgstr "Turkis"
+
+#: includes/sdm-utility-functions.php:13
+msgid "Dark Blue"
+msgstr "Mørkeblå"
+
+#: includes/sdm-utility-functions.php:14
+msgid "Black"
+msgstr "Svart"
+
+#: includes/sdm-utility-functions.php:15
+msgid "Grey"
+msgstr "Grå"
+
+#: includes/sdm-utility-functions.php:16
+msgid "Pink"
+msgstr "Rosa"
+
+#: includes/sdm-utility-functions.php:17
+msgid "Orange"
+msgstr "Oransje"
+
+#: includes/sdm-utility-functions.php:18
+msgid "White"
+msgstr "Hvit"
+
+#: includes/sdm-utility-functions.php:57
+msgid "Enter Password to Download:"
+msgstr "Skriv inn passord for å laste ned:"
+
+#: includes/sdm-utility-functions.php:263
+msgid "I agree to the "
+msgstr "Jeg godtar "
+
+#: includes/sdm-utility-functions.php:263
+msgid "terms and conditions"
+msgstr "vilkår og betingelser"
+
+#: includes/sdm-utility-functions.php:298
+#: includes/templates/fancy0/sdm-fancy-0.php:97
+#: includes/templates/fancy1/sdm-fancy-1.php:56
+#: includes/templates/fancy2/sdm-fancy-2.php:82 sdm-shortcodes.php:186
+msgid "Download Now!"
+msgstr "Last ned"
+
+#: includes/sdm-utility-functions.php:338
+msgid ""
+"Error! The URL value is empty. Please specify a correct URL value to "
+"redirect to!"
+msgstr "Feil! URL-verdien er tom. Angi en riktig URL-verdi å omadressere til!"
+
+#: includes/templates/fancy0/sdm-fancy-0.php:84
+#: sdm-post-type-content-handler.php:56
+msgid "green"
+msgstr "grønn"
+
+#: includes/templates/fancy1/sdm-fancy-1.php:159
+#: includes/templates/fancy2/sdm-fancy-2.php:176
+#: sdm-post-type-content-handler.php:135
+msgid "Size: "
+msgstr "Størrelse: "
+
+#: includes/templates/fancy1/sdm-fancy-1.php:166
+#: includes/templates/fancy2/sdm-fancy-2.php:183 main.php:508
+#: sdm-post-type-content-handler.php:142
+msgid "Version: "
+msgstr "Versjon: "
+
+#: includes/templates/fancy1/sdm-fancy-1.php:173
+#: includes/templates/fancy2/sdm-fancy-2.php:190
+#: sdm-post-type-content-handler.php:149
+msgid "Published: "
+msgstr "Publisert: "
+
+#: includes/templates/fancy3/sdm-fancy-3.php:55
+#: includes/templates/fancy3/sdm-fancy-3.php:86
+msgid "View Details"
+msgstr "Se detaljer"
+
+#: main.php:249 main.php:345
+msgid "Select File"
+msgstr "Velg fil"
+
+#: main.php:250
+msgid "Select Thumbnail"
+msgstr "Velg miniatyrbilde"
+
+#: main.php:251
+msgid "Insert"
+msgstr "Sett inn"
+
+#: main.php:252
+msgid "Image Successfully Removed"
+msgstr "Bildet er fjernet"
+
+#: main.php:253
+msgid "Error with AJAX"
+msgstr "Feil med AJAX"
+
+#: main.php:264
+msgid "Please select a Download Item:"
+msgstr "Velg et objekt for nedlasting:"
+
+#: main.php:265
+msgid "Download Title"
+msgstr "Nedlastingstittel"
+
+#: main.php:266
+msgid "Include Fancy Box"
+msgstr "Inkluder Fancy Box"
+
+#: main.php:267
+msgid "Open New Window"
+msgstr "Åpne nytt vindu"
+
+#: main.php:269
+msgid "Insert SDM Shortcode"
+msgstr "Sett inn SDM kortkode"
+
+#: main.php:311
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: main.php:312
+msgid "Downloadable File (Visitors will download this item)"
+msgstr "Nedlastbar fil (besøkende vil laste ned dette objektet)"
+
+#: main.php:313
+msgid "PHP Dispatch or Redirect"
+msgstr "PHP utsending eller omdirigere"
+
+#: main.php:314
+msgid "Miscellaneous Download Item Properties"
+msgstr "Diverse egenskaper for nedlastingsobjekt"
+
+#: main.php:315
+msgid "File Thumbnail (Optional)"
+msgstr "Miniatyrbilde for fil (valgfritt)"
+
+#: main.php:316
+msgid "Statistics"
+msgstr "Statistikk"
+
+#: main.php:318
+msgid "Other Details (Optional)"
+msgstr "Andre detaljer (valgfritt)"
+
+#: main.php:319
+msgid "Shortcodes"
+msgstr "Kortkoder"
+
+#: main.php:323
+msgid "Add a description for this download item."
+msgstr "Legg til en beskrivelse for dette nedlastingsobjektet."
+
+#: main.php:337
+msgid ""
+"Manually enter a valid URL of the file in the text box below, or click "
+"\"Select File\" button to upload (or choose) the downloadable file."
+msgstr ""
+"Skriv inn en gyldig URL for filen manuelt i tekstboksen nedenfor, eller "
+"klikk på \"Velg fil\"-knappen for å laste opp (eller velge) den nedlastbare "
+"filen."
+
+#: main.php:348
+msgid "Steps to upload a file or choose one from your media library:"
+msgstr ""
+"Fremgangsmåte for å laste opp en fil eller velge en fra mediebiblioteket:"
+
+#: main.php:350
+msgid "Hit the \"Select File\" button."
+msgstr "Trykk på \"Velg fil\"-knappen."
+
+#: main.php:351
+msgid "Upload a new file or choose an existing one from your media library."
+msgstr "Last opp en ny fil eller velg en eksisterende fra mediebiblioteket."
+
+#: main.php:352
+msgid ""
+"Click the \"Insert\" button, this will populate the uploaded file's URL in "
+"the above text field."
+msgstr ""
+"Klikk på \"Sett inn\"-knappen, dette vil fylle URL-en til den opplastede "
+"filen i tekstfeltet ovenfor."
+
+#: main.php:373
+msgid ""
+"Dispatch the file via PHP directly instead of redirecting to it. PHP "
+"Dispatching keeps the download URL hidden. Dispatching works only for local "
+"files (files that you uploaded to this site via this plugin or media "
+"library)."
+msgstr ""
+"Send filen via PHP direkte i stedet for å omdirigere til den. PHP utsendelse "
+"holder nedlastings-URL'en skjult. Utsendelse fungerer bare for lokale filer "
+"(filer som du lastet opp til dette nettstedet via denne plugin eller "
+"mediabiblioteket)."
+
+#: main.php:397
+msgid "Open download in a new window."
+msgstr "Åpne nedlastingen i et nytt vindu."
+
+#: main.php:403
+msgid "Hide the download button on the single download page of this item."
+msgstr ""
+"Skjul nedlastningsknappen på den ene nedlastingssiden for dette elementet."
+
+#: main.php:409
+msgid "Disable the single download page for this download item. "
+msgstr "Deaktiver nedlastingssiden for dette nedlastingsobjektet. "
+
+#: main.php:410
+msgid "This can be useful if you are using an addon like the "
+msgstr "Dette kan være nyttig hvis du bruker et tillegg som "
+
+#: main.php:421
+msgid ""
+"Manually enter a valid URL, or click \"Select Image\" to upload (or choose) "
+"the file thumbnail image."
+msgstr ""
+"Angi en gyldig URL-adresse manuelt, eller klikk \"Velg bilde\" for å laste "
+"opp (eller velge) miniatyrbilde for filen."
+
+#: main.php:426
+msgid "Select Image"
+msgstr "Velg bilde"
+
+#: main.php:427
+msgid "Remove Image"
+msgstr "Fjern bilde"
+
+#: main.php:441
+msgid ""
+"This thumbnail image will be used to create a fancy file download box if you "
+"want to use it."
+msgstr ""
+"Dette miniatyrbildet vil bli brukt til å lage en fancy nedlastingsboks for "
+"filen hvis du vil bruke det."
+
+#: main.php:455
+msgid "These are the statistics for this download item."
+msgstr "Dette er statistikken for nedlastingsobjektet."
+
+#: main.php:462
+msgid "Number of Downloads:"
+msgstr "Antall nedlastinger:"
+
+#: main.php:467
+msgid "Offset Count: "
+msgstr "Antall utenfor: "
+
+#: main.php:470
+msgid ""
+"Enter any positive or negative numerical value; to offset the download count "
+"shown to the visitors (when using the download counter shortcode)."
+msgstr ""
+"Angi en positiv eller negativ numerisk verdi.for å oppveie "
+"nedlastningstallet som vises for besøkende (når du bruker "
+"nedlastningstellerens kortkode)."
+
+#: main.php:477
+msgid "Disable download logging for this item."
+msgstr "Deaktiver nedlasting logging for dette elementet."
+
+#: main.php:498
+msgid "File Size: "
+msgstr "Filstørrelse: "
+
+#: main.php:501
+msgid "Enter the size of this file (example value: 2.15 MB)."
+msgstr "Angi størrelsen på denne filen (eksempel verdi: 2,15 MB)."
+
+#: main.php:503
+msgid "Show file size in fancy display."
+msgstr "Vis filstørrelse i fancy display."
+
+#: main.php:511
+msgid "Enter the version number for this item if any (example value: v2.5.10)."
+msgstr ""
+"Angi versjonsnummeret for dette objektet hvis det finnes (eksempel verdi: v "
+"2.5.10)."
+
+#: main.php:513
+msgid "Show version number in fancy display."
+msgstr "Vis versjonsnummer i fancy visning."
+
+#: main.php:518
+msgid "Publish Date: "
+msgstr "Publiseringsdato: "
+
+#: main.php:520
+msgid "Show download published date in fancy display."
+msgstr "Vis publisert dato for nedlastingen i fancy display."
+
+#: main.php:525
+msgid "Download Button Text: "
+msgstr "Tekst for nedlastingsknapp: "
+
+#: main.php:528
+msgid ""
+"You can use this field to customize the download now button text of this "
+"item."
+msgstr ""
+"Du kan bruke dette feltet for å tilpasse teksten på \"Last ned nå\" knappen "
+"for dette objektet."
+
+#: main.php:535
+msgid ""
+"The following shortcode can be used on posts or pages to embed a download "
+"now button for this file. You can also use the shortcode inserter (in the "
+"post editor) to add this shortcode to a post or page."
+msgstr ""
+"Følende kortkode kan brukes på innlegg og sider for å bygge inn en \"Last "
+"ned nå\" knapp for denne filen. Du kan også bruke sett-inn-kortkode (i "
+"innleggets redigeringsmodul) for å legge til denne kortkoden i et innlegg "
+"eller side."
+
+#: main.php:541
+msgid ""
+"The following shortcode can be used to show a download counter for this item."
+msgstr ""
+"Følgende kortkode kan brukes for å vise en nedlastingsteller for dette "
+"objektet."
+
+#: main.php:547
+msgid ""
+"Read the full shortcode usage documentation <a href=\"https://www."
+"tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin\" target="
+"\"_blank\">here</a>."
+msgstr ""
+"Lese hele dokumentasjonen for bruken av kortkoder <a href=\"https://www."
+"tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin\" target="
+"\"_blank\">her</a>."
+
+#: main.php:684
+msgid "General Options"
+msgstr "Generelle innstillinger"
+
+#: main.php:685
+msgid "User Login Related"
+msgstr "Brukerrelatert innlogging"
+
+#: main.php:686
+msgid "Admin Options"
+msgstr "Alternativer for administrasjon"
+
+#: main.php:688
+msgid "Colors"
+msgstr "Farger"
+
+#: main.php:689
+msgid "Debug"
+msgstr "Debug"
+
+#: main.php:690
+msgid "Delete Plugin Data"
+msgstr "Slett plugin data"
+
+#: main.php:693
+msgid "Hide Download Count"
+msgstr "Skjul nedlastingsteller"
+
+#: main.php:694
+msgid "PHP Dispatching"
+msgstr "PHP utsendelse"
+
+#: main.php:696
+msgid "Only Allow Logged-in Users to Download"
+msgstr "Tillat kun påloggede brukere å laste ned"
+
+#: main.php:697
+msgid "Login Page URL"
+msgstr "URL-adresse til påloggingsside"
+
+#: main.php:698
+msgid "Redirect Users to Download Page"
+msgstr "Omadresser brukere til nedlastingssiden"
+
+#: main.php:700
+msgid "Remove Tinymce Button"
+msgstr "Fjern TinyMCE knapp"
+
+#: main.php:701
+msgid "Log Unique IP"
+msgstr "Logg unik IP"
+
+#: main.php:702
+msgid "Do Not Capture IP Address"
+msgstr "Ikke Registrer IP-adresse"
+
+#: main.php:703
+msgid "Do Not Count Downloads from Bots"
+msgstr "Ikke tell nedlastinger fra roboter"
+
+#: main.php:704
+msgid "Disable Download Logs"
+msgstr "Deaktiver nedlastingslogg"
+
+#: main.php:706
+msgid "Download Button Color"
+msgstr "Farge på nedlastingsknapp"
+
+#: main.php:708
+msgid "Enable Debug"
+msgstr "Aktiver feilsøking"
+
+#: main.php:714
+msgid "Google Captcha (reCAPTCHA)"
+msgstr "Google captcha (reCAPTCHA)"
+
+#: main.php:715
+msgid "Terms and Conditions"
+msgstr "Vilkår og betingelser"
+
+#: main.php:716
+msgid "Adsense/Ad Insertion"
+msgstr "AdSense/annonseinnsetting"
+
+#: main.php:717
+msgid "Google Maps API Key"
+msgstr "Google Maps API-nøkkel"
+
+#: main.php:720
+msgid "Enable reCAPTCHA"
+msgstr "Aktiver Google Recaptcha"
+
+#: main.php:721
+msgid "Site Key"
+msgstr "Nøkkel for nettstedet"
+
+#: main.php:722
+msgid "Secret Key"
+msgstr "Hemmelig nøkkel"
+
+#: main.php:725
+msgid "Enable Terms and Conditions"
+msgstr "Aktivere vilkår og betingelser"
+
+#: main.php:726
+msgid "Terms Page URL"
+msgstr "URL for vilkårsside"
+
+#: main.php:729
+msgid "Below Download Description"
+msgstr "Beskrivelse av nedlasting nedenfor"
+
+#: main.php:732
+msgid "API Key"
+msgstr "API-nøkkel"
+
+#: main.php:737
+msgid "General options settings"
+msgstr "Innstillinger for generelle alternativer"
+
+#: main.php:742
+msgid ""
+"Visitor login related settings (useful if you only want to allow logged-in "
+"users to be able to download files."
+msgstr ""
+"Besøksrelaterte innloggingsinnstillinger (nyttig hvis du bare vil tillate "
+"innloggede brukere å kunne laste ned filer."
+
+#: main.php:747
+msgid "Admin options settings"
+msgstr "Innstillinger for administratoralternativer"
+
+#: main.php:752
+msgid "Front End colors settings"
+msgstr "Innstillinger for front end-farger"
+
+#: main.php:757
+msgid "Debug settings"
+msgstr "Innstillinger for feilsøking"
+
+#: main.php:762
+msgid ""
+"You can delete all the data related to this plugin from database using the "
+"button below. Useful when you're uninstalling the plugin and don't want any "
+"leftovers remaining."
+msgstr ""
+"Du kan slette alle data relatert til denne plugin fra databasen ved hjelp av "
+"knappen nedenfor. Nyttig når du avinstallerer utvidelsen og ikke ønsker at "
+"noe skal ligge igjen."
+
+#: main.php:763
+msgid "Warning"
+msgstr "Advarsel"
+
+#: main.php:763
+msgid ""
+"this can't be undone. All settings, download items, download logs will be "
+"deleted."
+msgstr ""
+"dette kan ikke angres. Alle innstillinger, nedlastingsobjekter og logger vil "
+"bli slettet."
+
+#: main.php:764
+msgid "Delete all data and deactivate plugin"
+msgstr "Slett alle data og deaktiver utvidelsen"
+
+#: main.php:770
+msgid "Google Captcha (reCAPTCHA) options"
+msgstr "Google captcha (reCAPTCHA) alternativer"
+
+#: main.php:779
+msgid ""
+"You can use this section to insert adsense or other ad code inside the "
+"download item output"
+msgstr ""
+"Du kan bruke denne delen til å sette inn AdSense eller annen annonsekode i "
+"nedlastingsobjektet"
+
+#: main.php:783
+msgid ""
+"Google Maps API key is required to display the \"Downloads by Country\" "
+"chart."
+msgstr ""
+"Google Maps API-nøkkel er påkrevd for å vise diagrammet «nedlastinger etter "
+"land»."
+
+#: main.php:789
+msgid ""
+"Check this box if you want to use <a href=\"https://www.google.com/recaptcha/"
+"admin\" target=\"_blank\">reCAPTCHA</a>. "
+msgstr ""
+"Merk av i denne boksen hvis du vil bruke <a href=\"https://www.google.com/"
+"recaptcha/admin\" target=\"_blank\">reCAPTCHA</a>. "
+
+#: main.php:790
+msgid "The captcha option adds a captcha to the download now buttons."
+msgstr ""
+"Captcha alternativet legger til en CAPTCHA til \"Last ned nå\" knappene."
+
+#: main.php:797
+msgid "The site key for the reCAPTCHA API"
+msgstr "Nettstedsnøkkel for reCAPTCHA API'en"
+
+#: main.php:804
+msgid "The secret key for the reCAPTCHA API"
+msgstr "Hemmelig nøkkel for reCAPTCHA API'en"
+
+#: main.php:810
+msgid "Hide the download count that is shown in some of the fancy templates."
+msgstr "Skjul nedlastingsteller som vises i enkelte av Fancy-malene."
+
+#: main.php:817
+msgid ""
+"When you create a new download item, The PHP Dispatching option should be "
+"enabled by default. PHP Dispatching keeps the URL of the downloadable files "
+"hidden."
+msgstr ""
+"Når du oppretter et nytt objekt for nedlasting, bør alternativet PHP "
+"utsending være aktivert som standard. PHP utsending holder nettadressen til "
+"den nedlastbare filer skjult."
+
+#: main.php:824
+msgid ""
+"Enable this option if you want to allow downloads only for logged-in users. "
+"When enabled, anonymous users clicking on the download button will receive "
+"an error message."
+msgstr ""
+"Aktiver dette alternativet hvis du bare vil tillate nedlastinger for "
+"påloggede brukere. Når det er aktivert, vil anonyme brukere som klikker på "
+"Last ned-knappen, få en feilmelding."
+
+#: main.php:831
+msgid ""
+"Only works if you have set a Login Page URL value above. Enable this option "
+"if you want to redirect the users to the download page after they log into "
+"the site."
+msgstr ""
+"Fungerer kun hvis du har lagt inn en URL-adresse for innlogging ovenfor. "
+"Aktiver dette alternativet hvis du vil omdirigere brukerne til "
+"nedlastingssiden etter at de har logget på nettstedet."
+
+#: main.php:838
+msgid ""
+"(Optional) Specify a login page URL where users can login. This is useful if "
+"you only allow logged in users to be able to download. This link will be "
+"added to the message that is shown to anonymous users."
+msgstr ""
+"(Valgfritt) Angi en URL-adresse for påloggingsside der brukere kan logge "
+"inn. Dette er nyttig hvis du bare tillater påloggede brukere å kunne laste "
+"ned. Denne koblingen vil bli lagt til meldingen som vises for anonyme "
+"brukere."
+
+#: main.php:844
+msgid "Removes the SDM Downloads button from the WP content editor."
+msgstr ""
+"Fjerner knappen SDM-nedlastinger fra redigeringsprogrammet for WP-innhold."
+
+#: main.php:850
+msgid "Only logs downloads from unique IP addresses."
+msgstr "Logger bare nedlastinger fra unike IP-adresser."
+
+#: main.php:856
+msgid ""
+"Use this if you do not want to capture the IP address and Country of the "
+"visitors when they download an item."
+msgstr ""
+"Bruk denne hvis du ikke ønsker å logge IP-adressen og land for besøkende når "
+"de laster ned et objekt."
+
+#: main.php:862
+msgid "When enabled, the plugin won't count and log downloads from bots."
+msgstr ""
+"Når aktivert, vil utvidelsen ikke telle eller logge nedlastinger fra roboter."
+
+#: main.php:868
+msgid ""
+"Disables all download logs. (This global option overrides the individual "
+"download item option.)"
+msgstr ""
+"Deaktiverer alle nedlastingslogger. (Dette globale alternativet overstyrer "
+"det individuelle alternativet for nedlasting av objekter.)"
+
+#: main.php:882
+msgid "Adjusts the color of the \"Download Now\" button."
+msgstr "Justerer fargen på \"Last ned nå\"-knappen."
+
+#: main.php:888
+msgid "Check this option to enable debug logging."
+msgstr "Merk av for dette alternativet for å aktivere feilsøkingslogging."
+
+#: main.php:891
+msgid " to view log file."
+msgstr " for å vise loggfilen."
+
+#: main.php:893
+msgid " to reset log file."
+msgstr " tilbakestill loggfil."
+
+#: main.php:899
+msgid ""
+"You can use this option to make the visitors agree to your terms before they "
+"can download the item."
+msgstr ""
+"Du kan bruke dette alternativet til å få de besøkende til å godta vilkårene "
+"dine før de kan laste ned objektet."
+
+#: main.php:906
+msgid "Enter the URL of your terms and conditions page."
+msgstr "Skriv inn nettadressen til vilkår og betingelser-siden."
+
+#: main.php:914
+msgid ""
+"Enter the Adsense or Ad code that you want to show below the download item "
+"description."
+msgstr ""
+"Legg inn AdSense eller annonse-koden som du ønsker å vise under beskrivelsen "
+"av nedlastingsobjektet."
+
+#: main.php:921
+msgid ""
+"Enter your Google Maps API key. You can create new API key using <a href="
+"\"https://developers.google.com/maps/documentation/javascript/get-api-key\" "
+"target=\"_blank\">this instruction</a>."
+msgstr ""
+"Angi Google Maps API-nøkkelen. Du kan opprette en ny API-nøkkel ved å følge "
+"<a href=\"https://developers.google.com/maps/documentation/javascript/get-"
+"api-key\" target=\"_blank\">denne instruksjonen</a>."
+
+#: main.php:928
+msgid "Clone"
+msgstr "Klone"
+
+#: main.php:954
+msgid "No post to duplicate has been supplied!"
+msgstr "Intet innlegg å duplisere ble lagt til!"
+
+#: main.php:1040
+msgid "Post creation failed, could not find original post: "
+msgstr ""
+"Opprettelse av innlegg mislyktes, kunne ikke finne opprinnelig innlegg: "
+
+#: main.php:1079
+msgid "Permission denied!"
+msgstr "Tillatelse avslått!"
+
+#: main.php:1155
+msgid "Image"
+msgstr "Bilde"
+
+#: main.php:1156
+msgid "ID"
+msgstr "ID"
+
+#: main.php:1158 sdm-post-type-and-taxonomy.php:56
+msgid "Categories"
+msgstr "Kategorier"
+
+#: main.php:1159 sdm-post-type-and-taxonomy.php:80
+msgid "Tags"
+msgstr "Stikkord"
+
+#: main.php:1161
+msgid "Date Posted"
+msgstr "Postet dato"
+
+#: sdm-post-type-and-taxonomy.php:9 sdm-post-type-and-taxonomy.php:10
+msgid "Add New"
+msgstr "Legg til ny"
+
+#: sdm-post-type-and-taxonomy.php:11
+msgid "Edit Download"
+msgstr "Rediger nedlastning"
+
+#: sdm-post-type-and-taxonomy.php:12
+msgid "New Download"
+msgstr "Ny nedlastning"
+
+#: sdm-post-type-and-taxonomy.php:14
+msgid "View Download"
+msgstr "Vis nedlastning"
+
+#: sdm-post-type-and-taxonomy.php:15
+msgid "Search Downloads"
+msgstr "Søk i nedlastinger"
+
+#: sdm-post-type-and-taxonomy.php:16
+msgid "No Downloads found"
+msgstr "Ingen nedlastinger funnet"
+
+#: sdm-post-type-and-taxonomy.php:17
+msgid "No Downloads found in Trash"
+msgstr "Ingen nedlastinger funnet i papirkurven"
+
+#: sdm-post-type-and-taxonomy.php:18
+msgid "Parent Download"
+msgstr "Nedlasting av overordnede"
+
+#: sdm-post-type-and-taxonomy.php:46
+msgid "Download Categories"
+msgstr "Netlastingskategorier"
+
+#: sdm-post-type-and-taxonomy.php:47
+msgid "Download Category"
+msgstr "Nedlastingskategori"
+
+#: sdm-post-type-and-taxonomy.php:48
+msgid "Search Categories"
+msgstr "Søk kategorier"
+
+#: sdm-post-type-and-taxonomy.php:49
+msgid "All Categories"
+msgstr "Alle kategorier"
+
+#: sdm-post-type-and-taxonomy.php:50
+msgid "Categories Genre"
+msgstr "Kategorier Sjanger"
+
+#: sdm-post-type-and-taxonomy.php:51
+msgid "Categories Genre:"
+msgstr "Kategorier Sjanger:"
+
+#: sdm-post-type-and-taxonomy.php:52
+msgid "Edit Category"
+msgstr "Redigér kategori"
+
+#: sdm-post-type-and-taxonomy.php:53
+msgid "Update Category"
+msgstr "Oppdatér kategori"
+
+#: sdm-post-type-and-taxonomy.php:54
+msgid "Add New Category"
+msgstr "Legg til ny Kategori"
+
+#: sdm-post-type-and-taxonomy.php:55
+msgid "New Category"
+msgstr "Ny Kategori"
+
+#: sdm-post-type-and-taxonomy.php:70
+msgid "Download Tags"
+msgstr "Stikkord for nedlastinger"
+
+#: sdm-post-type-and-taxonomy.php:71
+msgid "Download Tag"
+msgstr "Stikkord for nedlasting"
+
+#: sdm-post-type-and-taxonomy.php:72
+msgid "Search Tags"
+msgstr "Søk etter stikkord"
+
+#: sdm-post-type-and-taxonomy.php:73
+msgid "All Tags"
+msgstr "Alle stikkord"
+
+#: sdm-post-type-and-taxonomy.php:74
+msgid "Tags Genre"
+msgstr "Stikkord sjanger"
+
+#: sdm-post-type-and-taxonomy.php:75
+msgid "Tags Genre:"
+msgstr "Stikkord sjanger:"
+
+#: sdm-post-type-and-taxonomy.php:76
+msgid "Edit Tag"
+msgstr "Rediger Stikkord"
+
+#: sdm-post-type-and-taxonomy.php:77
+msgid "Update Tag"
+msgstr "Oppdater stikkord"
+
+#: sdm-post-type-and-taxonomy.php:78
+msgid "Add New Tag"
+msgstr "Legg til nytt stikkord"
+
+#: sdm-post-type-and-taxonomy.php:79
+msgid "New Tag"
+msgstr "Nytt Stikkord"
+
+#: sdm-post-type-content-handler.php:19
+msgid "The admin of this site has disabled this download item page."
+msgstr ""
+"Administratoren av dette nettstedet har deaktivert siden for "
+"nedlastingsobjektet."
+
+#: sdm-post-type-content-handler.php:126
+msgid "The admin of this site has disabled the download button for this page."
+msgstr ""
+"Administratoren av dette nettstedet har deaktivert nedlastingsknappen på "
+"denne siden."
+
+#: sdm-shortcodes.php:82 sdm-shortcodes.php:152 sdm-shortcodes.php:166
+msgid "Error! Please enter an ID value with this shortcode."
+msgstr "Feil! Vennligst skriv inn en ID-verdi med denne kortkoden."
+
+#: sdm-shortcodes.php:199
+msgid ""
+"Error! You must enter a category slug OR a category id with this shortcode. "
+"Refer to the documentation for usage instructions."
+msgstr ""
+"Feil! Du må angi en kategori Slug eller en kategori-ID med denne kortkoden. "
+"Se dokumentasjonen for instruksjoner om bruk."
+
+#: sdm-shortcodes.php:204
+msgid "Error! Please enter a category slug OR id; not both."
+msgstr "Feil! Vennligst skriv inn en kategori Slug eller ID; ikke begge."
+
+#: sdm-shortcodes.php:240
+msgid ""
+"Error! You must enter a numeric number for the \"pagination\" parameter of "
+"the shortcode. Refer to the usage documentation."
+msgstr ""
+"Feil! Du må angi et numerisk nummer for \"paginering\" parameter for "
+"kortkoden. Se brukerdokumentasjonen."
+
+#: sdm-shortcodes.php:265
+msgid "There are no download items matching this category criteria."
+msgstr "Det er ingen nedlastingsobjekter i denne kategorien."
+
+#. Plugin Name of the plugin/theme
+msgid "Simple Download Monitor"
+msgstr "Simple Download Monitor"
+
+#. Plugin URI of the plugin/theme
+msgid "https://simple-download-monitor.com/"
+msgstr "https://simple-download-monitor.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"Easily manage downloadable files and monitor downloads of your digital files "
+"from your WordPress site."
+msgstr ""
+"Administrer enkelt nedlastbare filer og overvåke nedlastinger av digitale "
+"filer fra WordPress-nettstedet."
+
+#. Author of the plugin/theme
+msgid "Tips and Tricks HQ, Ruhul Amin, Josh Lobe"
+msgstr "Tips og triks HQ, Ruhul Amin, Josh flik"
+
+#. Author URI of the plugin/theme
+msgid "https://www.tipsandtricks-hq.com/development-center"
+msgstr "https://www.tipsandtricks-hq.com/development-center"

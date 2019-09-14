@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.8.2 =
+- Added the Norwegian language translation files. Thanks to Tore Østerlie.
+
 = 3.8.1 =
 - Added a new tab in the stats menu to list/show the download by country in a table.
 
