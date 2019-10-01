@@ -24,6 +24,8 @@ function handle_sdm_download_via_direct_post() {
 	if ( ! empty( $post_pass ) ) {//This download item has a password. So validate the password.
 	    $pass_val = $_REQUEST[ 'pass_text' ];
 	    if ( empty( $pass_val ) ) {//No password was submitted with the downoad request.
+                do_action( 'sdm_process_download_request_no_password');
+                
 		$dl_post_url	 = get_permalink( $download_id );
 		$error_msg	 = __( 'Error! This download requires a password.', 'simple-download-monitor' );
 		$error_msg	 .= '<p>';
@@ -34,6 +36,8 @@ function handle_sdm_download_via_direct_post() {
 	    }
 	    if ( $post_pass != $pass_val ) {
 		//Incorrect password submitted.
+                do_action( 'sdm_process_download_request_incorrect_password');
+                
 		wp_die( __( 'Error! Incorrect password. This download requires a valid password.', 'simple-download-monitor' ) );
 	    } else {
 		//Password is valid. Go ahead with the download

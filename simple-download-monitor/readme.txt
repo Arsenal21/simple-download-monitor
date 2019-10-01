@@ -188,6 +188,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.8.2 =
 - Added the Norwegian language translation files. Thanks to Tore Østerlie.
+- Added action hooks for password protected downloads (when a download request is submitted without a password or incorrect password).
 
 = 3.8.1 =
 - Added a new tab in the stats menu to list/show the download by country in a table.
