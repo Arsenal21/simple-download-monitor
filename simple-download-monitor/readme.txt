@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.8.3 =
+- Spanish translation file updated.
+
 = 3.8.2 =
 - Added action hooks for password protected downloads (when a download request is submitted without a password or incorrect password).
 - Added the Norwegian language translation files. Thanks to Tore Østerlie.
