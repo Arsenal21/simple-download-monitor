@@ -499,7 +499,7 @@ function sdm_create_stats_page() {
     	    </div>
     	    <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
     		<div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
-    		    <div id="downloads_chart" style="width: 700px;"></div>
+    		    <div id="downloads_chart" style="width: auto; max-width: 700px"></div>
     		</div>
     		<div data-tab-name="geochart" class="sdm-tab"<?php echo ($active_tab == 'geochart' ? '' : ' style="display:none;"'); ?>>
                     <div id="sdm-api-key-warning">
@@ -509,7 +509,7 @@ function sdm_create_stats_page() {
                         </div>
                     </div>
                     
-    		    <div id="country_chart" style="width: 700px;height:437px;"></div>
+    		    <div id="country_chart" style="width: auto; max-width: 700px; height:437px;"></div>
     		</div>
                 
                 <div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ($active_tab == 'countrylistchart' ? '' : ' style="display:none;"'); ?>>
@@ -582,7 +582,7 @@ function sdm_create_stats_page() {
     	sdm_dateData.addRows([<?php echo $downloads_by_date; ?>]);
 
     	var sdm_dateChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
-    	sdm_dateChart.draw(sdm_dateData, {width: 700, height: 300, title: '<?php _e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
+    	sdm_dateChart.draw(sdm_dateData, {width: 'auto', height: 300, title: '<?php _e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
     	    hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
     	    vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
     	    legend: 'top'
