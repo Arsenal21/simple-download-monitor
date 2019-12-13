@@ -38,6 +38,11 @@ include_once('sdm-post-type-and-taxonomy.php');
 include_once('sdm-shortcodes.php');
 include_once('sdm-post-type-content-handler.php');
 
+if ( is_admin() ) {
+	//load addons update checker class
+	include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/class-sdm-addons-updater.php';
+}
+
 //Activation hook handler
 register_activation_hook( __FILE__, 'sdm_install_db_table' );
 

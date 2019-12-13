@@ -187,6 +187,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP 3.8.3 =
+- Addons updates are now handled by the plugin.
 - Spanish translation file updated.
 
 = 3.8.2 =
