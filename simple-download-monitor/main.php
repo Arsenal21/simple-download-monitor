@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.8.2
+ * Version: 3.8.3
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.8.2' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.8.3' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -99,7 +99,7 @@ function sdm_init_time_tasks() {
     //Handle download request if any
     handle_sdm_download_via_direct_post();
 
-    //Check if the redirect option is being used 
+    //Check if the redirect option is being used
     sdm_check_redirect_query_and_settings();
 
     if ( is_admin() ) {
@@ -380,7 +380,7 @@ class simpleDownloadManager {
 	wp_nonce_field( 'sdm_dispatch_box_nonce', 'sdm_dispatch_box_nonce_check' );
     }
 
-    // Open Download in new window 
+    // Open Download in new window
     public function display_sdm_misc_properties_meta_box( $post ) {
 
 	//Check the open in new window value
@@ -401,7 +401,7 @@ class simpleDownloadManager {
 	echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked( true, $new_window, false ) . ' />';
 	echo '<label for="sdm_item_new_window">' . __( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
-	//the new window will have no download button      
+	//the new window will have no download button
 	echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
 	echo '<label for="sdm_item_hide_dl_button_single_download_page">';
 
@@ -776,7 +776,7 @@ class simpleDownloadManager {
     }
 
     public function termscond_options_cb() {
-	
+
     }
 
     public function adsense_options_cb() {
