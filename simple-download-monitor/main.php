@@ -343,7 +343,7 @@ class simpleDownloadManager {
 	echo '<br /><br />';
 
 	echo '<div class="sdm-download-edit-file-url-section">';
-	echo '<input id="sdm_upload" type="text" size="100" name="sdm_upload" value="' . esc_url( $old_value ) . '" placeholder="http://..." />';
+	echo '<input id="sdm_upload" type="text" size="100" name="sdm_upload" value="' . $old_value . '" placeholder="http://..." />';
 	echo '</div>';
 
 	echo '<br />';
