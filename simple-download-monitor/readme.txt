@@ -186,6 +186,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.8.4 =
+- Added a new filter to allow overriding of the File Download field's URL validation.
+
 = 3.8.3 =
 - Spanish translation file updated.
 - Better handling of the stats admin menu interface in mobile devices.

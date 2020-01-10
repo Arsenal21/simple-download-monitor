@@ -339,6 +339,15 @@ class simpleDownloadManager {
 	$old_upload	 = get_post_meta( $post->ID, 'sdm_upload', true );
 	$old_value	 = isset( $old_upload ) ? $old_upload : '';
 
+        //Trigger filter to allow "sdm_upload" field validation override.
+        $url_validation_override = apply_filters('sdm_file_download_url_validation_override', '');
+        if (!empty($url_validation_override)) {
+            //This site has customized the behavior and overriden the "sdm_upload" field validation. It can be useful if you are offering app download URLs (that has unconventional URL patterns).
+        } else {
+            //Do the normal URL validation.
+            $old_value = esc_url($old_value);
+        }
+
 	_e( 'Manually enter a valid URL of the file in the text box below, or click "Select File" button to upload (or choose) the downloadable file.', 'simple-download-monitor' );
 	echo '<br /><br />';
 
