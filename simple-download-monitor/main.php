@@ -243,10 +243,21 @@ class simpleDownloadManager {
 	    wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
 	    wp_enqueue_script( 'sdm-upload' );
 
-	    // Pass postID for thumbnail deletion
+	    //Pass some JS variables
 	    ?>
 	    <script type="text/javascript">
 	        var sdm_del_thumb_postid = '<?php echo $post->ID; ?>';
+                var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url( 'admin-ajax.php?action=ajax' ); ?>'};
+                var sdm_plugin_url = '<?php echo plugins_url(); ?>';
+                var tinymce_langs = {
+                    select_download_item: '<?php _e( 'Please select a Download Item:', 'simple-download-monitor' ) ?>',
+                    download_title: '<?php _e( 'Download Title', 'simple-download-monitor' ) ?>',
+                    include_fancy: '<?php _e( 'Include Fancy Box', 'simple-download-monitor' ) ?>',
+                    open_new_window: '<?php _e( 'Open New Window', 'simple-download-monitor' ) ?>',
+                    button_color: '<?php _e( 'Button Color', 'simple-download-monitor' ); ?>',
+                    insert_shortcode: '<?php _e( 'Insert SDM Shortcode', 'simple-download-monitor' ) ?>'
+                };
+                var sdm_button_colors = <?php echo wp_json_encode( sdm_get_download_button_colors() ); ?>;
 	    </script>
 	    <?php
 	    // Localize langauge strings used in js file
@@ -259,23 +270,6 @@ class simpleDownloadManager {
 	    );
 	    wp_localize_script( 'sdm-upload', 'sdm_translations', $sdmTranslations );
 	}
-
-	// Pass admin ajax url
-	?>
-	<script type="text/javascript">
-	    var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url( 'admin-ajax.php?action=ajax' ); ?>'};
-	    var sdm_plugin_url = '<?php echo plugins_url(); ?>';
-	    var tinymce_langs = {
-		select_download_item: '<?php _e( 'Please select a Download Item:', 'simple-download-monitor' ) ?>',
-		download_title: '<?php _e( 'Download Title', 'simple-download-monitor' ) ?>',
-		include_fancy: '<?php _e( 'Include Fancy Box', 'simple-download-monitor' ) ?>',
-		open_new_window: '<?php _e( 'Open New Window', 'simple-download-monitor' ) ?>',
-		button_color: '<?php _e( 'Button Color', 'simple-download-monitor' ); ?>',
-		insert_shortcode: '<?php _e( 'Insert SDM Shortcode', 'simple-download-monitor' ) ?>'
-	    };
-	    var sdm_button_colors = <?php echo wp_json_encode( sdm_get_download_button_colors() ); ?>;
-	</script>
-	<?php
     }
 
     public function sdm_frontend_scripts() {

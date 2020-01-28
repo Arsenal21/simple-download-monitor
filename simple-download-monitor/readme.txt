@@ -188,6 +188,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.8.4 =
 - Added a new filter to allow overriding of the File Download field's URL validation.
+- Fixed a header already sent warning when using the "customizer"
 
 = 3.8.3 =
 - Spanish translation file updated.
