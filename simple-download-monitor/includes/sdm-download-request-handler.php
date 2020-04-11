@@ -54,23 +54,8 @@ function handle_sdm_download_via_direct_post() {
 	    $ipaddress = sdm_get_ip_address();
 
             //Get the user agent data. First try to get from get_browser() function. If server doesn't support this function then get from HTTP var.
-            $browser_data = get_browser(null, true);
-            if ( $browser_data ) {
-                //Browser data available
-                if ( isset( $browser_data['browser'] ) ) {
-                    $user_agent = $browser_data['browser'];
-                }
-                if ( isset( $browser_data['version'] ) ) {
-                    $user_agent .= ' ' . $browser_data['version'];
-                }
-                if ( isset( $browser_data['platform'] ) ) {
-                    $user_agent .= ' / ' . $browser_data['platform'];
-                }
-            } else {
-                //User the standard HTTP user agent data from PHP.
-                if (isset ($_SERVER['HTTP_USER_AGENT']) ) {
-                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-                }
+            if ( isset ($_SERVER['HTTP_USER_AGENT']) ) {
+                $user_agent = $_SERVER['HTTP_USER_AGENT'];
             }
 	}
 
