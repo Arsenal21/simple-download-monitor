@@ -17,7 +17,7 @@ function sdm_export_download_logs_to_csv() {
             $result->purchase_qty = 1;
         }
 
-        $fields = array($result->id, $result->post_id, $result->post_title, $result->file_url, $result->date_time, $result->visitor_ip, $result->visitor_country, $result->visitor_name);
+        $fields = array($result->id, $result->post_id, $result->post_title, $result->file_url, $result->date_time, $result->visitor_ip, $result->visitor_country, $result->visitor_name, $result->user_agent);
         fputcsv($fp, $fields);
     }
 

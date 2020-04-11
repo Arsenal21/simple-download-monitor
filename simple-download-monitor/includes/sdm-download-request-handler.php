@@ -25,7 +25,7 @@ function handle_sdm_download_via_direct_post() {
 	    $pass_val = $_REQUEST[ 'pass_text' ];
 	    if ( empty( $pass_val ) ) {//No password was submitted with the downoad request.
                 do_action( 'sdm_process_download_request_no_password');
-                
+
 		$dl_post_url	 = get_permalink( $download_id );
 		$error_msg	 = __( 'Error! This download requires a password.', 'simple-download-monitor' );
 		$error_msg	 .= '<p>';
@@ -37,7 +37,7 @@ function handle_sdm_download_via_direct_post() {
 	    if ( $post_pass != $pass_val ) {
 		//Incorrect password submitted.
                 do_action( 'sdm_process_download_request_incorrect_password');
-                
+
 		wp_die( __( 'Error! Incorrect password. This download requires a valid password.', 'simple-download-monitor' ) );
 	    } else {
 		//Password is valid. Go ahead with the download
@@ -48,12 +48,33 @@ function handle_sdm_download_via_direct_post() {
 	$main_option = get_option( 'sdm_downloads_options' );
 
 	$ipaddress = '';
+        $user_agent = '';
 	//Check if do not capture IP is enabled.
 	if ( ! isset( $main_option[ 'admin_do_not_capture_ip' ] ) ) {
 	    $ipaddress = sdm_get_ip_address();
+
+            //Get the user agent data. First try to get from get_browser() function. If server doesn't support this function then get from HTTP var.
+            $browser_data = get_browser(null, true);
+            if ( $browser_data ) {
+                //Browser data available
+                if ( isset( $browser_data['browser'] ) ) {
+                    $user_agent = $browser_data['browser'];
+                }
+                if ( isset( $browser_data['version'] ) ) {
+                    $user_agent .= ' ' . $browser_data['version'];
+                }
+                if ( isset( $browser_data['platform'] ) ) {
+                    $user_agent .= ' / ' . $browser_data['platform'];
+                }
+            } else {
+                //User the standard HTTP user agent data from PHP.
+                if (isset ($_SERVER['HTTP_USER_AGENT']) ) {
+                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                }
+            }
 	}
 
-	$date_time	 = current_time( 'mysql' );
+	$date_time = current_time( 'mysql' );
 	$visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';
 
 	$visitor_name = sdm_get_logged_in_user();
@@ -66,7 +87,7 @@ function handle_sdm_download_via_direct_post() {
 		$loginMsg = '';
 		if ( isset( $main_option[ 'general_login_page_url' ] ) && ! empty( $main_option[ 'general_login_page_url' ] ) ) {
 		    //We have a login page URL set. Lets use it.
-                    
+
                     if ( isset( $main_option[ 'redirect_user_back_to_download_page' ] ) ) {
                         //Redirect to download page after login feature is enabled.
                         $dl_post_url = get_permalink( $download_id );//The single download item page
@@ -75,7 +96,7 @@ function handle_sdm_download_via_direct_post() {
                     } else {
                         $login_page_url = $main_option[ 'general_login_page_url' ];
                     }
-        
+
 		    $tpl = __( "__Click here__ to go to login page.", 'simple-download-monitor' );
 		    $loginMsg	 = preg_replace( '/__(.*)__/', ' <a href="' . $login_page_url . '">$1</a> $2', $tpl );
 		}
@@ -131,7 +152,8 @@ function handle_sdm_download_via_direct_post() {
 		'visitor_ip'		 => $ipaddress,
 		'date_time'		 => $date_time,
 		'visitor_country'	 => $visitor_country,
-		'visitor_name'		 => $visitor_name
+		'visitor_name'		 => $visitor_name,
+                'user_agent'             => $user_agent,
 	    );
 
 	    $data		 = array_filter( $data ); //Remove any null values.

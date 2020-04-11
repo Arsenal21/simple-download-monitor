@@ -23,7 +23,7 @@ class sdm_List_Table extends WP_List_Table {
     }
 
     function column_default($item, $column_name) {
-        
+
         switch ($column_name) {
             case 'URL':
             case 'visitor_ip':
@@ -32,6 +32,8 @@ class sdm_List_Table extends WP_List_Table {
             case 'visitor_country':
                 return $item[$column_name];
             case 'visitor_name':
+                return $item[$column_name];
+            case 'user_agent':
                 return $item[$column_name];
             default:
                 return print_r($item, true); //Show the whole array for troubleshooting purposes
@@ -72,7 +74,8 @@ class sdm_List_Table extends WP_List_Table {
             'visitor_ip' => __('Visitor IP', 'simple-download-monitor'),
             'date' => __('Date', 'simple-download-monitor'),
             'visitor_country' => __('Country', 'simple-download-monitor'),
-            'visitor_name' => __('Username', 'simple-download-monitor')
+            'visitor_name' => __('Username', 'simple-download-monitor'),
+            'user_agent' => __('User Agent', 'simple-download-monitor')
         );
         return $columns;
     }
@@ -85,7 +88,8 @@ class sdm_List_Table extends WP_List_Table {
             'visitor_ip' => array('visitor_ip', false),
             'date' => array('date_time', false),
             'visitor_country' => array('visitor_country', false),
-            'visitor_name' => array('visitor_name', false)
+            'visitor_name' => array('visitor_name', false),
+            'user_agent' => array('user_agent', false)
         );
         return $sortable_columns;
     }
@@ -110,7 +114,7 @@ class sdm_List_Table extends WP_List_Table {
             if (!wp_verify_nonce($nonce, $action)){
                 wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
             }
-            
+
             if (!isset($_POST['download']) || $_POST['download'] == null) {
                 echo '<div id="message" class="updated fade"><p><strong>' . __('No entries were selected.', 'simple-download-monitor') . '</strong></p><p><em>' . __('Click to Dismiss', 'simple-download-monitor') . '</em></p></div>';
                 return;
@@ -141,10 +145,10 @@ class sdm_List_Table extends WP_List_Table {
             if (!wp_verify_nonce($nonce, $action)){
                 wp_die(__('Nope! Security check failed!', 'simple-download-monitor'));
             }
-            
+
             //Grab the row id
             $row_id = filter_input(INPUT_GET, 'row_id', FILTER_SANITIZE_STRING);
-            
+
             global $wpdb;
             $del_row = $wpdb->query('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"');
             if ($del_row) {
@@ -174,12 +178,12 @@ class sdm_List_Table extends WP_List_Table {
             $orderby_column = "date_time";
             $sort_order = "DESC";
         }
-        $orderby_column = sdm_sanitize_value_by_array($orderby_column, array('post_title'=>'1', 'file_url'=>'1', 'visitor_ip'=>'1', 'date_time'=>'1', 'visitor_country'=>'1', 'visitor_name'=>'1'));
-        $sort_order = sdm_sanitize_value_by_array($sort_order, array('DESC' => '1', 'ASC' => '1'));  
+        $orderby_column = sdm_sanitize_value_by_array($orderby_column, array('post_title'=>'1', 'file_url'=>'1', 'visitor_ip'=>'1', 'date_time'=>'1', 'visitor_country'=>'1', 'visitor_name'=>'1', 'user_agent'=>'1'));
+        $sort_order = sdm_sanitize_value_by_array($sort_order, array('DESC' => '1', 'ASC' => '1'));
 
         //Do a query to find the total number of rows then calculate the query limit
         $table_name = $wpdb->prefix . 'sdm_downloads';
-        
+
         if(isset($_REQUEST['sdm_logs_dl_id']) && !empty($_REQUEST['sdm_logs_dl_id'])){
             //For specific download logs
             $dl_id = sanitize_text_field($_REQUEST['sdm_logs_dl_id']);
@@ -198,15 +202,15 @@ class sdm_List_Table extends WP_List_Table {
         $query.=' LIMIT ' . (int) $offset . ',' . (int) $per_page;//Limit to query to only load a limited number of records
 
         $data_results = $wpdb->get_results($query);
-        
+
         //Prepare the array with the correct index names that the table is expecting.
         $data = array();
         foreach ($data_results as $data_result) {
-            $data[] = array('row_id' => $data_result->id, 'ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name);
+            $data[] = array('row_id' => $data_result->id, 'ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name, 'user_agent' => $data_result->user_agent);
         }
-        
+
         // Now we add our *sorted* data to the items property, where it can be used by the rest of the class.
-        $this->items = $data;   
+        $this->items = $data;
 
         $this->set_pagination_args(array(
             'total_items' => $total_items, //WE have to calculate the total number of items
