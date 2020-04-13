@@ -245,23 +245,6 @@ class simpleDownloadManager {
 			wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
 			wp_enqueue_script( 'sdm-upload' );
 
-			//Pass some JS variables
-			?>
-		<script type="text/javascript">
-			var sdm_del_thumb_postid = '<?php echo $post->ID; ?>';
-				var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url( 'admin-ajax.php?action=ajax' ); ?>'};
-				var sdm_plugin_url = '<?php echo plugins_url(); ?>';
-				var tinymce_langs = {
-					select_download_item: '<?php _e( 'Please select a Download Item:', 'simple-download-monitor' ); ?>',
-					download_title: '<?php _e( 'Download Title', 'simple-download-monitor' ); ?>',
-					include_fancy: '<?php _e( 'Include Fancy Box', 'simple-download-monitor' ); ?>',
-					open_new_window: '<?php _e( 'Open New Window', 'simple-download-monitor' ); ?>',
-					button_color: '<?php _e( 'Button Color', 'simple-download-monitor' ); ?>',
-					insert_shortcode: '<?php _e( 'Insert SDM Shortcode', 'simple-download-monitor' ); ?>'
-				};
-				var sdm_button_colors = <?php echo wp_json_encode( sdm_get_download_button_colors() ); ?>;
-		</script>
-			<?php
 			// Localize langauge strings used in js file
 			$sdmTranslations = array(
 				'select_file'      => __( 'Select File', 'simple-download-monitor' ),
@@ -1249,10 +1232,14 @@ function sdm_downloads_columns_content( $column_name, $post_ID ) {
 // First check if option is checked to disable tinymce button
 $main_option        = get_option( 'sdm_downloads_options' );
 $tiny_button_option = isset( $main_option['admin_tinymce_button'] );
-if ( $tiny_button_option != true ) {
+if ( $tiny_button_option != true && is_admin() ) {
 
 	// Okay.. we're good.  Add the button.
 	add_action( 'init', 'sdm_downloads_tinymce_button' );
+
+	foreach ( array( 'post.php', 'post-new.php' ) as $hook ) {
+		add_action( "admin_head-$hook", 'sdm_downloads_tinymce_admin_head' );
+	}
 
 	function sdm_downloads_tinymce_button() {
 
@@ -1270,5 +1257,26 @@ if ( $tiny_button_option != true ) {
 
 		$buttons[] = 'sdm_downloads';
 		return $buttons;
+	}
+
+	function sdm_downloads_tinymce_admin_head() {
+		global $post;
+		//Pass some JS variables
+		?>
+		<script type="text/javascript">
+			var sdm_del_thumb_postid = '<?php echo $post->ID; ?>';
+				var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url( 'admin-ajax.php?action=ajax' ); ?>'};
+				var sdm_plugin_url = '<?php echo plugins_url(); ?>';
+				var tinymce_langs = {
+					select_download_item: '<?php _e( 'Please select a Download Item:', 'simple-download-monitor' ); ?>',
+					download_title: '<?php esc_js( __( 'Download Title', 'simple-download-monitor' ) ); ?>',
+					include_fancy: '<?php _e( 'Include Fancy Box', 'simple-download-monitor' ); ?>',
+					open_new_window: '<?php _e( 'Open New Window', 'simple-download-monitor' ); ?>',
+					button_color: '<?php _e( 'Button Color', 'simple-download-monitor' ); ?>',
+					insert_shortcode: '<?php _e( 'Insert SDM Shortcode', 'simple-download-monitor' ); ?>'
+				};
+				var sdm_button_colors = <?php echo wp_json_encode( sdm_get_download_button_colors() ); ?>;
+		</script>
+			<?php
 	}
 }
