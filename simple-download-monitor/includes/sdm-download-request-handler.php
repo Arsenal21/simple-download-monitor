@@ -64,9 +64,11 @@ function handle_sdm_download_via_direct_post() {
 
 		$visitor_name = sdm_get_logged_in_user();
 
+		$anonymous_can_download = get_post_meta( $download_id, 'sdm_item_anonymous_can_download', true );
+
 		// Check if we only allow the download for logged-in users
 		if ( isset( $main_option['only_logged_in_can_download'] ) ) {
-			if ( $main_option['only_logged_in_can_download'] && $visitor_name === false ) {
+			if ( $main_option['only_logged_in_can_download'] && $visitor_name === false && ! $anonymous_can_download ) {
 				//User not logged in, let's display the error message.
 				//But first let's see if we have login page URL set so we can display it as well
 				$loginMsg = '';

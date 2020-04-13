@@ -407,6 +407,11 @@ class simpleDownloadManager {
 		echo $disable_single_dl_label . '</label>';
 		echo '</p>';
 
+		$sdm_item_anonymous_can_download = get_post_meta( $post->ID, 'sdm_item_anonymous_can_download', true );
+
+		echo '<p> <input id="sdm_item_anonymous_can_download" type="checkbox" name="sdm_item_anonymous_can_download" value="yes"' . checked( true, $sdm_item_anonymous_can_download, false ) . ' />';
+		echo '<label for="sdm_item_anonymous_can_download">' . __( 'Ignore "Only Allow Logged-in Users to Download" global setting for this item.', 'simple-download-monitor' ) . '</label> </p>';
+
 		wp_nonce_field( 'sdm_misc_properties_box_nonce', 'sdm_misc_properties_box_nonce_check' );
 	}
 
@@ -598,11 +603,13 @@ class simpleDownloadManager {
 		$new_window_open                              = filter_input( INPUT_POST, 'sdm_item_new_window', FILTER_VALIDATE_BOOLEAN );
 		$sdm_item_hide_dl_button_single_download_page = filter_input( INPUT_POST, 'sdm_item_hide_dl_button_single_download_page', FILTER_VALIDATE_BOOLEAN );
 		$sdm_item_disable_single_download_page        = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
+		$sdm_item_anonymous_can_download              = filter_input( INPUT_POST, 'sdm_item_anonymous_can_download', FILTER_VALIDATE_BOOLEAN );
 
 		//Save the data
 		update_post_meta( $post_id, 'sdm_item_new_window', $new_window_open );
 		update_post_meta( $post_id, 'sdm_item_hide_dl_button_single_download_page', $sdm_item_hide_dl_button_single_download_page );
 		update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );
+		update_post_meta( $post_id, 'sdm_item_anonymous_can_download', $sdm_item_anonymous_can_download );
 	}
 
 	public function sdm_save_thumbnail_meta_data( $post_id ) {
