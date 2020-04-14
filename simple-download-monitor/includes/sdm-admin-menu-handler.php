@@ -155,7 +155,7 @@ function sdm_create_settings_page() {
     	<div class="postbox" style="min-width: inherit;">
     	    <h3 class="hndle"><label for="title"><?php _e( 'Social', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
-		    <?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> | 
+		    <?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> |
 		    <?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
     	    </div>
     	</div>
@@ -191,7 +191,7 @@ function sdm_admin_menu_general_settings() {
 
     submit_button();
     ?>
-    <!-- END USER LOGIN OPTIONS DIV -->    
+    <!-- END USER LOGIN OPTIONS DIV -->
 
     <!-- BEGIN ADMIN OPTIONS DIV -->
     <?php
@@ -341,6 +341,7 @@ function sdm_create_logs_page() {
 
 function sdm_handle_logs_main_tab_page() {
     global $wpdb;
+    $advanced_options = get_option( 'sdm_advanced_options' );
 
     if ( isset( $_POST[ 'sdm_export_log_entries' ] ) ) {
 	//Export log entries
@@ -361,12 +362,35 @@ function sdm_handle_logs_main_tab_page() {
 	echo '</p></div>';
     }
 
+    if ( isset( $_POST[ 'sdm_trim_log_entries' ] ) ) {
+	//Trim log entries
+        $interval_val = intval( $_POST['sdm_trim_log_entries_days'] );
+        $interval_unit = 'DAY';
+        $cur_time = current_time('mysql');
+
+        //Save the interval value for future use on this site.
+        $advanced_options ['sdm_trim_log_entries_days_saved'] = $interval_val;
+        update_option('sdm_advanced_options', $advanced_options);
+
+        //Trim entries in the DB table.
+	$table_name = $wpdb->prefix . 'sdm_downloads';
+        $cond = " DATE_SUB('$cur_time',INTERVAL '$interval_val' $interval_unit) > date_time";
+        $result = $wpdb->query("DELETE FROM $table_name WHERE $cond", OBJECT);
+
+	echo '<div id="message" class="updated fade"><p>';
+	_e( 'Download log entries trimmed!', 'simple-download-monitor' );
+	echo '</p></div>';
+    }
+
+    //Set the default log trim days value
+    $trim_log_entries_days_default_val = isset( $advanced_options ['sdm_trim_log_entries_days_saved'] ) ? $advanced_options ['sdm_trim_log_entries_days_saved'] : '30';
+
     /* Display the logs table */
     //Create an instance of our package class...
     $sdmListTable = new sdm_List_Table();
     //Fetch, prepare, sort, and filter our data...
     $sdmListTable->prepare_items();
-    ?>    
+    ?>
 
     <h2><?php _e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
 
@@ -383,6 +407,7 @@ function sdm_handle_logs_main_tab_page() {
     		<form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >
     		    <div class="submit">
     			<input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>" />
+                        <p class="description"><?php _e( 'This button will export all the log entries to a CSV file that you can download. The download link will be shown at the top of this page.', 'simple-download-monitor' ); ?></p>
     		    </div>
     		</form>
     	    </div>
@@ -392,9 +417,18 @@ function sdm_handle_logs_main_tab_page() {
     	<div class="postbox">
     	    <h3 class="hndle"><label for="title"><?php _e( 'Reset Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
     	    <div class="inside">
-    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries to a CSV file?');" >
+    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >
     		    <div class="submit">
     			<input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
+                        <p class="description"><?php _e( 'This button will reset all log entries. It can useful if you want to export all your log entries then reset them.', 'simple-download-monitor' ); ?></p>
+    		    </div>
+    		</form>
+
+    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to trim log entries?');" >
+    		    <div class="submit">
+                        Delete Log Entries Older Than <input name="sdm_trim_log_entries_days" type="text" size="4" value="<?php echo $trim_log_entries_days_default_val; ?>"/> Days
+    			<input type="submit" class="button" name="sdm_trim_log_entries" value="<?php _e( 'Trim Log Entries', 'simple-download-monitor' ); ?>" />
+                        <p class="description"><?php _e( 'This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button.', 'simple-download-monitor' ); ?></p>
     		    </div>
     		</form>
     	    </div>
@@ -508,18 +542,18 @@ function sdm_create_stats_page() {
                                 <?php _e( 'Enter your Google Maps API Key <a href="edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key" target="_blank">in the settings</a> to properly display the chart.', 'simple-download-monitor' ); ?>
                         </div>
                     </div>
-                    
+
     		    <div id="country_chart" style="width: auto; max-width: 700px; height:437px;"></div>
     		</div>
-                
+
                 <div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ($active_tab == 'countrylistchart' ? '' : ' style="display:none;"'); ?>>
-                    <div class="wrap">                                
+                    <div class="wrap">
                         <table class="widefat">
                             <thead>
-                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>                                      
-                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th> 
-                            </thead>                               
-                            <tbody>                                  
+                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </thead>
+                            <tbody>
                                 <?php
                                 //An array containing the downloads.
                                 $downloads_by_country_array = sdm_get_downloads_by_country($start_date, $end_date, false);
@@ -536,13 +570,13 @@ function sdm_create_stats_page() {
                                 ?>
                             </tbody>
                             <tfoot>
-                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>                                        
-                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th> 
-                            </tfoot>                            
+                            <th><strong><?php _e('Country Name', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </tfoot>
                         </table>
                     </div>
                 </div><!-- end of countrylistchart -->
-                
+
     	    </div>
     	</div></div>
     </div>

@@ -41,6 +41,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Track IP addresses of the users who downloaded your files.
 * Track date and time of each file downloads.
 * Track the usernames of the users downloading the files.
+* Track the User Agent of the visitors downloading the files.
 * Option to setup secure downloads for your files (the URL of the downloadable file will be hidden).
 * Option to upload a thumbnail image for each of your downloadable files.
 * Option to use a nice looking template to show your download now buttons.
@@ -61,6 +62,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Ability to show your downloads in a grid display. [View the tutorial](https://www.tipsandtricks-hq.com/show-file-downloads-in-a-nice-grid-display-7273)
 * Export all the file download logs to a CSV file.
 * Ability to reset the log entries.
+* Ability to trim the download log entries.
 * Shortcode to show a number of latest downloads to your visitors.
 * Shortcode to show a number of popular downloads to your visitors.
 * Ability to disable the download monitoring (logging) for certain items (or all items).
@@ -68,7 +70,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Option to specify file size info so it can be shown to your visitors. [View the tutorial](https://simple-download-monitor.com/how-to-show-file-size-info-of-your-downloads/)
 * Option to specify version number info for the download item so it can be shown to your visitors.
 * Option to show the download published date.
-* Option to restrict downloads to logged-in users only.
+* Option to restrict downloads to logged-in users only. [View the tutorial](https://simple-download-monitor.com/offering-downloads-to-logged-in-users-members-only/)
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
 * Option to add Terms and Condtions to your download buttons.
@@ -189,6 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = 3.8.6 =
 - Added a new feature to ignore the "Only Allow Logged-in Users to Download" option on a per download item basis.
 - Added a new settings option to disable capturing of the "User Agent" value in the logs.
+- Added a new feature in the "Logs" menu to allow trimming of log entries. This option can be used to delete log entries older than 3 months for example.
 - Fixed a minor JavaScript issue.
 
 = 3.8.5 =
