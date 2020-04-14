@@ -48,16 +48,19 @@ function handle_sdm_download_via_direct_post() {
 		$main_option = get_option( 'sdm_downloads_options' );
 
 		$ipaddress  = '';
-		$user_agent = '';
 		//Check if do not capture IP is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_ip'] ) ) {
 			$ipaddress = sdm_get_ip_address();
+		}
 
-			//Get the user agent data. First try to get from get_browser() function. If server doesn't support this function then get from HTTP var.
+                $user_agent = '';
+		//Check if do not capture User Agent is enabled.
+		if ( ! isset( $main_option['admin_do_not_capture_user_agent'] ) ) {
+			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
 			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
 				$user_agent = $_SERVER['HTTP_USER_AGENT'];
 			}
-		}
+                }
 
 		$date_time       = current_time( 'mysql' );
 		$visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';

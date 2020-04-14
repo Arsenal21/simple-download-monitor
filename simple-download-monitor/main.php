@@ -715,6 +715,7 @@ class simpleDownloadManager {
 		add_settings_field( 'admin_tinymce_button', __( 'Remove Tinymce Button', 'simple-download-monitor' ), array( $this, 'admin_tinymce_button_cb' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
+                add_settings_field( 'admin_do_not_capture_user_agent', __( 'Do Not Capture User Agent', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_user_agent' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_dont_log_bots', __( 'Do Not Count Downloads from Bots', 'simple-download-monitor' ), array( $this, 'admin_dont_log_bots' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_no_logs', __( 'Disable Download Logs', 'simple-download-monitor' ), array( $this, 'admin_no_logs_cb' ), 'admin_options_section', 'admin_options' );
 
@@ -869,6 +870,12 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_downloads_options' );
 		echo '<input name="sdm_downloads_options[admin_do_not_capture_ip]" id="admin_do_not_capture_ip" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_do_not_capture_ip'] ), false ) . ' /> ';
 		echo '<label for="admin_do_not_capture_ip">' . __( 'Use this if you do not want to capture the IP address and Country of the visitors when they download an item.', 'simple-download-monitor' ) . '</label>';
+	}
+
+	public function admin_do_not_capture_user_agent() {
+		$main_opts = get_option( 'sdm_downloads_options' );
+		echo '<input name="sdm_downloads_options[admin_do_not_capture_user_agent]" id="admin_do_not_capture_user_agent" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_do_not_capture_user_agent'] ), false ) . ' /> ';
+		echo '<label for="admin_do_not_capture_user_agent">' . __( 'Use this if you do not want to capture the User Agent value of the browser when they download an item.', 'simple-download-monitor' ) . '</label>';
 	}
 
 	public function admin_dont_log_bots() {

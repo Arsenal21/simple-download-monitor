@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 4.1.0
 Tested up to: 5.4
-Stable tag: 3.8.5
+Stable tag: 3.8.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -185,6 +185,11 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.8.6 =
+- Added a new feature to ignore the "Only Allow Logged-in Users to Download" option on a per download item basis.
+- Added a new settings option to disable capturing of the "User Agent" value in the logs.
+- Fixed a minor JavaScript issue.
 
 = 3.8.5 =
 - Removed the usage of the get_browser() function since it is not supported in some servers. Instead it will just log the full user agent data.
