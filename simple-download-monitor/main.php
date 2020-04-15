@@ -549,7 +549,7 @@ class simpleDownloadManager {
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . $shortcode_text . "' size='40'>";
 
 		echo '<br /><br />';
-		_e( 'Read the full shortcode usage documentation <a href="https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin" target="_blank">here</a>.', 'simple-download-monitor' );
+		_e( 'Read the full shortcode usage documentation <a href="https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/" target="_blank">here</a>.', 'simple-download-monitor' );
 	}
 
 	public function sdm_save_description_meta_data( $post_id ) {

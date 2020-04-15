@@ -802,8 +802,8 @@ msgstr ""
 
 #: main.php:547
 msgid ""
-"Read the full shortcode usage documentation <a href=\"https://www."
-"tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin\" target="
+"Read the full shortcode usage documentation <a href=\"https://"
+"simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/\" target="
 "\"_blank\">here</a>."
 msgstr ""
 
