@@ -188,6 +188,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.8.7 =
+- Added a new filter for the visitor name tracking.
+
 = 3.8.6 =
 - Added a new feature to ignore the "Only Allow Logged-in Users to Download" option on a per download item basis.
 - Added a new settings option to disable capturing of the "User Agent" value in the logs.

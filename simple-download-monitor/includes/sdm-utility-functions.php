@@ -188,6 +188,8 @@ function sdm_get_logged_in_user() {
 	}
     }
 
+    $visitor_name = apply_filters('sdm_get_logged_in_user_name', $visitor_name);
+
     return $visitor_name;
 }
 
@@ -323,7 +325,7 @@ function sdm_get_current_page_url() {
     } else {
         $page_url .= ltrim($_SERVER["SERVER_NAME"], ".*") . $_SERVER["REQUEST_URI"];
     }
-    
+
     $page_url = apply_filters('sdm_get_current_page_url', $page_url);
     return $page_url;
 }
