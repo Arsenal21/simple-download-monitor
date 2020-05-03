@@ -26,6 +26,11 @@ class SDM_Addons_Updater {
 		return $data;
 	}
 
+	public function set_request_options( $options ) {
+		$options['timeout'] = 5;
+		return $options;
+	}
+
 	public function plugins_loaded() {
 		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
 			require_once WP_SIMPLE_DL_MONITOR_PATH . 'lib/plugin-update-checker/plugin-update-checker.php';
@@ -35,6 +40,7 @@ class SDM_Addons_Updater {
 				$this->icons[ $addon[2] ] = $this->icons_path . $addon[3];
 				add_filter( 'puc_request_info_result-' . $addon[2], array( $this, 'set_icon' ) );
 			}
+			add_filter( 'puc_request_info_options-' . $addon[2], array( $this, 'set_request_options' ) );
 			$plugin_file = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . str_replace( '/', DIRECTORY_SEPARATOR, $addon[1] );
 			if ( file_exists( $plugin_file ) ) {
 				$my_update_checker = Puc_v4_Factory::buildUpdateChecker(
