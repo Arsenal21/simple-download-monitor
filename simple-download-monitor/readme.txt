@@ -190,6 +190,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.8.7 =
 - Added a new filter for the visitor name tracking.
+- Added two new bot strings that will be filtered out from the log (when using the "Do Not Count Downloads from Bots" option).
 
 = 3.8.6 =
 - Added a new feature to ignore the "Only Allow Logged-in Users to Download" option on a per download item basis.
