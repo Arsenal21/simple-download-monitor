@@ -43,7 +43,7 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
 }
 
 /*
- * Generates the output of a single item using fancy2 sytle 
+ * Generates the output of a single item using fancy2 sytle
  * $args array can have the following parameters
  * id, fancy, button_text, new_window
  */
@@ -112,10 +112,10 @@ function sdm_generate_fancy1_display_output( $args ) {
     $isset_item_version	 = ($show_version && isset( $item_version )) ? $item_version : ''; //check if show_version is enabled and if there is a version value
     //Check to see if the download link cpt is password protected
     $get_cpt_object		 = get_post( $id );
-    $cpt_is_password	 = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;    
+    $cpt_is_password	 = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
     //Check if show date is enabled
     $show_date_fd		 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
-    //Get item date 
+    //Get item date
     $download_date		 = get_the_date( get_option( 'date_format' ), $id );
 
     $main_advanced_opts = get_option( 'sdm_advanced_options' );
@@ -152,7 +152,7 @@ function sdm_generate_fancy1_display_output( $args ) {
     $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
 
     //This hook can be used to add content below the description in fancy1 template
-    $output .= apply_filters( 'sdm_fancy1_below_download_description', '' );
+    $output .= apply_filters( 'sdm_fancy1_below_download_description', '', $args);
 
     if ( ! empty( $isset_item_file_size ) ) {//Show file size info
 	$output	 .= '<div class="sdm_download_size">';
@@ -168,7 +168,7 @@ function sdm_generate_fancy1_display_output( $args ) {
 	$output	 .= '</div>';
     }
 
-    if ( $show_date_fd ) {//Show date 
+    if ( $show_date_fd ) {//Show date
 	$output	 .= '<div class="sdm_download_date">';
 	$output	 .= '<span class="sdm_download_date_label">' . __( 'Published: ', 'simple-download-monitor' ) . '</span>';
 	$output	 .= '<span class="sdm_download_date_value">' . $download_date . '</span>';

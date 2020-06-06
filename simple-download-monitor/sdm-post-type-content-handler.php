@@ -3,7 +3,7 @@
 //Handles the output on the SDM individual download page (Custom Post Type)
 add_filter( 'the_content', 'filter_sdm_post_type_content' );
 
-function filter_sdm_post_type_content( $content ) {    
+function filter_sdm_post_type_content( $content ) {
     global $post;
     if ( isset( $post->post_type ) && $post->post_type == "sdm_downloads" ) {//Handle the content for sdm_downloads type post
 	//$download_id = $post->ID;
@@ -21,9 +21,9 @@ function filter_sdm_post_type_content( $content ) {
             $content .= '</div>';
             return $content;
         }
-                
+
 	//Check to see if the download link cpt is password protected
-	$get_cpt_object			 = get_post( $id );       
+	$get_cpt_object			 = get_post( $id );
 	$cpt_is_password		 = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
 	//Get item thumbnail
 	$item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
@@ -47,7 +47,7 @@ function filter_sdm_post_type_content( $content ) {
 
 	//Check if show published date is enabled
 	$show_date_fd	 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
-	//Get published date 
+	//Get published date
 	$published_date	 = get_the_date( get_option( 'date_format' ), $id );
 
 	// See if user color option is selected
@@ -121,7 +121,7 @@ function filter_sdm_post_type_content( $content ) {
         //Check if the button of the single download page is disabled.
         $sdm_item_hide_dl_button_single_download_page = get_post_meta( $id, 'sdm_item_hide_dl_button_single_download_page', true );
         if ($sdm_item_hide_dl_button_single_download_page){
-            //the download button is disabled. 
+            //the download button is disabled.
             $content .= '<div class="sdm_post_single_download_page_disabled_dl_button_msg">';
             $msg = '<p>' . __('The admin of this site has disabled the download button for this page.', 'simple-download-monitor') . '</p>';
             $content .= apply_filters('sdm_post_single_download_page_disabled_dl_button_msg', $msg);
@@ -129,7 +129,7 @@ function filter_sdm_post_type_content( $content ) {
         } else {
             $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
         }
-        
+
 	if ( ! empty( $isset_item_file_size ) ) {//Show file size info
 	    $content .= '<div class="sdm_post_download_file_size">';
 	    $content .= '<span class="sdm_post_download_size_label">' . __( 'Size: ', 'simple-download-monitor' ) . '</span>';
@@ -187,9 +187,9 @@ function sdm_get_item_description_output( $id ) {
 
 //Add adsense or ad code below the description (if applicable)
 add_filter( 'sdm_cpt_below_download_description', 'sdm_add_ad_code_below_description' );
-add_filter( 'sdm_fancy1_below_download_description', 'sdm_add_ad_code_below_description' );
+add_filter( 'sdm_fancy1_below_download_description', 'sdm_add_ad_code_below_description', 10, 2 );
 
-function sdm_add_ad_code_below_description( $output ) {
+function sdm_add_ad_code_below_description( $output, $args ) {
     $main_advanced_opts	 = get_option( 'sdm_advanced_options' );
     $adsense_below_desc	 = isset( $main_advanced_opts[ 'adsense_below_description' ] ) ? $main_advanced_opts[ 'adsense_below_description' ] : '';
     if ( ! empty( $adsense_below_desc ) ) {
