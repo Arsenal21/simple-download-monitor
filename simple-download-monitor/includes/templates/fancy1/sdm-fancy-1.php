@@ -152,7 +152,8 @@ function sdm_generate_fancy1_display_output( $args ) {
     $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
 
     //This hook can be used to add content below the description in fancy1 template
-    $output .= apply_filters( 'sdm_fancy1_below_download_description', '', $args);
+    $params = array( 'id' => $id );
+    $output .= apply_filters( 'sdm_fancy1_below_download_description', '', $params);
 
     if ( ! empty( $isset_item_file_size ) ) {//Show file size info
 	$output	 .= '<div class="sdm_download_size">';

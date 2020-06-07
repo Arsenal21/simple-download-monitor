@@ -116,7 +116,8 @@ function filter_sdm_post_type_content( $content ) {
 	$content .= '<div class="sdm_post_description">' . $isset_item_description . '</div>';
 
 	//This hook can be used to add content below the description
-	$content .= apply_filters( 'sdm_cpt_below_download_description', '' );
+        $params = array( 'id' => $id );
+	$content .= apply_filters( 'sdm_cpt_below_download_description', '', $params);
 
         //Check if the button of the single download page is disabled.
         $sdm_item_hide_dl_button_single_download_page = get_post_meta( $id, 'sdm_item_hide_dl_button_single_download_page', true );
@@ -186,7 +187,7 @@ function sdm_get_item_description_output( $id ) {
 }
 
 //Add adsense or ad code below the description (if applicable)
-add_filter( 'sdm_cpt_below_download_description', 'sdm_add_ad_code_below_description' );
+add_filter( 'sdm_cpt_below_download_description', 'sdm_add_ad_code_below_description', 10, 2 );
 add_filter( 'sdm_fancy1_below_download_description', 'sdm_add_ad_code_below_description', 10, 2 );
 
 function sdm_add_ad_code_below_description( $output, $args ) {
