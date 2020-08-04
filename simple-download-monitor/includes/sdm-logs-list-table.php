@@ -187,6 +187,8 @@ class sdm_List_Table extends WP_List_Table {
         if(isset($_REQUEST['sdm_logs_dl_id']) && !empty($_REQUEST['sdm_logs_dl_id'])){
             //For specific download logs
             $dl_id = sanitize_text_field($_REQUEST['sdm_logs_dl_id']);
+            $dl_id = intval($dl_id);
+
             $query = "SELECT COUNT(*) FROM $table_name WHERE post_id = $dl_id";
             $total_items = $wpdb->get_var($query);//For pagination requirement
             $query = "SELECT * FROM $table_name WHERE post_id = $dl_id ORDER BY $orderby_column $sort_order";
