@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 3.8.7
+ * Version: 3.8.8
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.8.7' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '3.8.8' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
@@ -22,7 +22,7 @@ define( 'WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url() );
 define( 'WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt' );
 
 global $sdm_db_version;
-$sdm_db_version = '1.3';
+$sdm_db_version = '1.4';
 
 //File includes
 require_once 'includes/sdm-debug.php';
@@ -62,6 +62,7 @@ function sdm_install_db_table() {
 			  visitor_country mediumtext NOT NULL,
 			  visitor_name mediumtext NOT NULL,
                           user_agent mediumtext NOT NULL,
+                          referrer_url mediumtext NOT NULL,
 			  UNIQUE KEY id (id)
 		);';
 
@@ -716,6 +717,7 @@ class simpleDownloadManager {
 		add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
                 add_settings_field( 'admin_do_not_capture_user_agent', __( 'Do Not Capture User Agent', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_user_agent' ), 'admin_options_section', 'admin_options' );
+                add_settings_field( 'admin_do_not_capture_referrer_url', __( 'Do Not Capture Referrer URL', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_referrer_url' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_dont_log_bots', __( 'Do Not Count Downloads from Bots', 'simple-download-monitor' ), array( $this, 'admin_dont_log_bots' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_no_logs', __( 'Disable Download Logs', 'simple-download-monitor' ), array( $this, 'admin_no_logs_cb' ), 'admin_options_section', 'admin_options' );
 
@@ -876,6 +878,12 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_downloads_options' );
 		echo '<input name="sdm_downloads_options[admin_do_not_capture_user_agent]" id="admin_do_not_capture_user_agent" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_do_not_capture_user_agent'] ), false ) . ' /> ';
 		echo '<label for="admin_do_not_capture_user_agent">' . __( 'Use this if you do not want to capture the User Agent value of the browser when they download an item.', 'simple-download-monitor' ) . '</label>';
+	}
+
+	public function admin_do_not_capture_referrer_url() {
+		$main_opts = get_option( 'sdm_downloads_options' );
+		echo '<input name="sdm_downloads_options[admin_do_not_capture_referrer_url]" id="admin_do_not_capture_referrer_url" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_do_not_capture_referrer_url'] ), false ) . ' /> ';
+		echo '<label for="admin_do_not_capture_referrer_url">' . __( 'Use this if you do not want to capture the Referrer URL value when they download an item. The plugin only tries to capture this value if it is available.', 'simple-download-monitor' ) . '</label>';
 	}
 
 	public function admin_dont_log_bots() {

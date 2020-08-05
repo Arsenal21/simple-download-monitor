@@ -35,6 +35,8 @@ class sdm_List_Table extends WP_List_Table {
                 return $item[$column_name];
             case 'user_agent':
                 return $item[$column_name];
+            case 'referrer_url':
+                return $item[$column_name];
             default:
                 return print_r($item, true); //Show the whole array for troubleshooting purposes
         }
@@ -75,7 +77,8 @@ class sdm_List_Table extends WP_List_Table {
             'date' => __('Date', 'simple-download-monitor'),
             'visitor_country' => __('Country', 'simple-download-monitor'),
             'visitor_name' => __('Username', 'simple-download-monitor'),
-            'user_agent' => __('User Agent', 'simple-download-monitor')
+            'user_agent' => __('User Agent', 'simple-download-monitor'),
+            'referrer_url' => __('Referrer URL', 'simple-download-monitor')
         );
         return $columns;
     }
@@ -178,7 +181,7 @@ class sdm_List_Table extends WP_List_Table {
             $orderby_column = "date_time";
             $sort_order = "DESC";
         }
-        $orderby_column = sdm_sanitize_value_by_array($orderby_column, array('post_title'=>'1', 'file_url'=>'1', 'visitor_ip'=>'1', 'date_time'=>'1', 'visitor_country'=>'1', 'visitor_name'=>'1', 'user_agent'=>'1'));
+        $orderby_column = sdm_sanitize_value_by_array($orderby_column, array('post_title'=>'1', 'file_url'=>'1', 'visitor_ip'=>'1', 'date_time'=>'1', 'visitor_country'=>'1', 'visitor_name'=>'1', 'user_agent'=>'1', 'referrer_url'=>'1'));
         $sort_order = sdm_sanitize_value_by_array($sort_order, array('DESC' => '1', 'ASC' => '1'));
 
         //Do a query to find the total number of rows then calculate the query limit
@@ -208,7 +211,7 @@ class sdm_List_Table extends WP_List_Table {
         //Prepare the array with the correct index names that the table is expecting.
         $data = array();
         foreach ($data_results as $data_result) {
-            $data[] = array('row_id' => $data_result->id, 'ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name, 'user_agent' => $data_result->user_agent);
+            $data[] = array('row_id' => $data_result->id, 'ID' => $data_result->post_id, 'title' => $data_result->post_title, 'URL' => $data_result->file_url, 'visitor_ip' => $data_result->visitor_ip, 'date' => $data_result->date_time, 'visitor_country' => $data_result->visitor_country, 'visitor_name' => $data_result->visitor_name, 'user_agent' => $data_result->user_agent, 'referrer_url' => $data_result->referrer_url);
         }
 
         // Now we add our *sorted* data to the items property, where it can be used by the rest of the class.

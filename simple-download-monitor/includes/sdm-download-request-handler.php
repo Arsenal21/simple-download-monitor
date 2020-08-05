@@ -62,6 +62,15 @@ function handle_sdm_download_via_direct_post() {
 			}
                 }
 
+                $referrer_url = '';
+		//Check if do not capture Referer URL is enabled.
+		if ( ! isset( $main_option['admin_do_not_capture_referrer_url'] ) ) {
+			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
+			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+				$referrer_url = $_SERVER['HTTP_REFERER'];
+			}
+                }
+
 		$date_time       = current_time( 'mysql' );
 		$visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';
 
@@ -144,9 +153,10 @@ function handle_sdm_download_via_direct_post() {
 				'visitor_country' => $visitor_country,
 				'visitor_name'    => $visitor_name,
 				'user_agent'      => $user_agent,
+                                'referrer_url'     => $referrer_url,
 			);
 
-			$data         = array_filter( $data ); //Remove any null values.
+			$data = array_filter( $data ); //Remove any null values.
 			$insert_table = $wpdb->insert( $table, $data );
 
 			if ( $insert_table ) {
