@@ -42,6 +42,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Track date and time of each file downloads.
 * Track the usernames of the users downloading the files.
 * Track the User Agent of the visitors downloading the files.
+* Track the Referrer URL to see which page the downloads are coming from.
 * Option to setup secure downloads for your files (the URL of the downloadable file will be hidden).
 * Option to upload a thumbnail image for each of your downloadable files.
 * Option to use a nice looking template to show your download now buttons.
