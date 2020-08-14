@@ -713,7 +713,6 @@ class simpleDownloadManager {
 		add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
 		add_settings_field( 'redirect_user_back_to_download_page', __( 'Redirect Users to Download Page', 'simple-download-monitor' ), array( $this, 'redirect_user_back_to_download_page_cb' ), 'user_login_options_section', 'user_login_options' );
 
-		add_settings_field( 'admin_tinymce_button', __( 'Remove Tinymce Button', 'simple-download-monitor' ), array( $this, 'admin_tinymce_button_cb' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
                 add_settings_field( 'admin_do_not_capture_user_agent', __( 'Do Not Capture User Agent', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_user_agent' ), 'admin_options_section', 'admin_options' );
@@ -854,12 +853,6 @@ class simpleDownloadManager {
 		$value     = isset( $main_opts['general_login_page_url'] ) ? $main_opts['general_login_page_url'] : '';
 		echo '<input size="100" name="sdm_downloads_options[general_login_page_url]" id="general_login_page_url" type="text" value="' . $value . '" />';
 		echo '<p class="description">' . __( '(Optional) Specify a login page URL where users can login. This is useful if you only allow logged in users to be able to download. This link will be added to the message that is shown to anonymous users.', 'simple-download-monitor' ) . '</p>';
-	}
-
-	public function admin_tinymce_button_cb() {
-		$main_opts = get_option( 'sdm_downloads_options' );
-		echo '<input name="sdm_downloads_options[admin_tinymce_button]" id="admin_tinymce_button" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_tinymce_button'] ), false ) . ' /> ';
-		echo '<label for="admin_tinymce_button">' . __( 'Removes the SDM Downloads button from the WP content editor.', 'simple-download-monitor' ) . '</label>';
 	}
 
 	public function admin_log_unique() {
@@ -1244,61 +1237,5 @@ function sdm_downloads_columns_content( $column_name, $post_ID ) {
 		global $wpdb;
 		$wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post_ID ) );
 		echo '<p class="sdm_downloads_count">' . $wpdb->num_rows . '</p>';
-	}
-}
-
-/*
- * * Register Tinymce Button
- */
-
-// First check if option is checked to disable tinymce button
-$main_option        = get_option( 'sdm_downloads_options' );
-$tiny_button_option = isset( $main_option['admin_tinymce_button'] );
-if ( $tiny_button_option != true && is_admin() ) {
-
-	// Okay.. we're good.  Add the button.
-	add_action( 'init', 'sdm_downloads_tinymce_button' );
-
-	foreach ( array( 'post.php', 'post-new.php' ) as $hook ) {
-		add_action( "admin_head-$hook", 'sdm_downloads_tinymce_admin_head' );
-	}
-
-	function sdm_downloads_tinymce_button() {
-
-		add_filter( 'mce_external_plugins', 'sdm_downloads_add_button' );
-		add_filter( 'mce_buttons', 'sdm_downloads_register_button' );
-	}
-
-	function sdm_downloads_add_button( $plugin_array ) {
-
-		$plugin_array['sdm_downloads'] = WP_SIMPLE_DL_MONITOR_URL . '/tinymce/sdm_editor_plugin.js';
-		return $plugin_array;
-	}
-
-	function sdm_downloads_register_button( $buttons ) {
-
-		$buttons[] = 'sdm_downloads';
-		return $buttons;
-	}
-
-	function sdm_downloads_tinymce_admin_head() {
-		global $post;
-		//Pass some JS variables
-		?>
-		<script type="text/javascript">
-			var sdm_del_thumb_postid = '<?php echo $post->ID; ?>';
-				var sdm_admin_ajax_url = {sdm_admin_ajax_url: '<?php echo admin_url( 'admin-ajax.php?action=ajax' ); ?>'};
-				var sdm_plugin_url = '<?php echo plugins_url(); ?>';
-				var tinymce_langs = {
-					select_download_item: '<?php _e( 'Please select a Download Item:', 'simple-download-monitor' ); ?>',
-					download_title: '<?php esc_js( __( 'Download Title', 'simple-download-monitor' ) ); ?>',
-					include_fancy: '<?php _e( 'Include Fancy Box', 'simple-download-monitor' ); ?>',
-					open_new_window: '<?php _e( 'Open New Window', 'simple-download-monitor' ); ?>',
-					button_color: '<?php _e( 'Button Color', 'simple-download-monitor' ); ?>',
-					insert_shortcode: '<?php _e( 'Insert SDM Shortcode', 'simple-download-monitor' ); ?>'
-				};
-				var sdm_button_colors = <?php echo wp_json_encode( sdm_get_download_button_colors() ); ?>;
-		</script>
-			<?php
 	}
 }

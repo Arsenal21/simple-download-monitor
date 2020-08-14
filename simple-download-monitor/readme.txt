@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = 3.8.9 =
 - WordPress 5.5 compatiblity.
 - Added sanitization to the "User Agent" field.
+- Removed the "TinyMCE" button option. It is no longer needed in current WordPress version.
 
 = 3.8.8 =
 - Added a new option to capture the Referrer URL of the downloads in the "Logs" menu.
