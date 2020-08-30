@@ -58,7 +58,7 @@ function handle_sdm_download_via_direct_post() {
 		if ( ! isset( $main_option['admin_do_not_capture_user_agent'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
 			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-				$user_agent = wp_kses_data( $_SERVER['HTTP_USER_AGENT'] );
+				$user_agent = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
 			}
                 }
 
@@ -67,7 +67,7 @@ function handle_sdm_download_via_direct_post() {
 		if ( ! isset( $main_option['admin_do_not_capture_referrer_url'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
 			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-				$referrer_url = wp_kses_data( $_SERVER['HTTP_REFERER'] );
+				$referrer_url = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
 			}
                 }
 
