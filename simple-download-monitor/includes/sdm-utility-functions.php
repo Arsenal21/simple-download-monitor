@@ -350,3 +350,113 @@ function sdm_redirect_to_url( $url, $delay = '0', $exit = '1' ) {
 	exit;
     }
 }
+
+/*
+ * Utility function to insert a download record into the logs DB table. Used by addons sometimes.
+ */
+function sdm_insert_download_to_logs_table( $download_id ){
+    global $wpdb;
+
+    if ( ! $download_id ) {
+        SDM_Debug::log('Error! insert to logs function called with incorrect download item id.', false);
+        return;
+    }
+
+    $main_option = get_option( 'sdm_downloads_options' );
+
+    $download_title = get_the_title( $download_id );
+    $download_link  = get_post_meta( $download_id, 'sdm_upload', true );
+
+    $ipaddress  = '';
+    //Check if do not capture IP is enabled.
+    if ( ! isset( $main_option['admin_do_not_capture_ip'] ) ) {
+            $ipaddress = sdm_get_ip_address();
+    }
+
+    $user_agent = '';
+    //Check if do not capture User Agent is enabled.
+    if ( ! isset( $main_option['admin_do_not_capture_user_agent'] ) ) {
+            //Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
+            if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+                    $user_agent = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
+            }
+    }
+
+    $referrer_url = '';
+    //Check if do not capture Referer URL is enabled.
+    if ( ! isset( $main_option['admin_do_not_capture_referrer_url'] ) ) {
+            //Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
+            if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
+                    $referrer_url = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+            }
+    }
+
+    $date_time = current_time( 'mysql' );
+    $visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';
+
+    $visitor_name = sdm_get_logged_in_user();
+    $visitor_name = ( $visitor_name === false ) ? __( 'Not Logged In', 'simple-download-monitor' ) : $visitor_name;
+
+    // Get option for global disabling of download logging
+    $no_logs = isset( $main_option['admin_no_logs'] );
+
+    // Get optoin for logging only unique IPs
+    $unique_ips = isset( $main_option['admin_log_unique'] );
+
+    // Get post meta for individual disabling of download logging
+    $get_meta = get_post_meta( $download_id, 'sdm_item_no_log', true );
+    $item_logging_checked = isset( $get_meta ) && $get_meta === 'on' ? 'on' : 'off';
+
+    $dl_logging_needed = true;
+
+    // Check if download logs have been disabled (globally or per download item)
+    if ( $no_logs === true || $item_logging_checked === 'on' ) {
+            $dl_logging_needed = false;
+    }
+
+    // Check if we are only logging unique ips
+    if ( $unique_ips === true ) {
+            $check_ip = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"' );
+
+            //This IP is already logged for this download item. No need to log it again.
+            if ( $check_ip ) {
+                    $dl_logging_needed = false;
+            }
+    }
+
+    // Check if "Do Not Count Downloads from Bots" setting is enabled
+    if ( isset( $main_option['admin_dont_log_bots'] ) ) {
+            //it is. Now let's check if visitor is a bot
+            if ( sdm_visitor_is_bot() ) {
+                    //visitor is a bot. We neither log nor count this download
+                    $dl_logging_needed = false;
+            }
+    }
+
+    if ( $dl_logging_needed ) {
+            // We need to log this download.
+            $table = $wpdb->prefix . 'sdm_downloads';
+            $data  = array(
+                    'post_id'         => $download_id,
+                    'post_title'      => $download_title,
+                    'file_url'        => $download_link,
+                    'visitor_ip'      => $ipaddress,
+                    'date_time'       => $date_time,
+                    'visitor_country' => $visitor_country,
+                    'visitor_name'    => $visitor_name,
+                    'user_agent'      => $user_agent,
+                    'referrer_url'    => $referrer_url,
+            );
+
+            $data = array_filter( $data ); //Remove any null values.
+            $insert_table = $wpdb->insert( $table, $data );
+
+            if ( $insert_table ) {
+                    //Download request was logged successfully
+                    SDM_Debug::log('Download has been logged in the logs table for download ID: '. $download_id);
+            } else {
+                    //Failed to log the download request
+                    SDM_Debug::log('Error! Failed to log the download request in the database table.', false);
+            }
+    }
+}
