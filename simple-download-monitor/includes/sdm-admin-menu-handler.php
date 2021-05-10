@@ -12,21 +12,21 @@ function sdm_handle_admin_menu() {
     $sdm_addons_page	 = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Add-ons', 'simple-download-monitor' ), __( 'Add-ons', 'simple-download-monitor' ), 'manage_options', 'sdm-addons', 'sdm_create_addons_page' );
 }
 
-add_filter( 'whitelist_options', 'sdm_admin_menu_function_hook' );
+add_filter( 'allowed_options', 'sdm_admin_menu_function_hook' );
 
 /**
  * sdm_admin_menu_function_hook
- * Its hook for add advanced testings tab, and working on saving options to db, if not used, you receive error "options page not found"
- * @param array $whitelist_options
+ * Its hook for add advanced tab, and working on saving options to db, if not used, you receive error "options page not found"
+ * @param array $allowed_options
  * @return string
  */
-function sdm_admin_menu_function_hook( $whitelist_options = array() ) {
-    $whitelist_options[ 'recaptcha_options_section' ]	 = array( 'sdm_advanced_options' );
-    $whitelist_options[ 'termscond_options_section' ]	 = array( 'sdm_advanced_options' );
-    $whitelist_options[ 'adsense_options_section' ]		 = array( 'sdm_advanced_options' );
-    $whitelist_options[ 'maps_api_options_section' ]	 = array( 'sdm_advanced_options' );
+function sdm_admin_menu_function_hook( $allowed_options = array() ) {
+    $allowed_options[ 'recaptcha_options_section' ]	 = array( 'sdm_advanced_options' );
+    $allowed_options[ 'termscond_options_section' ]	 = array( 'sdm_advanced_options' );
+    $allowed_options[ 'adsense_options_section' ]	 = array( 'sdm_advanced_options' );
+    $allowed_options[ 'maps_api_options_section' ]	 = array( 'sdm_advanced_options' );
 
-    return $whitelist_options;
+    return $allowed_options;
 }
 
 /*
