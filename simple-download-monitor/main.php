@@ -1210,7 +1210,6 @@ function sdm_downloads_sortable( $cols ) {
 
 	$cols['sdm_downloads_id']        = 'sdm_downloads_id';
 	$cols['sdm_downloads_file']      = 'sdm_downloads_file';
-	$cols['sdm_downloads_count']     = 'sdm_downloads_count';
 	$cols['taxonomy-sdm_categories'] = 'taxonomy-sdm_categories';
 	$cols['taxonomy-sdm_tags']       = 'taxonomy-sdm_tags';
 	return $cols;

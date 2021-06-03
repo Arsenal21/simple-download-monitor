@@ -189,6 +189,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.2 =
+- The sorting option on the "Downloads" column has been removed.
+
 = 3.9.1 =
 - Replaced the deprecated "whitelist_options" filter (using the "allowed_options" filter instead).
 
