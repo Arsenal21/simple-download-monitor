@@ -191,6 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.9.2 =
 - The sorting option on the "Downloads" column has been removed.
+- Added a new filter that can be used to override the "slug" of the download single post. The name of the filter hook is "sdm_downloads_post_type_before_register".
 
 = 3.9.1 =
 - Replaced the deprecated "whitelist_options" filter (using the "allowed_options" filter instead).

@@ -36,6 +36,10 @@ function sdm_register_post_type() {
 	'menu_icon'		 => 'dashicons-download',
 	'supports'		 => array( 'title' )
     );
+
+    //Trigger filter before registering the post type. Can be used to override the slug of the downloads
+    $args = apply_filters( 'sdm_downloads_post_type_before_register', $args );
+
     register_post_type( 'sdm_downloads', $args );
 }
 
