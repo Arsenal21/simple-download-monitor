@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
-Tested up to: 5.7
-Stable tag: 3.9.1
+Tested up to: 5.8
+Stable tag: 3.9.2
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -189,9 +189,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.9.2 =
+= 3.9.2 =
 - The sorting option on the "Downloads" column has been removed.
 - Added a new filter that can be used to override the "slug" of the download single post. The name of the filter hook is "sdm_downloads_post_type_before_register".
+- Addressed an issue whereby the single post of the download can show a warning if the download button color is not set in the settings.
+- WordPress 5.8 compatibility.
 
 = 3.9.1 =
 - Replaced the deprecated "whitelist_options" filter (using the "allowed_options" filter instead).

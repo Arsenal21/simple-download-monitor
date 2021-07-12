@@ -52,7 +52,7 @@ function filter_sdm_post_type_content( $content ) {
 
 	// See if user color option is selected
 	$main_opts	 = get_option( 'sdm_downloads_options' );
-	$color_opt	 = $main_opts[ 'download_button_color' ];
+	$color_opt	 = isset( $main_opts[ 'download_button_color' ] ) ? $main_opts[ 'download_button_color' ] : null;
 	$def_color	 = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : __( 'green', 'simple-download-monitor' );
 
 	//Download counter

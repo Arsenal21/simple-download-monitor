@@ -48,7 +48,7 @@ function sdm_generate_fancy0_latest_downloads_display_output( $get_posts, $args 
 //
 //    //TODO - when the CSS file is moved to the fancy1 folder, change it here
 //    //$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy1/sdm-fancy-1-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
-//    
+//
 //    foreach ($get_posts as $item) {
 //        $id = $item->ID;  //Get the post ID
 //        //Create a args array
@@ -65,7 +65,7 @@ function sdm_generate_fancy0_latest_downloads_display_output( $get_posts, $args 
 //}
 
 /*
- * Generates the output of a single item using fancy2 sytle 
+ * Generates the output of a single item using fancy2 sytle
  * $args array can have the following parameters
  * id, fancy, button_text, new_window
  */
@@ -80,7 +80,7 @@ function sdm_generate_fancy0_display_output( $args ) {
 
     // See if user color option is selected
     $main_opts	 = get_option( 'sdm_downloads_options' );
-    $color_opt	 = $main_opts[ 'download_button_color' ];
+    $color_opt	 = isset( $main_opts[ 'download_button_color' ] ) ? $main_opts[ 'download_button_color' ] : null;
     $def_color	 = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : __( 'green', 'simple-download-monitor' );
 
     $def_color = empty( $args[ 'color' ] ) ? $def_color : $args[ 'color' ];
@@ -110,7 +110,7 @@ function sdm_generate_fancy0_display_output( $args ) {
 
     // Check to see if the download link cpt is password protected
     $get_cpt_object	 = get_post( $id );
-    $cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;    
+    $cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
 
 
     $main_advanced_opts = get_option( 'sdm_advanced_options' );
