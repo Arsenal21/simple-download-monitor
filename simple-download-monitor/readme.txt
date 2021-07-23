@@ -189,6 +189,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.3 =
+- The logs data exporting function has been moved to a new menu tab within the "Logs" menu.
+- The Export sub-menu now allows exporting of logs data between selected date range.
+
 = 3.9.2 =
 - The sorting option on the "Downloads" column has been removed.
 - Added a new filter that can be used to override the "slug" of the download single post. The name of the filter hook is "sdm_downloads_post_type_before_register".
