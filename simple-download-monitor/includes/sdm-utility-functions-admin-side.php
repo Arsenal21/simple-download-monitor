@@ -1,10 +1,14 @@
 <?php
 
-function sdm_export_download_logs_to_csv() {
+function sdm_export_download_logs_to_csv($start_date, $end_date) {
+    //appending time to start and end date
+    $start_date .= ' 00:00:00';
+    $end_date .= ' 23:59:59';
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'sdm_downloads';
-    $resultset = $wpdb->get_results("SELECT * FROM $table_name ORDER BY id DESC", OBJECT);
+    $resultset_query = $wpdb->prepare("SELECT * FROM $table_name WHERE date_time BETWEEN %s AND %s ORDER BY id DESC", $start_date, $end_date);
+    $resultset = $wpdb->get_results($resultset_query, OBJECT);
 
     $csv_file_path = WP_SIMPLE_DL_MONITOR_PATH . "sdm-download-logs.csv";
     $fp = fopen($csv_file_path, 'w');
