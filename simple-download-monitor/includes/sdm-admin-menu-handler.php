@@ -302,8 +302,9 @@ function sdm_create_logs_page() {
     echo '<div class="wrap">';
 
     $sdm_logs_menu_tabs = array(
-	'sdm-logs'				 => __( 'Main Logs', 'simple-download-monitor' ),
-	'sdm-logs&action=sdm-logs-by-download'	 => __( 'Specific Item Logs', 'simple-download-monitor' ),
+        'sdm-logs' => __('Main Logs', 'simple-download-monitor'),
+        'sdm-logs&action=sdm-logs-by-download' => __('Specific Item Logs', 'simple-download-monitor'),
+        'sdm-logs&action=sdm-logs-export' => __('Export', 'simple-download-monitor'),
     );
 
     $current = "";
@@ -327,15 +328,19 @@ function sdm_create_logs_page() {
     echo $content;
 
     if ( isset( $_GET[ 'action' ] ) ) {
-	switch ( $_GET[ 'action' ] ) {
-	    case 'sdm-logs-by-download':
-		include_once (WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php');
-		sdm_handle_individual_logs_tab_page();
-		break;
-	    default:
-		sdm_handle_logs_main_tab_page();
-		break;
-	}
+        switch ($_GET['action']) {
+            case 'sdm-logs-by-download':
+                include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php');
+                sdm_handle_individual_logs_tab_page();
+                break;
+            case 'sdm-logs-export':
+                include_once(WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-export-logs.php');
+                sdm_logs_export_tab_page();
+                break;
+            default:
+                sdm_handle_logs_main_tab_page();
+                break;
+        }
     } else {
 	sdm_handle_logs_main_tab_page();
     }
@@ -347,14 +352,6 @@ function sdm_handle_logs_main_tab_page() {
     global $wpdb;
     $advanced_options = get_option( 'sdm_advanced_options' );
 
-    if ( isset( $_POST[ 'sdm_export_log_entries' ] ) ) {
-	//Export log entries
-	$log_file_url = sdm_export_download_logs_to_csv();
-	echo '<div id="message" class="updated"><p>';
-	_e( 'Log entries exported! Click on the following link to download the file.', 'simple-download-monitor' );
-	echo '<br /><br /><a href="' . $log_file_url . '">' . __( 'Download Logs CSV File', 'simple-download-monitor' ) . '</a>';
-	echo '</p></div>';
-    }
 
     if ( isset( $_POST[ 'sdm_reset_log_entries' ] ) ) {
 	//Reset log entries
@@ -403,19 +400,6 @@ function sdm_handle_logs_main_tab_page() {
     </div>
 
     <div id="poststuff"><div id="post-body">
-
-    	<!-- Log export button -->
-    	<div class="postbox">
-    	    <h3 class="hndle"><label for="title"><?php _e( 'Export Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
-    	    <div class="inside">
-    		<form method="post" action="" onSubmit="return confirm('Are you sure you want to export all the log entries?');" >
-    		    <div class="submit">
-    			<input type="submit" class="button" name="sdm_export_log_entries" value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>" />
-                        <p class="description"><?php _e( 'This button will export all the log entries to a CSV file that you can download. The download link will be shown at the top of this page.', 'simple-download-monitor' ); ?></p>
-    		    </div>
-    		</form>
-    	    </div>
-    	</div>
 
     	<!-- Log reset button -->
     	<div class="postbox">
