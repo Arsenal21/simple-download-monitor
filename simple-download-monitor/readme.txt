@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP 3.9.3 =
 - The logs data exporting function has been moved to a new menu tab within the "Logs" menu.
 - The Export sub-menu now allows exporting of logs data between selected date range.
+- Date validation function added.
 
 = 3.9.2 =
 - The sorting option on the "Downloads" column has been removed.
