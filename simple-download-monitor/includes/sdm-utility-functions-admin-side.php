@@ -85,18 +85,18 @@ function sdm_validate_date_field($data) {
         foreach ($data as $date) {
             $date_elements = explode('-', $date);
 
-            $year = $date_elements[0] ?? null;
-            $month = $date_elements[1] ?? null;
-            $day = $date_elements[2] ?? null;
+            $year = isset($date_elements[0]) ? $date_elements[0] : null;
+            $month = isset($date_elements[1]) ? $date_elements[1] : null;
+            $day = isset($date_elements[2]) ? $date_elements[2] : null;
 
             return checkdate((int)$month, (int)$day, (int)$year);
         }
     }
     $date_elements = explode('-', $data);
 
-    $year = $date_elements[0] ?? null;
-    $month = $date_elements[1] ?? null;
-    $day = $date_elements[2] ?? null;
+    $year = isset($date_elements[0]) ? $date_elements[0] : null;
+    $month = isset($date_elements[1]) ? $date_elements[1] : null;
+    $day = isset($date_elements[2]) ? $date_elements[2] : null;
 
     return checkdate((int)$month, (int)$day, (int)$year);
 }
