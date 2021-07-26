@@ -26,12 +26,19 @@ function sdm_logs_export_tab_page() {
 
     // csv export message box
     if (isset($_POST['sdm_export_log_entries'])) {
-        //Export log entries
-        $log_file_url = sdm_export_download_logs_to_csv($start_date, $end_date);
-        echo '<div id="message" class="updated"><p>';
-        _e('Log entries exported! Click on the following link to download the file.', 'simple-download-monitor');
-        echo '<br /><br /><a href="' . $log_file_url . '">' . __('Download Logs CSV File', 'simple-download-monitor') . '</a>';
-        echo '</p></div>';
+        //validate date fields
+        if (sdm_validate_date_field([$start_date, $end_date])) {
+            //Export log entries
+            $log_file_url = sdm_export_download_logs_to_csv($start_date, $end_date);
+            echo '<div id="message" class="updated"><p>';
+            _e('Log entries exported! Click on the following link to download the file.', 'simple-download-monitor');
+            echo '<br /><br /><a href="' . $log_file_url . '">' . __('Download Logs CSV File', 'simple-download-monitor') . '</a>';
+            echo '</p></div>';
+        }else{
+            echo '<div id="message" class="error"><p>';
+            _e('Please select a valid date range.', 'simple-download-monitor');
+            echo '</p></div>';
+        }
     }
 
     ?>

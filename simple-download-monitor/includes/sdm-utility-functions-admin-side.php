@@ -72,3 +72,31 @@ function sdm_get_downloads_by_country($start_date = '', $end_date = '', $returnS
         return $res;
     }
 }
+
+/**
+ * Checks if valid date or not
+ *
+ * @param mixed
+ *
+ * @return boolean
+ */
+function sdm_validate_date_field($data) {
+    if (is_array($data)) {
+        foreach ($data as $date) {
+            $date_elements = explode('-', $date);
+
+            $year = $date_elements[0] ?? null;
+            $month = $date_elements[1] ?? null;
+            $day = $date_elements[2] ?? null;
+
+            return checkdate((int)$month, (int)$day, (int)$year);
+        }
+    }
+    $date_elements = explode('-', $data);
+
+    $year = $date_elements[0] ?? null;
+    $month = $date_elements[1] ?? null;
+    $day = $date_elements[2] ?? null;
+
+    return checkdate((int)$month, (int)$day, (int)$year);
+}
