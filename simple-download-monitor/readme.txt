@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 3.9.2
+Stable tag: 3.9.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -189,7 +189,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.9.3 =
+= 3.9.3 =
 - The logs data exporting function has been moved to a new menu tab within the "Logs" menu.
 - The Export sub-menu now allows exporting of logs data between selected date range.
 - Date validation function added.
