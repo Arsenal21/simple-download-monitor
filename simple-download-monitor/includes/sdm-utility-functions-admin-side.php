@@ -74,6 +74,116 @@ function sdm_get_downloads_by_country($start_date = '', $end_date = '', $returnS
 }
 
 /**
+ * Retrieves all user agent fields form downloads
+ *
+ * @start_date string
+ *
+ * @end_date string
+ *
+ * @return array
+ */
+function sdm_get_all_download_user_agent($start_date = '', $end_date = '') {
+    global $wpdb;
+
+    $q = $wpdb->prepare("SELECT user_agent
+            FROM " . $wpdb->prefix . "sdm_downloads
+            WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
+            AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s", $start_date, $end_date);
+
+    return $wpdb->get_results($q, ARRAY_A);
+}
+
+/**
+ * Processes all user agent to browser
+ *
+ * @start_date string
+ *
+ * @end_date string
+ *
+ * @return array
+ */
+
+function sdm_get_all_downloads_by_browser($start_date = '', $end_date = '') {
+    $user_agents = sdm_get_all_download_user_agent($start_date, $end_date);
+
+    $browsers = array();
+    foreach ($user_agents as $agent) {
+        $browserArray = array(
+            'Microsoft Edge' => 'Edg',
+            'Opera' => '(OPR)|(OPX)',
+            'Vivaldi' => 'Vivaldi',
+            'Firefox' => 'Firefox',
+            "Samsung Browser" => 'SamsungBrowser',
+            'Chrome' => 'Chrome',
+            'Internet Explorer' => 'MSIE',
+            'Safari' => 'Safari'
+        );
+        $browser = "Other";
+        foreach ($browserArray as $k => $v) {
+            if (preg_match("/$v/", $agent['user_agent'])) {
+                $browser = $k;
+                break;
+            }
+        }
+        if (isset($browsers[$browser])) {
+            $browsers[$browser] += 1;
+        } else {
+            $browsers[$browser] = 1;
+        }
+    }
+    return $browsers;
+}
+
+/**
+ * Processes all user agent to browser
+ *
+ * @start_date string
+ *
+ * @end_date string
+ *
+ * @return array
+ */
+
+function sdm_get_all_downloads_by_os($start_date = '', $end_date = '') {
+    $user_agents = sdm_get_all_download_user_agent($start_date, $end_date);
+
+    $operating_systems = array();
+    foreach ($user_agents as $agent) {
+        $osArray = array(
+            "Windows 10 Phone" => "(Windows Phone)|(Microsoft; Lumia)",
+            "Android" => "(Linux; Android)|Android",
+            "ChromeOS" => "(X11; CrOS)",
+            "SymbianOS" => "SymbianOS",
+            'Windows 98' => '(Win98)|(Windows 98)',
+            'Windows 2000' => '(Windows 2000)|(Windows NT 5.0)',
+            'Windows ME' => 'Windows ME',
+            'Windows XP' => '(Windows XP)|(Windows NT 5.1)',
+            'Windows Vista' => 'Windows NT 6.0',
+            'Windows 8' => 'Windows NT 6.2',
+            'Windows 8.1' => 'Windows NT 6.3',
+            'Windows 7' => '(Windows NT 6.1)|(Windows NT 7.0)',
+            'Windows 10' => 'Windows NT 10.0',
+            'Linux' => '(X11)|(Linux)',
+            'iOS' => '(Apple-iPhone)|(iPhone)|(iPhone OS)',
+            'macOS' => '(Mac_PowerPC)|(Macintosh)|(Mac OS)'
+        );
+        $os = "Other";
+        foreach ($osArray as $k => $v) {
+            if (preg_match("/$v/", $agent['user_agent'])) {
+                $os = $k;
+                break;
+            }
+        }
+        if (isset($operating_systems[$os])) {
+            $operating_systems[$os] += 1;
+        } else {
+            $operating_systems[$os] = 1;
+        }
+    }
+    return $operating_systems;
+}
+
+/**
  * Checks if valid date or not
  *
  * @param mixed
