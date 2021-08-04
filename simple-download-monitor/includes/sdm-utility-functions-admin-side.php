@@ -135,7 +135,7 @@ function sdm_get_all_downloads_by_browser($start_date = '', $end_date = '') {
 }
 
 /**
- * Processes all user agent to browser
+ * Processes all user agent to operating system
  *
  * @start_date string
  *
