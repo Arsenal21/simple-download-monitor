@@ -518,6 +518,8 @@ function sdm_create_stats_page() {
     		<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ($active_tab == 'datechart' ? ' nav-tab-active' : ''); ?>" data-tab-name="datechart"><?php _e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
     		<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ($active_tab == 'geochart' ? ' nav-tab-active' : ''); ?>" data-tab-name="geochart"><?php _e( 'Downloads by country', 'simple-download-monitor' ); ?></a>
                 <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ($active_tab == 'countrylistchart' ? ' nav-tab-active' : ''); ?>" data-tab-name="countrylistchart"><?php _e('Downloads by country list', 'simple-download-monitor'); ?></a>
+            <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=browserList" href="" class="nav-tab<?php echo ($active_tab == 'browserList' ? ' nav-tab-active' : ''); ?>" data-tab-name="browserList"><?php _e('Downloads by browser', 'simple-download-monitor'); ?></a>
+            <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=osList" href="" class="nav-tab<?php echo ($active_tab == 'osList' ? ' nav-tab-active' : ''); ?>" data-tab-name="osList"><?php _e('Downloads by OS', 'simple-download-monitor'); ?></a>
     	    </div>
     	    <div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
     		<div data-tab-name="datechart" class="sdm-tab"<?php echo ($active_tab == 'datechart' ? '' : ' style="display:none;"'); ?>>
@@ -564,6 +566,60 @@ function sdm_create_stats_page() {
                         </table>
                     </div>
                 </div><!-- end of countrylistchart -->
+
+                <div data-tab-name="browserList"
+                     class="sdm-tab"<?php echo($active_tab == 'browserList' ? '' : ' style="display:none;"'); ?>>
+                    <div class="wrap">
+                        <table class="widefat">
+                            <thead>
+                            <th><strong><?php _e('Browser', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $downloads_by_browser_array = sdm_get_all_downloads_by_browser($start_date, $end_date);
+                            foreach ($downloads_by_browser_array as $name => $count){
+                            ?>
+                                <tr>
+                                    <td><?php echo $name ?></td>
+                                    <td><?php echo $count ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                            <tfoot>
+                            <th><strong><?php _e('Browser', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div><!-- end of browserList tab-->
+
+                <div data-tab-name="osList"
+                     class="sdm-tab"<?php echo($active_tab == 'osList' ? '' : ' style="display:none;"'); ?>>
+                    <div class="wrap">
+                        <table class="widefat">
+                            <thead>
+                            <th><strong><?php _e('Operating System', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $downloads_by_os_array = sdm_get_all_downloads_by_os($start_date, $end_date);
+                            foreach ($downloads_by_os_array as $name => $count){
+                                ?>
+                                <tr>
+                                    <td><?php echo $name ?></td>
+                                    <td><?php echo $count ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                            <tfoot>
+                            <th><strong><?php _e('Operating System', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div><!-- end of osList tab-->
 
     	    </div>
     	</div></div>
