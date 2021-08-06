@@ -642,7 +642,7 @@ function sdm_create_stats_page() {
                             <?php } ?>
                             </tbody>
                             <tfoot>
-                            <th><strong><?php _e('Operating System', 'simple-download-monitor'); ?></strong></th>
+                            <th><strong><?php _e('Download Item', 'simple-download-monitor'); ?></strong></th>
                             <th><strong><?php _e('Total Downloads', 'simple-download-monitor'); ?></strong></th>
                             </tfoot>
                         </table>
