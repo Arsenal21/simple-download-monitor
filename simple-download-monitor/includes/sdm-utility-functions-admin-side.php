@@ -76,9 +76,8 @@ function sdm_get_downloads_by_country($start_date = '', $end_date = '', $returnS
 /**
  * Retrieves all user agent fields form downloads
  *
- * @start_date string
- *
- * @end_date string
+ * @param string $start_date
+ * @param string $end_date
  *
  * @return array
  */
@@ -96,9 +95,8 @@ function sdm_get_all_download_user_agent($start_date = '', $end_date = '') {
 /**
  * Processes all user agent to browser
  *
- * @start_date string
- *
- * @end_date string
+ * @param string $start_date
+ * @param string $end_date
  *
  * @return array
  */
@@ -131,15 +129,14 @@ function sdm_get_all_downloads_by_browser($start_date = '', $end_date = '') {
             $browsers[$browser] = 1;
         }
     }
-    return $browsers;
+    return moveArrayElementToEnd($browsers, 'Other');
 }
 
 /**
  * Processes all user agent to operating system
  *
- * @start_date string
- *
- * @end_date string
+ * @param string $start_date
+ * @param string $end_date
  *
  * @return array
  */
@@ -180,17 +177,15 @@ function sdm_get_all_downloads_by_os($start_date = '', $end_date = '') {
             $operating_systems[$os] = 1;
         }
     }
-    return $operating_systems;
+    return moveArrayElementToEnd($operating_systems, "Other");
 }
 
 /**
  * Retrieves top downloads by download count
  *
- * @start_date string
- *
- * @end_date string
- *
- * @limit number
+ * @param string $start_date
+ * @param string $end_date
+ * @param int    $limit Total number of records to retrieve
  *
  * @return array
  */
@@ -211,7 +206,7 @@ function sdm_get_top_downloads_by_count($start_date = '', $end_date = '', $limit
 /**
  * Checks if valid date or not
  *
- * @param mixed
+ * @param mixed $data
  *
  * @return boolean
  */
@@ -234,4 +229,25 @@ function sdm_validate_date_field($data) {
     $day = isset($date_elements[2]) ? $date_elements[2] : null;
 
     return checkdate((int)$month, (int)$day, (int)$year);
+}
+
+/**
+ * move an array element by its key to the end.
+ *
+ * @param array      $array The array being reordered.
+ * @param string|int $key They key of the element you want to move.
+ *
+ * @return array
+ */
+function moveArrayElementToEnd(array &$array, $key)
+{
+    if(($k = array_search($key, array_keys($array))) === false){
+        return $array;
+    }
+
+    $p1 = array_splice($array, $k, 1);
+    $p2 = array_splice($array, 0, count($array));
+    $array = array_merge($p2, $p1, $array);
+
+    return $array;
 }
