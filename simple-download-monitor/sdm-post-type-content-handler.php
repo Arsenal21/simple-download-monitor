@@ -128,7 +128,8 @@ function filter_sdm_post_type_content( $content ) {
             $content .= apply_filters('sdm_post_single_download_page_disabled_dl_button_msg', $msg);
             $content .= '</div>';
         } else {
-            $content .= '<div class="sdm_post_download_section"><div class="sdm_download_link">' . $download_button_code . '</div></div>';
+            $download_link = '<div class="sdm_download_link">'. $download_button_code . '</div>';
+            $content .= '<div class="sdm_post_download_section">' . apply_filters('sdm_single_page_dl_link', $download_link, array('id'=> $id, 'button_text'=> $button_text_string)) . '</div>';
         }
 
 	if ( ! empty( $isset_item_file_size ) ) {//Show file size info
