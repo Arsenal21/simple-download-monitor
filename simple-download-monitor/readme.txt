@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 3.9.3
+Stable tag: 3.9.4
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -78,6 +78,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Ability to easily clone/copy your existing download items.
 * Ability to insert Adsense or other Ad code inside the download item display.
 * Gutenberg block to insert download now buttons on a post or page.
+* The stats menu can show you the top downloads, downloads by date, country, browser etc.
 
 View more details on the [download monitor plugin](https://simple-download-monitor.com/) page.
 
@@ -189,11 +190,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
+= 3.9.4 =
 - Added new tabs to show downloads by browser and downloads by OS in the stats menu.
-- Added a new tab showing top downloads 25 downloads.
-- Placed the "Other" type field to the end of stats table.
-- New filter hook 'sdm_single_page_dl_link' added across download button in single download page.
+- Added a new tab showing top downloads (top 25 downloads).
+- Placed the "Other" type field at the end of the stats table.
+- New filter hook 'sdm_single_page_dl_link' added across the download button in single download page.
 
 = 3.9.3 =
 - The logs data exporting function has been moved to a new menu tab within the "Logs" menu.
