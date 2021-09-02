@@ -1112,7 +1112,7 @@ function sdm_tiny_get_post_ids_ajax_call() {
 add_action( 'wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_ajax_call' ); //Execute this for authenticated users only
 
 function sdm_remove_thumbnail_image_ajax_call() {
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		//Permission denied
 		wp_die( __( 'Permission denied!', 'simple-download-monitor' ) );
 		exit;
