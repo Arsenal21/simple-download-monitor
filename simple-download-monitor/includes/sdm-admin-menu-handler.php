@@ -260,7 +260,7 @@ function sdm_admin_menu_general_settings() {
 		jQuery('a#sdm-reset-log').click(function (e) {
 		e.preventDefault();
 		jQuery.post(ajaxurl,
-			{'action': 'sdm_reset_log'},
+			{'action': 'sdm_reset_log', 'nonce': '<?php echo esc_js( $deldataNonce ); ?>'},
 			function (result) {
 				if (result === '1') {
 				alert('Log has been reset.');

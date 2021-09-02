@@ -119,8 +119,10 @@ function sdm_admin_init_time_tasks() {
 	if ( is_admin() ) {
 		if ( user_can( wp_get_current_user(), 'administrator' ) ) {
 			// user is an admin
-			if ( isset( $_GET['sdm-action'] ) ) {
-				if ( $_GET['sdm-action'] === 'view_log' ) {
+			$action = filter_input( INPUT_GET, 'sdm-action', FILTER_SANITIZE_STRING );
+			if ( ! empty( $action ) ) {
+				if ( $action === 'view_log' ) {
+					check_admin_referer( 'sdm_view_log_nonce' );
 					$logfile = fopen( WP_SDM_LOG_FILE, 'rb' );
 					header( 'Content-Type: text/plain' );
 					fpassthru( $logfile );
@@ -132,6 +134,10 @@ function sdm_admin_init_time_tasks() {
 }
 
 function sdm_reset_log_handler() {
+	if ( ! check_ajax_referer( 'sdm_delete_data', 'nonce', false ) ) {
+		//nonce check failed
+		wp_die( 0 );
+	}
 	SDM_Debug::reset_log();
 	echo '1';
 	wp_die();
@@ -913,7 +919,7 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_downloads_options' );
 		echo '<input name="sdm_downloads_options[enable_debug]" id="enable_debug" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['enable_debug'] ), false ) . ' /> ';
 		echo '<label for="enable_debug">' . esc_html__( 'Check this option to enable debug logging.', 'simple-download-monitor' ) .
-		'<p class="description"><a href="' . esc_url( get_admin_url() ) . '?sdm-action=view_log" target="_blank">' .
+		'<p class="description"><a href="' . esc_url( wp_nonce_url( get_admin_url() . '?sdm-action=view_log', 'sdm_view_log_nonce' ) ) . '" target="_blank">' .
 		esc_html__( 'Click here', 'simple-download-monitor' ) . '</a>' .
 		esc_html__( ' to view log file.', 'simple-download-monitor' ) . '<br>' .
 		'<a id="sdm-reset-log" href="#0" style="color: red">' . esc_html__( 'Click here', 'simple-download-monitor' ) . '</a>' .
