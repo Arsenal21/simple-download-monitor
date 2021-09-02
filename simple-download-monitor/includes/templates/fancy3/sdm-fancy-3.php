@@ -42,7 +42,7 @@ function sdm_generate_fancy3_category_display_output( $get_posts, $args ) {
 }
 
 /*
- * Generates the output of a single item using fancy2 sytle 
+ * Generates the output of a single item using fancy2 sytle
  * $args array can have the following parameters
  * id, fancy, button_text, new_window
  */
@@ -88,7 +88,7 @@ function sdm_generate_fancy3_display_output( $args ) {
 
     $output = '';
 
-    $output .= '<div class="sdm_fancy3_download_item ' . $css_class . '">';
+    $output .= '<div class="sdm_fancy3_download_item ' . sdm_sanitize_text($css_class) . '">';
     $output .= '<div class="sdm_fancy3_download_item_left">';
     $output .= '<span class="sdm_fancy3_download_title">' . $item_title . '</span>';
     $output .= '</div>'; //End of .sdm_fancy3_download_title

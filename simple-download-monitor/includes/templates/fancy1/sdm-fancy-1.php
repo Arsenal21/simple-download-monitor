@@ -142,7 +142,7 @@ function sdm_generate_fancy1_display_output( $args ) {
 
     $output = '';
 
-    $output	 .= '<div class="sdm_download_item ' . $css_class . '">';
+    $output	 .= '<div class="sdm_download_item ' . sdm_sanitize_text($css_class) . '">';
     $output	 .= '<div class="sdm_download_item_top">';
     $output	 .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
     $output	 .= '<div class="sdm_download_title">' . $item_title . '</div>';

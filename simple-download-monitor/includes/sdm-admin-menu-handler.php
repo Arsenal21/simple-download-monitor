@@ -498,9 +498,9 @@ function sdm_create_stats_page() {
     		<h3 class="hndle"><label for="title"><?php _e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
     		<div class="inside">
     		    <form id="sdm_choose_date" method="post">
-    			<input type="hidden" name="sdm_active_tab" value="<?php echo $active_tab; ?>">
-			    <?php _e( 'Start Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo $start_date; ?>">
-			    <?php _e( 'End Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo $end_date; ?>">
+    			<input type="hidden" name="sdm_active_tab" value="<?php echo sdm_sanitize_text($active_tab); ?>">
+			    <?php _e( 'Start Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo sdm_sanitize_text($start_date); ?>">
+			    <?php _e( 'End Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo sdm_sanitize_text($start_date); ?>">
     			<p id="sdm_date_buttons">
     			    <button type="button" data-start-date="<?php echo date( 'Y-m-01' ); ?>" data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'This Month', 'simple-download-monitor' ); ?></button>
     			    <button type="button" data-start-date="<?php echo date( 'Y-m-d', strtotime( 'first day of last month' ) ); ?>" data-end-date="<?php echo date( 'Y-m-d', strtotime( 'last day of last month' ) ); ?>"><?php _e( 'Last Month', 'simple-download-monitor' ); ?></button>
@@ -656,7 +656,7 @@ function sdm_create_stats_page() {
         var sdm = [];
         sdm.datechart = false;
         sdm.geochart = false;
-        sdm.activeTab = '<?php echo $active_tab; ?>';
+        sdm.activeTab = '<?php echo sdm_sanitize_text($active_tab); ?>';
         sdm.apiKey = '<?php echo esc_js( $api_key ); ?>';
         jQuery('#sdm_date_buttons button').click(function (e) {
     	jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));

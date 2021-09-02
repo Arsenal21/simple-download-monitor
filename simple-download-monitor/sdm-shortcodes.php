@@ -84,6 +84,10 @@ function sdm_create_download_shortcode( $atts ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
+        $id = intval($id);
+        $color = sdm_sanitize_text( $color );
+        $css_class = sdm_sanitize_text( $css_class );
+
 	// Check to see if the download link cpt is password protected
 	$get_cpt_object  = get_post( $id );
 	$cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;

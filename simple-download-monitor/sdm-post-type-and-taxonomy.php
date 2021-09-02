@@ -19,8 +19,18 @@ function sdm_register_post_type() {
 	'menu_name'		 => __( 'Downloads', 'simple-download-monitor' )
     );
 
+    $capabilities = array(
+        'edit_post'          => 'update_core',
+        'delete_post'        => 'update_core',
+        'edit_posts'         => 'update_core',
+        'edit_others_posts'  => 'update_core',
+        'delete_posts'       => 'update_core',
+        'publish_posts'      => 'update_core',
+        'read_private_posts' => 'update_core',
+    );
+
     $sdm_permalink_base	 = 'sdm_downloads'; //TODO - add an option to configure in the settings maybe?
-    $sdm_slug		 = untrailingslashit( $sdm_permalink_base );
+    $sdm_slug = untrailingslashit( $sdm_permalink_base );
     $args			 = array(
 	'labels'		 => $labels,
 	'public'		 => true,
@@ -30,6 +40,7 @@ function sdm_register_post_type() {
 	'query_var'		 => true,
 	'rewrite'		 => array( 'slug' => $sdm_slug ),
 	'capability_type'	 => 'post',
+        'capabilities'           => $capabilities,
 	'has_archive'		 => true,
 	'hierarchical'		 => false,
 	'menu_position'		 => null,

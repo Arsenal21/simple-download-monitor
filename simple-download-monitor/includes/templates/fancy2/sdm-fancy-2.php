@@ -69,7 +69,7 @@ function sdm_generate_fancy2_category_display_output( $get_posts, $args ) {
 }
 
 /*
- * Generates the output of a single item using fancy2 sytle 
+ * Generates the output of a single item using fancy2 sytle
  * $args array can have the following parameters
  * id, fancy, button_text, new_window
  */
@@ -108,7 +108,7 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     // Check to see if the download link cpt is password protected
     $get_cpt_object	 = get_post( $id );
-    $cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;    
+    $cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
     // Read plugin settings
     $main_opts	 = get_option( 'sdm_downloads_options' );
 
@@ -156,13 +156,13 @@ function sdm_generate_fancy2_display_output( $args ) {
 	$show_version = get_post_meta( $id, 'sdm_item_show_item_version_fd', true );
     }
     $isset_item_version	 = ($show_version && isset( $item_version )) ? $item_version : ''; //check if show_version is enabled and if there is a version value
-    // check show date in fancy display 
+    // check show date in fancy display
     $show_date_fd		 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
-    // Get item date 
+    // Get item date
     $download_date		 = get_the_date( get_option( 'date_format' ), $id );
 
     $output	 = '';
-    $output	 .= '<div class="sdm_fancy2_item ' . $css_class . '">';
+    $output	 .= '<div class="sdm_fancy2_item ' . sdm_sanitize_text($css_class) . '">';
     $output	 .= '<div class="sdm_fancy2_wrapper">';
 
     $output	 .= '<div class="sdm_fancy2_download_item_top">';

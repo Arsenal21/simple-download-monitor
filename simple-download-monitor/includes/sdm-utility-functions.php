@@ -460,3 +460,11 @@ function sdm_insert_download_to_logs_table( $download_id ){
             }
     }
 }
+
+function sdm_sanitize_text( $text ){
+    $text = htmlspecialchars($text);
+    $text = strip_tags($text);
+    $text = sanitize_text_field($text);
+    $text = esc_attr($text);
+    return $text;
+}
