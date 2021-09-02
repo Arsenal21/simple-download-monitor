@@ -35,6 +35,7 @@ function sdm_register_shortcodes() {
  * Process (sanitize) download button shortcode attributes:
  * - convert "id" to absolute integer
  * - set "color" to color from settings or default color, if empty
+ *
  * @param array $atts
  * @return array
  */
@@ -84,9 +85,9 @@ function sdm_create_download_shortcode( $atts ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
-        $id = intval($id);
-        $color = sdm_sanitize_text( $color );
-        $css_class = sdm_sanitize_text( $css_class );
+		$id        = intval( $id );
+		$color     = sdm_sanitize_text( $color );
+		$css_class = sdm_sanitize_text( $css_class );
 
 	// Check to see if the download link cpt is password protected
 	$get_cpt_object  = get_post( $id );
@@ -299,7 +300,7 @@ function sdm_handle_category_shortcode( $args ) {
 
 		// See if user color option is selected
 		$main_opts = get_option( 'sdm_downloads_options' );
-		$color_opt = isset( $main_opts[ 'download_button_color' ] ) ? $main_opts[ 'download_button_color' ] : null;
+		$color_opt = isset( $main_opts['download_button_color'] ) ? $main_opts['download_button_color'] : null;
 		$def_color = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : 'green';
 
 		if ( $fancy == '0' ) {
@@ -418,6 +419,7 @@ function sdm_download_categories_shortcode() {
 
 /**
  * Return HTML list with SDM categories rendered according to $atts.
+ *
  * @param array $atts
  * @param int $parent
  * @return string
@@ -461,6 +463,7 @@ function sdm_download_categories_list_walker( $atts, $parent = 0 ) {
 
 /**
  * Return output of `sdm_download_categories_list` shortcode.
+ *
  * @param array $attributes
  * @return string
  */
