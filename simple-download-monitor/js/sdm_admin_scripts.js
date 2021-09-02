@@ -45,11 +45,14 @@ jQuery(document).ready(function ($) {
 
     // Remove thumbnail image from CPT
     $('#remove_thumbnail_button').click(function () {
+        if ($('#sdm_thumbnail_image').length === 0) {
+            return;
+        }
         $.post(
-                sdm_admin_ajax_url.sdm_admin_ajax_url,
+                sdm_admin.ajax_url,
                 {
                     action: 'sdm_remove_thumbnail_image',
-                    post_id_del: sdm_del_thumb_postid
+                    post_id_del: sdm_admin.post_id
                 },
                 function (response) {
                     if (response) {  // ** If response was successful

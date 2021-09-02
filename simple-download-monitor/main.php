@@ -254,7 +254,14 @@ class simpleDownloadManager {
 				'image_removed'    => __( 'Image Successfully Removed', 'simple-download-monitor' ),
 				'ajax_error'       => __( 'Error with AJAX', 'simple-download-monitor' ),
 			);
+
+			$sdm_admin = array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'post_id'  => $post->ID,
+			);
+
 			wp_localize_script( 'sdm-upload', 'sdm_translations', $sdmTranslations );
+			wp_localize_script( 'sdm-upload', 'sdm_admin', $sdm_admin );
 		}
 	}
 
@@ -1114,26 +1121,25 @@ add_action( 'wp_ajax_sdm_remove_thumbnail_image', 'sdm_remove_thumbnail_image_aj
 function sdm_remove_thumbnail_image_ajax_call() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		//Permission denied
-		wp_die( __( 'Permission denied!', 'simple-download-monitor' ) );
+		wp_die( esc_html( __( 'Permission denied!', 'simple-download-monitor' ) ) );
 		exit;
 	}
 
 	//Go ahead with the thumbnail removal
-	$post_id    = intval( $_POST['post_id_del'] );
+	$post_id    = filter_input( INPUT_POST, 'post_id_del', FILTER_SANITIZE_NUMBER_INT );
+	$post_id    = empty( $post_id ) ? 0 : intval( $post_id );
 	$key_exists = metadata_exists( 'post', $post_id, 'sdm_upload_thumbnail' );
 	if ( $key_exists ) {
 		$success = delete_post_meta( $post_id, 'sdm_upload_thumbnail' );
 		if ( $success ) {
-			$response = json_encode( array( 'success' => true ) );
+			$response = array( 'success' => true );
 		}
 	} else {
 		// in order for frontend script to not display "Ajax error", let's return some data
-		$response = json_encode( array( 'not_exists' => true ) );
+		$response = array( 'not_exists' => true );
 	}
 
-	header( 'Content-Type: application/json' );
-	echo $response;
-	exit;
+	wp_send_json( $response );
 }
 
 // Populate category tree
