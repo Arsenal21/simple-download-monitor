@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.6 =
+- Changed the downloads menu permission from 'update_core' to 'manage_options' for better compatibility with WP Multi-Site install.
+
 = 3.9.5 =
 - The "Downloads" menu in the admin dashboard is now only available to site administrator roles.
 - Sanitization of variables.
