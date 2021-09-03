@@ -47,29 +47,29 @@ function handle_sdm_download_via_direct_post() {
 
 		$main_option = get_option( 'sdm_downloads_options' );
 
-		$ipaddress  = '';
+		$ipaddress = '';
 		//Check if do not capture IP is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_ip'] ) ) {
 			$ipaddress = sdm_get_ip_address();
 		}
 
-                $user_agent = '';
+				$user_agent = '';
 		//Check if do not capture User Agent is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_user_agent'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
 			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
 				$user_agent = sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] );
 			}
-                }
+		}
 
-                $referrer_url = '';
+				$referrer_url = '';
 		//Check if do not capture Referer URL is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_referrer_url'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
 			if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
 				$referrer_url = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
 			}
-                }
+		}
 
 		$date_time       = current_time( 'mysql' );
 		$visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';
@@ -153,10 +153,10 @@ function handle_sdm_download_via_direct_post() {
 				'visitor_country' => $visitor_country,
 				'visitor_name'    => $visitor_name,
 				'user_agent'      => $user_agent,
-                                'referrer_url'     => $referrer_url,
+				'referrer_url'    => $referrer_url,
 			);
 
-			$data = array_filter( $data ); //Remove any null values.
+			$data         = array_filter( $data ); //Remove any null values.
 			$insert_table = $wpdb->insert( $table, $data );
 
 			if ( $insert_table ) {
@@ -190,6 +190,7 @@ function handle_sdm_download_via_direct_post() {
 /**
  * Dispatch file with $filename and terminate script execution, if the file is
  * readable and headers have not been sent yet.
+ *
  * @param string $filename
  * @return void
  */
@@ -220,6 +221,7 @@ function sdm_dispatch_file( $filename ) {
 
 /**
  * If reCAPTCHA Enabled verify answer, send it to google API
+ *
  * @return boolean
  */
 function sdm_recaptcha_verify() {
