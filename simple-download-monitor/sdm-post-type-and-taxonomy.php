@@ -20,13 +20,13 @@ function sdm_register_post_type() {
 	);
 
 	$capabilities = array(
-		'edit_post'          => 'update_core',
-		'delete_post'        => 'update_core',
-		'edit_posts'         => 'update_core',
-		'edit_others_posts'  => 'update_core',
-		'delete_posts'       => 'update_core',
-		'publish_posts'      => 'update_core',
-		'read_private_posts' => 'update_core',
+		'edit_post'          => 'manage_options',
+		'delete_post'        => 'manage_options',
+		'edit_posts'         => 'manage_options',
+		'edit_others_posts'  => 'manage_options',
+		'delete_posts'       => 'manage_options',
+		'publish_posts'      => 'manage_options',
+		'read_private_posts' => 'manage_options',
 	);
 
 	$sdm_permalink_base = 'sdm_downloads'; //TODO - add an option to configure in the settings maybe?
