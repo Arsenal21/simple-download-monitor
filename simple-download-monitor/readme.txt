@@ -190,6 +190,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.6 =
+- Added nonce check for view and reset log.
+- Fixed the issue with "remove download thumbnail" button wasn't working.
+- WPCS modifications and code reformatting.
+
 = 3.9.5.1 =
 - Updated the read permission of the download post type to fix the permalink of the item (shown below the title of the post when editing).
 - Changed the downloads menu permission from 'update_core' to 'manage_options' for better compatibility with WP Multi-Site install.
