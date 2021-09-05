@@ -281,7 +281,15 @@ class SDM_Admin_Edit_Download {
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $shortcode_text ) . "' size='40'>";
 
 		echo '<br /><br />';
-		_e( 'Read the full shortcode <a href="https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/" target="_blank">usage documentation here</a>.', 'simple-download-monitor' );
+		echo wp_kses(
+			__( 'Read the full shortcode <a href="https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/" target="_blank">usage documentation here</a>.', 'simple-download-monitor' ),
+			array(
+				'a' => array(
+					'href'   => array(),
+					'target' => array(),
+				),
+			)
+		);
 	}
 
 	public function save_post_handler( $post_id, $post, $update ) {
