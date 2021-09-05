@@ -422,7 +422,15 @@ class simpleDownloadManager {
 	public function recaptcha_enable_cb() {
 		$main_opts = get_option( 'sdm_advanced_options' );
 		echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked( 1, isset( $main_opts['recaptcha_enable'] ), false ) . ' /> ';
-		echo '<p class="description">' . esc_html__( 'Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor' ) . '</p>';
+		echo '<p class="description">' . wp_kses(
+			__( 'Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor' ),
+			array(
+				'a' => array(
+					'href'   => array(),
+					'target' => array(),
+				),
+			)
+		) . '</p>';
 		echo '<p class="description">' . esc_html__( 'The captcha option adds a captcha to the download now buttons.', 'simple-download-monitor' ) . '</p>';
 	}
 
@@ -560,7 +568,15 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_advanced_options' );
 		$value     = isset( $main_opts['maps_api_key'] ) ? $main_opts['maps_api_key'] : '';
 		echo '<input size="100" name="sdm_advanced_options[maps_api_key]" id="maps_api_key" type="text" value="' . esc_attr( $value ) . '" />';
-		echo '<p class="description">' . esc_html__( 'Enter your Google Maps API key. You can create new API key using <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">this instruction</a>.', 'simple-download-monitor' ) . '</p>';
+		echo '<p class="description">' . wp_kses(
+			__( 'Enter your Google Maps API key. You can create new API key using <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">this instruction</a>.', 'simple-download-monitor' ),
+			array(
+				'a' => array(
+					'target' => array(),
+					'href'   => array(),
+				),
+			)
+		) . '</p>';
 	}
 
 	public function sdm_add_clone_record_btn( $action, $post ) {
