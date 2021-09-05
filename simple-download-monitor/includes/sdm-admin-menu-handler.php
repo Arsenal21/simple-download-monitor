@@ -14,6 +14,19 @@ function sdm_handle_admin_menu() {
 
 add_filter( 'allowed_options', 'sdm_admin_menu_function_hook' );
 
+add_action( 'admin_enqueue_scripts', 'sdm_admin_menu_enqueue_scripts' );
+
+function sdm_admin_menu_enqueue_scripts( $hook_suffix ) {
+	switch ( $hook_suffix ) {
+		case 'sdm_downloads_page_sdm-stats':
+			wp_register_script( 'sdm-admin-stats', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_stats.js', array( 'jquery' ), WP_SIMPLE_DL_MONITOR_VERSION, true );
+			wp_enqueue_script( 'sdm-admin-stats' );
+			break;
+		default:
+			break;
+	}
+}
+
 /**
  * Its hook for add advanced tab, and working on saving options to db, if not used, you receive error "options page not found"
  *
@@ -547,9 +560,9 @@ function sdm_create_stats_page() {
 	} else {
 		$active_tab = 'datechart';
 	}
-	$downloads_by_date = sdm_get_downloads_by_date( $start_date, $end_date );
+	$downloads_by_date = sdm_get_downloads_by_date( $start_date, $end_date, false );
 
-	$downloads_by_country = sdm_get_downloads_by_country( $start_date, $end_date );
+	$downloads_by_country = sdm_get_downloads_by_country( $start_date, $end_date, false );
 
 	$adv_opts = get_option( 'sdm_advanced_options' );
 
@@ -738,77 +751,39 @@ function sdm_create_stats_page() {
 			</div>
 		</div></div>
 	</div>
-	<script>
-		var sdm = [];
-		sdm.datechart = false;
-		sdm.geochart = false;
-		sdm.activeTab = '<?php echo esc_html( sdm_sanitize_text( $active_tab ) ); ?>';
-		sdm.apiKey = '<?php echo esc_js( $api_key ); ?>';
-		jQuery('#sdm_date_buttons button').click(function (e) {
-		jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
-		jQuery('#sdm_choose_date').find('input[name="sdm_stats_end_date"]').val(jQuery(this).attr('data-end-date'));
-		});
-		function sdm_init_chart(tab) {
-		if (!sdm.datechart && tab === 'datechart') {
-			sdm.datechart = true;
-			google.charts.load('current', {'packages': ['corechart']});
-			google.charts.setOnLoadCallback(sdm_drawDateChart);
-		} else if (!sdm.geochart && tab === 'geochart') {
-			sdm.geochart = true;
-			var chartOpts = {};
-			chartOpts.packages = ['geochart'];
-			if (sdm.apiKey) {
-			chartOpts.mapsApiKey = sdm.apiKey;
-			} else {
-			//show API Key warning
-			jQuery('#sdm-api-key-warning').fadeIn('slow');
-			}
-			google.charts.load('current', chartOpts);
-			google.charts.setOnLoadCallback(sdm_drawGeoChart);
-		}
-		}
-		function sdm_drawDateChart() {
-		var sdm_dateData = new google.visualization.DataTable();
-		sdm_dateData.addColumn('string', '<?php esc_html_e( 'Date', 'simple-download-monitor' ); ?>');
-		sdm_dateData.addColumn('number', '<?php esc_html_e( 'Number of downloads', 'simple-download-monitor' ); ?>');
-		sdm_dateData.addRows([<?php echo $downloads_by_date; //phpcs:ignore ?>]);
 
-		var sdm_dateChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
-		sdm_dateChart.draw(sdm_dateData, {width: 'auto', height: 300, title: '<?php esc_html_e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
-			hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
-			vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
-			legend: 'top'
-		});
-		}
-		function sdm_drawGeoChart() {
-
-		var sdm_countryData = google.visualization.arrayToDataTable([<?php echo $downloads_by_country; //phpcs:ignore ?>]);
-
-		var sdm_countryOptions = {colorAxis: {colors: ['#ddf', '#00f']}};
-
-		var sdm_countryChart = new google.visualization.GeoChart(document.getElementById('country_chart'));
-
-		sdm_countryChart.draw(sdm_countryData, sdm_countryOptions);
-
-		}
-		jQuery(function () {
-		sdm_init_chart(sdm.activeTab);
-		jQuery('div.sdm-tabs a').click(function (e) {
-			e.preventDefault();
-			var tab = jQuery(this).attr('data-tab-name');
-			jQuery('div.sdm-tabs').find('a').removeClass('nav-tab-active');
-			jQuery(this).addClass('nav-tab-active');
-			jQuery('div.sdm-tabs-content-wrapper').find('div.sdm-tab').hide();
-			jQuery('div.sdm-tabs-content-wrapper').find('div[data-tab-name="' + tab + '"]').fadeIn('fast');
-			sdm_init_chart(tab);
-			jQuery('#sdm_choose_date').find('input[name="sdm_active_tab"]').val(tab);
-		});
-		jQuery('.datepicker').datepicker({
-			dateFormat: 'yy-mm-dd'
-		});
-		});
-	</script>
 	<?php
+
+	$dbd_prop = array();
+
+	foreach ( $downloads_by_date as $dbd ) {
+		$dbd_prop[] = array( $dbd['day'], intval( $dbd['cnt'] ) );
+	}
+
+	$dbc_prop = array();
+
+	$dbc_prop[] = array( __( 'Country', 'simple-download-monitor' ), __( 'Downloads', 'simple-download-monitor' ) );
+
+	foreach ( $downloads_by_country as $dbc ) {
+		$dbc_prop[] = array( $dbc['country'], intval( $dbc['cnt'] ) );
+	}
+
+		wp_localize_script(
+			'sdm-admin-stats',
+			'sdmAdminStats',
+			array(
+				'activeTab'  => $active_tab,
+				'apiKey'     => $api_key,
+				'dByDate'    => $dbd_prop,
+				'dByCountry' => $dbc_prop,
+				'str'        => array(
+					'downloadsByDate'   => __( 'Downloads by Date', 'simple-download-monitor' ),
+					'date'              => __( 'Date', 'simple-download-monitor' ),
+					'numberOfDownloads' => __( 'Number of downloads', 'simple-download-monitor' ),
+					'downloads'         => __( 'Downloads', 'single-download-monitor' ),
+				),
+			)
+		);
 }
 
 function sdm_create_addons_page() {
