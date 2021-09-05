@@ -7,7 +7,7 @@ function sdm_logs_export_tab_page() {
 
 	//  tab heading
 	echo '<h2>';
-	_e( 'Export Download Log Entries', 'simple-download-monitor' );
+	esc_html_e( 'Export Download Log Entries', 'simple-download-monitor' );
 	echo '</h2>';
 
 	// datetime fileds
@@ -26,17 +26,18 @@ function sdm_logs_export_tab_page() {
 
 	// csv export message box
 	if ( isset( $_POST['sdm_export_log_entries'] ) ) {
+		check_admin_referer( 'sdm_export_logs', 'sdm_export_logs_nonce' );
 		//validate date fields
 		if ( sdm_validate_date_field( array( $start_date, $end_date ) ) ) {
 			//Export log entries
 			$log_file_url = sdm_export_download_logs_to_csv( $start_date, $end_date );
 			echo '<div id="message" class="updated"><p>';
-			_e( 'Log entries exported! Click on the following link to download the file.', 'simple-download-monitor' );
-			echo '<br /><br /><a href="' . $log_file_url . '">' . __( 'Download Logs CSV File', 'simple-download-monitor' ) . '</a>';
+			esc_html_e( 'Log entries exported! Click on the following link to download the file.', 'simple-download-monitor' );
+			echo '<br /><br /><a href="' . esc_url( $log_file_url ) . '">' . esc_html__( 'Download Logs CSV File', 'simple-download-monitor' ) . '</a>';
 			echo '</p></div>';
 		} else {
 			echo '<div id="message" class="error"><p>';
-			_e( 'Please select a valid date range.', 'simple-download-monitor' );
+			esc_html_e( 'Please select a valid date range.', 'simple-download-monitor' );
 			echo '</p></div>';
 		}
 	}
@@ -44,58 +45,59 @@ function sdm_logs_export_tab_page() {
 	?>
 
 	<div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-		<p><?php _e( 'This menu allows you to export all the log entries to a CSV file that you can download. The download link will be shown at the top of this page.', 'simple-download-monitor' ); ?></p>
+		<p><?php esc_html_e( 'This menu allows you to export all the log entries to a CSV file that you can download. The download link will be shown at the top of this page.', 'simple-download-monitor' ); ?></p>
 	</div>
 
 	<div id="poststuff">
 		<div id="post-body">
 			<div class="postbox">
 				<h3 class="hndle"><label
-							for="title"><?php _e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label>
+							for="title"><?php esc_html_e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label>
 				</h3>
 				<div class="inside">
 					<form id="sdm_choose_logs_date" method="post"
-						  onSubmit="return confirm('Are you sure you want to export all the log entries?');">
+						onSubmit="return confirm('Are you sure you want to export all the log entries?');">
 						<div>
-							<label for="sdm_stats_start_date_input"><?php _e( 'Start Date: ', 'simple-download-monitor' ); ?></label>
+							<label for="sdm_stats_start_date_input"><?php esc_html_e( 'Start Date: ', 'simple-download-monitor' ); ?></label>
 							<input type="text"
 								   id="sdm_stats_start_date_input"
 								   class="datepicker d-block w-100"
 								   name="sdm_stats_start_date"
-								   value="<?php echo $start_date; ?>">
-							<label for="sdm_stats_end_date_input"><?php _e( 'End Date: ', 'simple-download-monitor' ); ?></label>
+								   value="<?php echo esc_attr( $start_date ); ?>">
+							<label for="sdm_stats_end_date_input"><?php esc_html_e( 'End Date: ', 'simple-download-monitor' ); ?></label>
 							<input type="text"
 								   id="sdm_stats_end_date_input"
 								   class="datepicker d-block w-100"
 								   name="sdm_stats_end_date"
-								   value="<?php echo $end_date; ?>">
+								   value="<?php echo esc_attr( $end_date ); ?>">
 						</div>
 						<br>
 						<div id="sdm_logs_date_buttons">
 							<button class="button" type="button"
-									data-start-date="<?php echo date( 'Y-m-d' ); ?>"
-									data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'Today', 'simple-download-monitor' ); ?></button>
+									data-start-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"
+									data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'Today', 'simple-download-monitor' ); ?></button>
 							<button class="button" type="button"
-									data-start-date="<?php echo date( 'Y-m-01' ); ?>"
-									data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'This Month', 'simple-download-monitor' ); ?></button>
+									data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>"
+									data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
 							<button class="button" type="button"
-									data-start-date="<?php echo date( 'Y-m-d', strtotime( 'first day of last month' ) ); ?>"
-									data-end-date="<?php echo date( 'Y-m-d', strtotime( 'last day of last month' ) ); ?>"><?php _e( 'Last Month', 'simple-download-monitor' ); ?></button>
+									data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>"
+									data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
 							<button class="button" type="button"
-									data-start-date="<?php echo date( 'Y-01-01' ); ?>"
-									data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'This Year', 'simple-download-monitor' ); ?></button>
+									data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>"
+									data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
 							<button class="button" type="button"
-									data-start-date="<?php echo date( 'Y-01-01', strtotime( '-1 year' ) ); ?>"
-									data-end-date="<?php echo date( 'Y-12-31', strtotime( 'last year' ) ); ?>"><?php _e( 'Last Year', 'simple-download-monitor' ); ?></button>
+									data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>"
+									data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
 							<button class="button" type="button"
 									data-start-date="<?php echo '1970-01-01'; ?>"
-									data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'All Time', 'simple-download-monitor' ); ?></button>
+									data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
 						</div>
 
 						<div class="submit">
 							<input type="submit" class="button-primary" name="sdm_export_log_entries"
-								   value="<?php _e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>"/>
+								   value="<?php esc_html_e( 'Export Log Entries to CSV File', 'simple-download-monitor' ); ?>"/>
 						</div>
+						<?php wp_nonce_field( 'sdm_export_logs', 'sdm_export_logs_nonce' ); ?>
 					</form>
 				</div>
 			</div>
