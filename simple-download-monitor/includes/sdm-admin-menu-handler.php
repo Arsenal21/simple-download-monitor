@@ -15,7 +15,6 @@ function sdm_handle_admin_menu() {
 add_filter( 'allowed_options', 'sdm_admin_menu_function_hook' );
 
 /**
- * sdm_admin_menu_function_hook
  * Its hook for add advanced tab, and working on saving options to db, if not used, you receive error "options page not found"
  *
  * @param array $allowed_options
@@ -72,7 +71,7 @@ function sdm_create_settings_page() {
 		}
 		}
 	</style>
-	<h1><?php _e( 'Simple Download Monitor Settings Page', 'simple-download-monitor' ); ?></h1>
+	<h1><?php esc_html_e( 'Simple Download Monitor Settings Page', 'simple-download-monitor' ); ?></h1>
 
 	<?php
 	ob_start();
@@ -82,15 +81,16 @@ function sdm_create_settings_page() {
 	);
 	$current           = '';
 	if ( isset( $_GET['page'] ) ) {
-		$current = sanitize_text_field( $_GET['page'] );
+		$current = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
 		if ( isset( $_GET['action'] ) ) {
-			$current .= '&action=' . sanitize_text_field( $_GET['action'] );
+			$action   = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+			$current .= '&action=' . $action;
 		}
 	}
 	$nav_tabs  = '';
 	$nav_tabs .= '<h2 class="nav-tab-wrapper">';
 	foreach ( $wpsdm_plugin_tabs as $location => $tabname ) {
-		if ( $current == $location ) {
+		if ( $current === $location ) {
 			$class = ' nav-tab-active';
 		} else {
 			$class = '';
@@ -100,7 +100,8 @@ function sdm_create_settings_page() {
 	$nav_tabs .= '</h2>';
 
 	if ( isset( $_GET['action'] ) ) {
-		switch ( $_GET['action'] ) {
+		$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+		switch ( $action ) {
 			case 'advanced-settings':
 				sdm_admin_menu_advanced_settings();
 				break;
@@ -121,21 +122,54 @@ function sdm_create_settings_page() {
 		</div>
 		<div id="poststuff" class="sdm-settings-grid sdm-sidebar-cont">
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php _e( 'Plugin Documentation', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Plugin Documentation', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
-			<?php echo sprintf( __( 'Please read the <a target="_blank" href="%s">Simple Download Monitor</a> plugin setup instructions and tutorials to learn how to configure and use it.', 'simple-download-monitor' ), 'https://simple-download-monitor.com/download-monitor-tutorials/' ); ?>
+			<?php
+			echo wp_kses(
+				// translators: %s = URL to documentation page
+				sprintf( __( 'Please read the <a target="_blank" href="%s">Simple Download Monitor</a> plugin setup instructions and tutorials to learn how to configure and use it.', 'simple-download-monitor' ), 'https://simple-download-monitor.com/download-monitor-tutorials/' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php _e( 'Add-ons', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Add-ons', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
-			<?php echo sprintf( __( 'Want additional functionality? Check out our <a target="_blank" href="%s">Add-Ons!</a>', 'simple-download-monitor' ), 'edit.php?post_type=sdm_downloads&page=sdm-addons' ); ?>
+			<?php
+			echo wp_kses(
+				// translators: %s = URL to add-ons page
+				sprintf( __( 'Want additional functionality? Check out our <a target="_blank" href="%s">Add-Ons!</a>', 'simple-download-monitor' ), 'edit.php?post_type=sdm_downloads&page=sdm-addons' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php _e( 'Rate Us', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Rate Us', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
-			<?php echo sprintf( __( 'Like the plugin? Please give us a <a href="%s" target="_blank">rating!</a>', 'simple-download-monitor' ), 'https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5' ); ?>
+			<?php
+			echo wp_kses(
+				// translators: %s = URL to rating page
+				sprintf( __( 'Like the plugin? Please give us a <a href="%s" target="_blank">rating!</a>', 'simple-download-monitor' ), 'https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
 			<div class="sdm-stars-container">
 				<a href="https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5" target="_blank">
 				<span class="dashicons dashicons-star-filled"></span>
@@ -148,16 +182,50 @@ function sdm_create_settings_page() {
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php _e( 'Our Other Plugins', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Our Other Plugins', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
-			<?php echo sprintf( __( 'Check out <a target="_blank" href="%s">our other plugins</a>', 'simple-download-monitor' ), 'https://www.tipsandtricks-hq.com/development-center' ); ?>
+			<?php
+			echo wp_kses(
+				// translators: %s = URL to other plugins page
+				sprintf( __( 'Check out <a target="_blank" href="%s">our other plugins</a>', 'simple-download-monitor' ), 'https://www.tipsandtricks-hq.com/development-center' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php _e( 'Social', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Social', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
-			<?php echo sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ); ?> |
-			<?php echo sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ); ?>
+			<?php
+			echo wp_kses(
+				// translators: %s = Twitter URL
+				sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
+			  |
+			<?php
+			echo wp_kses(
+				// translators: %s = Twitter URL
+				sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ),
+				array(
+					'a' => array(
+						'target' => array(),
+						'href'   => array(),
+					),
+				)
+			);
+			?>
 			</div>
 		</div>
 		</div>
@@ -165,10 +233,10 @@ function sdm_create_settings_page() {
 
 	<div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">
 		<p>
-			<?php _e( 'If you need an easy to use and supported plugin for selling your digital items then check out our ', 'simple-download-monitor' ); ?>
-			<a href="https://wordpress.org/plugins/wp-express-checkout/" target="_blank"><?php _e( 'WP Express Checkout', 'simple-download-monitor' ); ?></a>
-			or <a href="https://wordpress.org/plugins/stripe-payments/" target="_blank"><?php _e( 'Stripe Payments', 'simple-download-monitor' ); ?></a>
-			or <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php _e( 'WP eStore', 'simple-download-monitor' ); ?></a> Plugin.
+			<?php esc_html_e( 'If you need an easy to use and supported plugin for selling your digital items then check out our ', 'simple-download-monitor' ); ?>
+			<a href="https://wordpress.org/plugins/wp-express-checkout/" target="_blank"><?php esc_html_e( 'WP Express Checkout', 'simple-download-monitor' ); ?></a>
+			or <a href="https://wordpress.org/plugins/stripe-payments/" target="_blank"><?php esc_html_e( 'Stripe Payments', 'simple-download-monitor' ); ?></a>
+			or <a href="https://www.tipsandtricks-hq.com/wordpress-estore-plugin-complete-solution-to-sell-digital-products-from-your-wordpress-blog-securely-1059" target="_blank"><?php esc_html_e( 'WP eStore', 'simple-download-monitor' ); ?></a> Plugin.
 		</p>
 	</div>
 
@@ -241,16 +309,16 @@ function sdm_admin_menu_general_settings() {
 		jQuery('button#sdmDeleteData').click(function (e) {
 		e.preventDefault();
 		jQuery(this).attr('disabled', 'disabled');
-		if (confirm("<?php echo __( "Are you sure want to delete all plugin's data and deactivate plugin?", 'simple-download-monitor' ); ?>")) {
+		if (confirm("<?php echo esc_js( __( "Are you sure want to delete all plugin's data and deactivate plugin?", 'simple-download-monitor' ) ); ?>")) {
 			jQuery.post(ajaxurl,
-				{'action': 'sdm_delete_data', 'nonce': '<?php echo $deldataNonce; ?>'},
+				{'action': 'sdm_delete_data', 'nonce': '<?php echo esc_js( $deldataNonce ); ?>'},
 				function (result) {
 				if (result === '1') {
-					alert('<?php echo __( 'Data has been deleted and plugin deactivated. Click OK to go to Plugins page.', 'simple-download-monitor' ); ?>');
-					jQuery(location).attr('href', '<?php echo get_admin_url() . 'plugins.php'; ?>');
+					alert('<?php echo esc_js( __( 'Data has been deleted and plugin deactivated. Click OK to go to Plugins page.', 'simple-download-monitor' ) ); ?>');
+					jQuery(location).attr('href', '<?php echo esc_js( get_admin_url() . 'plugins.php' ); ?>');
 					return true;
 				} else {
-					alert('<?php echo __( 'Error occurred.', 'simple-download-monitor' ); ?>');
+					alert('<?php echo esc_js( __( 'Error occurred.', 'simple-download-monitor' ) ); ?>');
 				}
 				});
 		} else {
@@ -315,18 +383,26 @@ function sdm_create_logs_page() {
 			$current .= '&action=' . sanitize_text_field( $_GET['action'] );
 		}
 	}
-	$content  = '';
-	$content .= '<h2 class="nav-tab-wrapper">';
+	$content = '';
 	foreach ( $sdm_logs_menu_tabs as $location => $tabname ) {
-		if ( $current == $location ) {
+		if ( $current === $location ) {
 			$class = ' nav-tab-active';
 		} else {
 			$class = '';
 		}
 		$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
 	}
-	$content .= '</h2>';
-	echo $content;
+	echo '<h2 class="nav-tab-wrapper">';
+	echo wp_kses(
+		$content,
+		array(
+			'a' => array(
+				'href'  => array(),
+				'class' => array(),
+			),
+		)
+	);
+	echo '</h2>';
 
 	if ( isset( $_GET['action'] ) ) {
 		switch ( $_GET['action'] ) {
@@ -359,7 +435,7 @@ function sdm_handle_logs_main_tab_page() {
 		$query      = "TRUNCATE $table_name";
 		$result     = $wpdb->query( $query );
 		echo '<div id="message" class="updated fade"><p>';
-		_e( 'Download log entries deleted!', 'simple-download-monitor' );
+		esc_html_e( 'Download log entries deleted!', 'simple-download-monitor' );
 		echo '</p></div>';
 	}
 
@@ -379,7 +455,7 @@ function sdm_handle_logs_main_tab_page() {
 		$result     = $wpdb->query( "DELETE FROM $table_name WHERE $cond", OBJECT );
 
 		echo '<div id="message" class="updated fade"><p>';
-		_e( 'Download log entries trimmed!', 'simple-download-monitor' );
+		esc_html_e( 'Download log entries trimmed!', 'simple-download-monitor' );
 		echo '</p></div>';
 	}
 
@@ -393,30 +469,30 @@ function sdm_handle_logs_main_tab_page() {
 	$sdmListTable->prepare_items();
 	?>
 
-	<h2><?php _e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
+	<h2><?php esc_html_e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
 
 	<div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-		<p><?php _e( 'This page lists all tracked downloads.', 'simple-download-monitor' ); ?></p>
+		<p><?php esc_html_e( 'This page lists all tracked downloads.', 'simple-download-monitor' ); ?></p>
 	</div>
 
 	<div id="poststuff"><div id="post-body">
 
 		<!-- Log reset button -->
 		<div class="postbox">
-			<h3 class="hndle"><label for="title"><?php _e( 'Reset Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Reset Download Log Entries', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
 			<form method="post" action="" onSubmit="return confirm('Are you sure you want to reset all the log entries?');" >
 				<div class="submit">
-				<input type="submit" class="button" name="sdm_reset_log_entries" value="<?php _e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
-						<p class="description"><?php _e( 'This button will reset all log entries. It can useful if you want to export all your log entries then reset them.', 'simple-download-monitor' ); ?></p>
+				<input type="submit" class="button" name="sdm_reset_log_entries" value="<?php esc_html_e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
+						<p class="description"><?php esc_html_e( 'This button will reset all log entries. It can useful if you want to export all your log entries then reset them.', 'simple-download-monitor' ); ?></p>
 				</div>
 			</form>
 
 			<form method="post" action="" onSubmit="return confirm('Are you sure you want to trim log entries?');" >
 				<div class="submit">
-						Delete Log Entries Older Than <input name="sdm_trim_log_entries_days" type="text" size="4" value="<?php echo $trim_log_entries_days_default_val; ?>"/> Days
-				<input type="submit" class="button" name="sdm_trim_log_entries" value="<?php _e( 'Trim Log Entries', 'simple-download-monitor' ); ?>" />
-						<p class="description"><?php _e( 'This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button.', 'simple-download-monitor' ); ?></p>
+						Delete Log Entries Older Than <input name="sdm_trim_log_entries_days" type="text" size="4" value="<?php echo esc_attr( $trim_log_entries_days_default_val ); ?>"/> Days
+				<input type="submit" class="button" name="sdm_trim_log_entries" value="<?php esc_html_e( 'Trim Log Entries', 'simple-download-monitor' ); ?>" />
+						<p class="description"><?php esc_html_e( 'This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button.', 'simple-download-monitor' ); ?></p>
 				</div>
 			</form>
 			</div>
@@ -491,58 +567,68 @@ function sdm_create_stats_page() {
 		}
 	</style>
 	<div class="wrap">
-		<h2><?php _e( 'Stats', 'simple-download-monitor' ); ?></h2>
+		<h2><?php esc_html_e( 'Stats', 'simple-download-monitor' ); ?></h2>
 		<div id="poststuff"><div id="post-body">
 
 			<div class="postbox">
-			<h3 class="hndle"><label for="title"><?php _e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
 				<form id="sdm_choose_date" method="post">
-				<input type="hidden" name="sdm_active_tab" value="<?php echo sdm_sanitize_text( $active_tab ); ?>">
-				<?php _e( 'Start Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo sdm_sanitize_text( $start_date ); ?>">
-				<?php _e( 'End Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo sdm_sanitize_text( $start_date ); ?>">
+				<input type="hidden" name="sdm_active_tab" value="<?php echo esc_attr( sdm_sanitize_text( $active_tab ) ); ?>">
+				<?php esc_html_e( 'Start Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
+				<?php esc_html_e( 'End Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
 				<p id="sdm_date_buttons">
-					<button type="button" data-start-date="<?php echo date( 'Y-m-01' ); ?>" data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'This Month', 'simple-download-monitor' ); ?></button>
-					<button type="button" data-start-date="<?php echo date( 'Y-m-d', strtotime( 'first day of last month' ) ); ?>" data-end-date="<?php echo date( 'Y-m-d', strtotime( 'last day of last month' ) ); ?>"><?php _e( 'Last Month', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo date( 'Y-01-01' ); ?>" data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'This Year', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo date( 'Y-01-01', strtotime( '-1 year' ) ); ?>" data-end-date="<?php echo date( 'Y-12-31', strtotime( 'last year' ) ); ?>"><?php _e( 'Last Year', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo date( 'Y-m-d' ); ?>"><?php _e( 'All Time', 'simple-download-monitor' ); ?></button>
+					<button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
+					<button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
+					<button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
+					<button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
+					<button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
 				</p>
 				<div class="submit">
-					<input type="submit" class="button-primary" value="<?php _e( 'View Stats', 'simple-download-monitor' ); ?>">
+					<input type="submit" class="button-primary" value="<?php esc_html_e( 'View Stats', 'simple-download-monitor' ); ?>">
 				</div>
 				</form>
 			</div>
 			</div>
 			<div class="nav-tab-wrapper sdm-tabs">
-			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=datechart" class="nav-tab<?php echo ( $active_tab == 'datechart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="datechart"><?php _e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
-			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ( $active_tab == 'geochart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="geochart"><?php _e( 'Downloads by country', 'simple-download-monitor' ); ?></a>
-				<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ( $active_tab == 'countrylistchart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="countrylistchart"><?php _e( 'Downloads by country list', 'simple-download-monitor' ); ?></a>
-			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=browserList" href="" class="nav-tab<?php echo ( $active_tab == 'browserList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="browserList"><?php _e( 'Downloads by browser', 'simple-download-monitor' ); ?></a>
-			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=osList" href="" class="nav-tab<?php echo ( $active_tab == 'osList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="osList"><?php _e( 'Downloads by OS', 'simple-download-monitor' ); ?></a>
-			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=topDownloads" href="" class="nav-tab<?php echo ( $active_tab == 'topDownloads' ? ' nav-tab-active' : '' ); ?>" data-tab-name="topDownloads"><?php _e( 'Top Downloads', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=sdm-stats&sdm_active_tab=datechart" class="nav-tab<?php echo ( $active_tab === 'datechart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="datechart"><?php esc_html_e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ( $active_tab === 'geochart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="geochart"><?php esc_html_e( 'Downloads by country', 'simple-download-monitor' ); ?></a>
+				<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ( $active_tab === 'countrylistchart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="countrylistchart"><?php esc_html_e( 'Downloads by country list', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=browserList" href="" class="nav-tab<?php echo ( $active_tab === 'browserList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="browserList"><?php esc_html_e( 'Downloads by browser', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=osList" href="" class="nav-tab<?php echo ( $active_tab === 'osList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="osList"><?php esc_html_e( 'Downloads by OS', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=topDownloads" href="" class="nav-tab<?php echo ( $active_tab === 'topDownloads' ? ' nav-tab-active' : '' ); ?>" data-tab-name="topDownloads"><?php esc_html_e( 'Top Downloads', 'simple-download-monitor' ); ?></a>
 			</div>
 			<div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
-			<div data-tab-name="datechart" class="sdm-tab"<?php echo ( $active_tab == 'datechart' ? '' : ' style="display:none;"' ); ?>>
+			<div data-tab-name="datechart" class="sdm-tab"<?php echo ( $active_tab === 'datechart' ? '' : ' style="display:none;"' ); ?>>
 				<div id="downloads_chart" style="width: auto; max-width: 700px"></div>
 			</div>
-			<div data-tab-name="geochart" class="sdm-tab"<?php echo ( $active_tab == 'geochart' ? '' : ' style="display:none;"' ); ?>>
+			<div data-tab-name="geochart" class="sdm-tab"<?php echo ( $active_tab === 'geochart' ? '' : ' style="display:none;"' ); ?>>
 					<div id="sdm-api-key-warning">
 						<div class="sdm_yellow_box">
 							<span class="dashicons dashicons-warning" style="color: #ffae42;"></span>
-								<?php _e( 'Enter your Google Maps API Key <a href="edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key" target="_blank">in the settings</a> to properly display the chart.', 'simple-download-monitor' ); ?>
+								<?php
+								echo wp_kses(
+									__( 'Enter your Google Maps API Key <a href="edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key" target="_blank">in the settings</a> to properly display the chart.', 'simple-download-monitor' ),
+									array(
+										'a' => array(
+											'target' => array(),
+											'href'   => array(),
+										),
+									)
+								);
+								?>
 						</div>
 					</div>
 
 				<div id="country_chart" style="width: auto; max-width: 700px; height:437px;"></div>
 			</div>
 
-				<div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ( $active_tab == 'countrylistchart' ? '' : ' style="display:none;"' ); ?>>
+				<div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ( $active_tab === 'countrylistchart' ? '' : ' style="display:none;"' ); ?>>
 					<div class="wrap">
 						<table class="widefat">
 							<thead>
-							<th><strong><?php _e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</thead>
 							<tbody>
 								<?php
@@ -554,27 +640,27 @@ function sdm_create_stats_page() {
 										continue;
 									}
 									echo '<tr>';
-									echo '<td>' . $item['country'] . '</td>';
-									echo '<td>' . $item['cnt'] . '</td>';
+									echo '<td>' . esc_html( $item['country'] ) . '</td>';
+									echo '<td>' . esc_html( $item['cnt'] ) . '</td>';
 									echo '</tr>';
 								}
 								?>
 							</tbody>
 							<tfoot>
-							<th><strong><?php _e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</tfoot>
 						</table>
 					</div>
 				</div><!-- end of countrylistchart -->
 
 				<div data-tab-name="browserList"
-					 class="sdm-tab"<?php echo( $active_tab == 'browserList' ? '' : ' style="display:none;"' ); ?>>
+					 class="sdm-tab"<?php echo( $active_tab === 'browserList' ? '' : ' style="display:none;"' ); ?>>
 					<div class="wrap">
 						<table class="widefat">
 							<thead>
-							<th><strong><?php _e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</thead>
 							<tbody>
 							<?php
@@ -582,26 +668,26 @@ function sdm_create_stats_page() {
 							foreach ( $downloads_by_browser_array as $name => $count ) {
 								?>
 								<tr>
-									<td><?php echo $name; ?></td>
-									<td><?php echo $count; ?></td>
+									<td><?php echo esc_html( $name ); ?></td>
+									<td><?php echo esc_html( $count ); ?></td>
 								</tr>
 							<?php } ?>
 							</tbody>
 							<tfoot>
-							<th><strong><?php _e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</tfoot>
 						</table>
 					</div>
 				</div><!-- end of browserList tab-->
 
 				<div data-tab-name="osList"
-					 class="sdm-tab"<?php echo( $active_tab == 'osList' ? '' : ' style="display:none;"' ); ?>>
+					 class="sdm-tab"<?php echo( $active_tab === 'osList' ? '' : ' style="display:none;"' ); ?>>
 					<div class="wrap">
 						<table class="widefat">
 							<thead>
-							<th><strong><?php _e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</thead>
 							<tbody>
 							<?php
@@ -609,26 +695,26 @@ function sdm_create_stats_page() {
 							foreach ( $downloads_by_os_array as $name => $count ) {
 								?>
 								<tr>
-									<td><?php echo $name; ?></td>
-									<td><?php echo $count; ?></td>
+									<td><?php echo esc_html( $name ); ?></td>
+									<td><?php echo esc_html( $count ); ?></td>
 								</tr>
 							<?php } ?>
 							</tbody>
 							<tfoot>
-							<th><strong><?php _e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</tfoot>
 						</table>
 					</div>
 				</div><!-- end of osList tab-->
 
 				<div data-tab-name="topDownloads"
-					 class="sdm-tab"<?php echo( $active_tab == 'topDownloads' ? '' : ' style="display:none;"' ); ?>>
+					 class="sdm-tab"<?php echo( $active_tab === 'topDownloads' ? '' : ' style="display:none;"' ); ?>>
 					<div class="wrap">
 						<table class="widefat">
 							<thead>
-							<th><strong><?php _e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</thead>
 							<tbody>
 							<?php
@@ -636,14 +722,14 @@ function sdm_create_stats_page() {
 							foreach ( $downloads_by_count as $item ) {
 								?>
 								<tr>
-									<td><?php echo $item['post_title']; ?></td>
-									<td><?php echo $item['cnt']; ?></td>
+									<td><?php echo esc_html( $item['post_title'] ); ?></td>
+									<td><?php echo esc_html( $item['cnt'] ); ?></td>
 								</tr>
 							<?php } ?>
 							</tbody>
 							<tfoot>
-							<th><strong><?php _e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
 							</tfoot>
 						</table>
 					</div>
@@ -656,7 +742,7 @@ function sdm_create_stats_page() {
 		var sdm = [];
 		sdm.datechart = false;
 		sdm.geochart = false;
-		sdm.activeTab = '<?php echo sdm_sanitize_text( $active_tab ); ?>';
+		sdm.activeTab = '<?php echo esc_html( sdm_sanitize_text( $active_tab ) ); ?>';
 		sdm.apiKey = '<?php echo esc_js( $api_key ); ?>';
 		jQuery('#sdm_date_buttons button').click(function (e) {
 		jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
@@ -683,12 +769,12 @@ function sdm_create_stats_page() {
 		}
 		function sdm_drawDateChart() {
 		var sdm_dateData = new google.visualization.DataTable();
-		sdm_dateData.addColumn('string', '<?php _e( 'Date', 'simple-download-monitor' ); ?>');
-		sdm_dateData.addColumn('number', '<?php _e( 'Number of downloads', 'simple-download-monitor' ); ?>');
-		sdm_dateData.addRows([<?php echo $downloads_by_date; ?>]);
+		sdm_dateData.addColumn('string', '<?php esc_html_e( 'Date', 'simple-download-monitor' ); ?>');
+		sdm_dateData.addColumn('number', '<?php esc_html_e( 'Number of downloads', 'simple-download-monitor' ); ?>');
+		sdm_dateData.addRows([<?php echo $downloads_by_date; //phpcs:ignore ?>]);
 
 		var sdm_dateChart = new google.visualization.AreaChart(document.getElementById('downloads_chart'));
-		sdm_dateChart.draw(sdm_dateData, {width: 'auto', height: 300, title: '<?php _e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
+		sdm_dateChart.draw(sdm_dateData, {width: 'auto', height: 300, title: '<?php esc_html_e( 'Downloads by Date', 'simple-download-monitor' ); ?>', colors: ['#3366CC', '#9AA2B4', '#FFE1C9'],
 			hAxis: {title: 'Date', titleTextStyle: {color: 'black'}},
 			vAxis: {title: 'Downloads', titleTextStyle: {color: 'black'}},
 			legend: 'top'
@@ -696,7 +782,7 @@ function sdm_create_stats_page() {
 		}
 		function sdm_drawGeoChart() {
 
-		var sdm_countryData = google.visualization.arrayToDataTable([<?php echo $downloads_by_country; ?>]);
+		var sdm_countryData = google.visualization.arrayToDataTable([<?php echo $downloads_by_country; //phpcs:ignore ?>]);
 
 		var sdm_countryOptions = {colorAxis: {colors: ['#ddf', '#00f']}};
 
