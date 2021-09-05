@@ -118,7 +118,7 @@ class SDM_Admin_Edit_Download {
 		if ( $new_window === '' ) {
 			// No value yet (either new item or saved with older version of plugin)
 			$screen = get_current_screen();
-			if ( $screen->action === 'add' ) { //phpcs:ignore 
+			if ( $screen->action === 'add' ) { //phpcs:ignore
 				//New item: we can set a default value as per plugin settings. If a general settings is introduced at a later stage.
 				//Does nothing at the moment.
 			}
@@ -262,7 +262,7 @@ class SDM_Admin_Edit_Download {
 		echo '<div class="sdm-download-edit-button-text">';
 		echo '<strong>' . esc_html__( 'Download Button Text: ', 'simple-download-monitor' ) . '</strong>';
 		echo '<br />';
-		echo '<input id="sdm-download-button-text" type="text" name="sdm_download_button_text" value="' . esc_attr( $download_button_text ) . '" />"';
+		echo '<input id="sdm-download-button-text" type="text" name="sdm_download_button_text" value="' . esc_attr( $download_button_text ) . '" />';
 		echo '<p class="description">' . esc_html__( 'You can use this field to customize the download now button text of this item.', 'simple-download-monitor' ) . '</p>';
 		echo '</div>';
 	}
