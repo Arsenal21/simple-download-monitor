@@ -2,16 +2,21 @@
 
 function sdm_export_download_logs_to_csv( $start_date, $end_date ) {
 	//appending time to start and end date
-	$start_date .= ' 00:00:00';
-	$end_date   .= ' 23:59:59';
+	$start_date_time = $start_date . ' 00:00:00';
+	$end_date_time   = $end_date . ' 23:59:59';
 
 	global $wpdb;
 	$table_name      = $wpdb->prefix . 'sdm_downloads';
-	$resultset_query = $wpdb->prepare( "SELECT * FROM $table_name WHERE date_time BETWEEN %s AND %s ORDER BY id DESC", $start_date, $end_date );
+	$resultset_query = $wpdb->prepare( "SELECT * FROM $table_name WHERE date_time BETWEEN %s AND %s ORDER BY id DESC", $start_date_time, $end_date_time );
 	$resultset       = $wpdb->get_results( $resultset_query, OBJECT );
 
-	$csv_file_path = WP_SIMPLE_DL_MONITOR_PATH . 'sdm-download-logs.csv';
-	$fp            = fopen( $csv_file_path, 'w' );
+	$csv_file_name = sprintf( 'sdm-download-logs-%s_%s.csv', $start_date, $end_date );
+	header( 'Content-Type: text/csv' );
+	header( 'Content-Disposition: attachment; filename="' . $csv_file_name . '"' );
+	header( 'Pragma: no-cache' );
+	header( 'Expires: 0' );
+
+	$fp = fopen( 'php://output', 'w' );
 
 	$header_names = array( 'Log ID', 'Download ID', 'Download Title', 'File URL', 'Date', 'IP Address', 'Country', 'Name' );
 	fputcsv( $fp, $header_names );
@@ -25,10 +30,7 @@ function sdm_export_download_logs_to_csv( $start_date, $end_date ) {
 		fputcsv( $fp, $fields );
 	}
 
-	fclose( $fp );
-
-	$file_url = WP_SIMPLE_DL_MONITOR_URL . '/sdm-download-logs.csv';
-	return $file_url;
+	exit();
 }
 
 function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $returnStr = true ) {

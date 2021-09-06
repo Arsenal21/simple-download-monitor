@@ -116,19 +116,52 @@ function sdm_admin_init_time_tasks() {
 	add_action( 'wp_ajax_sdm_reset_log', 'sdm_reset_log_handler' );
 	add_action( 'wp_ajax_sdm_delete_data', 'sdm_delete_data_handler' );
 
-	if ( is_admin() ) {
-		if ( user_can( wp_get_current_user(), 'administrator' ) ) {
-			// user is an admin
-			$action = filter_input( INPUT_GET, 'sdm-action', FILTER_SANITIZE_STRING );
-			if ( ! empty( $action ) ) {
-				if ( $action === 'view_log' ) {
-					check_admin_referer( 'sdm_view_log_nonce' );
-					$logfile = fopen( WP_SDM_LOG_FILE, 'rb' );
-					header( 'Content-Type: text/plain' );
-					fpassthru( $logfile );
-					die;
+	if ( ! is_admin() || ! user_can( wp_get_current_user(), 'administrator' ) ) {
+		// user is not an admin
+		return;
+	}
+
+	// View log
+	$action = filter_input( INPUT_GET, 'sdm-action', FILTER_SANITIZE_STRING );
+	if ( ! empty( $action ) ) {
+		if ( $action === 'view_log' ) {
+			check_admin_referer( 'sdm_view_log_nonce' );
+			$logfile = fopen( WP_SDM_LOG_FILE, 'rb' );
+			header( 'Content-Type: text/plain' );
+			fpassthru( $logfile );
+			die;
+		}
+	}
+
+	// Export log to CSV
+	if ( isset( $_POST['sdm_export_log_entries'] ) ) {
+		check_admin_referer( 'sdm_export_logs', 'sdm_export_logs_nonce' );
+
+		// datetime fileds
+		if ( isset( $_POST['sdm_stats_start_date'] ) ) {
+			$start_date = sanitize_text_field( wp_unslash( $_POST['sdm_stats_start_date'] ) );
+		} else {
+			// default start date is 30 days back
+			$start_date = date( 'Y-m-d', time() - 60 * 60 * 24 * 30 );
+		}
+
+		if ( isset( $_POST['sdm_stats_end_date'] ) ) {
+			$end_date = sanitize_text_field( wp_unslash( $_POST['sdm_stats_end_date'] ) );
+		} else {
+			$end_date = date( 'Y-m-d', time() );
+		}
+
+		if ( sdm_validate_date_field( array( $start_date, $end_date ) ) ) {
+			sdm_export_download_logs_to_csv( $start_date, $end_date );
+		} else {
+			add_action(
+				'admin_notices',
+				function() {
+					echo '<div id="message" class="error"><p>';
+					esc_html_e( 'Please select a valid date range.', 'simple-download-monitor' );
+					echo '</p></div>';
 				}
-			}
+			);
 		}
 	}
 }

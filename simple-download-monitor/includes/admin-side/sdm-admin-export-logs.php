@@ -24,24 +24,6 @@ function sdm_logs_export_tab_page() {
 		$end_date = date( 'Y-m-d', time() );
 	}
 
-	// csv export message box
-	if ( isset( $_POST['sdm_export_log_entries'] ) ) {
-		check_admin_referer( 'sdm_export_logs', 'sdm_export_logs_nonce' );
-		//validate date fields
-		if ( sdm_validate_date_field( array( $start_date, $end_date ) ) ) {
-			//Export log entries
-			$log_file_url = sdm_export_download_logs_to_csv( $start_date, $end_date );
-			echo '<div id="message" class="updated"><p>';
-			esc_html_e( 'Log entries exported! Click on the following link to download the file.', 'simple-download-monitor' );
-			echo '<br /><br /><a href="' . esc_url( $log_file_url ) . '">' . esc_html__( 'Download Logs CSV File', 'simple-download-monitor' ) . '</a>';
-			echo '</p></div>';
-		} else {
-			echo '<div id="message" class="error"><p>';
-			esc_html_e( 'Please select a valid date range.', 'simple-download-monitor' );
-			echo '</p></div>';
-		}
-	}
-
 	?>
 
 	<div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
