@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 3.9.5.1
+Stable tag: 3.9.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,9 +190,12 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.9.6 =
+= 3.9.6 =
+- The Export Logs to CSV feature now pushes the CSV file directly to the browser.
+- The JavaScript code for the stats menu has been moved to a separate file.
 - Added nonce check for view and reset log.
-- Fixed the issue with "remove download thumbnail" button wasn't working.
+- Added nonce check to the 'Specific Item logs' menu.
+- Fixed the issue with "remove download thumbnail" button not working.
 - WPCS modifications and code reformatting.
 
 = 3.9.5.1 =
