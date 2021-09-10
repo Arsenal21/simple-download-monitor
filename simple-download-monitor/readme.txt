@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.7 =
+- Added a new filter hook 'sdm_post_type_capability'. This hook can be used to apply a customization and override the default capability from 'administrator' to other roles.
+
 = 3.9.6 =
 - The Export Logs to CSV feature now pushes the CSV file directly to the browser.
 - The JavaScript code for the stats menu has been moved to a separate file.

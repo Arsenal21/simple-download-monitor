@@ -19,15 +19,17 @@ function sdm_register_post_type() {
 		'menu_name'          => __( 'Downloads', 'simple-download-monitor' ),
 	);
 
+        //Trigger filter hook to allow overriding of the default SDM Post capability.
+        $sdm_post_capability = apply_filters( 'sdm_post_type_capability', 'manage_options' );
 	$capabilities = array(
-		'edit_post'          => 'manage_options',
-		'delete_post'        => 'manage_options',
-		'read_post'          => 'manage_options',
-		'edit_posts'         => 'manage_options',
-		'edit_others_posts'  => 'manage_options',
-		'delete_posts'       => 'manage_options',
-		'publish_posts'      => 'manage_options',
-		'read_private_posts' => 'manage_options',
+		'edit_post'          => $sdm_post_capability,
+		'delete_post'        => $sdm_post_capability,
+		'read_post'          => $sdm_post_capability,
+		'edit_posts'         => $sdm_post_capability,
+		'edit_others_posts'  => $sdm_post_capability,
+		'delete_posts'       => $sdm_post_capability,
+		'publish_posts'      => $sdm_post_capability,
+		'read_private_posts' => $sdm_post_capability,
 	);
 
 	$sdm_permalink_base = 'sdm_downloads'; //TODO - add an option to configure in the settings maybe?
