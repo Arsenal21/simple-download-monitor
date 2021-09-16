@@ -171,6 +171,12 @@ function sdm_reset_log_handler() {
 		//nonce check failed
 		wp_die( 0 );
 	}
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		//not permissions for current user
+		wp_die( 0 );
+	}
+
 	SDM_Debug::reset_log();
 	echo '1';
 	wp_die();
@@ -181,6 +187,12 @@ function sdm_delete_data_handler() {
 		//nonce check failed
 		wp_die( 0 );
 	}
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		//not permissions for current user
+		wp_die( 0 );
+	}
+
 	global $wpdb;
 	//let's find and delete smd_download posts and meta
 	$posts = $wpdb->get_results( 'SELECT id FROM ' . $wpdb->prefix . 'posts WHERE post_type="sdm_downloads"', ARRAY_A );
