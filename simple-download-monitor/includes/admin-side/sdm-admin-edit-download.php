@@ -77,7 +77,7 @@ class SDM_Admin_Edit_Download {
 		echo '<br /><br />';
 
 		echo '<div class="sdm-download-edit-file-url-section">';
-		echo '<input id="sdm_upload" type="text" size="100" name="sdm_upload" value="' . esc_url( $old_value ) . '" placeholder="http://..." />';
+		echo '<input id="sdm_upload" type="text" size="100" name="sdm_upload" value="' . esc_attr( $old_value ) . '" placeholder="http://..." />';
 		echo '</div>';
 
 		echo '<br />';
@@ -160,7 +160,7 @@ class SDM_Admin_Edit_Download {
 		esc_html_e( 'Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'simple-download-monitor' );
 		?>
 	<br /><br />
-	<input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo esc_url( $old_value ); ?>" placeholder="http://..." />
+	<input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo esc_attr( $old_value ); ?>" placeholder="http://..." />
 	<br /><br />
 	<input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php esc_attr_e( 'Select Image', 'simple-download-monitor' ); ?>" />
 	<input id="remove_thumbnail_button" type="button" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>" />
@@ -312,7 +312,7 @@ class SDM_Admin_Edit_Download {
 
 		// *** File Upload ***
 		if ( isset( $_POST['sdm_upload'] ) ) {
-			update_post_meta( $post_id, 'sdm_upload', sanitize_text_field( wp_unslash( $_POST['sdm_upload'] ) ) );
+			update_post_meta( $post_id, 'sdm_upload', esc_url( $_POST['sdm_upload'], array( 'http', 'https', 'dropbox' ) ) );
 		}
 
 		// *** PHP Dispatch or Redirect ***
