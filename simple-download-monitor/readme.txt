@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 3.9.6
+Stable tag: 3.9.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,7 +190,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.9.7 =
+= 3.9.7 =
 - Added a new filter hook 'sdm_post_type_capability'. This hook can be used to apply a customization and override the default capability from 'administrator' to other roles.
 - The '%' symbol is now allowed in the download URL field.
 - Added current_user_can() checks to ajax calls.
