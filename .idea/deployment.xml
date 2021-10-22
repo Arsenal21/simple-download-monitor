@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="plugin-demo" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="tipsandtricks" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="plugin-demo">
         <serverdata>
@@ -12,7 +12,7 @@
       <paths name="tipsandtricks">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/test.adilarham.com/wp-content/plugins" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
