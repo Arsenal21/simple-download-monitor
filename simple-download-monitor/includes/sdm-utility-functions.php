@@ -38,7 +38,31 @@ function sdm_get_download_count_for_post( $id ) {
 
 		$db_count = $db_count + $get_offset;
 	}
+	return $db_count;
+}
 
+/**
+ * Counts all total downloads.
+ *
+ * @return number
+ */
+function sdm_get_download_count_for_post_all() {
+	global $wpdb;
+	$table = $wpdb->prefix . 'posts';
+	$table2 = $wpdb->prefix . 'sdm_downloads';
+
+	$sdm_posts = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %s WHERE post_type="sdm_downloads"', $table ) );
+	$sdm_downloads = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %s', $table2 ) );
+
+	$db_count = count( $sdm_downloads );
+
+	// Check post meta for offset count.
+    for ( $i = 0; $i < count( $sdm_posts ); $i++ ) {
+		$get_offset = get_post_meta( $sdm_posts[ $i ]->ID, 'sdm_count_offset', true );
+		if ( $get_offset && $get_offset != '' ) {
+			$db_count = $db_count + $get_offset;
+		}
+	}
 	return $db_count;
 }
 

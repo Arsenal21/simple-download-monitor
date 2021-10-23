@@ -183,7 +183,12 @@ function sdm_create_counter_shortcode( $atts ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
-	$db_count = sdm_get_download_count_for_post( $id );
+	// Checks if to show count for all total download or any specific download.
+	if ( preg_match( '/^all$/i', $id ) ) {
+		$db_count = sdm_get_download_count_for_post_all();
+	} else {
+		$db_count = sdm_get_download_count_for_post( $id );
+	}
 
 	// Set string for singular/plural results
 	$string = ( $db_count == '1' ) ? __( 'Download', 'simple-download-monitor' ) : __( 'Downloads', 'simple-download-monitor' );
