@@ -46,7 +46,7 @@ function sdm_get_download_count_for_post( $id ) {
  *
  * @return number
  */
-function sdm_get_download_count_for_post_all() {
+function sdm_get_download_count_for_all_posts() {
     global $wpdb;
 
     $table = $wpdb->prefix . 'sdm_downloads';

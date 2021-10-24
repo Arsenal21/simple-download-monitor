@@ -185,7 +185,7 @@ function sdm_create_counter_shortcode( $atts ) {
 
 	// Checks if to show count for all total download or any specific download.
 	if ( preg_match( '/^all$/i', $id ) ) {
-		$db_count = sdm_get_download_count_for_post_all();
+		$db_count = sdm_get_download_count_for_all_posts();
 	} else {
 		$db_count = sdm_get_download_count_for_post( $id );
 	}
