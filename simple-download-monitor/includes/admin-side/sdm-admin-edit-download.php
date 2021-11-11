@@ -312,7 +312,7 @@ class SDM_Admin_Edit_Download {
 
 		// *** File Upload ***
 		if ( isset( $_POST['sdm_upload'] ) ) {
-			update_post_meta( $post_id, 'sdm_upload', esc_url( $_POST['sdm_upload'], array( 'http', 'https', 'dropbox' ) ) );
+			update_post_meta( $post_id, 'sdm_upload', esc_url_raw( $_POST['sdm_upload'], array( 'http', 'https', 'dropbox' ) ) );
 		}
 
 		// *** PHP Dispatch or Redirect ***
