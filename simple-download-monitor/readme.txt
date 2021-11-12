@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - New shortcode to show combined total download count. [sdm_download_counter id="ALL"]
+- Ampersands (&) encoding to #038 problem fixed for download url
 
 = 3.9.7 =
 - Added a new filter hook 'sdm_post_type_capability'. This hook can be used to apply a customization and override the default capability from 'administrator' to other roles.
