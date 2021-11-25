@@ -71,10 +71,9 @@ function sdm_search_form_shortcode( $args ) {
 			$result_output = '<h2 class="sdm_search_result_heading">' . __( 'Nothing found for ', 'simple-download-monitor' ) . '"' . $s_term . '".</h2>';
 		}
 	}
-
 	$out  = '';
-	$out .= '<form id="sdm_search_form" class="' . ( empty( $atts['class'] ) ? '' : ' ' . $atts['class'] ) . '" method="POST">';
-	$out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . $atts['placeholder'] . '">';
+	$out .= '<form id="sdm_search_form" class="' . sanitize_html_class( $atts['class'], '' ) . '" method="POST">';
+	$out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . sanitize_text_field( $atts['placeholder'] ) . '">';
 	$out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
 	$out .= '</form>';
 	$out .= isset( $result_output ) ? $result_output : '';

@@ -190,8 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP +
-- Nonce verification added to "Delete/Reset log entries" form
+= WIP =
+- Nonce verification added to "Delete/Reset log entries" form.
+- Sanitization added to 'sdm_search_form' shortcode parameters.
 
 = 3.9.8 =
 - New shortcode to show combined total download count. [sdm_download_counter id="ALL"]
