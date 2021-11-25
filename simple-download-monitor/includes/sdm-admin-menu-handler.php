@@ -442,7 +442,7 @@ function sdm_handle_logs_main_tab_page() {
 	global $wpdb;
 	$advanced_options = get_option( 'sdm_advanced_options' );
 
-	if ( isset( $_POST['sdm_reset_log_entries'] ) ) {
+	if ( isset( $_POST['sdm_reset_log_entries'] ) && check_admin_referer( null,'sdm_delete_all_logs_nonce' ) ) {
 		//Reset log entries
 		$table_name = $wpdb->prefix . 'sdm_downloads';
 		$query      = "TRUNCATE $table_name";
@@ -452,7 +452,7 @@ function sdm_handle_logs_main_tab_page() {
 		echo '</p></div>';
 	}
 
-	if ( isset( $_POST['sdm_trim_log_entries'] ) ) {
+    if ( isset( $_POST['sdm_trim_log_entries'] ) && check_admin_referer( null, 'sdm_delete_logs_nonce' ) ) {
 		//Trim log entries
 		$interval_val  = intval( $_POST['sdm_trim_log_entries_days'] );
 		$interval_unit = 'DAY';
@@ -499,6 +499,7 @@ function sdm_handle_logs_main_tab_page() {
 				<input type="submit" class="button" name="sdm_reset_log_entries" value="<?php esc_html_e( 'Reset Log Entries', 'simple-download-monitor' ); ?>" />
 						<p class="description"><?php esc_html_e( 'This button will reset all log entries. It can useful if you want to export all your log entries then reset them.', 'simple-download-monitor' ); ?></p>
 				</div>
+				<?php wp_nonce_field( null, 'sdm_delete_all_logs_nonce' ); ?>
 			</form>
 
 			<form method="post" action="" onSubmit="return confirm('Are you sure you want to trim log entries?');" >
@@ -507,6 +508,7 @@ function sdm_handle_logs_main_tab_page() {
 				<input type="submit" class="button" name="sdm_trim_log_entries" value="<?php esc_html_e( 'Trim Log Entries', 'simple-download-monitor' ); ?>" />
 						<p class="description"><?php esc_html_e( 'This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button.', 'simple-download-monitor' ); ?></p>
 				</div>
+				<?php wp_nonce_field( null, 'sdm_delete_logs_nonce' ); ?>
 			</form>
 			</div>
 		</div>
