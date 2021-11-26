@@ -190,7 +190,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= 3.9.8  =
+= WIP =
+- Nonce verification added to "Delete/Reset log entries" form.
+- Sanitization added to 'sdm_search_form' shortcode parameters.
+
+= 3.9.8 =
 - New shortcode to show combined total download count. [sdm_download_counter id="ALL"]
 - Ampersands (&) encoding to #038 issue fixed for download URLs.
 
