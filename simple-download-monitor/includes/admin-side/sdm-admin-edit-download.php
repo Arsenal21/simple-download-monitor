@@ -167,9 +167,9 @@ class SDM_Admin_Edit_Download {
 	<input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo esc_attr( $old_value ); ?>" placeholder="http://..." />
 	<br /><br />
 	<input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php esc_attr_e( 'Select Image', 'simple-download-monitor' ); ?>" />
-<!--	Creating the nonce field for csrf protection-->
-		<input id="sdm_remove_thumbnail_nonce" type="hidden" value="<?php echo wp_create_nonce( 'sdm_remove_thumbnail_nonce_action' ); ?>"/>
-	<input id="remove_thumbnail_button" type="submit" class="button" form="remove_thumbnail_form" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>"/>
+	<!--	Creating the nonce field for csrf protection-->
+	<input id="sdm_remove_thumbnail_nonce" type="hidden" value="<?php echo wp_create_nonce( 'sdm_remove_thumbnail_nonce_action' ); ?>"/>
+	<input id="remove_thumbnail_button" type="submit" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>"/>
 	<br /><br />
 
 	<span id="sdm_admin_thumb_preview">
