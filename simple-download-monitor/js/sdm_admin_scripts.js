@@ -44,26 +44,26 @@ jQuery(document).ready(function ($) {
     });
 
     // Remove thumbnail image from CPT
-    $('#remove_thumbnail_button').click(function () {
+    $('#remove_thumbnail_button').click( function () {
         if ($('#sdm_thumbnail_image').length === 0) {
             return;
         }
         $.post(
-                sdm_admin.ajax_url,
-                {
-                    action: 'sdm_remove_thumbnail_image',
-                    post_id_del: sdm_admin.post_id
-                },
-                function (response) {
-                    if (response) {  // ** If response was successful
-                        $('#sdm_thumbnail_image').remove();
-                        $('#sdm_upload_thumbnail').val('');
-                        alert(sdm_translations.image_removed);
-                    } else {  // ** Else response was unsuccessful
-                        alert(sdm_translations.ajax_error);
-                    }
+            sdm_admin.ajax_url,
+            {
+                action: 'sdm_remove_thumbnail_image',
+                post_id_del: sdm_admin.post_id,
+                _ajax_nonce: $('#sdm_remove_thumbnail_nonce').val()
+            },
+            function (response) {
+                if (response) {  // ** If response was successful
+                    $('#sdm_thumbnail_image').remove();
+                    $('#sdm_upload_thumbnail').val('');
+                    alert(sdm_translations.image_removed);
+                } else {  // ** Else response was unsuccessful
+                    alert(sdm_translations.ajax_error);
                 }
+            }
         );
     });
-
 });
