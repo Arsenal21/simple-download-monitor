@@ -24,13 +24,17 @@ class SDM_Admin_Edit_Download {
 	}
 
 	public function remove_thumbnail_image_ajax_handler() {
+
+		// terminates the script if the nonce verification fails.
+		check_ajax_referer( 'sdm_remove_thumbnail_nonce_action', 'sdm_remove_thumbnail_nonce' );
+
 		if ( ! current_user_can( 'manage_options' ) ) {
-			//Permission denied
+			// Permission denied
 			wp_die( esc_html( __( 'Permission denied!', 'simple-download-monitor' ) ) );
 			exit;
 		}
 
-		//Go ahead with the thumbnail removal
+		// Go ahead with the thumbnail removal
 		$post_id    = filter_input( INPUT_POST, 'post_id_del', FILTER_SANITIZE_NUMBER_INT );
 		$post_id    = empty( $post_id ) ? 0 : intval( $post_id );
 		$key_exists = metadata_exists( 'post', $post_id, 'sdm_upload_thumbnail' );
@@ -64,12 +68,12 @@ class SDM_Admin_Edit_Download {
 		$old_upload = get_post_meta( $post->ID, 'sdm_upload', true );
 		$old_value  = isset( $old_upload ) ? $old_upload : '';
 
-		//Trigger filter to allow "sdm_upload" field validation override.
+		// Trigger filter to allow "sdm_upload" field validation override.
 		$url_validation_override = apply_filters( 'sdm_file_download_url_validation_override', '' );
 		if ( ! empty( $url_validation_override ) ) { //phpcs:ignore
-			//This site has customized the behavior and overriden the "sdm_upload" field validation. It can be useful if you are offering app download URLs (that has unconventional URL patterns).
+			// This site has customized the behavior and overriden the "sdm_upload" field validation. It can be useful if you are offering app download URLs (that has unconventional URL patterns).
 		} else {
-			//Do the normal URL validation.
+			// Do the normal URL validation.
 			$old_value = esc_url( $old_value );
 		}
 
@@ -113,25 +117,25 @@ class SDM_Admin_Edit_Download {
 	// Open Download in new window
 	public function display_sdm_misc_properties_meta_box( $post ) {
 
-		//Check the open in new window value
+		// Check the open in new window value
 		$new_window = get_post_meta( $post->ID, 'sdm_item_new_window', true );
 		if ( $new_window === '' ) {
 			// No value yet (either new item or saved with older version of plugin)
 			$screen = get_current_screen();
 			if ( $screen->action === 'add' ) { //phpcs:ignore
-				//New item: we can set a default value as per plugin settings. If a general settings is introduced at a later stage.
-				//Does nothing at the moment.
+				// New item: we can set a default value as per plugin settings. If a general settings is introduced at a later stage.
+				// Does nothing at the moment.
 			}
 		}
 
-		//Check the sdm_item_disable_single_download_page value
+		// Check the sdm_item_disable_single_download_page value
 		$sdm_item_disable_single_download_page        = get_post_meta( $post->ID, 'sdm_item_disable_single_download_page', true );
 		$sdm_item_hide_dl_button_single_download_page = get_post_meta( $post->ID, 'sdm_item_hide_dl_button_single_download_page', true );
 
 		echo '<p> <input id="sdm_item_new_window" type="checkbox" name="sdm_item_new_window" value="yes"' . checked( true, $new_window, false ) . ' />';
 		echo '<label for="sdm_item_new_window">' . esc_html__( 'Open download in a new window.', 'simple-download-monitor' ) . '</label> </p>';
 
-		//the new window will have no download button
+		// the new window will have no download button
 		echo '<p> <input id="sdm_item_hide_dl_button_single_download_page" type="checkbox" name="sdm_item_hide_dl_button_single_download_page" value="yes"' . checked( true, $sdm_item_hide_dl_button_single_download_page, false ) . ' />';
 		echo '<label for="sdm_item_hide_dl_button_single_download_page">';
 
@@ -163,7 +167,9 @@ class SDM_Admin_Edit_Download {
 	<input id="sdm_upload_thumbnail" type="text" size="100" name="sdm_upload_thumbnail" value="<?php echo esc_attr( $old_value ); ?>" placeholder="http://..." />
 	<br /><br />
 	<input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php esc_attr_e( 'Select Image', 'simple-download-monitor' ); ?>" />
-	<input id="remove_thumbnail_button" type="button" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>" />
+	<!--	Creating the nonce field for csrf protection-->
+	<input id="sdm_remove_thumbnail_nonce" type="hidden" value="<?php echo wp_create_nonce( 'sdm_remove_thumbnail_nonce_action' ); ?>"/>
+	<input id="remove_thumbnail_button" type="submit" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>"/>
 	<br /><br />
 
 	<span id="sdm_admin_thumb_preview">
@@ -183,7 +189,7 @@ class SDM_Admin_Edit_Download {
 	}
 
 	public function display_sdm_stats_meta_box( $post ) {
-		//Stats metabox
+		// Stats metabox
 		$old_count = get_post_meta( $post->ID, 'sdm_count_offset', true );
 		$value     = isset( $old_count ) && ! empty( $old_count ) ? $old_count : '0';
 
@@ -218,7 +224,7 @@ class SDM_Admin_Edit_Download {
 	}
 
 	public function display_sdm_other_details_meta_box( $post ) {
-		//Other details metabox
+		// Other details metabox
 		$show_date_fd                  = get_post_meta( $post->ID, 'sdm_item_show_date_fd', true );
 		$sdm_item_show_file_size_fd    = get_post_meta( $post->ID, 'sdm_item_show_file_size_fd', true );
 		$sdm_item_show_item_version_fd = get_post_meta( $post->ID, 'sdm_item_show_item_version_fd', true );
@@ -268,7 +274,7 @@ class SDM_Admin_Edit_Download {
 	}
 
 	public function display_sdm_shortcode_meta_box( $post ) {
-		//Shortcode metabox
+		// Shortcode metabox
 		esc_html_e( 'The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page.', 'simple-download-monitor' );
 		echo '<br />';
 		$shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="0"]';
@@ -326,7 +332,7 @@ class SDM_Admin_Edit_Download {
 		$sdm_item_disable_single_download_page        = filter_input( INPUT_POST, 'sdm_item_disable_single_download_page', FILTER_VALIDATE_BOOLEAN );
 		$sdm_item_anonymous_can_download              = filter_input( INPUT_POST, 'sdm_item_anonymous_can_download', FILTER_VALIDATE_BOOLEAN );
 
-		//Save the data
+		// Save the data
 		update_post_meta( $post_id, 'sdm_item_new_window', $new_window_open );
 		update_post_meta( $post_id, 'sdm_item_hide_dl_button_single_download_page', $sdm_item_hide_dl_button_single_download_page );
 		update_post_meta( $post_id, 'sdm_item_disable_single_download_page', $sdm_item_disable_single_download_page );

@@ -193,6 +193,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP =
 - Nonce verification added to "Delete/Reset log entries" form.
 - Sanitization added to 'sdm_search_form' shortcode parameters.
+- Nonce verification added to remove thumbnail option.
 
 = 3.9.8 =
 - New shortcode to show combined total download count. [sdm_download_counter id="ALL"]
