@@ -48,7 +48,6 @@ jQuery(document).ready(function ($) {
         if ($('#sdm_thumbnail_image').length === 0) {
             return;
         }
-        console.log("Post ID", sdm_admin.post_id);
         $.post(
             sdm_admin.ajax_url,
             {
