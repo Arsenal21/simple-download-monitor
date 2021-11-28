@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 3.9.8
+Stable tag: 3.9.9
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,11 +190,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
+= 3.9.9 =
 - Nonce verification added to "Delete/Reset log entries" form.
 - Sanitization added to 'sdm_search_form' shortcode parameters.
-- Nonce verification added to remove thumbnail option.
-- An UI related bug fixed.
+- Nonce verification added to remove thumbnail button.
 
 = 3.9.8 =
 - New shortcode to show combined total download count. [sdm_download_counter id="ALL"]
@@ -247,7 +246,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - WordPress 5.7 compatibility.
 
 = 3.8.9 =
-- WordPress 5.5 compatiblity.
+- WordPress 5.5 compatibility.
 - Added sanitization to the "User Agent" field.
 - Removed the "TinyMCE" button option. It is no longer needed in current WordPress version.
 
