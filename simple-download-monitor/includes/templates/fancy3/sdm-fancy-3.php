@@ -69,6 +69,8 @@ function sdm_generate_fancy3_display_output( $args ) {
 	return '<div class="sdm_error_msg">Error! The shortcode is missing the ID parameter. Please refer to the documentation to learn the shortcode usage.</div>';
     }
 
+    $id = intval( $id );
+
     // Read plugin settings
     //$main_opts = get_option( 'sdm_downloads_options' );
 

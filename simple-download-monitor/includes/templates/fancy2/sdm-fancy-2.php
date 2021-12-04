@@ -96,6 +96,8 @@ function sdm_generate_fancy2_display_output( $args ) {
 	return '<div class="sdm_error_msg">Error! The shortcode is missing the ID parameter. Please refer to the documentation to learn the shortcode usage.</div>';
     }
 
+    $id = intval( $id );
+
     // See if new window parameter is set
     if ( empty( $new_window ) ) {
 	$new_window = get_post_meta( $id, 'sdm_item_new_window', true );

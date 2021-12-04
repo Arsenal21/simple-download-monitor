@@ -100,7 +100,7 @@ function sdm_get_password_entry_form( $id, $args = array(), $class = '' ) {
 	$data .= sdm_get_checkbox_for_termsncond();
 
 	$data .= '<span class="sdm-download-button">';
-	$data .= '<a href="#" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download sdm_download_with_condition ' . $class . '">' . $button_text_string . '</a>';
+	$data .= '<a href="#" name="sdm_dl_pass_submit" class="pass_sumbit sdm_pass_protected_download sdm_download_with_condition ' . esc_attr($class) . '">' . $button_text_string . '</a>';
 	$data .= '</span>';
 	$data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
 	$data .= '</form>';
@@ -265,7 +265,7 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 	$new_window    = get_post_meta( $id, 'sdm_item_new_window', true );
 	$window_target = empty( $new_window ) ? '' : ' target="_blank"';
 
-	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . $window_target . '>';
+	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . esc_attr($window_target) . '>';
 
 	$data .= '<div class="sdm-recaptcha-button">';
 	$data .= '<div class="g-recaptcha sdm-g-recaptcha"></div>';
@@ -273,7 +273,7 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 	//Check if Terms & Condition enabled
 	$data .= sdm_get_checkbox_for_termsncond();
 
-	$data .= '<a href="#" class="' . $class . ' sdm_download_with_condition">' . $button_text_string . '</a>';
+	$data .= '<a href="#" class="' . esc_attr($class) . ' sdm_download_with_condition">' . $button_text_string . '</a>';
 	$data .= '</div>';
 	$data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
 	$data .= '</form>';
@@ -321,7 +321,7 @@ function sdm_get_download_form_with_termsncond( $id, $args = array(), $class = '
 	$data  = '<form action="' . $action_url . '" method="post" class="sdm-download-form"' . $window_target . '>';
 	$data .= sdm_get_checkbox_for_termsncond();
 	$data .= '<div class="sdm-termscond-button">';
-	$data .= '<a href="#" class="' . $class . ' sdm_download_with_condition">' . $button_text_string . '</a>';
+	$data .= '<a href="#" class="' . esc_attr($class) . ' sdm_download_with_condition">' . $button_text_string . '</a>';
 	$data .= '</div>';
 	$data .= '<input type="hidden" name="download_id" value="' . $id . '" />';
 	$data .= '</form>';

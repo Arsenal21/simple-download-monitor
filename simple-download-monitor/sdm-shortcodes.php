@@ -103,7 +103,7 @@ function sdm_create_download_shortcode( $atts ) {
 
 	$homepage             = get_bloginfo( 'url' );
 	$download_url         = $homepage . '/?smd_process_download=1&download_id=' . $id;
-	$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
+	$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . esc_attr($color) . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
 
 	$main_advanced_opts = get_option( 'sdm_advanced_options' );
 
