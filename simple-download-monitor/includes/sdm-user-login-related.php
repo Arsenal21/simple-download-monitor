@@ -9,6 +9,7 @@ function sdm_after_wp_user_login_redirect( $redirect_to, $request, $user ) {
 		$main_option = get_option( 'sdm_downloads_options' );
 		if ( isset( $main_option['redirect_user_back_to_download_page'] ) ) {
 			$redirect_to = urldecode( $_REQUEST['sdm_redirect_to'] );
+                        $redirect_to = wp_sanitize_redirect($redirect_to);
 		}
 	}
 	return $redirect_to;
@@ -28,6 +29,7 @@ function sdm_check_redirect_query_and_settings() {
 			$visitor_name = sdm_get_logged_in_user();
 			if ( $visitor_name !== false ) {
 				$redirect_url = urldecode( $_REQUEST['sdm_redirect_to'] );
+                                $redirect_url = wp_sanitize_redirect($redirect_url);
 				wp_safe_redirect( $redirect_url );//user wp safe redirect.
 				exit;
 			}

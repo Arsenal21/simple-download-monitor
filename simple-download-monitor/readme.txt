@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - More sanitization added to the [sdm_download] shortcode.
+- Sanitize redirect URL for the "Redirect Users to Download Page" feature.
 
 = 3.9.9 =
 - Nonce verification added to "Delete/Reset log entries" form.
