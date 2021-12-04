@@ -108,7 +108,7 @@ function sdm_create_settings_page() {
 		} else {
 			$class = '';
 		}
-		$nav_tabs .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+		$nav_tabs .= '<a class="nav-tab' . esc_attr($class) . '" href="?post_type=sdm_downloads&page=' . esc_attr($location) . '">' . esc_attr($tabname) . '</a>';
 	}
 	$nav_tabs .= '</h2>';
 
@@ -123,13 +123,13 @@ function sdm_create_settings_page() {
 		sdm_admin_menu_general_settings();
 	}
 	$settings_cont = ob_get_clean();
-	echo $nav_tabs; //phpcs:ignore
+	echo wp_kses_post($nav_tabs);
 	?>
 	<div class="sdm-settings-cont">
 		<div class="sdm-settings-grid sdm-main-cont">
 		<!-- settings page form -->
 		<form method="post" action="options.php">
-		<?php echo $settings_cont;  //phpcs:ignore?>
+		<?php echo $settings_cont; ?>
 			<!-- End of settings page form -->
 		</form>
 		</div>

@@ -148,7 +148,7 @@ class SDM_Admin_Edit_Download {
 		$disable_single_dl_label  = __( 'Disable the single download page for this download item. ', 'simple-download-monitor' );
 		$disable_single_dl_label .= __( 'This can be useful if you are using an addon like the ', 'simple-download-monitor' );
 		$disable_single_dl_label .= '<a href="https://simple-download-monitor.com/squeeze-form-addon-for-simple-download-monitor/" target="_blank">Squeeze Form</a>.';
-		echo $disable_single_dl_label . '</label>'; //phpcs:ignore
+		echo wp_kses_post($disable_single_dl_label) . '</label>'; //phpcs:ignore
 		echo '</p>';
 
 		$sdm_item_anonymous_can_download = get_post_meta( $post->ID, 'sdm_item_anonymous_can_download', true );

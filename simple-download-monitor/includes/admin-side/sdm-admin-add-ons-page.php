@@ -93,8 +93,8 @@ echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL 
 				$output .= '</div>'; //end canvas
 			}
 
-			echo $output;
+			echo wp_kses_post($output);
 			?>
 
-		</div></div><!-- end of poststuff and post-body -->        
+		</div></div><!-- end of poststuff and post-body -->
 </div><!-- end of .wrap -->

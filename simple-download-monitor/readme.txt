@@ -191,7 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP =
-- More sanitization added to the [sdm_download] shortcode
+- More sanitization added to the [sdm_download] shortcode.
 
 = 3.9.9 =
 - Nonce verification added to "Delete/Reset log entries" form.
