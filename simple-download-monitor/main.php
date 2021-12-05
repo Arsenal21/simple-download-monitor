@@ -252,6 +252,8 @@ function sdm_settings_link( $links, $file ) {
 // Houston... we have lift-off!!
 class simpleDownloadManager {
 
+	public static $disallowed_ext_dispatch_def = 'php, config, bak';
+
 	public function __construct() {
 
 		add_action( 'init', 'sdm_register_post_type' );  // Create 'sdm_downloads' custom post type
@@ -356,9 +358,9 @@ class simpleDownloadManager {
 		//Register the main setting
 		register_setting( 'sdm_downloads_options', 'sdm_downloads_options' );
 
-		/*	 * ************************** */
+		/*   * ************************** */
 		/* General Settings Section */
-		/*	 * ************************** */
+		/*   * ************************** */
 
 		//Add all the settings section that will go under the main settings
 		add_settings_section( 'general_options', __( 'General Options', 'simple-download-monitor' ), array( $this, 'general_options_cb' ), 'general_options_section' );
@@ -372,6 +374,8 @@ class simpleDownloadManager {
 		//Add all the individual settings fields that goes under the sections
 		add_settings_field( 'general_hide_donwload_count', __( 'Hide Download Count', 'simple-download-monitor' ), array( $this, 'hide_download_count_cb' ), 'general_options_section', 'general_options' );
 		add_settings_field( 'general_default_dispatch_value', __( 'PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_default_dispatch_value_cb' ), 'general_options_section', 'general_options' );
+		add_settings_field( 'general_disallowed_file_ext_dispatch', __( 'Disallow Dispatch Following File Extensions', 'simple-download-monitor' ), array( $this, 'general_disallowed_file_ext_dispatch_cb' ), 'general_options_section', 'general_options' );
+		add_settings_field( 'general_allow_hidden_noext_dispatch', __( 'Allow Hidden and No Extention Files Dispatch', 'simple-download-monitor' ), array( $this, 'general_allow_hidden_noext_dispatch_cb' ), 'general_options_section', 'general_options' );
 
 		add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
 		add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
@@ -388,9 +392,9 @@ class simpleDownloadManager {
 
 		add_settings_field( 'enable_debug', __( 'Enable Debug', 'simple-download-monitor' ), array( $this, 'enable_debug_cb' ), 'sdm_debug_section', 'sdm_debug' );
 
-		/*	 * ************************** */
+		/*   * ************************** */
 		/* Advanced Settings Section */
-		/*	 * ************************** */
+		/*   * ************************** */
 		//Add the advanced settings section
 		add_settings_section( 'recaptcha_options', __( 'Google Captcha (reCAPTCHA)', 'simple-download-monitor' ), array( $this, 'recaptcha_options_cb' ), 'recaptcha_options_section' );
 		add_settings_section( 'termscond_options', __( 'Terms and Conditions', 'simple-download-monitor' ), array( $this, 'termscond_options_cb' ), 'termscond_options_section' );
@@ -504,6 +508,21 @@ class simpleDownloadManager {
 		$value     = isset( $main_opts['general_default_dispatch_value'] ) && $main_opts['general_default_dispatch_value'];
 		echo '<input name="sdm_downloads_options[general_default_dispatch_value]" id="general_default_dispatch_value" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
 		echo '<label for="general_default_dispatch_value">' . esc_html__( 'When you create a new download item, The PHP Dispatching option should be enabled by default. PHP Dispatching keeps the URL of the downloadable files hidden.', 'simple-download-monitor' ) . '</label>';
+	}
+
+	public function general_disallowed_file_ext_dispatch_cb() {
+		$main_opts = get_option( 'sdm_downloads_options' );
+		$value     = empty( $main_opts['general_disallowed_file_ext_dispatch'] ) ? self::$disallowed_ext_dispatch_def : $main_opts['general_disallowed_file_ext_dispatch'];
+		echo '<input size="100" name="sdm_downloads_options[general_disallowed_file_ext_dispatch]" id="general_disallowed_file_ext_dispatch" type="text" value="' . esc_attr( $value ) . '" />';
+		echo '<p class="description">' . esc_html__( 'Comma-separated list of file extensions that are disallowed for PHP dispatch.', 'simple-download-monitor' ) . '</p>';
+	}
+
+	public function general_allow_hidden_noext_dispatch_cb() {
+		$main_opts = get_option( 'sdm_downloads_options' );
+		$value     = empty( $main_opts['general_allow_hidden_noext_dispatch'] ) ? false : true;
+		echo '<input name="sdm_downloads_options[general_allow_hidden_noext_dispatch]" id="general_allow_hidden_noext_dispatch" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
+		echo '<label for="general_allow_hidden_noext_dispatch">' . esc_html__( 'Allow hidden and no extension files dispatch.', 'simple-download-monitor' ) . '</label>';
+		echo '<p class="description">' . esc_html__( 'Note: for security reasons, it is highly adviced to keep this option disabled unless you know what you\'re doing.', 'simple-download-monitor' ) . '</p>';
 	}
 
 	public function general_only_logged_in_can_download_cb() {
