@@ -375,7 +375,7 @@ class simpleDownloadManager {
 		add_settings_field( 'general_hide_donwload_count', __( 'Hide Download Count', 'simple-download-monitor' ), array( $this, 'hide_download_count_cb' ), 'general_options_section', 'general_options' );
 		add_settings_field( 'general_default_dispatch_value', __( 'PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_default_dispatch_value_cb' ), 'general_options_section', 'general_options' );
 		add_settings_field( 'general_disallowed_file_ext_dispatch', __( 'Disallow Dispatch Following File Extensions', 'simple-download-monitor' ), array( $this, 'general_disallowed_file_ext_dispatch_cb' ), 'general_options_section', 'general_options' );
-		add_settings_field( 'general_allow_hidden_noext_dispatch', __( 'Allow Hidden and No Extention Files Dispatch', 'simple-download-monitor' ), array( $this, 'general_allow_hidden_noext_dispatch_cb' ), 'general_options_section', 'general_options' );
+		add_settings_field( 'general_allow_hidden_noext_dispatch', __( 'Allow Hidden and No Extension Files Dispatch', 'simple-download-monitor' ), array( $this, 'general_allow_hidden_noext_dispatch_cb' ), 'general_options_section', 'general_options' );
 
 		add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
 		add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
