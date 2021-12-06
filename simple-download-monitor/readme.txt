@@ -191,6 +191,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP =
+- Added a new option to specify a list of file extensions that will be disallowed via the PHP dispatching option.
+- PHP dispatching of system files is disabled.
 - More sanitization added to the [sdm_download] shortcode.
 - Sanitize redirect URL for the "Redirect Users to Download Page" feature.
 

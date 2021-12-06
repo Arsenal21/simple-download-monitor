@@ -186,7 +186,7 @@ function handle_sdm_download_via_direct_post() {
 			$path_parts = pathinfo( $file );
 
 			if ( ( empty( $path_parts['filename'] ) || empty( $path_parts['extension'] ) ) && empty( $main_option['general_allow_hidden_noext_dispatch'] ) ) {
-				// Do not dispatch hidden and no extension file.
+				// Do not use PHP dispatch for hidden files and/or files without extension.
 				sdm_redirect_to_url( $download_link );
 				exit;
 			}
@@ -202,7 +202,7 @@ function handle_sdm_download_via_direct_post() {
 			}
 
 			if ( in_array( strtolower( $path_parts['extension'] ), $disallowed_ext_arr, true ) ) {
-				// Disallowed file extension; not dispatching.
+				// Disallowed file extension; Don't use PHP dispatching (instead use the normal redirect).
 				sdm_redirect_to_url( $download_link );
 				exit;
 			}
