@@ -177,6 +177,36 @@ function handle_sdm_download_via_direct_post() {
 		if ( $dispatch && ( stripos( $download_link, WP_CONTENT_URL ) === 0 ) ) {
 			// Get file path
 			$file = path_join( WP_CONTENT_DIR, ltrim( substr( $download_link, strlen( WP_CONTENT_URL ) ), '/' ) );
+			$file = realpath( $file );
+
+			if ( ! is_file( $file ) ) {
+				wp_die( __( 'File not found.', 'simple-download-monitor' ), 404 );
+			}
+
+			$path_parts = pathinfo( $file );
+
+			if ( ( empty( $path_parts['filename'] ) || empty( $path_parts['extension'] ) ) && empty( $main_option['general_allow_hidden_noext_dispatch'] ) ) {
+				// Do not dispatch hidden and no extension file.
+				sdm_redirect_to_url( $download_link );
+				exit;
+			}
+
+			$disallowed_ext_opt = empty( $main_option['general_disallowed_file_ext_dispatch'] ) ? simpleDownloadManager::$disallowed_ext_dispatch_def : $main_option['general_disallowed_file_ext_dispatch'];
+
+			$disallowed_ext_arr_raw = explode( ',', strtolower( $disallowed_ext_opt ) );
+
+			$disallowed_ext_arr = array();
+
+			foreach ( $disallowed_ext_arr_raw as $item ) {
+				array_push( $disallowed_ext_arr, sanitize_text_field( $item ) );
+			}
+
+			if ( in_array( strtolower( $path_parts['extension'] ), $disallowed_ext_arr, true ) ) {
+				// Disallowed file extension; not dispatching.
+				sdm_redirect_to_url( $download_link );
+				exit;
+			}
+
 			// Try to dispatch file (terminates script execution on success)
 			sdm_dispatch_file( $file );
 		}
