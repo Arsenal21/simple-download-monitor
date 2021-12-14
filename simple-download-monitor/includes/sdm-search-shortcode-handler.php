@@ -33,7 +33,7 @@ function sdm_search_form_shortcode( $args ) {
 	    SELECT $wpdb->posts.*, $wpdb->postmeta.meta_value as description
 	    FROM $wpdb->posts, $wpdb->postmeta
 	    WHERE $wpdb->posts.ID = $wpdb->postmeta.post_id
-	    AND $wpdb->posts.post_status = 'publish' 
+	    AND $wpdb->posts.post_status = 'publish'
 	    AND $wpdb->posts.post_type = 'sdm_downloads'
 	    AND ($wpdb->posts.post_title LIKE '%$keyword%'
 	    OR ($wpdb->postmeta.meta_key='sdm_description' AND $wpdb->postmeta.meta_value LIKE '%$keyword%') )
@@ -73,7 +73,7 @@ function sdm_search_form_shortcode( $args ) {
 	}
 	$out  = '';
 	$out .= '<form id="sdm_search_form" class="' . sanitize_html_class( $atts['class'], '' ) . '" method="POST">';
-	$out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . sanitize_text_field( $atts['placeholder'] ) . '">';
+	$out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . sdm_sanitize_text( $atts['placeholder'] ) . '">';
 	$out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
 	$out .= '</form>';
 	$out .= isset( $result_output ) ? $result_output : '';
