@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- file_get_content has replaced with wp_remote_get
+
 = 3.9.10 =
 - Added a new option to specify a list of file extensions that will be disallowed via the PHP dispatching option.
 - PHP dispatching of system files is disabled.
