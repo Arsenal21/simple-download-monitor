@@ -3,9 +3,8 @@
 //TODO write a function for doing grid display then the conditional function calls this grid display function
 
 function sdm_generate_fancy2_popular_downloads_display_output( $get_posts, $args ) {
-
+	wp_enqueue_style( 'sdm_generate_fancy2_popular_downloads_display_styles', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css' , array(), WP_SIMPLE_DL_MONITOR_VERSION );
     $output	 = "";
-    $output	 .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
 
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
@@ -25,9 +24,8 @@ function sdm_generate_fancy2_popular_downloads_display_output( $get_posts, $args
 }
 
 function sdm_generate_fancy2_latest_downloads_display_output( $get_posts, $args ) {
-
+	wp_enqueue_style( 'sdm_generate_fancy2_latest_downloads_display_styles', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css' , array(), WP_SIMPLE_DL_MONITOR_VERSION );
     $output	 = "";
-    $output	 .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
 
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
@@ -47,9 +45,8 @@ function sdm_generate_fancy2_latest_downloads_display_output( $get_posts, $args 
 }
 
 function sdm_generate_fancy2_category_display_output( $get_posts, $args ) {
-
+	wp_enqueue_style( 'sdm_generate_fancy2_category_display_styles', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css' , array(), WP_SIMPLE_DL_MONITOR_VERSION );
     $output	 = "";
-    $output	 .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
 
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
