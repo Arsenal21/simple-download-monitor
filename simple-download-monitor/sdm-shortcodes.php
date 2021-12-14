@@ -133,7 +133,7 @@ function sdm_create_download_shortcode( $atts ) {
 			break;
 		case '2':
 			include_once 'includes/templates/fancy2/sdm-fancy-2.php';
-			$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
+                        wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
 			$output .= sdm_generate_fancy2_display_output( $shortcode_atts );
 			$output .= '<div class="sdm_clear_float"></div>';
 			break;

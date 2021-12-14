@@ -31,7 +31,6 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
     $output = "";
 
     //TODO - when the CSS file is moved to the fancy1 folder, change it here
-    //$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy1/sdm-fancy-1-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
 
     foreach ( $get_posts as $item ) {
 	$output .= sdm_generate_fancy1_display_output(

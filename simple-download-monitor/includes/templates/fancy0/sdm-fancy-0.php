@@ -47,7 +47,6 @@ function sdm_generate_fancy0_latest_downloads_display_output( $get_posts, $args 
 //    $output = "";
 //
 //    //TODO - when the CSS file is moved to the fancy1 folder, change it here
-//    //$output .= '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy1/sdm-fancy-1-styles.css?ver=' . WP_SIMPLE_DL_MONITOR_VERSION . '" />';
 //
 //    foreach ($get_posts as $item) {
 //        $id = $item->ID;  //Get the post ID

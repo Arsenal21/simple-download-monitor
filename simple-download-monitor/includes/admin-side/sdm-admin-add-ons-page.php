@@ -1,6 +1,6 @@
 <?php
 $output = '';
-echo '<link type="text/css" rel="stylesheet" href="' . WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_addons_listing.css" />' . "\n";
+wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_addons_listing.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
 ?>
 
 <div class="wrap">
