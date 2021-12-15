@@ -70,7 +70,7 @@ class SDM_Admin_Edit_Download {
 
 		// Trigger filter to allow "sdm_upload" field validation override.
 		$url_validation_override = apply_filters( 'sdm_file_download_url_validation_override', '' );
-		if ( ! empty( $url_validation_override ) ) { //phpcs:ignore
+		if ( ! empty( $url_validation_override ) ) {
 			// This site has customized the behavior and overriden the "sdm_upload" field validation. It can be useful if you are offering app download URLs (that has unconventional URL patterns).
 		} else {
 			// Do the normal URL validation.
@@ -122,7 +122,7 @@ class SDM_Admin_Edit_Download {
 		if ( $new_window === '' ) {
 			// No value yet (either new item or saved with older version of plugin)
 			$screen = get_current_screen();
-			if ( $screen->action === 'add' ) { //phpcs:ignore
+			if ( $screen->action === 'add' ) {
 				// New item: we can set a default value as per plugin settings. If a general settings is introduced at a later stage.
 				// Does nothing at the moment.
 			}
@@ -201,7 +201,7 @@ class SDM_Admin_Edit_Download {
 		echo '<br /><br />';
 
 		global $wpdb;
-		$wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID ) ); //phpcs:ignore
+		$wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID ) );
 
 		echo '<div class="sdm-download-edit-dl-count">';
 		esc_html_e( 'Number of Downloads:', 'simple-download-monitor' );
