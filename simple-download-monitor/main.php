@@ -619,7 +619,7 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_advanced_options' );
 		$value     = isset( $main_opts['adsense_below_description'] ) ? $main_opts['adsense_below_description'] : '';
 		//echo '<input size="100" name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" type="text" value="'.$value.'" /> ';
-		echo '<textarea name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" rows="6" cols="60">' . $value . '</textarea>'; //phpcs:ignore
+		echo '<textarea name="sdm_advanced_options[adsense_below_description]" id="adsense_below_description" rows="6" cols="60">' . esc_attr( $value ) . '</textarea>';
 		echo '<p class="description">' . esc_html__( 'Enter the Adsense or Ad code that you want to show below the download item description.', 'simple-download-monitor' ) . '</p>';
 	}
 

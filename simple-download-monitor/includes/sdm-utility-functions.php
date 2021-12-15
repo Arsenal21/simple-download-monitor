@@ -376,7 +376,7 @@ function sdm_redirect_to_url( $url, $delay = '0', $exit = '1' ) {
 	if ( ! headers_sent() ) {
 		header( 'Location: ' . $url );
 	} else {
-		echo '<meta http-equiv="refresh" content="' . $delay . ';url=' . $url . '" />';
+		echo '<meta http-equiv="refresh" content="' . esc_attr( $delay ) . ';url=' . esc_url( $url ) . '" />';
 	}
 	if ( $exit == '1' ) {//exit
 		exit;
