@@ -193,6 +193,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP =
 - file_get_content has replaced with wp_remote_get
 - CSS file uses the wp_enqueue_style() function.
+- Some new escape functions added
 
 = 3.9.10 =
 - Added a new option to specify a list of file extensions that will be disallowed via the PHP dispatching option.
