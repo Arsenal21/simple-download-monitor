@@ -87,7 +87,6 @@ function sdm_create_settings_page() {
 	<h1><?php esc_html_e( 'Simple Download Monitor Settings Page', 'simple-download-monitor' ); ?></h1>
 
 	<?php
-	ob_start();
 	$wpsdm_plugin_tabs = array(
 		'sdm-settings'                          => __( 'General Settings', 'simple-download-monitor' ),
 		'sdm-settings&action=advanced-settings' => __( 'Advanced Settings', 'simple-download-monitor' ),
@@ -108,28 +107,28 @@ function sdm_create_settings_page() {
 		} else {
 			$class = '';
 		}
-		$nav_tabs .= '<a class="nav-tab' . esc_attr($class) . '" href="?post_type=sdm_downloads&page=' . esc_attr($location) . '">' . esc_attr($tabname) . '</a>';
+		$nav_tabs .= '<a class="nav-tab' . esc_attr( $class ) . '" href="?post_type=sdm_downloads&page=' . esc_attr( $location ) . '">' . esc_attr( $tabname ) . '</a>';
 	}
 	$nav_tabs .= '</h2>';
 
-	if ( isset( $_GET['action'] ) ) {
-		$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-		switch ( $action ) {
-			case 'advanced-settings':
-				sdm_admin_menu_advanced_settings();
-				break;
-		}
-	} else {
-		sdm_admin_menu_general_settings();
-	}
-	$settings_cont = ob_get_clean();
-	echo wp_kses_post($nav_tabs);
+	echo wp_kses_post( $nav_tabs );
 	?>
 	<div class="sdm-settings-cont">
 		<div class="sdm-settings-grid sdm-main-cont">
 		<!-- settings page form -->
 		<form method="post" action="options.php">
-		<?php echo $settings_cont; ?>
+		<?php
+		if ( isset( $_GET['action'] ) ) {
+			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+			switch ( $action ) {
+				case 'advanced-settings':
+					sdm_admin_menu_advanced_settings();
+					break;
+			}
+		} else {
+			sdm_admin_menu_general_settings();
+		}
+		?>
 			<!-- End of settings page form -->
 		</form>
 		</div>
@@ -442,7 +441,7 @@ function sdm_handle_logs_main_tab_page() {
 	global $wpdb;
 	$advanced_options = get_option( 'sdm_advanced_options' );
 
-	if ( isset( $_POST['sdm_reset_log_entries'] ) && check_admin_referer( null,'sdm_delete_all_logs_nonce' ) ) {
+	if ( isset( $_POST['sdm_reset_log_entries'] ) && check_admin_referer( null, 'sdm_delete_all_logs_nonce' ) ) {
 		//Reset log entries
 		$table_name = $wpdb->prefix . 'sdm_downloads';
 		$query      = "TRUNCATE $table_name";
@@ -452,7 +451,7 @@ function sdm_handle_logs_main_tab_page() {
 		echo '</p></div>';
 	}
 
-    if ( isset( $_POST['sdm_trim_log_entries'] ) && check_admin_referer( null, 'sdm_delete_logs_nonce' ) ) {
+	if ( isset( $_POST['sdm_trim_log_entries'] ) && check_admin_referer( null, 'sdm_delete_logs_nonce' ) ) {
 		//Trim log entries
 		$interval_val  = intval( $_POST['sdm_trim_log_entries_days'] );
 		$interval_unit = 'DAY';

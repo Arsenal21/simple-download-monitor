@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
 Tested up to: 5.8
-Stable tag: 3.9.10
+Stable tag: 3.9.11
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,16 +190,17 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
-- file_get_content has replaced with wp_remote_get
-- CSS file uses the wp_enqueue_style() function.
-- Some new escape functions added
+= 3.9.11 =
+- file_get_content() has been replaced with wp_remote_get()
+- CSS file include uses the wp_enqueue_style() function
+- Variable sanitization and escaping
 
 = 3.9.10 =
 - Added a new option to specify a list of file extensions that will be disallowed via the PHP dispatching option.
 - PHP dispatching of system files is disabled.
 - More sanitization added to the [sdm_download] shortcode.
 - Sanitize redirect URL for the "Redirect Users to Download Page" feature.
+- Uses realpath() on the PHP dispatching
 
 = 3.9.9 =
 - Nonce verification added to "Delete/Reset log entries" form.
