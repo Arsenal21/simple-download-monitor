@@ -15,8 +15,10 @@ function sdm_handle_individual_logs_tab_page() {
 		if ( ! empty( $sdm_specific_download_id ) ) {
 			check_admin_referer( 'sdm_view_specific_download_id_log' );
 			$target_url = 'edit.php?post_type=sdm_downloads&page=sdm-logs&action=sdm-logs-by-download&sdm_logs_dl_id=' . $sdm_specific_download_id;
-			$target_url = wp_nonce_url( $target_url, 'sdm_view_log_' . $sdm_specific_download_id );
-			sdm_redirect_to_url( $target_url );
+			
+			$view_log_sdm_nonce = wp_create_nonce('sdm_view_log_nonce');
+			$nonced_new_url = add_query_arg ( '_wpnonce', $view_log_sdm_nonce, $target_url);
+			wp_safe_redirect($nonced_new_url);
 			exit;
 		}
 	}
@@ -52,7 +54,7 @@ function sdm_handle_individual_logs_tab_page() {
 	if ( isset( $sdm_logs_dl_id ) && ! empty( $sdm_logs_dl_id ) ) {
 		//Show the specific item logs
 
-		check_admin_referer( 'sdm_view_log_' . $sdm_logs_dl_id );
+		check_admin_referer( 'sdm_view_log_nonce' );
 
 		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
 

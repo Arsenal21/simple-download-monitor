@@ -191,7 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP =
-- Investigating the logs menu for individual download item issue.
+- Improved the Specific Item logs menu function to remove plugin conflict.
 
 = 3.9.11 =
 - file_get_content() has been replaced with wp_remote_get()
