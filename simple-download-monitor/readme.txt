@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Investigating the logs menu for individual download item issue.
+
 = 3.9.11 =
 - file_get_content() has been replaced with wp_remote_get()
 - CSS file include uses the wp_enqueue_style() function
