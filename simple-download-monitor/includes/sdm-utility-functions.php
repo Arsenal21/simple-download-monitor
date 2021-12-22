@@ -150,6 +150,58 @@ function sdm_ip_info( $ip, $purpose = 'location' ) {
 		'SA' => 'South America',
 	);
 
+	$ipdat = @json_decode( wp_remote_retrieve_body(wp_remote_get( 'http://ipwhois.app/json/' . $ip )) );
+
+	if ( @strlen( trim( $ipdat->country_code ) ) === 2 ) {
+		switch ( $purpose ) {
+			case 'location':
+				return array(
+					'city' => @$ipdat->city,
+					'state' => @$ipdat->region,
+					'country' => @$ipdat->country,
+					'country_code' => @$ipdat->country_code,
+					'continent' => @$continents[strtoupper($ipdat->continent_code)],
+					'continent_code' => @$ipdat->continent_code,
+				);
+			case 'address':
+				$address = array( $ipdat->country );
+				if ( @strlen( $ipdat->region ) >= 1 ) {
+					$address[] = $ipdat->region;
+				}
+				if ( @strlen( $ipdat->city ) >= 1 ) {
+					$address[] = $ipdat->city;
+				}
+				return implode( ', ', array_reverse( $address ) );
+			case 'city':
+				return @$ipdat->city;
+			case 'state':
+				return @$ipdat->region;
+			case 'region':
+				return @$ipdat->region;
+			case 'country':
+				return @$ipdat->country;
+			case 'countrycode':
+				return @$ipdat->country_code;
+		}
+	}
+
+	// Either no info found or invalid $purpose.
+	return null;
+}
+
+/*
+function sdm_ip_info( $ip, $purpose = 'location' ) {
+
+	$continents = array(
+		'AF' => 'Africa',
+		'AN' => 'Antarctica',
+		'AS' => 'Asia',
+		'EU' => 'Europe',
+		'OC' => 'Australia (Oceania)',
+		'NA' => 'North America',
+		'SA' => 'South America',
+	);
+
 	$ipdat = @json_decode( wp_remote_retrieve_body(wp_remote_get( 'http://www.geoplugin.net/json.gp?ip=' . $ip )) );
 
 	if ( @strlen( trim( $ipdat->geoplugin_countryCode ) ) === 2 ) {
@@ -188,6 +240,7 @@ function sdm_ip_info( $ip, $purpose = 'location' ) {
 	// Either no info found or invalid $purpose.
 	return null;
 }
+*/
 
 /*
  * Checks if the string exists in the array key value of the provided array. If it doesn't exist, it returns the first key element from the valid values.

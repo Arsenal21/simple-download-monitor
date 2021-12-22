@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - Improved the Specific Item logs menu function to remove plugin conflict.
+- New api implemented for capturing visitors location.
 
 = 3.9.11 =
 - file_get_content() has been replaced with wp_remote_get()
