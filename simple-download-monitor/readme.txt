@@ -191,7 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP =
-- Direct download URL now shows in the edit download page.
+- Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.
 
 = 3.9.12 =
 - Improved the Specific Item logs menu function to remove plugin conflict.

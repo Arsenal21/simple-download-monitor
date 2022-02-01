@@ -289,8 +289,7 @@ class SDM_Admin_Edit_Download {
 		echo '<br /><br />';
 		esc_html_e( 'Direct Download URL.', 'simple-download-monitor' );
 		echo '<br />';
-		$domain = site_url();
-		$direct_download_url = $domain . '/?smd_process_download=1&download_id=' . $post->ID;
+		$direct_download_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $post->ID;
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $direct_download_url ) . "' size='40'>";
 
 		echo '<br /><br />';
