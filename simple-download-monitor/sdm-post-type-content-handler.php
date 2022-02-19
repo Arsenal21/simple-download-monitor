@@ -27,7 +27,8 @@ function filter_sdm_post_type_content( $content ) {
 		$cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
 		//Get item thumbnail
 		$item_download_thumbnail  = get_post_meta( $id, 'sdm_upload_thumbnail', true );
-		$isset_download_thumbnail = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
+		$thumbnail_alt = esc_html ( get_the_title() );
+		$isset_download_thumbnail = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" alt = "' . $thumbnail_alt . '" />' : '';
 
 		//Get item title
 		$item_title       = get_the_title( $id );
