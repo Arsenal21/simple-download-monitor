@@ -192,6 +192,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.
+- The single download post will use the download title as the "alt" tag for the thumbnail image.
+- Added a filter hook for the thubmnail alt (sdm_post_single_download_page_thumbnail_alt).
 
 = 3.9.12 =
 - Improved the Specific Item logs menu function to remove plugin conflict.
