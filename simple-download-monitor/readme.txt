@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
-Tested up to: 5.8
-Stable tag: 3.9.12
+Tested up to: 5.9
+Stable tag: 3.9.13
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,10 +190,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
+= 3.9.13 =
 - Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.
 - The single download post will use the download title as the "alt" tag for the thumbnail image.
-- Added a filter hook for the thubmnail alt (sdm_post_single_download_page_thumbnail_alt).
+- Added a filter hook for the thumbnail alt (sdm_post_single_download_page_thumbnail_alt).
+- Added WPDB prepare call to the SQL query for the clone download function. Tanks to Chloe Chamberland for pointing out the security threat.
 
 = 3.9.12 =
 - Improved the Specific Item logs menu function to remove plugin conflict.
