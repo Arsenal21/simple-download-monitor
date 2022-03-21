@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Added filters for categories and tags to change the slug (or other parameters). Thanks to @cfoellmann.
+
 = 3.9.13 =
 - Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.
 - The single download post will use the download title as the "alt" tag for the thumbnail image.
