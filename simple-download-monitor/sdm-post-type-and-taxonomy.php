@@ -81,6 +81,9 @@ function sdm_create_taxonomies() {
 		'rewrite'           => array( 'slug' => 'sdm_categories' ),
 		'show_admin_column' => true,
 	);
+
+	$args_tags = apply_filters( 'sdm_downloads_categories_before_register', $args_tags );
+
 	register_taxonomy( 'sdm_categories', array( 'sdm_downloads' ), $args_tags );
 
 	//*****  Create TAGS Taxonomy
@@ -105,5 +108,8 @@ function sdm_create_taxonomies() {
 		'rewrite'           => array( 'slug' => 'sdm_tags' ),
 		'show_admin_column' => true,
 	);
+
+	$args_tags = apply_filters( 'sdm_downloads_tags_before_register', $args_tags );
+
 	register_taxonomy( 'sdm_tags', array( 'sdm_downloads' ), $args_tags );
 }
