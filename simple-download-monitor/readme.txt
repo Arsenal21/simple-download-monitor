@@ -191,6 +191,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 
 = WIP =
+- Get download by date query has been updated.
 - Added filters for categories and tags to change the slug (or other parameters). Thanks to @cfoellmann.
 
 = 3.9.13 =

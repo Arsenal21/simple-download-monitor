@@ -41,7 +41,7 @@ function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $returnStr
             FROM " . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
             AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
-            GROUP BY DAY(date_time) ORDER BY date_time",
+            GROUP BY day ORDER BY date_time",
 		$start_date,
 		$end_date
 	);
