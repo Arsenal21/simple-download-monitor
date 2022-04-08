@@ -24,15 +24,12 @@ class SDM_Admin_Edit_Download {
 	}
 
 	public function remove_thumbnail_image_ajax_handler() {
-
-		// terminates the script if the nonce verification fails.
-		check_ajax_referer( 'sdm_remove_thumbnail_nonce_action', 'sdm_remove_thumbnail_nonce' );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			// Permission denied
-			wp_die( esc_html( __( 'Permission denied!', 'simple-download-monitor' ) ) );
-			exit;
-		}
+        $sdm_post_capability = apply_filters( 'sdm_post_type_capability', 'manage_options' );
+        if( ! current_user_can( $sdm_post_capability ) ) {
+            // Permission denied
+            wp_die( esc_html( __( 'Permission denied!', 'simple-download-monitor' ) ) );
+            exit;
+        }
 
 		// Go ahead with the thumbnail removal
 		$post_id    = filter_input( INPUT_POST, 'post_id_del', FILTER_SANITIZE_NUMBER_INT );
@@ -315,7 +312,11 @@ class SDM_Admin_Edit_Download {
 			return;
 		}
 
-		check_admin_referer( 'sdm_admin_edit_download_' . $post_id, 'sdm_admin_edit_download' );
+		$sdm_post_capability = apply_filters( 'sdm_post_type_capability', 'manage_options' );
+        if( ! current_user_can( $sdm_post_capability ) ) {
+            // Permission denied
+            return;
+        }
 
 		// *** Description  ***
 		if ( isset( $_POST['sdm_description'] ) ) {
