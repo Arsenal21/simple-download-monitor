@@ -168,12 +168,12 @@ function sdm_create_settings_page() {
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Rate Us', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Help Us Keep the Plugin Free & Maintained', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
 			<?php
 			echo wp_kses(
 				// translators: %s = URL to rating page
-				sprintf( __( 'Like the plugin? Please give us a <a href="%s" target="_blank">rating!</a>', 'simple-download-monitor' ), 'https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5' ),
+				sprintf( __( 'Like the plugin? Please give it a good <a href="%s" target="_blank">rating!</a>', 'simple-download-monitor' ), 'https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5' ),
 				array(
 					'a' => array(
 						'target' => array(),
@@ -211,25 +211,13 @@ function sdm_create_settings_page() {
 			</div>
 		</div>
 		<div class="postbox" style="min-width: inherit;">
-			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Social', 'simple-download-monitor' ); ?></label></h3>
+			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Want to Sell Digital Downloads?', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
 			<?php
+                        _e( 'Check out the fast and simple ', 'simple-download-monitor' );
 			echo wp_kses(
 				// translators: %s = Twitter URL
-				sprintf( __( '<a target="_blank" href="%s">Facebook</a>', 'simple-download-monitor' ), 'https://www.facebook.com/Tips-and-Tricks-HQ-681802408532789/' ),
-				array(
-					'a' => array(
-						'target' => array(),
-						'href'   => array(),
-					),
-				)
-			);
-			?>
-			  |
-			<?php
-			echo wp_kses(
-				// translators: %s = Twitter URL
-				sprintf( __( '<a target="_blank" href="%s">Twitter</a>', 'simple-download-monitor' ), 'https://twitter.com/TipsAndTricksHQ' ),
+				sprintf( __( '<a target="_blank" href="%s">WP Express Checkout</a> plugin.', 'simple-download-monitor' ), 'https://wordpress.org/plugins/wp-express-checkout/' ),
 				array(
 					'a' => array(
 						'target' => array(),
