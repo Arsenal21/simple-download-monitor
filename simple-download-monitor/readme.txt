@@ -193,6 +193,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP =
 - Get download by date query has been updated.
 - Added filters for categories and tags to change the slug (or other parameters). Thanks to @cfoellmann.
+- Added a filter to the fancy2 shortcode output so it can be customized.
 
 = 3.9.13 =
 - Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.

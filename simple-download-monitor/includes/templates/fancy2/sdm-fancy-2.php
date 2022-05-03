@@ -196,7 +196,11 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     $output .= '<div class="sdm_fancy2_download_link">' . $download_button_code . '</div>';
 
-    $output	 .= '</div>'; //end .sdm_fancy2_item
-    $output	 .= '</div>'; //end .sdm_fancy2_wrapper
+    $output .= '</div>'; //end .sdm_fancy2_item
+    $output .= '</div>'; //end .sdm_fancy2_wrapper
+
+    //Filter to allow overriding the output
+    $output = apply_filters( 'sdm_generate_fancy2_display_output_html', $output, $args );
+
     return $output;
 }
