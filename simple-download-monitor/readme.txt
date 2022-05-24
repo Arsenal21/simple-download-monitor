@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
-Tested up to: 5.9
-Stable tag: 3.9.13
+Tested up to: 6.0
+Stable tag: 3.9.14
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,10 +190,11 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
+= 3.9.14 =
 - Get download by date query has been updated.
 - Added filters for categories and tags to change the slug (or other parameters). Thanks to @cfoellmann.
 - Added a filter to the fancy2 shortcode output so it can be customized.
+- Added a filter to the fancy1 shortcode output so it can be customized.
 
 = 3.9.13 =
 - Direct download URL of an item is now shown in the edit download page for easy copy and paste operation.

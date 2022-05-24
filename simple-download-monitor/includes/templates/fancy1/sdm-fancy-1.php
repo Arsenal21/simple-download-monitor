@@ -178,7 +178,6 @@ function sdm_generate_fancy1_display_output( $args ) {
 	$output	 .= '</div>';
     }
 
-
     $output .= '<div class="sdm_download_link">';
 
     //apply filter on button HTML code
@@ -191,6 +190,8 @@ function sdm_generate_fancy1_display_output( $args ) {
     $output	 .= '</div>'; //end .sdm_download_link
     $output	 .= '</div>'; //end .sdm_download_item
 
+    //Filter to allow overriding the output
+    $output = apply_filters( 'sdm_generate_fancy1_display_output_html', $output, $args );
 
     return $output;
 }
