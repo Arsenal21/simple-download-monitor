@@ -314,9 +314,16 @@ class SDM_Admin_Edit_Download {
 		if ( empty( $action ) ) {
 			return;
 		}
-
-		check_admin_referer( 'sdm_admin_edit_download_' . $post_id, 'sdm_admin_edit_download' );
-
+                
+                if ( $action == 'inline-save' ){
+                    //This is a quick edit action. The nonce comes from WordPress's ajax-actions.php.
+                    //The default wordpress post_save action will handle the standard post data update (for example: the title, slug, date etc).
+                    check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
+                } else {
+                    //Full post edit. Do the normal nonce check
+                    check_admin_referer( 'sdm_admin_edit_download_' . $post_id, 'sdm_admin_edit_download' );
+                }
+                
 		// *** Description  ***
 		if ( isset( $_POST['sdm_description'] ) ) {
 			update_post_meta( $post_id, 'sdm_description', wp_kses_post( wp_unslash( $_POST['sdm_description'] ) ) );
