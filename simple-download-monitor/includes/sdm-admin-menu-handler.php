@@ -491,7 +491,7 @@ function sdm_handle_logs_main_tab_page() {
 
 			<form method="post" action="" onSubmit="return confirm('Are you sure you want to trim log entries?');" >
 				<div class="submit">
-						Delete Log Entries Older Than <input name="sdm_trim_log_entries_days" type="text" size="4" value="<?php echo esc_attr( $trim_log_entries_days_default_val ); ?>"/> Days
+						<?php esc_html_e( 'Delete Log Entries Older Than ', 'simple-download-monitor' ); ?><input name="sdm_trim_log_entries_days" type="text" size="4" value="<?php echo esc_attr( $trim_log_entries_days_default_val ); ?>"/><?php esc_html_e( ' Days', 'simple-download-monitor' ); ?>
 				<input type="submit" class="button" name="sdm_trim_log_entries" value="<?php esc_html_e( 'Trim Log Entries', 'simple-download-monitor' ); ?>" />
 						<p class="description"><?php esc_html_e( 'This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button.', 'simple-download-monitor' ); ?></p>
 				</div>
