@@ -281,6 +281,21 @@ class SDM_Admin_Edit_Download {
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $shortcode_text ) . "' size='40'>";
 		echo '<br /><br />';
 
+		esc_html_e( 'The following shortcode can be used on posts or pages to embed a download now button that includes the title, description, thumbnail image and download counter.', 'simple-download-monitor' );
+		echo wp_kses(
+			__( ' <a href="https://simple-download-monitor.com/basic-usage-creating-a-simple-downloadable-item/" target="_blank">Click here for more documentation</a>.', 'simple-download-monitor' ),
+			array(
+				'a' => array(
+					'href'   => array(),
+					'target' => array(),
+				),
+			)
+		);                
+		echo '<br />';
+		$shortcode_text = '[sdm_download id="' . $post->ID . '" fancy="1"]';
+		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $shortcode_text ) . "' size='40'>";
+		echo '<br /><br />';
+                
 		esc_html_e( 'The following shortcode can be used to show a download counter for this item.', 'simple-download-monitor' );
 		echo '<br />';
 		$shortcode_text = '[sdm_download_counter id="' . $post->ID . '"]';
