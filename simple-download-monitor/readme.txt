@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.9.16 =
 - Added the fancy 1 shortcode in the "Shortcodes" section of the download configuration interface (for easy copy and paste).
+- Updated link to the documentation.
 
 = 3.9.15 = 
 - Fixed an issue with the "Quick Edit" link in the downloads menu hanging.

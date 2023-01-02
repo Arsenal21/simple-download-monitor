@@ -467,7 +467,7 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_advanced_options' );
 		echo '<input name="sdm_advanced_options[recaptcha_enable]" id="recaptcha_enable" type="checkbox" ' . checked( 1, isset( $main_opts['recaptcha_enable'] ), false ) . ' /> ';
 		echo '<p class="description">' . wp_kses(
-			__( 'Check this box if you want to use <a href="https://www.google.com/recaptcha/admin" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor' ),
+			__( 'Check this box if you want to use <a href="https://simple-download-monitor.com/how-to-add-google-recaptcha-to-your-download-buttons/" target="_blank">reCAPTCHA</a>. ', 'simple-download-monitor' ),
 			array(
 				'a' => array(
 					'href'   => array(),
