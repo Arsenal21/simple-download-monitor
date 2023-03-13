@@ -129,12 +129,14 @@ function sdm_generate_fancy2_display_output( $args ) {
 	$download_button_code = sdm_get_password_entry_form( $id, $shortcode_atts, 'sdm_fancy2_download_dl_link' );
     }
 
-    // Get item thumbnail
-    $item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
-    $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_fancy2_thumb_image" src="' . $item_download_thumbnail . '" />' : '';
-    $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_2_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
     // Get item title
-    $item_title			 = get_the_title( $id );
+    $item_title = get_the_title( $id );
+    
+    // Get item thumbnail
+    $thumbnail_alt = apply_filters ( 'sdm_download_fancy_2_thumbnail_alt', $item_title );//Trigger a filter for the thumbnail alt
+    $item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
+    $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_fancy2_thumb_image" src="' . $item_download_thumbnail . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
+    $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_2_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
 
     // Get item description
     $isset_item_description = sdm_get_item_description_output( $id );
@@ -161,14 +163,14 @@ function sdm_generate_fancy2_display_output( $args ) {
     $download_date		 = get_the_date( get_option( 'date_format' ), $id );
 
     $output	 = '';
-    $output	 .= '<div class="sdm_fancy2_item ' . sdm_sanitize_text($css_class) . '">';
+    $output	 .= '<div class="sdm_fancy2_item ' . esc_attr($css_class) . '">';
     $output	 .= '<div class="sdm_fancy2_wrapper">';
-
+    
     $output	 .= '<div class="sdm_fancy2_download_item_top">';
     $output	 .= '<div class="sdm_fancy2_download_thumbnail">' . $isset_download_thumbnail . '</div>';
     $output	 .= '</div>'; //End of .sdm_download_item_top
 
-    $output .= '<div class="sdm_fancy2_download_title">' . $item_title . '</div>';
+    $output .= '<div class="sdm_fancy2_download_title">' . esc_html($item_title) . '</div>';
 
     if ( ! empty( $isset_item_file_size ) ) {//Show file size info if specified in the shortcode
 	$output	 .= '<div class="sdm_fancy2_download_size">';
@@ -196,8 +198,8 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     $output .= '<div class="sdm_fancy2_download_link">' . $download_button_code . '</div>';
 
-    $output .= '</div>'; //end .sdm_fancy2_item
     $output .= '</div>'; //end .sdm_fancy2_wrapper
+    $output .= '</div>'; //end .sdm_fancy2_item
 
     //Filter to allow overriding the output
     $output = apply_filters( 'sdm_generate_fancy2_display_output_html', $output, $args );

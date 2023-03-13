@@ -85,13 +85,13 @@ function sdm_generate_fancy3_display_output( $args ) {
     // Get download details page URL
     $dl_post_url = get_permalink($id);
     $link_text = __( 'View Details', 'simple-download-monitor' );
-    $download_details_link_code = '<a href="' . $dl_post_url . '" class="sdm_fancy3_view_details" title="' . $item_title . '" target="' . $window_target . '">' . $link_text . '</a>';
+    $download_details_link_code = '<a href="' . $dl_post_url . '" class="sdm_fancy3_view_details" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($link_text) . '</a>';
 
     $output = '';
 
-    $output .= '<div class="sdm_fancy3_download_item ' . sdm_sanitize_text($css_class) . '">';
+    $output .= '<div class="sdm_fancy3_download_item ' . esc_attr($css_class) . '">';
     $output .= '<div class="sdm_fancy3_download_item_left">';
-    $output .= '<span class="sdm_fancy3_download_title">' . $item_title . '</span>';
+    $output .= '<span class="sdm_fancy3_download_title">' . esc_html($item_title) . '</span>';
     $output .= '</div>'; //End of .sdm_fancy3_download_title
 
     $output .= '<div class="sdm_fancy3_download_right">';

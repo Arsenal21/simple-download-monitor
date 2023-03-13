@@ -81,20 +81,22 @@ function sdm_generate_fancy1_display_output( $args ) {
     }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
 
-    // Get CPT thumbnail
-    $item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
-    $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_download_thumbnail_image" src="' . $item_download_thumbnail . '" />' : '';
-    $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_1_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
     // Get CPT title
-    $item_title			 = get_the_title( $id );
+    $item_title = get_the_title( $id );
+    
+    // Get CPT thumbnail
+    $thumbnail_alt = apply_filters ( 'sdm_download_fancy_1_thumbnail_alt', $item_title );//Trigger a filter for the thumbnail alt
+    $item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
+    $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_download_thumbnail_image" src="' . esc_url_raw($item_download_thumbnail) . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
+    $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_1_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
 
     // Get CPT description
     $isset_item_description = sdm_get_item_description_output( $id );
 
     // Get download button
-    $homepage		 = get_bloginfo( 'url' );
-    $download_url		 = $homepage . '/?smd_process_download=1&download_id=' . $id;
-    $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . $item_title . '" target="' . $window_target . '">' . $button_text . '</a>';
+    $homepage = get_bloginfo( 'url' );
+    $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
+    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($button_text) . '</a>';
 
     //Get item file size
     $item_file_size = get_post_meta( $id, 'sdm_item_file_size', true );
@@ -144,14 +146,14 @@ function sdm_generate_fancy1_display_output( $args ) {
 
     $output = '';
 
-    $output	 .= '<div class="sdm_download_item ' . sdm_sanitize_text($css_class) . '">';
+    $output	 .= '<div class="sdm_download_item ' . esc_attr($css_class) . '">';
     $output	 .= '<div class="sdm_download_item_top">';
     $output	 .= '<div class="sdm_download_thumbnail">' . $isset_download_thumbnail . '</div>';
-    $output	 .= '<div class="sdm_download_title">' . $item_title . '</div>';
+    $output	 .= '<div class="sdm_download_title">' . esc_html($item_title) . '</div>';
     $output	 .= '</div>'; //End of .sdm_download_item_top
     $output	 .= '<div style="clear:both;"></div>';
 
-    $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
+    $output .= '<div class="sdm_download_description">' . wp_kses_post($isset_item_description) . '</div>';
 
     //This hook can be used to add content below the description in fancy1 template
     $params = array( 'id' => $id );
