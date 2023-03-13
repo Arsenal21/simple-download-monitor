@@ -28,7 +28,7 @@ function filter_sdm_post_type_content( $content ) {
 		//Get item thumbnail
 		$item_download_thumbnail  = get_post_meta( $id, 'sdm_upload_thumbnail', true );
 		$thumbnail_alt = get_the_title();
-                $thumbnail_alt = apply_filters ( 'sdm_post_single_download_page_thumbnail_alt', $thumbnail_alt );
+                $thumbnail_alt = apply_filters ( 'sdm_post_single_download_page_thumbnail_alt', $thumbnail_alt, $id );
 		$isset_download_thumbnail = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
 
 		//Get item title

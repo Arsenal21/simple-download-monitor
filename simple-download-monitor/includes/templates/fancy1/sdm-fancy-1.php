@@ -85,7 +85,7 @@ function sdm_generate_fancy1_display_output( $args ) {
     $item_title = get_the_title( $id );
     
     // Get CPT thumbnail
-    $thumbnail_alt = apply_filters ( 'sdm_download_fancy_1_thumbnail_alt', $item_title );//Trigger a filter for the thumbnail alt
+    $thumbnail_alt = apply_filters ( 'sdm_download_fancy_1_thumbnail_alt', $item_title, $id );//Trigger a filter for the thumbnail alt
     $item_download_thumbnail	 = get_post_meta( $id, 'sdm_upload_thumbnail', true );
     $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_download_thumbnail_image" src="' . esc_url_raw($item_download_thumbnail) . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
     $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_1_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.

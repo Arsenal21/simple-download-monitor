@@ -194,7 +194,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Added the fancy 1 shortcode in the "Shortcodes" section of the download configuration interface (for easy copy and paste).
 - Updated link to the documentation.
 - Added "alt" tag to the item thumbnail image.
-- Fix for Stored XSS in the Logs menu. 
+- Fix for Stored XSS in the Logs menu.
+- The thumbnail alt filters now also passes the download ID as an argument.
 
 = 3.9.15 = 
 - Fixed an issue with the "Quick Edit" link in the downloads menu hanging.
