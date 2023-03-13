@@ -3,7 +3,7 @@
 //Handles the output on the SDM individual download page (Custom Post Type)
 add_filter( 'the_content', 'filter_sdm_post_type_content' );
 
-function filter_sdm_post_type_content( $content ) {
+function filter_sdm_post_type_content( $content ) {   
 	global $post;
 	if ( isset( $post->post_type ) && $post->post_type == 'sdm_downloads' ) {//Handle the content for sdm_downloads type post
 		//$download_id = $post->ID;
@@ -32,8 +32,8 @@ function filter_sdm_post_type_content( $content ) {
 		$isset_download_thumbnail = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_post_thumbnail_image" src="' . $item_download_thumbnail . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
 
 		//Get item title
-		$item_title       = get_the_title( $id );
-		$isset_item_title = isset( $item_title ) && ! empty( $item_title ) ? $item_title : '';
+		$item_title = get_the_title( $id );
+		$isset_item_title = isset( $item_title ) && ! empty( $item_title ) ? sanitize_text_field($item_title) : '';
 
 		//Get item description
 		$isset_item_description = sdm_get_item_description_output( $id );
@@ -68,7 +68,7 @@ function filter_sdm_post_type_content( $content ) {
 
 		$homepage             = get_bloginfo( 'url' );
 		$download_url         = $homepage . '/?smd_process_download=1&download_id=' . $id;
-		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . $isset_item_title . '" target="' . $window_target . '">' . $button_text_string . '</a>';
+		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($isset_item_title) . '" target="' . $window_target . '">' . esc_attr($button_text_string) . '</a>';
 
 		$main_advanced_opts = get_option( 'sdm_advanced_options' );
 
@@ -109,7 +109,7 @@ function filter_sdm_post_type_content( $content ) {
 		$content .= '</div>'; //end .sdm_post_item_top_left
 
 		$content .= '<div class="sdm_post_item_top_right">';
-		$content .= '<div class="sdm_post_title">' . $isset_item_title . '</div>';
+		$content .= '<div class="sdm_post_title">' . esc_html($isset_item_title) . '</div>';
 
 		if ( ! isset( $main_opts['general_hide_donwload_count'] ) ) {//The hide download count is enabled.
 			$content .= '<div class="sdm_post_download_count">' . $download_count_string . '</div>';

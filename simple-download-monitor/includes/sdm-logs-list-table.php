@@ -55,7 +55,7 @@ class sdm_List_Table extends WP_List_Table {
 		//Return the title contents
 		return sprintf(
 			'%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-			/* $1%s */ $item['title'],
+			/* $1%s */ esc_html($item['title']),
 			/* $2%s */ $item['ID'],
 			/* $3%s */ $this->row_actions( $actions )
 		);
