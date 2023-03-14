@@ -94,7 +94,7 @@ class SDM_Admin_User_Feedback {
 				</p>
 			</div>
 			<div class="sdm-plugin-review-step sdm-plugin-review-step-3" style="display: none">
-				<p><?php esc_html_e( 'That\'s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'simple-download-monitor' ); ?></p>
+				<p><?php esc_html_e( 'That\'s great! Could you please do me a big favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'simple-download-monitor' ); ?></p>
 				<p><strong><?php esc_html_e( '~ Simple Download Monitor Team', 'simple-download-monitor' ) ?></strong></p>
 				<p>
 					<a href="https://wordpress.org/support/plugin/simple-download-monitor/reviews/?filter=5#new-post" class="sdm-plugin-dismiss-review-notice sdm-plugin-review-out" target="_blank" rel="noopener noreferrer">
