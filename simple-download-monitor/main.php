@@ -66,6 +66,11 @@ function sdm_install_db_table() {
 
 	update_option( 'sdm_db_version', $sdm_db_version );
 
+	// Set plugin activation time.
+	if ( empty( get_option( 'sdm_plugin_activated_time' ) ) ) {
+		add_option( 'sdm_plugin_activated_time', time() );
+	}
+
 	//Register the post type so you can flush the rewrite rules
 	sdm_register_post_type();
 
@@ -127,6 +132,11 @@ function sdm_admin_init_time_tasks() {
 			die;
 		}
 	}
+
+	// User Feedback
+	include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-user-feedback.php';
+	$user_feedback = new SDM_Admin_User_Feedback();
+	$user_feedback->init();
 
 	// Export log to CSV
 	if ( isset( $_POST['sdm_export_log_entries'] ) ) {
