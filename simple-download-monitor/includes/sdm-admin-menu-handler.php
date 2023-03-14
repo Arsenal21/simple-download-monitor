@@ -93,9 +93,9 @@ function sdm_create_settings_page() {
 	);
 	$current           = '';
 	if ( isset( $_GET['page'] ) ) {
-		$current = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_STRING );
+                $current = isset( $_GET['page'] ) ? sanitize_text_field( stripslashes ( $_GET['page'] ) ) : '';
 		if ( isset( $_GET['action'] ) ) {
-			$action   = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+                        $action = isset( $_GET['action'] ) ? sanitize_text_field( stripslashes ( $_GET['action'] ) ) : '';
 			$current .= '&action=' . $action;
 		}
 	}
@@ -119,7 +119,7 @@ function sdm_create_settings_page() {
 		<form method="post" action="options.php">
 		<?php
 		if ( isset( $_GET['action'] ) ) {
-			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+                        $action = isset( $_GET['action'] ) ? sanitize_text_field( stripslashes ( $_GET['action'] ) ) : '';
 			switch ( $action ) {
 				case 'advanced-settings':
 					sdm_admin_menu_advanced_settings();

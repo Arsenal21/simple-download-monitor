@@ -117,7 +117,7 @@ function sdm_admin_init_time_tasks() {
 	}
 
 	// View log
-	$action = filter_input( INPUT_GET, 'sdm-action', FILTER_SANITIZE_STRING );
+        $action = isset( $_GET['sdm-action'] ) ? sanitize_text_field( stripslashes ( $_GET['sdm-action'] ) ) : '';
 	if ( ! empty( $action ) ) {
 		if ( $action === 'view_log' ) {
 			check_admin_referer( 'sdm_view_log_nonce' );
@@ -803,8 +803,7 @@ add_action( 'wp_ajax_sdm_pop_cats', 'sdm_pop_cats_ajax_call' );
 
 function sdm_pop_cats_ajax_call() {
 
-	$cat_slug = filter_input( INPUT_POST, 'cat_slug', FILTER_SANITIZE_STRING ); // Get button cpt slug
-	$cat_slug = empty( $cat_slug ) ? '' : sanitize_text_field( $cat_slug );
+        $cat_slug = isset( $_POST['cat_slug'] ) ? sanitize_text_field( stripslashes ( $_POST['cat_slug'] ) ) : '';// Get button cpt slug
 
 	// $parent_id = intval( $_POST['parent_id'] );  // Get button cpt id
 	// Query custom posts based on taxonomy slug

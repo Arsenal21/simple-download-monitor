@@ -324,7 +324,7 @@ class SDM_Admin_Edit_Download {
 			return;
 		}
 
-		$action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_STRING );
+                $action = isset( $_POST['action'] ) ? sanitize_text_field( stripslashes ( $_POST['action'] ) ) : '';
 
 		if ( empty( $action ) ) {
 			return;

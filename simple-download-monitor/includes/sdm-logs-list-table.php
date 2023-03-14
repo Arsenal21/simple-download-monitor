@@ -114,7 +114,7 @@ class sdm_List_Table extends WP_List_Table {
 		if ( 'delete2' === $this->current_action() ) {
 
 			//Check bulk delete nonce
-			$nonce  = filter_input( INPUT_POST, '_wpnonce', FILTER_SANITIZE_STRING );
+                        $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_POST['_wpnonce'] ) ) : '';
 			$action = 'bulk-' . $this->_args['plural'];
 
 			if ( ! wp_verify_nonce( $nonce, $action ) ) {
@@ -146,14 +146,14 @@ class sdm_List_Table extends WP_List_Table {
 		if ( 'delete' === $this->current_action() ) {
 
 			//Check bulk delete nonce
-			$nonce  = filter_input( INPUT_GET, '_wpnonce', FILTER_SANITIZE_STRING );
+                        $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_POST['_wpnonce'] ) ) : '';
 			$action = 'sdm_delete_log_entry';
 			if ( ! wp_verify_nonce( $nonce, $action ) ) {
 				wp_die( __( 'Nope! Security check failed!', 'simple-download-monitor' ) );
 			}
 
 			//Grab the row id
-			$row_id = filter_input( INPUT_GET, 'row_id', FILTER_SANITIZE_STRING );
+                        $row_id = isset( $_GET['row_id'] ) ? sanitize_text_field( stripslashes ( $_GET['row_id'] ) ) : '';
 
 			global $wpdb;
 			$del_row = $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"' );
