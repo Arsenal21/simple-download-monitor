@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
-Tested up to: 6.1
-Stable tag: 3.9.16
+Tested up to: 6.2
+Stable tag: 3.9.17
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -189,6 +189,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
+= 3.9.17 =
+- Block inserter for download item updated for WP 6.2.
 
 = 3.9.16 =
 - Added the fancy 1 shortcode in the "Shortcodes" section of the download configuration interface (for easy copy and paste).
