@@ -2,7 +2,7 @@
 
 //Handles the download request
 function handle_sdm_download_via_direct_post() {
-	if ( isset( $_REQUEST['smd_process_download'] ) && $_REQUEST['smd_process_download'] == '1' ) {
+	if ( (isset( $_REQUEST['smd_process_download'] ) && $_REQUEST['smd_process_download'] == '1') || (isset( $_REQUEST['sdm_process_download'] ) && $_REQUEST['sdm_process_download'] == '1') ) {
 		global $wpdb;
 		$download_id    = absint( $_REQUEST['download_id'] );
 		$download_title = get_the_title( $download_id );
@@ -140,6 +140,9 @@ function handle_sdm_download_via_direct_post() {
 				$dl_logging_needed = false;
 			}
 		}
+
+		// Check if download count is ignored for direct download link.
+		$dl_logging_needed = ! ( isset( $_REQUEST['sdm_ignore_count']) && $_REQUEST['sdm_ignore_count'] == '1');
 
 		if ( $dl_logging_needed ) {
 			// We need to log this download.
