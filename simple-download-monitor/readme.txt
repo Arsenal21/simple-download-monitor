@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- New url query parameter "sdm_ignore_count" added to ignoring download count for direct download link.
+
 = 3.9.17 =
 - Block inserter for download item updated for WP 6.2.
 
