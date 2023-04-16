@@ -141,8 +141,10 @@ function handle_sdm_download_via_direct_post() {
 			}
 		}
 
-		// Check if download count is ignored for direct download link.
-		$dl_logging_needed = ! ( isset( $_REQUEST['sdm_ignore_count']) && $_REQUEST['sdm_ignore_count'] == '1');
+		// Check if download logging and count is ignored via URL query parameter.
+		if( isset( $_REQUEST['sdm_ignore_logging'] ) && $_REQUEST['sdm_ignore_logging'] == '1' ) {
+			$dl_logging_needed = false;
+		}
 
 		if ( $dl_logging_needed ) {
 			// We need to log this download.
