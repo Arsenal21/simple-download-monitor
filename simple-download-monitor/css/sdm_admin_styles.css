@@ -1,3 +1,7 @@
+/* SDM Download Block Related CSS */
+.sdm-download-block-ic-wrapper {
+    padding: 16px;
+}
 
 /* Download button TinyMCE icon */
 i.mce-i-sdm-download::before {

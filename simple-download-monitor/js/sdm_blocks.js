@@ -17,7 +17,7 @@ registerBlockType('simple-download-monitor/download-item', {
 				block: 'simple-download-monitor/download-item',
 				attributes: props.attributes,
 			}),
-			el(InspectorControls, {}, el('div', {style: {padding: "16px",}}, [
+			el(InspectorControls, {}, el('div', {className: "sdm-download-block-ic-wrapper"}, [
 					el(SelectControl, {
 						label: sdmBlockDownloadItemStr.download,
 						help: sdmBlockDownloadItemStr.downloadHelp,
