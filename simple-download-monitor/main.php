@@ -199,7 +199,7 @@ function sdm_delete_data_handler() {
 	}
 
 	global $wpdb;
-	//let's find and delete smd_download posts and meta
+	//let's find and delete sdm_download posts and meta
 	$posts = $wpdb->get_results( 'SELECT id FROM ' . $wpdb->prefix . 'posts WHERE post_type="sdm_downloads"', ARRAY_A );
 	if ( ! is_null( $posts ) ) {
 		foreach ( $posts as $post ) {

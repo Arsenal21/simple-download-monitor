@@ -104,7 +104,7 @@ function sdm_generate_fancy0_display_output( $args ) {
 
     // Get download button
     $homepage		 = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL;
-    $download_url		 = $homepage . '/?smd_process_download=1&download_id=' . $id;
+    $download_url		 = $homepage . '/?sdm_process_download=1&download_id=' . $id;
     $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . esc_attr($def_color) . '" title="' . esc_html($isset_item_title) . '" ' . $window_target . '>' . $button_text_string . '</a>';
 
     // Check to see if the download link cpt is password protected

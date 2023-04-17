@@ -67,7 +67,7 @@ function filter_sdm_post_type_content( $content ) {
 		$window_target = empty( $new_window ) ? '_self' : '_blank';
 
 		$homepage             = get_bloginfo( 'url' );
-		$download_url         = $homepage . '/?smd_process_download=1&download_id=' . $id;
+		$download_url         = $homepage . '/?sdm_process_download=1&download_id=' . $id;
 		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($isset_item_title) . '" target="' . $window_target . '">' . esc_attr($button_text_string) . '</a>';
 
 		$main_advanced_opts = get_option( 'sdm_advanced_options' );

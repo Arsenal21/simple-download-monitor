@@ -67,7 +67,7 @@ function sdm_get_download_count_for_all_posts() {
 }
 
 function sdm_get_password_entry_form( $id, $args = array(), $class = '' ) {
-	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
+	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . $id;
 
 	//Get the download button text
 	$button_text = isset( $args['button_text'] ) ? $args['button_text'] : '';
@@ -311,7 +311,7 @@ function sdm_visitor_is_bot() {
 }
 
 function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = '' ) {
-	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
+	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . $id;
 
 	//Get the download button text
 	$button_text = isset( $args['button_text'] ) ? $args['button_text'] : '';
@@ -363,7 +363,7 @@ function sdm_get_checkbox_for_termsncond() {
 }
 
 function sdm_get_download_form_with_termsncond( $id, $args = array(), $class = '' ) {
-	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
+	$action_url = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . $id;
 
 	//Get the download button text
 	$button_text = isset( $args['button_text'] ) ? $args['button_text'] : '';
