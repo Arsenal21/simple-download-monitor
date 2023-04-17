@@ -193,6 +193,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = 3.9.18 =
 - New URL query parameter "sdm_ignore_logging" added to ignore download logging and counting for direct download link.
 - SDM block editor's sidebar styling issue fixed.
+- Updated the download query argument value from 'smd_process_download' to 'sdm_process_download' to match the plugin's slug. The old query arg will continue to work for backwards compatibility.
 
 = 3.9.17 =
 - Block inserter for download item updated for WP 6.2.
