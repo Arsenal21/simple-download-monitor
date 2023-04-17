@@ -102,7 +102,7 @@ function sdm_generate_fancy2_display_output( $args ) {
     $window_target = empty( $new_window ) ? '_self' : '_blank';
 
     $homepage		 = get_bloginfo( 'url' );
-    $download_url		 = $homepage . '/?smd_process_download=1&download_id=' . $id;
+    $download_url		 = $homepage . '/?sdm_process_download=1&download_id=' . $id;
     $download_button_code	 = '<a href="' . $download_url . '" class="sdm_fancy2_download_dl_link" target="' . $window_target . '">' . $button_text . '</a>';
 
     // Check to see if the download link cpt is password protected

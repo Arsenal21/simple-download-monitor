@@ -95,7 +95,7 @@ function sdm_generate_fancy1_display_output( $args ) {
 
     // Get download button
     $homepage = get_bloginfo( 'url' );
-    $download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
+    $download_url = $homepage . '/?sdm_process_download=1&download_id=' . $id;
     $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($button_text) . '</a>';
 
     //Get item file size

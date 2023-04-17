@@ -102,7 +102,7 @@ function sdm_create_download_shortcode( $atts ) {
 	$window_target = empty( $new_window ) ? '_self' : '_blank';
 
 	$homepage             = get_bloginfo( 'url' );
-	$download_url         = $homepage . '/?smd_process_download=1&download_id=' . $id;
+	$download_url         = $homepage . '/?sdm_process_download=1&download_id=' . $id;
 	$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . esc_attr($color) . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($button_text) . '</a>';
 
 	$main_advanced_opts = get_option( 'sdm_advanced_options' );
@@ -164,7 +164,7 @@ function sdm_create_simple_download_link( $atts ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
-	return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?smd_process_download=1&download_id=' . $id;
+	return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . $id;
 }
 
 // Create Counter Shortcode
@@ -323,7 +323,7 @@ function sdm_handle_category_shortcode( $args ) {
 
 				// Set download location
 				$id           = $item->ID;  // get each cpt ID
-				$download_url = $homepage . '/?smd_process_download=1&download_id=' . $id;
+				$download_url = $homepage . '/?sdm_process_download=1&download_id=' . $id;
 
 				// Get each cpt title
 				$item_title = get_the_title( $id );

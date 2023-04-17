@@ -23,7 +23,7 @@ function handle_sdm_download_via_direct_post() {
 		$post_pass   = $post_object->post_password; // Get post password
 		if ( ! empty( $post_pass ) ) {//This download item has a password. So validate the password.
 			$pass_val = $_REQUEST['pass_text'];
-			if ( empty( $pass_val ) ) {//No password was submitted with the downoad request.
+			if ( empty( $pass_val ) ) {//No password was submitted with the download request.
 				do_action( 'sdm_process_download_request_no_password' );
 
 				$dl_post_url = get_permalink( $download_id );

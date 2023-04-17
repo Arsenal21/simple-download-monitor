@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - New url query parameter "sdm_ignore_count" added to ignoring download count for direct download link.
+- SDM block editor's sidebar styling issue fixed.
 
 = 3.9.17 =
 - Block inserter for download item updated for WP 6.2.
