@@ -561,3 +561,86 @@ function sdm_sanitize_text( $text ) {
 	$text = esc_attr( $text );
 	return $text;
 }
+
+/*
+* Useful for using with wp_kses() function.
+* See also sdm_allowed_tags_expanded()
+*/
+function sdm_allowed_tags() {
+	$my_allowed = wp_kses_allowed_html( 'post' );
+
+	// form fields - input
+	$my_allowed['input'] = array(
+			'class' => array(),
+			'id'    => array(),
+			'name'  => array(),
+			'value' => array(),
+			'type'  => array(),
+			'step' => array(),
+			'min' => array(),
+			'checked' => array(),
+			'size' => array(),
+			'readonly' => array(),
+			'style' => array(),
+			'placeholder' => array(),
+			'required' => array(),
+	);
+	// select
+	$my_allowed['select'] = array(
+			'class'  => array(),
+			'id'     => array(),
+			'name'   => array(),
+			'value'  => array(),
+			'type'   => array(),
+			'placeholder' => array(),
+			'required' => array(),
+	);
+	// select options
+	$my_allowed['option'] = array(
+			'selected' => array(),
+			'value' => array(),
+	);
+	// button
+	$my_allowed['button'] = array(
+			'type' => array(),
+			'class' => array(),
+			'id' => array(),
+			'style' => array(),
+	);
+	// style
+	$my_allowed['style'] = array(
+			'types' => array(),
+	);
+
+	return $my_allowed;
+}
+
+/*
+* Useful for using with wp_kses() function.
+*/
+function sdm_allowed_tags_expanded() {
+	$my_allowed = sdm_allowed_tags();
+
+	//Expanded allowed button tags
+	if( isset( $my_allowed['input'] ) && is_array( $my_allowed['input'] ) ){
+		$input_extra = array(
+			'onclick' => array(),
+		);
+		$my_allowed['input'] = array_merge( $my_allowed['input'] , $input_extra);
+	}
+
+	// iframe
+	$my_allowed['iframe'] = array(
+			'src'             => array(),
+			'height'          => array(),
+			'width'           => array(),
+			'frameborder'     => array(),
+			'allowfullscreen' => array(),
+	);
+
+	// allow for some inline jquery
+	$my_allowed['script'] = array();
+
+	return $my_allowed;
+}
+

@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP 3.9.19 =
+- The audio player shortcode can be used in template 1 download display shortcode.
+
 = 3.9.18 =
 - New URL query parameter "sdm_ignore_logging" added to ignore download logging and counting for direct download link.
 - SDM block editor's sidebar styling issue fixed.
