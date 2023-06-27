@@ -90,9 +90,6 @@ function sdm_generate_fancy1_display_output( $args ) {
     $isset_download_thumbnail	 = isset( $item_download_thumbnail ) && ! empty( $item_download_thumbnail ) ? '<img class="sdm_download_thumbnail_image" src="' . esc_url_raw($item_download_thumbnail) . '" alt = "' . esc_html($thumbnail_alt) . '" />' : '';
     $isset_download_thumbnail	 = apply_filters( 'sdm_download_fancy_1_thumbnail', $isset_download_thumbnail, $args ); //Apply filter so it can be customized.
 
-    // Get CPT description
-    $isset_item_description = sdm_get_item_description_output( $id );
-
     // Get download button
     $homepage = get_bloginfo( 'url' );
     $download_url = $homepage . '/?sdm_process_download=1&download_id=' . $id;
@@ -153,8 +150,9 @@ function sdm_generate_fancy1_display_output( $args ) {
     $output	 .= '</div>'; //End of .sdm_download_item_top
     $output	 .= '<div style="clear:both;"></div>';
 
-    $allowed = sdm_sanitize_allowed_tags_expanded();
-    $output .= '<div class="sdm_download_description">' . wp_kses($isset_item_description, $allowed) . '</div>';
+    // Get CPT description
+    $isset_item_description = sdm_get_item_description_output( $id );//This will return sanitized output.
+    $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
 
     //This hook can be used to add content below the description in fancy1 template
     $params = array( 'id' => $id );

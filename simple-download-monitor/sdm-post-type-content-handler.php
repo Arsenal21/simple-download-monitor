@@ -189,8 +189,13 @@ add_filter( 'sdm_downloads_description', 'prepend_attachment' );
 function sdm_get_item_description_output( $id ) {
 	$item_description       = get_post_meta( $id, 'sdm_description', true );
 	$isset_item_description = isset( $item_description ) && ! empty( $item_description ) ? $item_description : '';
-	//$isset_item_description = apply_filters('the_content', $isset_item_description);
+
+	//Sanitize the description before applying the filters (this makes sure that shortcode rendering works).
+	$allowed = sdm_sanitize_allowed_tags_expanded();
+	$isset_item_description = wp_kses($isset_item_description, $allowed);
+
 	//Lets apply all the filters like do_shortcode, wptexturize, convert_smilies, wpautop etc.
+	//$isset_item_description = apply_filters('the_content', $isset_item_description);
 	$filtered_item_description = apply_filters( 'sdm_downloads_description', $isset_item_description );
 
 	return $filtered_item_description;
