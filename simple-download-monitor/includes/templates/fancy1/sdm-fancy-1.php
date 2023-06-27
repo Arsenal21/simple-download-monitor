@@ -153,7 +153,7 @@ function sdm_generate_fancy1_display_output( $args ) {
     $output	 .= '</div>'; //End of .sdm_download_item_top
     $output	 .= '<div style="clear:both;"></div>';
 
-    $allowed = sdm_allowed_tags_expanded();
+    $allowed = sdm_sanitize_allowed_tags_expanded();
     $output .= '<div class="sdm_download_description">' . wp_kses($isset_item_description, $allowed) . '</div>';
 
     //This hook can be used to add content below the description in fancy1 template

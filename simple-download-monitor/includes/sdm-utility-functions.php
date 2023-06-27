@@ -564,9 +564,8 @@ function sdm_sanitize_text( $text ) {
 
 /*
 * Useful for using with wp_kses() function.
-* See also sdm_allowed_tags_expanded()
 */
-function sdm_allowed_tags() {
+function sdm_sanitize_allowed_tags() {
 	$my_allowed = wp_kses_allowed_html( 'post' );
 
 	// form fields - input
@@ -618,8 +617,8 @@ function sdm_allowed_tags() {
 /*
 * Useful for using with wp_kses() function.
 */
-function sdm_allowed_tags_expanded() {
-	$my_allowed = sdm_allowed_tags();
+function sdm_sanitize_allowed_tags_expanded() {
+	$my_allowed = sdm_sanitize_allowed_tags();
 
 	//Expanded allowed button tags
 	if( isset( $my_allowed['input'] ) && is_array( $my_allowed['input'] ) ){
