@@ -48,8 +48,8 @@ function sdm_install_db_table() {
 	$table_name = $wpdb->prefix . 'sdm_downloads';
 
 	$sql = 'CREATE TABLE ' . $table_name . ' (
-			  id mediumint(9) NOT NULL AUTO_INCREMENT,
-			  post_id mediumint(9) NOT NULL,
+			  id bigint(20) NOT NULL AUTO_INCREMENT,
+			  post_id bigint(20) NOT NULL,
 			  post_title mediumtext NOT NULL,
 			  file_url mediumtext NOT NULL,
 			  visitor_ip mediumtext NOT NULL,
