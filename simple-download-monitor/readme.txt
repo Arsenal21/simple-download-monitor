@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP 3.9.20 =
 - Allow WP audio shortcode to also work in the template 1 description field.
+- New window feature now works with fancy 0 template with the shortcode.
 
 = 3.9.19 =
 - The audio player shortcode can be used in template 1 download display shortcode.

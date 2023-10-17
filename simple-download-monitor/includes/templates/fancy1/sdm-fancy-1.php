@@ -93,7 +93,7 @@ function sdm_generate_fancy1_display_output( $args ) {
     // Get download button
     $homepage = get_bloginfo( 'url' );
     $download_url = $homepage . '/?sdm_process_download=1&download_id=' . $id;
-    $download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($button_text) . '</a>';
+    $download_button_code = '<a href="' . esc_url_raw($download_url) . '" class="sdm_download ' . esc_attr($color) . '" title="' . esc_html($item_title) . '" target="' . esc_attr($window_target) . '">' . esc_attr($button_text) . '</a>';
 
     //Get item file size
     $item_file_size = get_post_meta( $id, 'sdm_item_file_size', true );
@@ -137,9 +137,9 @@ function sdm_generate_fancy1_display_output( $args ) {
 	$download_button_code = sdm_get_password_entry_form( $id, $shortcode_atts, 'sdm_download ' . $color );
     }
 
-    $db_count		 = sdm_get_download_count_for_post( $id );
-    $string			 = ($db_count == '1') ? __( 'Download', 'simple-download-monitor' ) : __( 'Downloads', 'simple-download-monitor' );
-    $download_count_string	 = '<span class="sdm_item_count_number">' . $db_count . '</span><span class="sdm_item_count_string"> ' . $string . '</span>';
+    $db_count = sdm_get_download_count_for_post( $id );
+    $string = ($db_count == '1') ? __( 'Download', 'simple-download-monitor' ) : __( 'Downloads', 'simple-download-monitor' );
+    $download_count_string	 = '<span class="sdm_item_count_number">' . esc_attr($db_count) . '</span><span class="sdm_item_count_string"> ' . esc_attr($string) . '</span>';
 
     $output = '';
 

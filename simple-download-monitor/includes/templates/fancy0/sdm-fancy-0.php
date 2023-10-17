@@ -84,11 +84,19 @@ function sdm_generate_fancy0_display_output( $args ) {
 
     $def_color = empty( $args[ 'color' ] ) ? $def_color : $args[ 'color' ];
 
-    //See if new window parameter is seet
+    //See if new window parameter is set in the shortcode args or download item meta.
     $window_target = '';
     if ( isset( $args[ 'new_window' ] ) && $args[ 'new_window' ] == '1' ) {
-	$window_target = 'target="_blank"';
+	    $window_target = 'target="_blank"';
     }
+    if ( empty( $window_target ) ) {
+        //Shortcode arg is not set so check the download item meta.
+        $new_window = get_post_meta( $id, 'sdm_item_new_window', true );
+        if( !empty( $new_window ) ){
+            $window_target = 'target="_blank"';
+        }
+    }
+
 
     //Get the download button text
     $button_text = isset( $args[ 'button_text' ] ) ? $args[ 'button_text' ] : '';
@@ -99,13 +107,13 @@ function sdm_generate_fancy0_display_output( $args ) {
     }
 
     // Get CPT title
-    $item_title		 = get_the_title( $id );
-    $isset_item_title	 = isset( $item_title ) && ! empty( $item_title ) ? sanitize_text_field($item_title) : '';
+    $item_title = get_the_title( $id );
+    $isset_item_title = isset( $item_title ) && ! empty( $item_title ) ? sanitize_text_field($item_title) : '';
 
     // Get download button
-    $homepage		 = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL;
-    $download_url		 = $homepage . '/?sdm_process_download=1&download_id=' . $id;
-    $download_button_code	 = '<a href="' . $download_url . '" class="sdm_download ' . esc_attr($def_color) . '" title="' . esc_html($isset_item_title) . '" ' . $window_target . '>' . $button_text_string . '</a>';
+    $homepage = WP_SIMPLE_DL_MONITOR_SITE_HOME_URL;
+    $download_url = $homepage . '/?sdm_process_download=1&download_id=' . $id;
+    $download_button_code = '<a href="' . esc_url_raw($download_url) . '" class="sdm_download ' . esc_attr($def_color) . '" title="' . esc_html($isset_item_title) . '" ' . esc_attr($window_target) . '>' . esc_attr($button_text_string) . '</a>';
 
     // Check to see if the download link cpt is password protected
     $get_cpt_object	 = get_post( $id );
