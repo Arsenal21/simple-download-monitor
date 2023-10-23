@@ -5,6 +5,8 @@ class SDM_Admin_Edit_Download {
 	public function __construct() {
 		add_action( 'add_meta_boxes_sdm_downloads', array( $this, 'add_meta_boxes_handler' ) );  // Create metaboxes
 		add_action( 'save_post_sdm_downloads', array( $this, 'save_post_handler' ), 10, 3 );
+		// Grabs the inserted post data so we can sanitize/modify it.
+		add_filter( 'wp_insert_post_data' , array( $this, 'insert_post_sdm_post_title' ), '99', 1 );
 
 		if ( wp_doing_ajax() ) {
 			add_action( 'wp_ajax_sdm_remove_thumbnail_image', array( $this, 'remove_thumbnail_image_ajax_handler' ) );
@@ -319,26 +321,39 @@ class SDM_Admin_Edit_Download {
 		);
 	}
 
+	public function insert_post_sdm_post_title( $data ) {
+		//Edit the core post data (example: title) at the point it's inserted, rather than updating it afterwards. 
+		//It also avoids the danger of creating an infinite loop by triggering update_post within save_post.
+		if( isset($data['post_type']) && $data['post_type'] == 'sdm_downloads') { 
+			//This is a download item post. Let's modify the title.
+			if( isset($data['post_title'])){
+				//SDM_Debug::log( 'Post title before: ' . $data['post_title'] );
+				$data['post_title'] = sanitize_text_field(stripslashes($data['post_title']));
+			}
+		}
+		return $data; // Returns the modified data.
+	}
+
 	public function save_post_handler( $post_id, $post, $update ) {
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! $update || empty( $post_id ) ) {
 			return;
 		}
 
-                $action = isset( $_POST['action'] ) ? sanitize_text_field( stripslashes ( $_POST['action'] ) ) : '';
+        $action = isset( $_POST['action'] ) ? sanitize_text_field( stripslashes ( $_POST['action'] ) ) : '';
 
 		if ( empty( $action ) ) {
 			return;
 		}
                 
-                if ( $action == 'inline-save' ){
-                    //This is a quick edit action. The nonce comes from WordPress's ajax-actions.php.
-                    //The default wordpress post_save action will handle the standard post data update (for example: the title, slug, date etc).
-                    check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
-                } else {
-                    //Full post edit. Do the normal nonce check
-                    check_admin_referer( 'sdm_admin_edit_download_' . $post_id, 'sdm_admin_edit_download' );
-                }
-                
+		if ( $action == 'inline-save' ){
+			//This is a quick edit action. The nonce comes from WordPress's ajax-actions.php.
+			//The default wordpress post_save action will handle the standard post data update (for example: the title, slug, date etc).
+			check_ajax_referer( 'inlineeditnonce', '_inline_edit' );
+		} else {
+			//Full post edit. Do the normal nonce check
+			check_admin_referer( 'sdm_admin_edit_download_' . $post_id, 'sdm_admin_edit_download' );
+		}
+
 		// *** Description  ***
 		if ( isset( $_POST['sdm_description'] ) ) {
 			update_post_meta( $post_id, 'sdm_description', wp_kses_post( wp_unslash( $_POST['sdm_description'] ) ) );
