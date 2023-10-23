@@ -1,8 +1,26 @@
 <?php
 
-//Handles the output on the SDM individual download page (Custom Post Type)
-add_filter( 'the_content', 'filter_sdm_post_type_content' );
+/*
+This file handles the output on the SDM individual download page (Custom Post Type)
+*/
 
+//Handle the title for the SDM download type post
+add_filter('the_title', 'filter_sdm_post_type_title', 10, 2);
+function filter_sdm_post_type_title($title, $id) {
+	//Check if this is for a sdm_downloads type post.
+    if (get_post_type($id) == "sdm_downloads"){
+		//This is a sdm_downloads type post. Lets get the title of the download item.
+		//Get the title of the download item from the $post object (don't use get_the_title() as it will cause infinite loop).
+		global $post;
+		$title = isset($post->post_title) ? sanitize_text_field($post->post_title) : '';//Sanitize the title before returning it.
+		//Trigger a hook so other plugins can modify the title if needed.
+		$title = apply_filters('sdm_post_type_title_single_post', $title, $id);
+	}
+    return $title;
+}
+
+//Handle the main post content for hte SDM download type post
+add_filter( 'the_content', 'filter_sdm_post_type_content' );
 function filter_sdm_post_type_content( $content ) {   
 	global $post;
 	if ( isset( $post->post_type ) && $post->post_type == 'sdm_downloads' ) {//Handle the content for sdm_downloads type post

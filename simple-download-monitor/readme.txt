@@ -193,6 +193,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP 3.9.20 =
 - Allow WP audio shortcode to also work in the template 1 description field.
 - New window feature now works with fancy 0 template with the shortcode.
+- Added a new filter hook to allow customization of the single download post title.
+- Added sanitization to the SDM post type title.
 
 = 3.9.19 =
 - The audio player shortcode can be used in template 1 download display shortcode.
