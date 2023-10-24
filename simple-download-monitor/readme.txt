@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
-Tested up to: 6.2
-Stable tag: 3.9.19
+Tested up to: 6.3
+Stable tag: 3.9.20
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,11 +190,12 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP 3.9.20 =
+= 3.9.20 =
 - Allow WP audio shortcode to also work in the template 1 description field.
 - New window feature now works with fancy 0 template with the shortcode.
 - Added a new filter hook to allow customization of the single download post title.
 - Added sanitization to the SDM post type title.
+- Added the 'Direct Download URL without Tracking Count (Ignore Logging)' option to the download edit page.
 
 = 3.9.19 =
 - The audio player shortcode can be used in template 1 download display shortcode.

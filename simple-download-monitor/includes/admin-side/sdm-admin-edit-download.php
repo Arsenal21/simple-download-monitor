@@ -310,6 +310,12 @@ class SDM_Admin_Edit_Download {
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $direct_download_url ) . "' size='40'>";
 
 		echo '<br /><br />';
+		esc_html_e( 'Direct Download URL without Tracking Count (Ignore Logging).', 'simple-download-monitor' );
+		echo '<br />';
+		$direct_download_url_ignore_logging = add_query_arg( array( 'sdm_ignore_logging' => '1' ), $direct_download_url );
+		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $direct_download_url_ignore_logging ) . "' size='40'>";
+
+		echo '<br /><br />';
 		echo wp_kses(
 			__( 'Read the full shortcode <a href="https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/" target="_blank">usage documentation here</a>.', 'simple-download-monitor' ),
 			array(
