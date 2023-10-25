@@ -16,8 +16,6 @@ function filter_sdm_post_type_title($title, $id = null) {
 		//This is a sdm_downloads type post. Lets get the title of the download item.
 		//You can use the $post object if needed (don't use get_the_title() as it will cause infinite loop).
 		$title = isset($title) ? sanitize_text_field($title) : $title;//Sanitize the title before returning it.
-		//Trigger a hook so other plugins can modify the title if needed.
-		$title = apply_filters('sdm_post_type_title_single_post', $title, $id);
 	}
     return $title;
 }
