@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.
+
 = 3.9.22 =
 - Removed one of the newly added filter hooks.
 

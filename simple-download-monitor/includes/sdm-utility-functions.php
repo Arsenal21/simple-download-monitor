@@ -49,12 +49,16 @@ function sdm_get_download_count_for_post( $id ) {
 function sdm_get_download_count_for_all_posts() {
     global $wpdb;
 
+	// For total count
     $table = $wpdb->prefix . 'sdm_downloads';
-    $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . $table));
+	$query1 = 'SELECT * FROM ' . $table;
+    $wpdb->get_results($query1);
     $db_count = $wpdb->num_rows;
 
+	// For offset count
     $table2 = $wpdb->prefix . 'posts';
-    $result = $wpdb->get_results($wpdb->prepare(' SELECT * FROM ' . $table2 . ' WHERE post_type="sdm_downloads"'));
+	$query2 = ' SELECT * FROM ' . $table2 . ' WHERE post_type="sdm_downloads"';
+    $result = $wpdb->get_results($query2);
 
     // Check post meta for offset count.
     for ($i = 0; $i < $wpdb->num_rows; $i++) {
