@@ -207,7 +207,7 @@ function sdm_handle_category_shortcode( $args ) {
 				'category_slug' => '',
 				'category_id'   => '',
 				'fancy'         => '0',
-				'button_text'   => __( 'Download Now!', 'simple-download-monitor' ),
+				'button_text'   => '',
 				'new_window'    => '',
 				'orderby'       => 'post_date',
 				'order'         => 'DESC',
@@ -327,9 +327,24 @@ function sdm_handle_category_shortcode( $args ) {
 
 				// Get each cpt title
 				$item_title = get_the_title( $id );
+				$item_button_text = $button_text;
+				$custom_button_text = get_post_meta( $id , 'sdm_download_button_text', true );
 
+				/**
+				 * Get the download button text.
+				 * Prioritize category shortcode param over custom button text from edit page.
+				 * Show default button text if both are empty.
+				 */
+				if (empty($item_button_text)) {
+					if (!empty($custom_button_text)) {
+						$item_button_text = $custom_button_text;
+					}else{
+						$item_button_text = __( 'Download Now!', 'simple-download-monitor' );
+					}
+				}
+				
 				// Setup download button code
-				$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($button_text) . '</a>';
+				$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($item_button_text) . '</a>';
 
 				$main_advanced_opts = get_option( 'sdm_advanced_options' );
 
