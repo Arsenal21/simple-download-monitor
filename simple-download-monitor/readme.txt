@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.
+- Download button text for category shortcode fixed.
 
 = 3.9.22 =
 - Removed one of the newly added filter hooks.

@@ -51,14 +51,26 @@ function sdm_generate_fancy2_category_display_output( $get_posts, $args ) {
     $count = 1;
     //$output .= '<ul class="sdm_fancy2_category_items">';
     foreach ( $get_posts as $item ) {
-	$output .= sdm_generate_fancy2_display_output(
-	array_merge( $args, array( 'id' => $item->ID ) )
-	);
 
-	if ( $count % 3 == 0 ) {//Clear after every 3 items in the grid
-	    $output .= '<div class="sdm_clear_float"></div>';
-	}
-	$count ++;
+        /**
+         * Get the download button text.
+         * Prioritize category shortcode param over custom button text from edit page.
+         */
+        if (empty($args['button_text'])) {
+            $custom_button_text = sanitize_text_field(get_post_meta($item->ID, 'sdm_download_button_text', true));
+            if (!empty($custom_button_text)) {
+                $args['button_text'] = $custom_button_text;
+            }
+        }
+        
+        $output .= sdm_generate_fancy2_display_output(
+        array_merge( $args, array( 'id' => $item->ID ) )
+        );
+
+        if ( $count % 3 == 0 ) {//Clear after every 3 items in the grid
+            $output .= '<div class="sdm_clear_float"></div>';
+        }
+        $count ++;
     }
     //$output .= '</ul>';
     $output .= '<div class="sdm_clear_float"></div>';

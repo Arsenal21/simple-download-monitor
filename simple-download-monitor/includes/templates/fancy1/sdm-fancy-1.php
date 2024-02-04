@@ -33,9 +33,21 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
     //TODO - when the CSS file is moved to the fancy1 folder, change it here
 
     foreach ( $get_posts as $item ) {
-	$output .= sdm_generate_fancy1_display_output(
-	array_merge( $args, array( 'id' => $item->ID ) )
-	);
+
+        /**
+         * Get the download button text.
+         * Prioritize category shortcode param over custom button text from edit page.
+         */
+        if (empty($args['button_text'])) {
+            $custom_button_text = sanitize_text_field(get_post_meta($item->ID, 'sdm_download_button_text', true));
+            if (!empty($custom_button_text)) {
+                $args['button_text'] = $custom_button_text;
+            }
+        }
+
+        $output .= sdm_generate_fancy1_display_output(
+        array_merge( $args, array( 'id' => $item->ID ) )
+        );
     }
     $output .= '<div class="sdm_clear_float"></div>';
     return $output;
@@ -68,6 +80,10 @@ function sdm_generate_fancy1_display_output( $args ) {
     if ( empty( $id ) ) {
 	return '<div class="sdm_error_msg">Error! The shortcode is missing the ID parameter. Please refer to the documentation to learn the shortcode usage.</div>';
     }
+    
+    // $output = '<pre>'. print_r(get_post_meta($id, 'sdm_download_button_text'),  true) .'</pre>';
+    // $output .= '<pre>'. $button_text.'</pre>';
+    // return $output;
 
     $id        = intval( $id );
     $color     = sdm_sanitize_text( $color );
