@@ -598,6 +598,7 @@ function sdm_create_stats_page() {
 				<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ( $active_tab === 'countrylistchart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="countrylistchart"><?php esc_html_e( 'Downloads by country list', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=browserList" href="" class="nav-tab<?php echo ( $active_tab === 'browserList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="browserList"><?php esc_html_e( 'Downloads by browser', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=osList" href="" class="nav-tab<?php echo ( $active_tab === 'osList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="osList"><?php esc_html_e( 'Downloads by OS', 'simple-download-monitor' ); ?></a>
+			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=userList" href="" class="nav-tab<?php echo ( $active_tab === 'userList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="userList"><?php esc_html_e( 'Downloads by User', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=topDownloads" href="" class="nav-tab<?php echo ( $active_tab === 'topDownloads' ? ' nav-tab-active' : '' ); ?>" data-tab-name="topDownloads"><?php esc_html_e( 'Top Downloads', 'simple-download-monitor' ); ?></a>
 			</div>
 			<div class="sdm-tabs-content-wrapper" style="height: 500px;margin-top: 10px;">
@@ -709,6 +710,32 @@ function sdm_create_stats_page() {
 						</table>
 					</div>
 				</div><!-- end of osList tab-->
+ 
+				<div data-tab-name="userList" class="sdm-tab"<?php echo( $active_tab === 'userList' ? '' : ' style="display:none;"' ); ?>>
+					<div class="wrap">
+						<table class="widefat">
+							<thead>
+							<th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							</thead>
+							<tbody>
+							<?php
+							$downloads_by_count = sdm_get_top_users_by_download_count( $start_date, $end_date, 15 );
+							foreach ( $downloads_by_count as $item ) {
+								?>
+								<tr>
+									<td><?php echo esc_html( $item['visitor_name'] ); ?></td>
+									<td><?php echo esc_html( $item['cnt'] ); ?></td>
+								</tr>
+							<?php } ?>
+							</tbody>
+							<tfoot>
+							<th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
+							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+							</tfoot>
+						</table>
+					</div>
+				</div><!-- end of top userList tab-->
 
 				<div data-tab-name="topDownloads"
 					 class="sdm-tab"<?php echo( $active_tab === 'topDownloads' ? '' : ' style="display:none;"' ); ?>>

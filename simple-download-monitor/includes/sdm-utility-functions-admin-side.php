@@ -195,6 +195,34 @@ function sdm_get_all_downloads_by_os( $start_date = '', $end_date = '' ) {
 }
 
 /**
+ * Retrieves top user by total download count.
+ *
+ * @param string $start_date
+ * @param string $end_date
+ * @param int    $limit Total number of records to retrieve
+ *
+ * @return array
+ */
+function sdm_get_top_users_by_download_count( $start_date = '', $end_date = '', $limit = 25 ) {
+	global $wpdb;
+
+	$q   = $wpdb->prepare(
+		'SELECT COUNT(id) as cnt, visitor_name
+            FROM ' . $wpdb->prefix . "sdm_downloads
+            WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
+            AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
+            GROUP BY visitor_name 
+			ORDER BY cnt DESC 
+			LIMIT $limit",
+		$start_date,
+		$end_date
+	);
+	$res = $wpdb->get_results( $q, ARRAY_A );
+
+	return $res;
+}
+
+/**
  * Retrieves top downloads by download count
  *
  * @param string $start_date
