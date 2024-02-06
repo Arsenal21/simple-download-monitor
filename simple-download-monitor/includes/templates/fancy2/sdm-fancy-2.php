@@ -175,6 +175,7 @@ function sdm_generate_fancy2_display_output( $args ) {
     $download_date		 = get_the_date( get_option( 'date_format' ), $id );
 
     $output	 = '';
+    $output	 .= '<div class="sdm_fancy_template_wrapper">';//For block themes
     $output	 .= '<div class="sdm_fancy2_item ' . esc_attr($css_class) . '">';
     $output	 .= '<div class="sdm_fancy2_wrapper">';
     
@@ -212,6 +213,7 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     $output .= '</div>'; //end .sdm_fancy2_wrapper
     $output .= '</div>'; //end .sdm_fancy2_item
+    $output .= '</div>'; //end .sdm_fancy_template_wrapper
 
     //Filter to allow overriding the output
     $output = apply_filters( 'sdm_generate_fancy2_display_output_html', $output, $args );

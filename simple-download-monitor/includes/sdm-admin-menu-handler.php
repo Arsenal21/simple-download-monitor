@@ -720,7 +720,7 @@ function sdm_create_stats_page() {
 							</thead>
 							<tbody>
 							<?php
-							$downloads_by_count = sdm_get_top_users_by_download_count( $start_date, $end_date, 15 );
+							$downloads_by_count = sdm_get_top_users_by_download_count( $start_date, $end_date, 25 );
 							foreach ( $downloads_by_count as $item ) {
 								?>
 								<tr>
