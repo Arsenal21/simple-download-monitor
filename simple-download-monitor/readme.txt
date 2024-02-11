@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Fixed nonce verification for the single entry log delete function.
+
 = 3.9.23 =
 - Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.
 - Download button text for category shortcode fixed.

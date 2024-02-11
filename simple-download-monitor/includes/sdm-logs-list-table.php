@@ -114,7 +114,7 @@ class sdm_List_Table extends WP_List_Table {
 		if ( 'delete2' === $this->current_action() ) {
 
 			//Check bulk delete nonce
-                        $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_POST['_wpnonce'] ) ) : '';
+            $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_POST['_wpnonce'] ) ) : '';
 			$action = 'bulk-' . $this->_args['plural'];
 
 			if ( ! wp_verify_nonce( $nonce, $action ) ) {
@@ -145,8 +145,8 @@ class sdm_List_Table extends WP_List_Table {
 		// If single entry 'Delete' was clicked
 		if ( 'delete' === $this->current_action() ) {
 
-			//Check bulk delete nonce
-                        $nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_POST['_wpnonce'] ) ) : '';
+			//Check single entry delete nonce
+            $nonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( stripslashes ( $_GET['_wpnonce'] ) ) : '';
 			$action = 'sdm_delete_log_entry';
 			if ( ! wp_verify_nonce( $nonce, $action ) ) {
 				wp_die( __( 'Nope! Security check failed!', 'simple-download-monitor' ) );
