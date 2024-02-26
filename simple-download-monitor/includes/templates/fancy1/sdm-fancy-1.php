@@ -34,19 +34,19 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
 
     foreach ( $get_posts as $item ) {
 
+        // Create a new array to prevent affecting the next item by the modified value of the current item in the loop. 
+        $args_fresh = array_merge([], $args);
+        
         /**
          * Get the download button text.
          * Prioritize category shortcode param over custom button text from edit page.
          */
-        if (empty($args['button_text'])) {
-            $custom_button_text = sanitize_text_field(get_post_meta($item->ID, 'sdm_download_button_text', true));
-            if (!empty($custom_button_text)) {
-                $args['button_text'] = $custom_button_text;
-            }
+        if (empty($args_fresh['button_text'])) {
+            $args_fresh['button_text'] = get_dl_button_text($item->ID);
         }
 
         $output .= sdm_generate_fancy1_display_output(
-        array_merge( $args, array( 'id' => $item->ID ) )
+        array_merge( $args_fresh, array( 'id' => $item->ID ) )
         );
     }
     $output .= '<div class="sdm_clear_float"></div>';
