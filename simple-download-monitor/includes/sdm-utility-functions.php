@@ -647,3 +647,21 @@ function sdm_sanitize_allowed_tags_expanded() {
 	return $my_allowed;
 }
 
+/**
+ * Retrieves the download button text for a download item.
+ * If download is provided, get the custom download button text if available. Else return default text.
+ * 
+ * @param int|null $download_id The download id to fetch the custom button text if have any.
+ * 
+ * @return string Download button text.
+ */
+function get_dl_button_text($download_id = null){
+	$default_button_text = __( 'Download Now!', 'simple-download-monitor' );
+	if (empty($download_id)) {
+		return $default_button_text;
+	}
+
+	$custom_button_text = sanitize_text_field(get_post_meta($download_id, 'sdm_download_button_text', true));
+	
+	return !empty($custom_button_text) ? $custom_button_text : $default_button_text;
+}

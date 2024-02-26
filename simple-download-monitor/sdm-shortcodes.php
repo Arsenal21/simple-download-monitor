@@ -328,7 +328,6 @@ function sdm_handle_category_shortcode( $args ) {
 				// Get each cpt title
 				$item_title = get_the_title( $id );
 				$item_button_text = $button_text;
-				$custom_button_text = get_post_meta( $id , 'sdm_download_button_text', true );
 
 				/**
 				 * Get the download button text.
@@ -336,11 +335,7 @@ function sdm_handle_category_shortcode( $args ) {
 				 * Show default button text if both are empty.
 				 */
 				if (empty($item_button_text)) {
-					if (!empty($custom_button_text)) {
-						$item_button_text = $custom_button_text;
-					}else{
-						$item_button_text = __( 'Download Now!', 'simple-download-monitor' );
-					}
+					$item_button_text = get_dl_button_text($id);
 				}
 				
 				// Setup download button code
