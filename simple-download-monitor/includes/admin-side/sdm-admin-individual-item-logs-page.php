@@ -1,9 +1,6 @@
 <?php
 
 function sdm_handle_individual_logs_tab_page() {
-	echo '<h2>';
-	esc_html_e( 'Specific Download Item Logs', 'simple-download-monitor' );
-	echo '</h2>';
 
 	$sdm_logs_dl_id = isset( $_REQUEST['sdm_logs_dl_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['sdm_logs_dl_id'] ) ) : '';
 	$sdm_logs_dl_id = intval( $sdm_logs_dl_id );
@@ -18,7 +15,7 @@ function sdm_handle_individual_logs_tab_page() {
 			
 			$view_log_sdm_nonce = wp_create_nonce('sdm_view_log_nonce');
 			$nonced_new_url = add_query_arg ( '_wpnonce', $view_log_sdm_nonce, $target_url);
-			wp_safe_redirect($nonced_new_url);
+			sdm_redirect_to_url($nonced_new_url);
 			exit;
 		}
 	}

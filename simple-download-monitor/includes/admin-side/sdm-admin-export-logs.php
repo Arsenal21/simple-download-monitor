@@ -5,11 +5,6 @@ function sdm_logs_export_tab_page() {
 	wp_enqueue_script( 'jquery-ui-datepicker' );
 	wp_enqueue_style( 'sdm_jquery_ui_style' );
 
-	//  tab heading
-	echo '<h2>';
-	esc_html_e( 'Export Download Log Entries', 'simple-download-monitor' );
-	echo '</h2>';
-
 	// datetime fileds
 	if ( isset( $_POST['sdm_stats_start_date'] ) ) {
 		$start_date = sanitize_text_field( $_POST['sdm_stats_start_date'] );

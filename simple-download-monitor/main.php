@@ -392,6 +392,7 @@ class simpleDownloadManager {
 				add_settings_field( 'admin_do_not_capture_referrer_url', __( 'Do Not Capture Referrer URL', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_referrer_url' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_dont_log_bots', __( 'Do Not Count Downloads from Bots', 'simple-download-monitor' ), array( $this, 'admin_dont_log_bots' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_no_logs', __( 'Disable Download Logs', 'simple-download-monitor' ), array( $this, 'admin_no_logs_cb' ), 'admin_options_section', 'admin_options' );
+		add_settings_field( 'admin-dashboard-access-permission', __( 'Admin Dashboard Access Permission', 'simple-download-monitor' ), array( $this, 'admin_dashboard_access_permission' ), 'admin_options_section', 'admin_options');
 
 		add_settings_field( 'download_button_color', __( 'Download Button Color', 'simple-download-monitor' ), array( $this, 'download_button_color_cb' ), 'sdm_colors_section', 'sdm_colors' );
 
@@ -585,6 +586,29 @@ class simpleDownloadManager {
 		$main_opts = get_option( 'sdm_downloads_options' );
 		echo '<input name="sdm_downloads_options[admin_no_logs]" id="admin_no_logs" type="checkbox" class="sdm_opts_ajax_checkboxes" ' . checked( 1, isset( $main_opts['admin_no_logs'] ), false ) . ' /> ';
 		echo '<label for="admin_no_logs">' . esc_html__( 'Disables all download logs. (This global option overrides the individual download item option.)', 'simple-download-monitor' ) . '</label>';
+	}
+
+	public function admin_dashboard_access_permission(){
+		$main_opts = get_option( 'sdm_downloads_options' );
+
+		$options  = array(
+			'manage_options'       => translate_user_role( 'Administrator' ),
+			'edit_pages'           => translate_user_role( 'Editor' ),
+			'edit_published_posts' => translate_user_role( 'Author' ),
+			'edit_posts'           => translate_user_role( 'Contributor' ),
+		);
+		$default  = 'manage_options';
+		$msg      = __( 'SDM admin dashboard is accessible to admin users only (just like any other plugin). You can allow users with other WP user roles to access the SDM admin dashboard by selecting a value here.', 'simple-download-monitor' );
+		
+		$selected = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : $default;
+		
+		echo "<select name='sdm_downloads_options[admin-dashboard-access-permission]' >";
+		foreach ( $options as $key => $value ) {
+			$is_selected = ( $key == $selected ) ? 'selected="selected"' : '';
+			echo '<option ' . $is_selected . ' value="' . esc_attr( $key ) . '">' . esc_attr( $value ) . '</option>';
+		}
+		echo '</select>';
+		echo '<br/><i>' . $msg . '</i>';
 	}
 
 	public function download_button_color_cb() {
