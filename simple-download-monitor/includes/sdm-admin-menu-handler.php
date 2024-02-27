@@ -4,12 +4,14 @@
  */
 
 function sdm_handle_admin_menu() {
+	$main_opts = get_option( 'sdm_downloads_options' );
+	$access_capability = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
 
 	//*****  Create the 'logs' and 'settings' submenu pages
-	$sdm_logs_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Logs', 'simple-download-monitor' ), __( 'Logs', 'simple-download-monitor' ), 'manage_options', 'sdm-logs', 'sdm_create_logs_page' );
-	$sdm_logs_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Stats', 'simple-download-monitor' ), __( 'Stats', 'simple-download-monitor' ), 'manage_options', 'sdm-stats', 'sdm_create_stats_page' );
-	$sdm_settings_page = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Settings', 'simple-download-monitor' ), __( 'Settings', 'simple-download-monitor' ), 'manage_options', 'sdm-settings', 'sdm_create_settings_page' );
-	$sdm_addons_page   = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Add-ons', 'simple-download-monitor' ), __( 'Add-ons', 'simple-download-monitor' ), 'manage_options', 'sdm-addons', 'sdm_create_addons_page' );
+	$sdm_logs_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Logs', 'simple-download-monitor' ), __( 'Logs', 'simple-download-monitor' ), $access_capability, 'sdm-logs', 'sdm_create_logs_page' );
+	$sdm_stats_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Stats', 'simple-download-monitor' ), __( 'Stats', 'simple-download-monitor' ), $access_capability, 'sdm-stats', 'sdm_create_stats_page' );
+	$sdm_settings_page = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Settings', 'simple-download-monitor' ), __( 'Settings', 'simple-download-monitor' ), $access_capability, 'sdm-settings', 'sdm_create_settings_page' );
+	$sdm_addons_page   = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Add-ons', 'simple-download-monitor' ), __( 'Add-ons', 'simple-download-monitor' ), $access_capability, 'sdm-addons', 'sdm_create_addons_page' );
 }
 
 add_filter( 'allowed_options', 'sdm_admin_menu_function_hook' );
@@ -359,10 +361,9 @@ function sdm_admin_menu_advanced_settings() {
 	submit_button();
 }
 
-/*
- * * Logs menu page
+/**
+ * Logs menu page
  */
-
 function sdm_create_logs_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( 'You do not have permission to access this settings page.' );
@@ -371,27 +372,40 @@ function sdm_create_logs_page() {
 	echo '<div class="wrap">';
 
 	$sdm_logs_menu_tabs = array(
-		'sdm-logs'                             => __( 'Main Logs', 'simple-download-monitor' ),
-		'sdm-logs&action=sdm-logs-by-download' => __( 'Specific Item Logs', 'simple-download-monitor' ),
-		'sdm-logs&action=sdm-logs-export'      => __( 'Export', 'simple-download-monitor' ),
+		'sdm-logs' => array(
+			'name' => __( 'Main Logs', 'simple-download-monitor' ),
+			'title' =>__( 'Download Logs', 'simple-download-monitor' ),
+		),
+		'sdm-logs-by-download' => array(
+			'name' => __( 'Specific Item Logs', 'simple-download-monitor' ),
+			'title' =>__( 'Specific Download Item Logs', 'simple-download-monitor' ),
+		),
+		'sdm-logs-export' => array(
+			'name' =>  __( 'Export', 'simple-download-monitor' ),
+			'title' =>__( 'Export Download Log Entries', 'simple-download-monitor' ),
+		),
 	);
-
-	$current = '';
-	if ( isset( $_GET['page'] ) ) {
-		$current = sanitize_text_field( $_GET['page'] );
-		if ( isset( $_GET['action'] ) ) {
-			$current .= '&action=' . sanitize_text_field( $_GET['action'] );
-		}
+	
+	$current = 'sdm-logs';
+	if ( isset( $_GET['page'] ) && isset( $_GET['action'] ) ) {
+		$current = sanitize_text_field( $_GET['action'] );
 	}
+
 	$content = '';
-	foreach ( $sdm_logs_menu_tabs as $location => $tabname ) {
-		if ( $current === $location ) {
+	foreach ( $sdm_logs_menu_tabs as $action => $tab ) {
+		$action_query = '&action=' . $action;
+		if ( $current === $action ) {
 			$class = ' nav-tab-active';
 		} else {
 			$class = '';
 		}
-		$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=' . $location . '">' . $tabname . '</a>';
+		$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=sdm-logs' . $action_query . '">' . $tab['name'] . '</a>';
 	}
+
+	echo "<h2>" . esc_html__( $sdm_logs_menu_tabs[$current]['title'], 'simple-download-monitor' )."</h2>";
+
+	echo '<div id="poststuff">';
+	echo '<div id="post-body">';
 	echo '<h2 class="nav-tab-wrapper">';
 	echo wp_kses(
 		$content,
@@ -422,6 +436,8 @@ function sdm_create_logs_page() {
 		sdm_handle_logs_main_tab_page();
 	}
 
+	echo '</div>'; //<!-- end of post-body -->
+	echo '</div>'; //<!-- end of poststuff -->
 	echo '</div>'; //<!-- end of wrap -->
 }
 
@@ -468,8 +484,6 @@ function sdm_handle_logs_main_tab_page() {
 	//Fetch, prepare, sort, and filter our data...
 	$sdmListTable->prepare_items();
 	?>
-
-	<h2><?php esc_html_e( 'Download Logs', 'simple-download-monitor' ); ?></h2>
 
 	<div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
 		<p><?php esc_html_e( 'This page lists all tracked downloads.', 'simple-download-monitor' ); ?></p>

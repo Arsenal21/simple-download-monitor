@@ -193,6 +193,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 = WIP =
 - Fixed nonce verification for the single entry log delete function.
 - Fixed the download button text issue with the fancy 1 & 2.
+- Specific items' logs showing issue fixed.
+- Logs menu tittle has moved above to the menu tabs.
+- New settings added to restrict certain user roles from accessing SDM admin pages. 
 
 = 3.9.23 =
 - Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.

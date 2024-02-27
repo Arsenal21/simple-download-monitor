@@ -19,8 +19,11 @@ function sdm_register_post_type() {
 		'menu_name'          => __( 'Downloads', 'simple-download-monitor' ),
 	);
 
-        //Trigger filter hook to allow overriding of the default SDM Post capability.
-        $sdm_post_capability = apply_filters( 'sdm_post_type_capability', 'manage_options' );
+	$main_opts = get_option( 'sdm_downloads_options' );
+	$admin_dashboard_access_permission = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
+    //Trigger filter hook to allow overriding of the default SDM Post capability.
+	$sdm_post_capability = apply_filters( 'sdm_post_type_capability', $admin_dashboard_access_permission );
+	
 	$capabilities = array(
 		'edit_post'          => $sdm_post_capability,
 		'delete_post'        => $sdm_post_capability,
@@ -59,6 +62,18 @@ function sdm_register_post_type() {
 
 function sdm_create_taxonomies() {
 
+	$main_opts = get_option( 'sdm_downloads_options' );
+	$admin_dashboard_access_permission = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
+    //Trigger filter hook to allow overriding of the default SDM Post capability.
+	$sdm_post_capability = apply_filters( 'sdm_post_type_capability', $admin_dashboard_access_permission );
+
+	$capabilities = array(
+		'manage_terms' 		 => $sdm_post_capability,
+		'edit_terms'   		 => $sdm_post_capability,
+		'delete_terms'  	 => $sdm_post_capability,
+		'assign_terms' 		 => $sdm_post_capability,
+	);
+
 	//*****  Create CATEGORIES Taxonomy
 	$labels_tags = array(
 		'name'              => __( 'Download Categories', 'simple-download-monitor' ),
@@ -80,6 +95,7 @@ function sdm_create_taxonomies() {
 		'query_var'         => true,
 		'rewrite'           => array( 'slug' => 'sdm_categories' ),
 		'show_admin_column' => true,
+		'capabilities'      => $capabilities,
 	);
 
 	$args_tags = apply_filters( 'sdm_downloads_categories_before_register', $args_tags );
@@ -100,6 +116,7 @@ function sdm_create_taxonomies() {
 		'new_item_name'     => __( 'New Tag', 'simple-download-monitor' ),
 		'menu_name'         => __( 'Tags', 'simple-download-monitor' ),
 	);
+
 	$args_tags   = array(
 		'hierarchical'      => false,
 		'labels'            => $labels_tags,
@@ -107,6 +124,7 @@ function sdm_create_taxonomies() {
 		'query_var'         => true,
 		'rewrite'           => array( 'slug' => 'sdm_tags' ),
 		'show_admin_column' => true,
+		'capabilities'      => $capabilities,
 	);
 
 	$args_tags = apply_filters( 'sdm_downloads_tags_before_register', $args_tags );
