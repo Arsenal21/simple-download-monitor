@@ -94,6 +94,8 @@ function sdm_generate_fancy2_display_output( $args ) {
 	'css_class'	 => 'sdm_fancy2_grid',
 	'show_size'	 => '',
 	'show_version'	 => '',
+    'more_details_url' => '', 
+    'more_details_anchor' => '',
     ), $args )
     );
 
@@ -107,6 +109,10 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     $id = intval( $id );
 
+    $more_details_url = esc_url_raw($more_details_url);
+    $more_details_anchor = sdm_sanitize_text($more_details_anchor);
+
+    
     // See if new window parameter is set
     if ( empty( $new_window ) ) {
 	$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
@@ -209,7 +215,14 @@ function sdm_generate_fancy2_display_output( $args ) {
     //apply filter on button HTML code
     $download_button_code = apply_filters( 'sdm_download_button_code_html', $download_button_code );
 
-    $output .= '<div class="sdm_fancy2_download_link">' . $download_button_code . '</div>';
+    $output .= '<div class="sdm_fancy2_download_link">';
+    if ( ! empty( $more_details_url ) ) {//Show file size info
+        $output .= '<p>';
+        $output .= '<a href="'. $more_details_url . '" class="sdm_fancy2_download_dl_link">' . $more_details_anchor . '</a>';
+        $output .= '</p>';
+    }
+    $output .= $download_button_code;
+    $output .= '</div>';
 
     $output .= '</div>'; //end .sdm_fancy2_wrapper
     $output .= '</div>'; //end .sdm_fancy2_item

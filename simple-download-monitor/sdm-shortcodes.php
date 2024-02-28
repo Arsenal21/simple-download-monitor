@@ -73,6 +73,8 @@ function sdm_create_download_shortcode( $atts ) {
 				'css_class'    => '',
 				'show_size'    => '',
 				'show_version' => '',
+				'more_details_url' => "", 
+				'more_details_anchor' => __('More Details', 'simple-download-monitor'),
 			),
 			$atts
 		)
