@@ -3,15 +3,15 @@
  * Creates/adds the other admin menu page links to the main SDM custom post type menu
  */
 
-function sdm_handle_admin_menu() {
-	$main_opts = get_option( 'sdm_downloads_options' );
-	$access_capability = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
+ function sdm_handle_admin_menu() {
+	$sdm_admin_access_permission =  get_sdm_admin_access_permission();
+	$sdm_pages_capability = apply_filters("sdm_pages_capability", $sdm_admin_access_permission);
 
-	//*****  Create the 'logs' and 'settings' submenu pages
-	$sdm_logs_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Logs', 'simple-download-monitor' ), __( 'Logs', 'simple-download-monitor' ), $access_capability, 'sdm-logs', 'sdm_create_logs_page' );
-	$sdm_stats_page     = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Stats', 'simple-download-monitor' ), __( 'Stats', 'simple-download-monitor' ), $access_capability, 'sdm-stats', 'sdm_create_stats_page' );
-	$sdm_settings_page = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Settings', 'simple-download-monitor' ), __( 'Settings', 'simple-download-monitor' ), $access_capability, 'sdm-settings', 'sdm_create_settings_page' );
-	$sdm_addons_page   = add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Add-ons', 'simple-download-monitor' ), __( 'Add-ons', 'simple-download-monitor' ), $access_capability, 'sdm-addons', 'sdm_create_addons_page' );
+	// Create the 'logs' and 'settings' submenu pages
+	add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Logs', 'simple-download-monitor' ), __( 'Logs', 'simple-download-monitor' ), $sdm_pages_capability, 'sdm-logs', 'sdm_create_logs_page' );
+	add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Stats', 'simple-download-monitor' ), __( 'Stats', 'simple-download-monitor' ), $sdm_pages_capability, 'sdm-stats', 'sdm_create_stats_page' );
+	add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Settings', 'simple-download-monitor' ), __( 'Settings', 'simple-download-monitor' ), $sdm_pages_capability, 'sdm-settings', 'sdm_create_settings_page' );
+	add_submenu_page( 'edit.php?post_type=sdm_downloads', __( 'Add-ons', 'simple-download-monitor' ), __( 'Add-ons', 'simple-download-monitor' ), $sdm_pages_capability, 'sdm-addons', 'sdm_create_addons_page' );
 }
 
 add_filter( 'allowed_options', 'sdm_admin_menu_function_hook' );
@@ -387,19 +387,19 @@ function sdm_create_logs_page() {
 	);
 	
 	$current = 'sdm-logs';
-	if ( isset( $_GET['page'] ) && isset( $_GET['action'] ) ) {
-		$current = sanitize_text_field( $_GET['action'] );
+	if ( isset( $_GET['page'] ) && isset( $_GET['tab'] ) ) {
+		$current = sanitize_text_field( $_GET['tab'] );
 	}
 
 	$content = '';
-	foreach ( $sdm_logs_menu_tabs as $action => $tab ) {
-		$action_query = '&action=' . $action;
-		if ( $current === $action ) {
+	foreach ( $sdm_logs_menu_tabs as $tab_slug => $tab ) {
+		$tab_query = '&tab=' . $tab_slug;
+		if ( $current === $tab_slug ) {
 			$class = ' nav-tab-active';
 		} else {
 			$class = '';
 		}
-		$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=sdm-logs' . $action_query . '">' . $tab['name'] . '</a>';
+		$content .= '<a class="nav-tab' . $class . '" href="?post_type=sdm_downloads&page=sdm-logs' . $tab_query . '">' . $tab['name'] . '</a>';
 	}
 
 	echo "<h2>" . esc_html__( $sdm_logs_menu_tabs[$current]['title'], 'simple-download-monitor' )."</h2>";
@@ -418,8 +418,8 @@ function sdm_create_logs_page() {
 	);
 	echo '</h2>';
 
-	if ( isset( $_GET['action'] ) ) {
-		switch ( $_GET['action'] ) {
+	if ( isset( $_GET['tab'] ) ) {
+		switch ( $_GET['tab'] ) {
 			case 'sdm-logs-by-download':
 				include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-individual-item-logs-page.php';
 				sdm_handle_individual_logs_tab_page();

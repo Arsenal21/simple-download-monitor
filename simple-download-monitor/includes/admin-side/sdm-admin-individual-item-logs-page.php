@@ -11,7 +11,7 @@ function sdm_handle_individual_logs_tab_page() {
 
 		if ( ! empty( $sdm_specific_download_id ) ) {
 			check_admin_referer( 'sdm_view_specific_download_id_log' );
-			$target_url = 'edit.php?post_type=sdm_downloads&page=sdm-logs&action=sdm-logs-by-download&sdm_logs_dl_id=' . $sdm_specific_download_id;
+			$target_url = 'edit.php?post_type=sdm_downloads&page=sdm-logs&tab=sdm-logs-by-download&sdm_logs_dl_id=' . $sdm_specific_download_id;
 			
 			$view_log_sdm_nonce = wp_create_nonce('sdm_view_log_nonce');
 			$nonced_new_url = add_query_arg ( '_wpnonce', $view_log_sdm_nonce, $target_url);
@@ -51,7 +51,15 @@ function sdm_handle_individual_logs_tab_page() {
 	if ( isset( $sdm_logs_dl_id ) && ! empty( $sdm_logs_dl_id ) ) {
 		//Show the specific item logs
 
-		check_admin_referer( 'sdm_view_log_nonce' );
+		/**
+		 * Check if the current request is a post request by WP_List_Table, if so, skip the nonce check. Otherwise the code will not proceed due a nonce collision. 
+		 * Otherwise do the nonce check for showing specific items log.
+		 * 
+		 * The nonce check for WP_List_Table related operations will take place in the sdm_List_Table class.
+		 */
+		if (!isset($_POST['action'])) {
+			check_admin_referer( 'sdm_view_log_nonce' );
+		}
 
 		$page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
 

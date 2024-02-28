@@ -194,8 +194,10 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Fixed nonce verification for the single entry log delete function.
 - Fixed the download button text issue with the fancy 1 & 2.
 - Specific items' logs showing issue fixed.
+- Bulk delete issue fixed in specific item logs page.
 - Logs menu tittle has moved above to the menu tabs.
-- New settings added to restrict certain user roles from accessing SDM admin pages. 
+- New settings added to restrict certain user roles from accessing SDM admin pages.
+- New feature added to include a 'more details' link below the description section of the fancy 1 and 2 templates. 
 
 = 3.9.23 =
 - Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.

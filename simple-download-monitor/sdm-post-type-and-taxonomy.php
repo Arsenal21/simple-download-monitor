@@ -19,10 +19,9 @@ function sdm_register_post_type() {
 		'menu_name'          => __( 'Downloads', 'simple-download-monitor' ),
 	);
 
-	$main_opts = get_option( 'sdm_downloads_options' );
-	$admin_dashboard_access_permission = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
+	$sdm_admin_access_permission = get_sdm_admin_access_permission();
     //Trigger filter hook to allow overriding of the default SDM Post capability.
-	$sdm_post_capability = apply_filters( 'sdm_post_type_capability', $admin_dashboard_access_permission );
+	$sdm_post_capability = apply_filters( 'sdm_post_type_capability', $sdm_admin_access_permission );
 	
 	$capabilities = array(
 		'edit_post'          => $sdm_post_capability,
@@ -62,16 +61,15 @@ function sdm_register_post_type() {
 
 function sdm_create_taxonomies() {
 
-	$main_opts = get_option( 'sdm_downloads_options' );
-	$admin_dashboard_access_permission = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
-    //Trigger filter hook to allow overriding of the default SDM Post capability.
-	$sdm_post_capability = apply_filters( 'sdm_post_type_capability', $admin_dashboard_access_permission );
+    $sdm_admin_access_permission = get_sdm_admin_access_permission();
+	//Trigger filter hook to allow overriding of the default SDM taxonomies capability.
+	$sdm_taxonomies_capability = apply_filters( 'sdm_taxonomies_capability', $sdm_admin_access_permission );
 
 	$capabilities = array(
-		'manage_terms' 		 => $sdm_post_capability,
-		'edit_terms'   		 => $sdm_post_capability,
-		'delete_terms'  	 => $sdm_post_capability,
-		'assign_terms' 		 => $sdm_post_capability,
+		'manage_terms' 		 => $sdm_taxonomies_capability,
+		'edit_terms'   		 => $sdm_taxonomies_capability,
+		'delete_terms'  	 => $sdm_taxonomies_capability,
+		'assign_terms' 		 => $sdm_taxonomies_capability,
 	);
 
 	//*****  Create CATEGORIES Taxonomy

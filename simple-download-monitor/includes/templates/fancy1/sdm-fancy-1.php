@@ -70,6 +70,8 @@ function sdm_generate_fancy1_display_output( $args ) {
 	'css_class'	 => '',
 	'show_size'	 => '',
 	'show_version'	 => '',
+    'more_details_url' => '', 
+    'more_details_anchor' => '',
     ), $args )
     );
 
@@ -87,6 +89,9 @@ function sdm_generate_fancy1_display_output( $args ) {
 
     $id        = intval( $id );
     $color     = sdm_sanitize_text( $color );
+
+    $more_details_url = esc_url_raw($more_details_url);
+    $more_details_anchor = sdm_sanitize_text($more_details_anchor);
 
     // Read plugin settings
     $main_opts = get_option( 'sdm_downloads_options' );
@@ -168,7 +173,14 @@ function sdm_generate_fancy1_display_output( $args ) {
 
     // Get CPT description
     $isset_item_description = sdm_get_item_description_output( $id );//This will return sanitized output.
-    $output .= '<div class="sdm_download_description">' . $isset_item_description . '</div>';
+    $output .= '<div class="sdm_download_description">';
+    $output .= $isset_item_description;
+    if ( ! empty( $more_details_url ) ) {//Show file size info
+        $output	 .= '<p class="sdm_download_details_link">';
+        $output .= '<a href="'. $more_details_url . '">' . $more_details_anchor . '</a>';
+        $output	 .= '</p>'; //End of .sdm_download_item_top
+    }
+    $output .= '</div>';
 
     //This hook can be used to add content below the description in fancy1 template
     $params = array( 'id' => $id );
