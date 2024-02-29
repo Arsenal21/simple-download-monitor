@@ -598,7 +598,7 @@ class simpleDownloadManager {
 			'edit_posts'           => translate_user_role( 'Contributor' ),
 		);
 		$default  = 'manage_options';
-		$msg      = __( 'SDM admin dashboard is accessible to admin users only (just like any other plugin). You can allow users with other WP user roles to access the SDM admin dashboard by selecting a value here.', 'simple-download-monitor' );
+		$msg = __( 'The SDM plugin\'s admin dashboard is accessible to administrator users only (just like any other plugin). You can allow users with other WP user roles to access the SDM admin dashboard by selecting a value here.', 'simple-download-monitor' );
 		
 		$selected = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : $default;
 		

@@ -404,8 +404,6 @@ function sdm_create_logs_page() {
 
 	echo "<h2>" . esc_html__( $sdm_logs_menu_tabs[$current]['title'], 'simple-download-monitor' )."</h2>";
 
-	echo '<div id="poststuff">';
-	echo '<div id="post-body">';
 	echo '<h2 class="nav-tab-wrapper">';
 	echo wp_kses(
 		$content,
@@ -436,8 +434,6 @@ function sdm_create_logs_page() {
 		sdm_handle_logs_main_tab_page();
 	}
 
-	echo '</div>'; //<!-- end of post-body -->
-	echo '</div>'; //<!-- end of poststuff -->
 	echo '</div>'; //<!-- end of wrap -->
 }
 
