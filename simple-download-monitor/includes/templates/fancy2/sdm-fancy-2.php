@@ -176,9 +176,9 @@ function sdm_generate_fancy2_display_output( $args ) {
     }
     $isset_item_version	 = ($show_version && isset( $item_version )) ? $item_version : ''; //check if show_version is enabled and if there is a version value
     // check show date in fancy display
-    $show_date_fd		 = get_post_meta( $id, 'sdm_item_show_date_fd', true );
+    $show_date_fd = get_post_meta( $id, 'sdm_item_show_date_fd', true );
     // Get item date
-    $download_date		 = get_the_date( get_option( 'date_format' ), $id );
+    $download_date = get_the_date( get_option( 'date_format' ), $id );
 
     $output	 = '';
     $output	 .= '<div class="sdm_fancy_template_wrapper">';//For block themes
@@ -191,36 +191,41 @@ function sdm_generate_fancy2_display_output( $args ) {
 
     $output .= '<div class="sdm_fancy2_download_title">' . esc_html($item_title) . '</div>';
 
-    if ( ! empty( $isset_item_file_size ) ) {//Show file size info if specified in the shortcode
+    //Show file size info if specified in the shortcode
+    if ( ! empty( $isset_item_file_size ) ) {
 	$output	 .= '<div class="sdm_fancy2_download_size">';
 	$output	 .= '<span class="sdm_fancy2_download_size_label">' . __( 'Size: ', 'simple-download-monitor' ) . '</span>';
 	$output	 .= '<span class="sdm_fancy2_download_size_value">' . $isset_item_file_size . '</span>';
 	$output	 .= '</div>';
     }
 
-    if ( ! empty( $isset_item_version ) ) {//Show version info if specified in the shortcode
-	$output	 .= '<div class="sdm_fancy2_download_version">';
-	$output	 .= '<span class="sdm_fancy2_download_version_label">' . __( 'Version: ', 'simple-download-monitor' ) . '</span>';
-	$output	 .= '<span class="sdm_fancy2_download_version_value">' . $isset_item_version . '</span>';
-	$output	 .= '</div>';
+    //Show version info if specified in the shortcode
+    if ( ! empty( $isset_item_version ) ) {
+        $output	 .= '<div class="sdm_fancy2_download_version">';
+        $output	 .= '<span class="sdm_fancy2_download_version_label">' . __( 'Version: ', 'simple-download-monitor' ) . '</span>';
+        $output	 .= '<span class="sdm_fancy2_download_version_value">' . $isset_item_version . '</span>';
+        $output	 .= '</div>';
     }
 
-    if ( $show_date_fd ) {//Show version info if specified in the shortcode
-	$output	 .= '<div class="sdm_fancy2_download_date">';
-	$output	 .= '<span class="sdm_fancy2_download_date_label">' . __( 'Published: ', 'simple-download-monitor' ) . '</span>';
-	$output	 .= '<span class="sdm_fancy2_download_date_value">' . $download_date . '</span>';
-	$output	 .= '</div>';
+    //Show date info if specified in the shortcode
+    if ( $show_date_fd ) {
+        $output	 .= '<div class="sdm_fancy2_download_date">';
+        $output	 .= '<span class="sdm_fancy2_download_date_label">' . __( 'Published: ', 'simple-download-monitor' ) . '</span>';
+        $output	 .= '<span class="sdm_fancy2_download_date_value">' . $download_date . '</span>';
+        $output	 .= '</div>';
     }
 
-    //apply filter on button HTML code
-    $download_button_code = apply_filters( 'sdm_download_button_code_html', $download_button_code );
+    //Show more details link if specified in the shortcode
+    if ( ! empty( $more_details_url ) ) {
+        $output .= '<div class="sdm_fancy2_more_details_link_section">';
+        $output .= '<a href="'. $more_details_url . '" class="sdm_fancy2_more_details_link">' . $more_details_anchor . '</a>';
+        $output .= '</div>';
+    }
 
+    //Show the download button
+    //Apply filter on button HTML code
+    $download_button_code = apply_filters( 'sdm_download_button_code_html', $download_button_code );    
     $output .= '<div class="sdm_fancy2_download_link">';
-    if ( ! empty( $more_details_url ) ) {//Show file size info
-        $output .= '<p>';
-        $output .= '<a href="'. $more_details_url . '" class="sdm_fancy2_download_dl_link">' . $more_details_anchor . '</a>';
-        $output .= '</p>';
-    }
     $output .= $download_button_code;
     $output .= '</div>';
 

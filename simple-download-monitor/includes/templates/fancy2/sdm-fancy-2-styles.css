@@ -37,11 +37,16 @@
     max-width: 100%;
 }
 
+.sdm_fancy2_more_details_link_section{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .sdm_fancy2_download_link{
     text-align: center;
 }
 
-.sdm_fancy2_download_dl_link{
+.sdm_fancy2_download_dl_link, .sdm_fancy2_more_details_link{
     border: 3px solid #2D3140;    
     color: #2D3140;
     padding: 5px 10px;
@@ -49,7 +54,7 @@
     text-decoration: none !important;
 }
 
-.sdm_fancy2_download_dl_link:hover{
+.sdm_fancy2_download_dl_link:hover, .sdm_fancy2_more_details_link:hover{
     color: #FFF;
     background-color: #2D3140;
 }
