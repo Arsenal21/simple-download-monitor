@@ -675,5 +675,6 @@ function get_dl_button_text($download_id = null){
 function get_sdm_admin_access_permission(){
 	$main_opts = get_option( 'sdm_downloads_options' );
 	$admin_dashboard_access_permission = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : 'manage_options';
-    return $admin_dashboard_access_permission;
+    $admin_dashboard_access_permission = apply_filters("sdm_dashboard_access_role", $admin_dashboard_access_permission);
+	return $admin_dashboard_access_permission;
 }

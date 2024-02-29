@@ -30,10 +30,10 @@ class SDM_Admin_Edit_Download {
 		// terminates the script if the nonce verification fails.
 		check_ajax_referer( 'sdm_remove_thumbnail_nonce_action', 'sdm_remove_thumbnail_nonce' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			// Permission denied
-			wp_die( esc_html( __( 'Permission denied!', 'simple-download-monitor' ) ) );
-			exit;
+		$dashboard_access_role = get_sdm_admin_access_permission();
+		if ( ! current_user_can( $dashboard_access_role ) ) {
+			//not permissions for current user
+			wp_die( 'You do not have permission to access this settings page.' );
 		}
 
 		// Go ahead with the thumbnail removal

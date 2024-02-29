@@ -365,7 +365,8 @@ function sdm_admin_menu_advanced_settings() {
  * Logs menu page
  */
 function sdm_create_logs_page() {
-	if ( ! current_user_can( 'manage_options' ) ) {
+	$dashboard_access_role = get_sdm_admin_access_permission();
+	if ( ! current_user_can( $dashboard_access_role ) ) {
 		wp_die( 'You do not have permission to access this settings page.' );
 	}
 

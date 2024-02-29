@@ -177,9 +177,10 @@ function sdm_reset_log_handler() {
 		wp_die( 0 );
 	}
 
-	if ( ! current_user_can( 'manage_options' ) ) {
+	$dashboard_access_role = get_sdm_admin_access_permission();
+	if ( ! current_user_can( $dashboard_access_role ) ) {
 		//not permissions for current user
-		wp_die( 0 );
+		wp_die( 'You do not have permission to access this settings page.' );
 	}
 
 	SDM_Debug::reset_log();
@@ -193,9 +194,10 @@ function sdm_delete_data_handler() {
 		wp_die( 0 );
 	}
 
-	if ( ! current_user_can( 'manage_options' ) ) {
+	$dashboard_access_role = get_sdm_admin_access_permission();
+	if ( ! current_user_can( $dashboard_access_role ) ) {
 		//not permissions for current user
-		wp_die( 0 );
+		wp_die( 'You do not have permission to access this settings page.' );
 	}
 
 	global $wpdb;
