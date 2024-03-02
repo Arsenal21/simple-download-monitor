@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker, tracking, hits, logging, monitor, manager, files, media, digital, download monitor, download manager, downloadmanager, file manager, protect downloads, password, download category, file tree, ajax, download template, grid, documents, ip address
 Requires at least: 5.5
 Tested up to: 6.4
-Stable tag: 3.9.23
+Stable tag: 3.9.24
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -190,14 +190,15 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
-- Fixed nonce verification for the single entry log delete function.
-- Fixed the download button text issue with the fancy 1 & 2.
-- Specific items' logs showing issue fixed.
-- Bulk delete issue fixed in specific item logs page.
-- Logs menu tittle has moved above to the menu tabs.
-- New settings added to restrict certain user roles from accessing SDM admin pages.
-- New feature added to include a 'more details' link below the description section of the fancy 1 and 2 templates. 
+= 3.9.24 =
+- New settings added to allow the admin to specify if other WP User roles can view the plugin's admin dashboard.
+- Added a new shortcode parameter (more_detail_url) that can bused to show a link below the description section of the fancy 1 and 2 templates.
+- The 'more details' Shortcode usage example is available in the [documentation here](https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/#showing-a-more-details-link) 
+- Fixed an issue with the single entry log delete function.
+- Fixed the custom download button text issue with the fancy 1 & 2 templates.
+- Fixed an issue with the specific items logs menu now showing correctly.
+- Bulk delete issue fixed in specific item logs tab.
+- Logs menu tittle has been moved above to the menu tabs.
 
 = 3.9.23 =
 - Improved the [sdm_download_counter id="ALL"] shortcode's query parameter handling.
