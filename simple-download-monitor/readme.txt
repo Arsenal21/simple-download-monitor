@@ -248,6 +248,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Added a filter to the fancy2 shortcode output so it can be customized.
 - Added a filter to the fancy1 shortcode output so it can be customized.
 
+Full changelog available [at change-log-of-old-versions.txt](https://plugins.svn.wordpress.org/simple-download-monitor/trunk/change-log-of-old-versions.txt)
+
 == Upgrade Notice ==
 
 Download monitor 2.0 uses a completely new architecture (it is much simpler and user friendly) for configuring and monitoring downloads. Read the usage section to understand how it works.
