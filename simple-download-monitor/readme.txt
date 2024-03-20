@@ -192,6 +192,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - Added an isset check for the "download_id" variable in the download request handler.
+- Fixed $id variable not defined warning in category shortcode.
 
 = 3.9.24 =
 - New settings added to allow the admin to specify if other WP User roles can view the plugin's admin dashboard.
