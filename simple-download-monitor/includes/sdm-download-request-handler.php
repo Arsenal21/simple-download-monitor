@@ -4,14 +4,13 @@
 function handle_sdm_download_via_direct_post() {
 	if ( (isset( $_REQUEST['smd_process_download'] ) && $_REQUEST['smd_process_download'] == '1') || (isset( $_REQUEST['sdm_process_download'] ) && $_REQUEST['sdm_process_download'] == '1') ) {
 		global $wpdb;
-		$download_id    = absint( $_REQUEST['download_id'] );
-		$download_title = get_the_title( $download_id );
-		$download_link  = get_post_meta( $download_id, 'sdm_upload', true );
-
-		//Do some validation checks
+		$download_id = isset( $_REQUEST['download_id'] ) ? absint( $_REQUEST['download_id'] ) : 0;
 		if ( ! $download_id ) {
 			wp_die( __( 'Error! Incorrect download item id.', 'simple-download-monitor' ) );
 		}
+
+		$download_title = get_the_title( $download_id );
+		$download_link = get_post_meta( $download_id, 'sdm_upload', true );		
 		if ( empty( $download_link ) ) {
 			wp_die( printf( __( 'Error! This download item (%s) does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor' ), $download_id ) );
 		}

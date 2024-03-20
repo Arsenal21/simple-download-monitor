@@ -190,6 +190,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Added an isset check for the "download_id" variable in the download request handler.
+
 = 3.9.24 =
 - New settings added to allow the admin to specify if other WP User roles can view the plugin's admin dashboard.
 - Added a new shortcode parameter (more_detail_url) that can bused to show a link below the description section of the fancy 1 and 2 templates.
