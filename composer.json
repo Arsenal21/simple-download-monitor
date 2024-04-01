@@ -2,7 +2,7 @@
     "name": "tthq/sdm",
     "autoload": {
         "psr-4": {
-            "TTHQ\\SDM\\": "tests/"
+            "TTHQ\\SDM\\Tests\\": "tests/"
         }
     },
 
@@ -25,7 +25,6 @@
     "require-dev": {
 		"phpcompatibility/phpcompatibility-wp": "~2.1.3",
 		"yoast/phpunit-polyfills": "^1.1.0",
-        "brain/monkey": "^2.6",
         "adilrabid/wp-tests-lib-custom": "^1.0"
     }
 }
