@@ -1,0 +1,19 @@
+{
+    "name": "tthq/sdm",
+    "autoload": {
+        "psr-4": {
+            "TTHQ\\SDM\\Tests\\": "tests/"
+        }
+    },
+
+    "repositories": [
+        {
+            "url": "https://github.com/adilrabid/wp-tests-lib.git",
+            "type": "git"
+        }
+    ],
+
+    "require-dev": {
+        "adilrabid/wp-tests-lib": "dev-master"
+    }
+}
