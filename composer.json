@@ -8,23 +8,12 @@
 
     "repositories": [
         {
-            "type": "package",
-            "package": {
-                "name": "adilrabid/wp-tests-lib-custom",
-                "version": "1.0.0",
-                "type": "test-library",
-                "source": {
-                    "url": "https://github.com/adilrabid/wp-tests-lib-custom.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
+            "url": "https://github.com/adilrabid/wp-tests-lib.git",
+            "type": "git"
         }
     ],
 
     "require-dev": {
-		"phpcompatibility/phpcompatibility-wp": "~2.1.3",
-		"yoast/phpunit-polyfills": "^1.1.0",
-        "adilrabid/wp-tests-lib-custom": "^1.0"
+        "adilrabid/wp-tests-lib": "dev-master"
     }
 }

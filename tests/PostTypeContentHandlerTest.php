@@ -4,11 +4,6 @@ declare (strict_types = 1);
 
 namespace TTHQ\SDM\Tests;
 
-use Brain\Monkey;
-use Brain\Monkey\Functions;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
-
 class PostTypeContentHandlerTest extends \WP_UnitTestCase
 {
     public static function set_up_before_class()
@@ -53,6 +48,8 @@ class PostTypeContentHandlerTest extends \WP_UnitTestCase
     }
 
     /**
+     * @covers filter_sdm_post_type_title
+     *
      * @dataProvider data_filter_sdm_post_type_title
      */
     public function test_filter_sdm_post_type_title(string $title, int | null $id): void
@@ -64,6 +61,8 @@ class PostTypeContentHandlerTest extends \WP_UnitTestCase
     }
 
     /**
+     * @covers filter_sdm_post_type_content
+     *
      * @dataProvider data_filter_sdm_post_type_content
      */
     public function test_filter_sdm_post_type_content(
@@ -129,9 +128,26 @@ class PostTypeContentHandlerTest extends \WP_UnitTestCase
         }else{
             $this->assertStringContainsString( '<div class="sdm_download_link">', $result );
         }
+    }
 
-//        echo PHP_EOL;
-//        print_r($filterd_content);
+    /**
+     * @covers sdm_get_item_description_output
+     */
+    public function test_sdm_get_item_description_output()
+    {
+        $test_sdm_description = "A test SDM description";
+        $test_post = self::factory()->post->create_and_get([
+            'post_title' => "A test Post title",
+            'post_content' => "A test Post Content",
+            'post_type' => 'sdm_downloads',
+        ]);
+
+        add_post_meta( $test_post->ID, 'sdm_description', $test_sdm_description );
+
+        $result = sdm_get_item_description_output($test_post->ID);
+        $expected = wpautop($test_sdm_description);
+
+        $this->assertSame($expected, $result);
     }
 
     public static function data_filter_sdm_post_type_title()

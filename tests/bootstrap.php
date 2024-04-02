@@ -4,7 +4,7 @@ define('PROJECT_DIR', dirname(dirname( __FILE__ )));
 
 require_once PROJECT_DIR . '/vendor/autoload.php';
 
-define('WP_TESTS_LIB_DIR', PROJECT_DIR . '/vendor/adilrabid/wp-tests-lib-custom');
+define('WP_TESTS_LIB_DIR', PROJECT_DIR . '/vendor/adilrabid/wp-tests-lib');
 define('WP_TESTS_CONFIG_FILE_PATH', PROJECT_DIR . '/tests/wp-tests-config.php');
 
 

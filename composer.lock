@@ -4,18 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79f214e570fb282e56104bf1b459cdf1",
+    "content-hash": "69635b03cea1689af0d4eea4b07b8312",
     "packages": [],
     "packages-dev": [
         {
-            "name": "adilrabid/wp-tests-lib-custom",
-            "version": "1.0.0",
+            "name": "adilrabid/wp-tests-lib",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/adilrabid/wp-tests-lib-custom.git",
-                "reference": "master"
+                "url": "https://github.com/adilrabid/wp-tests-lib.git",
+                "reference": "3db5c904c4b3a571e20161af04af42016911bcdc"
             },
-            "type": "test-library"
+            "require": {
+                "phpcompatibility/phpcompatibility-wp": "~2.1.3",
+                "yoast/phpunit-polyfills": "^1.1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "authors": [
+                {
+                    "name": "adilrabid"
+                }
+            ],
+            "description": "\"A customized version of wordporess-tests-lib\"",
+            "time": "2024-04-02T05:44:28+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1883,16 +1895,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.0",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b"
+                "reference": "267a4405fff1d9c847134db3a3c92f1ab7f77909"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
-                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/267a4405fff1d9c847134db3a3c92f1ab7f77909",
+                "reference": "267a4405fff1d9c847134db3a3c92f1ab7f77909",
                 "shasum": ""
             },
             "require": {
@@ -1959,7 +1971,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-16T15:06:51+00:00"
+            "time": "2024-03-31T21:03:09+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -2074,7 +2086,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "adilrabid/wp-tests-lib": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
