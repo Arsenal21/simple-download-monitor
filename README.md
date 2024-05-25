@@ -8,8 +8,6 @@ This plugin is very useful for managing and tracking your digital file download 
 
 You can password protect your downloadable files too (visitors will require a password before downloading the file when you use this option).
 
-There is an option to show an ajax file tree browser so your visitors can browse all your files and download the ones they want.
-
 You can configure downloadable files from your WordPress admin dashboard via an elegant user interface. Then allow your visitors to download the files and this plugin will monitor which files get downloaded how many times.
 
 The plugin will log the IP addresses of the users who download your digital files.

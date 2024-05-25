@@ -17,8 +17,6 @@ This plugin is very useful for managing and tracking your digital file download 
 
 You can password protect your downloadable files and documents too (visitors will require a password before downloading the file when you use this option).
 
-There is an option to show an ajax file tree browser so your visitors can browse all your files and download the ones they want.
-
 You can configure downloadable files from your WordPress admin dashboard via an elegant user interface. Then allow your visitors to download the files and this plugin will monitor which files get downloaded how many times.
 
 The plugin will log the IP addresses of the users who download your digital files and documents. It will also log the date and time of each download.
@@ -72,6 +70,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Option to specify version number info for the download item so it can be shown to your visitors.
 * Option to show the download published date.
 * Option to restrict downloads to logged-in users only. [View the tutorial](https://simple-download-monitor.com/offering-downloads-to-logged-in-users-members-only/)
+* There is an option to show an ajax file tree browser so your visitors can browse all your files and download the ones they want.
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
 * Option to add Terms and Condtions to your download buttons.
