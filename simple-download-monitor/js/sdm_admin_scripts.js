@@ -11,7 +11,15 @@ jQuery(document).ready(function ($) {
             },
             multiple: false
         });
+
+        if(typeof sdm_file_protection !== 'undefined' && sdm_file_protection['sdm_upload_to_protected_dir'] == '1'){
+            selectFileFrame.on('open', function() {
+                selectFileFrame.uploader.uploader.param('sdm_upload_to_protected_dir', true);
+            });
+        }
+            
         selectFileFrame.open();
+
         selectFileFrame.on('select', function () {
             var attachment = selectFileFrame.state().get('selection').first().toJSON();
 
