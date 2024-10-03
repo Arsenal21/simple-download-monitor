@@ -40,6 +40,7 @@ function sdm_admin_menu_function_hook( $allowed_options = array() ) {
 	$allowed_options['termscond_options_section'] = array( 'sdm_advanced_options' );
 	$allowed_options['adsense_options_section']   = array( 'sdm_advanced_options' );
 	$allowed_options['maps_api_options_section']  = array( 'sdm_advanced_options' );
+	$allowed_options['file_protection_options_section']  = array( 'sdm_advanced_options' );
 
 	return $allowed_options;
 }
@@ -92,6 +93,7 @@ function sdm_create_settings_page() {
 	$wpsdm_plugin_tabs = array(
 		'sdm-settings'                          => __( 'General Settings', 'simple-download-monitor' ),
 		'sdm-settings&action=advanced-settings' => __( 'Advanced Settings', 'simple-download-monitor' ),
+		'sdm-settings&action=security-settings' => __( 'Security Settings', 'simple-download-monitor' ),
 	);
 	$current           = '';
 	if ( isset( $_GET['page'] ) ) {
@@ -125,6 +127,9 @@ function sdm_create_settings_page() {
 			switch ( $action ) {
 				case 'advanced-settings':
 					sdm_admin_menu_advanced_settings();
+					break;
+				case 'security-settings':
+					sdm_admin_menu_security_settings();
 					break;
 			}
 		} else {
@@ -358,6 +363,12 @@ function sdm_admin_menu_advanced_settings() {
 
 	do_settings_sections( 'maps_api_options_section' );
 	settings_fields( 'maps_api_options_section' );
+	submit_button();
+}
+
+function sdm_admin_menu_security_settings(){
+	do_settings_sections( 'file_protection_options_section' );
+	settings_fields( 'file_protection_options_section' );
 	submit_button();
 }
 

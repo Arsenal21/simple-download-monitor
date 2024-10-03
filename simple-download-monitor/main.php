@@ -34,6 +34,7 @@ require_once 'includes/sdm-logs-list-table.php';
 require_once 'includes/sdm-latest-downloads.php';
 require_once 'includes/sdm-popular-downloads.php';
 require_once 'includes/sdm-search-shortcode-handler.php';
+require_once 'includes/file-protection/sdm-file-protection-handler.php';
 require_once 'sdm-post-type-and-taxonomy.php';
 require_once 'sdm-shortcodes.php';
 require_once 'sdm-post-type-content-handler.php';
@@ -103,6 +104,9 @@ function sdm_init_time_tasks() {
 
 	//Check if the redirect option is being used
 	sdm_check_redirect_query_and_settings();
+
+	// Check if security feature is being used
+	SDM_File_Protection_Handler::sdm_check_security_settings();
 
 	if ( is_admin() ) {
 		//Register Google Charts library
@@ -297,6 +301,12 @@ class simpleDownloadManager {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
 			wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
+			if(SDM_File_Protection_Handler::is_file_protection_enable()){
+				wp_localize_script('sdm-upload', 'sdm_file_protection', array(
+					'sdm_upload_to_protected_dir' => true,
+				));
+			}
+			
 			wp_enqueue_script( 'sdm-upload' );
 
 			// Localize langauge strings used in js file
@@ -408,21 +418,29 @@ class simpleDownloadManager {
 		add_settings_section( 'termscond_options', __( 'Terms and Conditions', 'simple-download-monitor' ), array( $this, 'termscond_options_cb' ), 'termscond_options_section' );
 		add_settings_section( 'adsense_options', __( 'Adsense/Ad Insertion', 'simple-download-monitor' ), array( $this, 'adsense_options_cb' ), 'adsense_options_section' );
 		add_settings_section( 'maps_api_options', __( 'Google Maps API Key', 'simple-download-monitor' ), array( $this, 'maps_api_options_cb' ), 'maps_api_options_section' );
-
+		
 		//Add reCAPTCHA section fields
 		add_settings_field( 'recaptcha_enable', __( 'Enable reCAPTCHA', 'simple-download-monitor' ), array( $this, 'recaptcha_enable_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
 		add_settings_field( 'recaptcha_site_key', __( 'Site Key', 'simple-download-monitor' ), array( $this, 'recaptcha_site_key_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
 		add_settings_field( 'recaptcha_secret_key', __( 'Secret Key', 'simple-download-monitor' ), array( $this, 'recaptcha_secret_key_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
-
+		
 		//Add Terms & Condition section fields
 		add_settings_field( 'termscond_enable', __( 'Enable Terms and Conditions', 'simple-download-monitor' ), array( $this, 'termscond_enable_cb' ), 'termscond_options_section', 'termscond_options' );
 		add_settings_field( 'termscond_url', __( 'Terms Page URL', 'simple-download-monitor' ), array( $this, 'termscond_url_cb' ), 'termscond_options_section', 'termscond_options' );
-
+		
 		//Add Adsense section fields
 		add_settings_field( 'adsense_below_description', __( 'Below Download Description', 'simple-download-monitor' ), array( $this, 'adsense_below_description_cb' ), 'adsense_options_section', 'adsense_options' );
-
+		
 		//Maps API section fields
 		add_settings_field( 'maps_api_key', __( 'API Key', 'simple-download-monitor' ), array( $this, 'maps_api_key_cb' ), 'maps_api_options_section', 'maps_api_options' );
+		
+		/*   * ************************** */
+		/* Security Settings Section */
+		/*   * ************************** */
+		// File Protection Section
+		add_settings_section( 'file_protection_options', __( 'File Protection Settings', 'simple-download-monitor' ), array( $this, 'file_protection_options_cb' ), 'file_protection_options_section' );
+		// File Protection fields
+		add_settings_field( 'file_protection_enable', __( 'Enable File Protection', 'simple-download-monitor' ), array( $this, 'file_protection_enable_cb' ), 'file_protection_options_section', 'file_protection_options' );
 	}
 
 	public function general_options_cb() {
@@ -672,6 +690,16 @@ class simpleDownloadManager {
 				),
 			)
 		) . '</p>';
+	}
+
+	public function file_protection_options_cb() {
+		esc_html_e( 'This section is to manage file protection settings.', 'simple-download-monitor' );
+	}
+
+	public function file_protection_enable_cb() {
+		$main_opts = get_option( 'sdm_advanced_options' );
+		echo '<input name="sdm_advanced_options[file_protection_enable]" id="file_protection_enable" type="checkbox" ' . checked( 1, isset( $main_opts['file_protection_enable'] ), false ) . ' /> ';
+		echo '<p class="description">' . __('Check this box to turn on file protection', 'simple-download-monitor') . '</p>';
 	}
 
 	public function sdm_add_clone_record_btn( $action, $post ) {
