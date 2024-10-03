@@ -93,7 +93,7 @@ function sdm_create_settings_page() {
 	$wpsdm_plugin_tabs = array(
 		'sdm-settings'                          => __( 'General Settings', 'simple-download-monitor' ),
 		'sdm-settings&action=advanced-settings' => __( 'Advanced Settings', 'simple-download-monitor' ),
-		'sdm-settings&action=security-settings' => __( 'Security Settings', 'simple-download-monitor' ),
+		'sdm-settings&action=file-protection' 	=> __( 'Enhanced File Protection', 'simple-download-monitor' ),
 	);
 	$current           = '';
 	if ( isset( $_GET['page'] ) ) {
@@ -128,7 +128,7 @@ function sdm_create_settings_page() {
 				case 'advanced-settings':
 					sdm_admin_menu_advanced_settings();
 					break;
-				case 'security-settings':
+				case 'file-protection':
 					sdm_admin_menu_security_settings();
 					break;
 			}
@@ -369,6 +369,25 @@ function sdm_admin_menu_advanced_settings() {
 function sdm_admin_menu_security_settings(){
 	do_settings_sections( 'file_protection_options_section' );
 	settings_fields( 'file_protection_options_section' );
+	?>
+	<?php if(SDM_Utils_Server::is_nginx_server()) {?>
+		<div class=" notice inline notice-warning notice-alt">
+			<p>
+				<?php _e('Your website is running on nginx server. You need to do some manual stuff first. ', 'simple-download-monitor')?>
+				<br>
+				<?php _e('Add this rule to you virtual host config file:', 'simple-download-monitor')?>
+				<br>
+				<br>
+
+			<textarea rows="3" cols="50" readonly class="" style="white-space: pre; font-family: monospace; overflow: hidden; padding: 5px 8px; resize:none;">
+location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_upload_dir() ?>/ { 
+	deny all; 
+}
+			</textarea>
+			</p>
+		</div>
+	<?php } ?>
+	<?php
 	submit_button();
 }
 
