@@ -106,7 +106,7 @@ function sdm_init_time_tasks() {
 	sdm_check_redirect_query_and_settings();
 
 	// Check if security feature is being used
-	SDM_File_Protection_Handler::sdm_check_security_settings();
+	SDM_File_Protection_Handler::prepare_file_protection_environment();
 
 	if ( is_admin() ) {
 		//Register Google Charts library
@@ -301,7 +301,7 @@ class simpleDownloadManager {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
 			wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
-			if(SDM_File_Protection_Handler::is_file_protection_enable()){
+			if(SDM_File_Protection_Handler::is_file_protection_enabled()){
 				wp_localize_script('sdm-upload', 'sdm_file_protection', array(
 					'sdm_upload_to_protected_dir' => true,
 				));

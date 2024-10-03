@@ -4,8 +4,7 @@ class SDM_File_Protection_Handler {
 
 	public static $protected_dir = 'sdm_uploads';
 
-	public function __construct()
-	{
+	public function __construct() {
 		
 	}
 
@@ -13,20 +12,28 @@ class SDM_File_Protection_Handler {
 		return self::$protected_dir;
 	}
 
-	public static function is_file_protection_enable(){
+	public static function is_file_protection_enabled(){
 		$main_option = get_option( 'sdm_advanced_options' );
 		$file_protection_enable   = isset( $main_option['file_protection_enable'] ) && !empty($main_option['file_protection_enable']) ? true : false;
 
 		return $file_protection_enable;
 	}
 
-	public static function sdm_check_security_settings(){
-		if(!self::is_file_protection_enable()){
+	public static function prepare_file_protection_environment(){
+		if( !self::is_file_protection_enabled() ){
 			return;
 		}
 		
-		//Check if 'sdm_uploads' special folder and htaccess is available or not
+		// Add the filter that will be used to tell WP media uploader which folder to upload to.
+		add_filter('upload_dir', 'SDM_File_Protection_Handler::override_wp_media_upload_directory_path');
+
+		//Check if the protected folder and htaccess is available or not.
+		if( is_sdm_admin_page() ){
+			self::check_and_create_file_protection_folder();
+		}
+	}
 	
+	public static function check_and_create_file_protection_folder(){
 		// Define the directory path
 		$uploads_dir = ABSPATH. '/wp-content/uploads/sdm_uploads';
 		// Check if the sdm_uploads directory exists
@@ -52,11 +59,9 @@ class SDM_File_Protection_Handler {
 				wp_die(esc_html($e->getMessage()));
 			}
 		}
-	
-		add_filter('upload_dir', 'SDM_File_Protection_Handler::sdm_protected_upload_directory');
 	}
-	
-	public static function sdm_protected_upload_directory($upload) {
+
+	public static function override_wp_media_upload_directory_path($upload) {
 		// Check if the custom sdm directory is set in the request
 		if (isset($_POST['sdm_upload_to_protected_dir'])) {
 			// Use the custom sdm directory provided in the POST request

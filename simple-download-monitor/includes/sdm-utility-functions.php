@@ -678,3 +678,20 @@ function get_sdm_admin_access_permission(){
     $admin_dashboard_access_permission = apply_filters("sdm_dashboard_access_role", $admin_dashboard_access_permission);
 	return $admin_dashboard_access_permission;
 }
+
+/*
+ * Check if the current page is an admin page of the SDM plugin.
+ */
+function is_sdm_admin_page() {
+	if( !is_admin() ){
+		//Not an admin page
+		return false;
+	}
+
+	//Check if this is an admin page of the SDM plugin
+	if ( isset( $_GET['post_type'] ) && ( stripos( $_GET['post_type'], 'sdm_downloads' ) !== false ) ) {
+		//This is an admin page (admin menu page) of the SDM plugin
+		return true;
+	}
+	return false;
+}
