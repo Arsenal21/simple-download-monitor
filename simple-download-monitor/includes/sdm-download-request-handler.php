@@ -174,18 +174,20 @@ function handle_sdm_download_via_direct_post() {
 		// Allow plugin extensions to hook into download request.
 		do_action( 'sdm_process_download_request', $download_id, $download_link );
 
-		// Should the item be dispatched?
-		$sdm_item_dispatch = get_post_meta( $download_id, 'sdm_item_dispatch', true );
+		// Should the item be dispatched using PHP dispatch?
+		$sdm_item_php_dispatch = get_post_meta( $download_id, 'sdm_item_dispatch', true );
 		
+		// Check if the download link is located inside our protected folder.
 		if(SDM_File_Protection_Handler::is_protected_dir_path($download_link)){
-			// File Protection is on, force display download.
-			$sdm_item_dispatch = true;
+			// This file is located inside our protected folder, set PHP dispatch for it.
+			$sdm_item_php_dispatch = true;
 		}
 
-		$dispatch = apply_filters( 'sdm_dispatch_downloads', $sdm_item_dispatch );
+		// Trigger a filter so other plugins can override the PHP dispatch setting.
+		$php_dispatch = apply_filters( 'sdm_dispatch_downloads', $sdm_item_php_dispatch );
 
 		// Only local file can be dispatched.
-		if ( $dispatch && ( stripos( $download_link, WP_CONTENT_URL ) === 0 ) ) {
+		if ( $php_dispatch && ( stripos( $download_link, WP_CONTENT_URL ) === 0 ) ) {
 			// Get file path
 			$file = path_join( WP_CONTENT_DIR, ltrim( substr( $download_link, strlen( WP_CONTENT_URL ) ), '/' ) );
 			$file = realpath( $file );

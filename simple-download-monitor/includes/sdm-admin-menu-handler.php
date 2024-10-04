@@ -129,7 +129,7 @@ function sdm_create_settings_page() {
 					sdm_admin_menu_advanced_settings();
 					break;
 				case 'file-protection':
-					sdm_admin_menu_security_settings();
+					sdm_admin_menu_file_protection_settings();
 					break;
 			}
 		} else {
@@ -366,24 +366,24 @@ function sdm_admin_menu_advanced_settings() {
 	submit_button();
 }
 
-function sdm_admin_menu_security_settings(){
+function sdm_admin_menu_file_protection_settings(){
 	do_settings_sections( 'file_protection_options_section' );
 	settings_fields( 'file_protection_options_section' );
 	?>
-	<?php if(SDM_Utils_Server::is_nginx_server()) {?>
+	<?php if(SDM_Utils_Server::is_nginx_server()) { ?>
 		<div class=" notice inline notice-warning notice-alt">
 			<p>
-				<?php _e('Your website is running on nginx server. You need to do some manual stuff first. ', 'simple-download-monitor')?>
+				<?php _e('Your website is using an Nginx server. To enable this file protection feature, please update the server configuration manually. ', 'simple-download-monitor')?>
 				<br>
-				<?php _e('Add this rule to you virtual host config file:', 'simple-download-monitor')?>
+				<?php _e('Add the following rule to your virtual host configuration file:', 'simple-download-monitor')?>
 				<br>
 				<br>
 
-			<textarea rows="3" cols="50" readonly class="" style="white-space: pre; font-family: monospace; overflow: hidden; padding: 5px 8px; resize:none;">
+				<textarea rows="3" cols="50" readonly class="" style="white-space: pre; font-family: monospace; overflow: hidden; padding: 5px 8px; resize:none;">
 location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_upload_dir() ?>/ { 
 	deny all; 
 }
-			</textarea>
+				</textarea>
 			</p>
 		</div>
 	<?php } ?>
