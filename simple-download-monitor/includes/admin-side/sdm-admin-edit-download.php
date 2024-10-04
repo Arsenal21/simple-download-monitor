@@ -425,6 +425,10 @@ class SDM_Admin_Edit_Download {
 		if ( isset( $_POST['sdm_download_button_text'] ) ) {
 			update_post_meta( $post_id, 'sdm_download_button_text', sanitize_text_field( wp_unslash( $_POST['sdm_download_button_text'] ) ) );
 		}
+
+		// Adding a mark so that this post can be detection as a protection downloads.
+		$is_file_protection_enabled = SDM_File_Protection_Handler::is_file_protection_enabled() ? '1' : '0';
+		update_post_meta( $post_id, 'sdm_is_protected_download', $is_file_protection_enabled );
 	}
 }
 

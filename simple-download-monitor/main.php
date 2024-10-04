@@ -28,6 +28,7 @@ $sdm_db_version = '1.4';
 require_once 'includes/sdm-debug.php';
 require_once 'includes/sdm-utility-functions.php';
 require_once 'includes/sdm-utility-functions-admin-side.php';
+require_once 'includes/sdm-utility-server.php';
 require_once 'includes/sdm-download-request-handler.php';
 require_once 'includes/sdm-user-login-related.php';
 require_once 'includes/sdm-logs-list-table.php';

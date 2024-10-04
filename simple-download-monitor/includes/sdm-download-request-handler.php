@@ -175,7 +175,14 @@ function handle_sdm_download_via_direct_post() {
 		do_action( 'sdm_process_download_request', $download_id, $download_link );
 
 		// Should the item be dispatched?
-		$dispatch = apply_filters( 'sdm_dispatch_downloads', get_post_meta( $download_id, 'sdm_item_dispatch', true ) );
+		$sdm_item_dispatch = get_post_meta( $download_id, 'sdm_item_dispatch', true );
+		
+		if(SDM_File_Protection_Handler::is_protected_dir_path($download_link)){
+			// File Protection is on, force display download.
+			$sdm_item_dispatch = true;
+		}
+
+		$dispatch = apply_filters( 'sdm_dispatch_downloads', $sdm_item_dispatch );
 
 		// Only local file can be dispatched.
 		if ( $dispatch && ( stripos( $download_link, WP_CONTENT_URL ) === 0 ) ) {
