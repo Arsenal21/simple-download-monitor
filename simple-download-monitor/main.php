@@ -439,7 +439,7 @@ class simpleDownloadManager {
 		/* Security Settings Section */
 		/*   * ************************** */
 		// File Protection Section
-		add_settings_section( 'file_protection_options', __( 'File Protection Settings', 'simple-download-monitor' ), array( $this, 'file_protection_options_cb' ), 'file_protection_options_section' );
+		add_settings_section( 'file_protection_options', __( 'File Protection Settings', 'simple-download-monitor' ), array( $this, 'file_protection_section_callback' ), 'file_protection_options_section' );
 		// File Protection fields
 		add_settings_field( 'file_protection_enable', __( 'Enable File Protection', 'simple-download-monitor' ), array( $this, 'file_protection_enable_cb' ), 'file_protection_options_section', 'file_protection_options' );
 	}
@@ -693,14 +693,15 @@ class simpleDownloadManager {
 		) . '</p>';
 	}
 
-	public function file_protection_options_cb() {
-		esc_html_e( 'This section is to manage file protection settings.', 'simple-download-monitor' );
+	public function file_protection_section_callback() {
+		esc_html_e( 'Manage your file protection settings in this section. ', 'simple-download-monitor' );
+		_e( 'Read <a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/" target="_blank">this guide</a> to learn more about the file protection feature.', 'simple-download-monitor' );
 	}
 
 	public function file_protection_enable_cb() {
 		$main_opts = get_option( 'sdm_advanced_options' );
 		echo '<input name="sdm_advanced_options[file_protection_enable]" id="file_protection_enable" type="checkbox" ' . checked( 1, isset( $main_opts['file_protection_enable'] ), false ) . ' /> ';
-		echo '<p class="description">' . __('Check this box to turn on file protection', 'simple-download-monitor') . '</p>';
+		echo '<p class="description">' . __('Check this box to enable the file protection feature.', 'simple-download-monitor') . '</p>';
 	}
 
 	public function sdm_add_clone_record_btn( $action, $post ) {
