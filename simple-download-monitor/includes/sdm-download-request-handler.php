@@ -189,7 +189,7 @@ function handle_sdm_download_via_direct_post() {
 				wp_die( __( 'File not found.', 'simple-download-monitor' ), 404 );
 			}
 
-			$is_hidden_or_noext_file_disallowed = empty( $main_option['general_allow_hidden_noext_dispatch'] );
+			$is_hidden_or_noext_file_disallowed = isset( $main_option['general_allow_hidden_noext_dispatch'] ) ? empty( $main_option['general_allow_hidden_noext_dispatch'] ) : true;
 			//Check if hidden or no-extension file download option is allowed.
 			if( $is_hidden_or_noext_file_disallowed ){
 				//Hidden or no-extension file download is NOT allowed. Let's check if this is request for a hidden or no-ext file download.
