@@ -9,6 +9,10 @@ class SDM_Protected_Download_Request_Handler
 	}
 
 	public function handle_process_protected_download_request($download_id, $download_link){
+		if (!SDM_File_Protection_Handler::contains_protected_dirname($download_link)){
+			return;
+		}
+
 		$main_option = get_option( 'sdm_downloads_options' );
 
 		// Get protected directory file path
@@ -16,11 +20,11 @@ class SDM_Protected_Download_Request_Handler
 			$download_link,
 			 	array(
 					'uploads',
-					SDM_File_Protection_Handler::get_upload_dir()
+					SDM_File_Protection_Handler::get_protected_dirname()
 				)
 			);
 
-		// Check if the download link is located inside our protected folder.
+		// Check if the protected download path valid.
 		if(! is_file( $file_path ) ){
 			// This is not a protected file path, nothing to do here.
 			return;
