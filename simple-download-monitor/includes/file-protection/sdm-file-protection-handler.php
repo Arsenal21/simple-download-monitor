@@ -25,22 +25,6 @@ class SDM_File_Protection_Handler {
 		return $file_protection_enable;
 	}
 
-	/**
-	 * TODO: This function could be improved.
-	 *
-	 * @param string $uri Download URI
-	 * 
-	 * @return boolean
-	 */
-	public static function is_protected_dir_path($uri){
-		$pattern = "/uploads\/". self::get_upload_dir() ."/i";  // Using concatenation
-		if (preg_match($pattern, $uri)) {
-			return true;
-		}
-
-		return false;
-	}
-
 	public static function prepare_file_protection_environment(){
 		if( !self::is_file_protection_enabled() ){
 			return;
