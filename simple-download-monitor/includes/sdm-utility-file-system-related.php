@@ -46,20 +46,20 @@ class SDM_Utils_File_System_Related {
 
 	/**
 	 * Get path of a file that resides in wp-content directory from the file's url.
-	 * If sub directory provided, the result will be evaluated with sub directory as well.
+	 * If subdirectory provided, the result will be evaluated with subdirectory as well.
 	 *
 	 * @param string $file_url File URL
-	 * @param string|array $sub_dir Sub file directory as string. Use array for nested directories.
+	 * @param array $sub_dirs  Subdirectory. Use multiple items for nested directories.
 	 * 
 	 * @return string|false File Path. FALSE if path couldn't be resolved.
 	 */
-	public static function get_uploaded_file_path_from_url($file_url, $sub_dir = ''){
-		if(!empty($sub_dir)){
-			$sub_dir = is_array($sub_dir) ? implode(DIRECTORY_SEPARATOR, $sub_dir) : $sub_dir;
-			$sub_dir = trim(trim($sub_dir), DIRECTORY_SEPARATOR);
+	public static function get_uploaded_file_path_from_url($file_url, $sub_dirs = array()){
+		if(!empty($sub_dirs)){
+			$sub_dirs = implode(DIRECTORY_SEPARATOR, $sub_dirs);
+			$sub_dirs = trim(trim($sub_dirs), DIRECTORY_SEPARATOR);
 
-			$wp_content_dir = path_join(WP_CONTENT_DIR, $sub_dir);
-			$wp_content_url = rtrim(WP_CONTENT_URL, '/') . '/' . $sub_dir;
+			$wp_content_dir = path_join(WP_CONTENT_DIR, $sub_dirs);
+			$wp_content_url = rtrim(WP_CONTENT_URL, '/') . '/' . $sub_dirs;
 		} else {
 			$wp_content_dir = WP_CONTENT_DIR;
 			$wp_content_url = WP_CONTENT_URL;
