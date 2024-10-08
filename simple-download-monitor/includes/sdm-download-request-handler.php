@@ -177,51 +177,38 @@ function handle_sdm_download_via_direct_post() {
 		// Should the item be dispatched using PHP dispatch?
 		$sdm_item_php_dispatch = get_post_meta( $download_id, 'sdm_item_dispatch', true );
 		
-		// Check if the download link is located inside our protected folder.
-		if(SDM_File_Protection_Handler::is_protected_dir_path($download_link)){
-			// This file is located inside our protected folder, set PHP dispatch for it.
-			$sdm_item_php_dispatch = true;
-		}
-
 		// Trigger a filter so other plugins can override the PHP dispatch setting.
 		$php_dispatch = apply_filters( 'sdm_dispatch_downloads', $sdm_item_php_dispatch );
 
 		// Only local file can be dispatched.
 		if ( $php_dispatch && ( stripos( $download_link, WP_CONTENT_URL ) === 0 ) ) {
 			// Get file path
-			$file = path_join( WP_CONTENT_DIR, ltrim( substr( $download_link, strlen( WP_CONTENT_URL ) ), '/' ) );
-			$file = realpath( $file );
+			$file_path = SDM_Utils_File_System_Related::get_uploaded_file_path_from_url($download_link);
 
-			if ( ! is_file( $file ) ) {
+			if ( ! is_file( $file_path ) ) {
 				wp_die( __( 'File not found.', 'simple-download-monitor' ), 404 );
 			}
 
-			$path_parts = pathinfo( $file );
-
-			if ( ( empty( $path_parts['filename'] ) || empty( $path_parts['extension'] ) ) && empty( $main_option['general_allow_hidden_noext_dispatch'] ) ) {
-				// Do not use PHP dispatch for hidden files and/or files without extension.
-				sdm_redirect_to_url( $download_link );
-				exit;
+			$is_hidden_or_noext_file_disallowed = empty( $main_option['general_allow_hidden_noext_dispatch'] );
+			//Check if hidden or no-extension file download option is allowed.
+			if( $is_hidden_or_noext_file_disallowed ){
+				//Hidden or no-extension file download is NOT allowed. Let's check if this is request for a hidden or no-ext file download.
+				if ( SDM_Utils_File_System_Related::check_is_hidden_or_no_extension_file($file_path) ) {
+					// Found a hidden or no-ext file. Do not use PHP dispatch.
+					sdm_redirect_to_url( $download_link );
+					exit;
+				}
 			}
 
-			$disallowed_ext_opt = empty( $main_option['general_disallowed_file_ext_dispatch'] ) ? simpleDownloadManager::$disallowed_ext_dispatch_def : $main_option['general_disallowed_file_ext_dispatch'];
-
-			$disallowed_ext_arr_raw = explode( ',', strtolower( $disallowed_ext_opt ) );
-
-			$disallowed_ext_arr = array();
-
-			foreach ( $disallowed_ext_arr_raw as $item ) {
-				array_push( $disallowed_ext_arr, sanitize_text_field( $item ) );
-			}
-
-			if ( in_array( strtolower( $path_parts['extension'] ), $disallowed_ext_arr, true ) ) {
+			// Check if the file extension is disallowed.
+			if ( ! SDM_Utils_File_System_Related::check_is_file_extension_allowed($file_path) ) {
 				// Disallowed file extension; Don't use PHP dispatching (instead use the normal redirect).
 				sdm_redirect_to_url( $download_link );
 				exit;
 			}
 
 			// Try to dispatch file (terminates script execution on success)
-			sdm_dispatch_file( $file );
+			sdm_dispatch_file( $file_path );
 		}
 
 		// As a fallback or when dispatching is disabled, redirect to the file
@@ -238,7 +225,6 @@ function handle_sdm_download_via_direct_post() {
  * @return void
  */
 function sdm_dispatch_file( $filename ) {
-
 	if ( headers_sent() ) {
 		trigger_error( __FUNCTION__ . ": Cannot dispatch file $filename, headers already sent." );
 		return;

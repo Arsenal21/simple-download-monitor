@@ -370,7 +370,7 @@ function sdm_admin_menu_file_protection_settings(){
 	do_settings_sections( 'file_protection_options_section' );
 	settings_fields( 'file_protection_options_section' );
 	?>
-	<?php if( SDM_Utils_Server::is_nginx_server() ) { ?>
+	<?php if( SDM_Utils_File_System_Related::is_nginx_server() ) { ?>
 		<div class=" notice inline notice-warning notice-alt">
 			<p>
 				<p>
