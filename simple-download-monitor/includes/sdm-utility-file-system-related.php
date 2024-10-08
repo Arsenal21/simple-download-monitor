@@ -51,7 +51,7 @@ class SDM_Utils_File_System_Related {
 	 * @param string $file_url File URL
 	 * @param string|array $sub_dir Sub file directory as string. Use array for nested directories.
 	 * 
-	 * @return string File Path. Empty string, if path couldn't be resolved.
+	 * @return string|false File Path. FALSE if path couldn't be resolved.
 	 */
 	public static function get_uploaded_file_path_from_url($file_url, $sub_dir = ''){
 		if(!empty($sub_dir)){
