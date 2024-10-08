@@ -381,7 +381,7 @@ function sdm_admin_menu_file_protection_settings(){
 				</p>
 				
 				<textarea rows="3" cols="50" readonly class="" style="white-space: pre; font-family: monospace; overflow: hidden; padding: 5px 8px; resize:none;">
-location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_protected_dirname() ?>/ {
+location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_protected_dir_name() ?>/ {
 	deny all; 
 }
 				</textarea>

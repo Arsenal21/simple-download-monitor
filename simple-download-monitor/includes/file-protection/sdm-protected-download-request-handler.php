@@ -20,7 +20,7 @@ class SDM_Protected_Download_Request_Handler
 			$download_link,
 			 	array(
 					'uploads',
-					SDM_File_Protection_Handler::get_protected_dirname()
+					SDM_File_Protection_Handler::get_protected_dir_name()
 				)
 			);
 

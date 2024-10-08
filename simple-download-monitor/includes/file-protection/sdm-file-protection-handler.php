@@ -2,7 +2,7 @@
 
 class SDM_File_Protection_Handler {
 
-	public static $protected_dirname = 'sdm-uploads';
+	public static $protected_dir_name = 'sdm-uploads';
 
 	public static $protected_file_thumbnail = 'sdm-file-protected.png';
 
@@ -10,8 +10,8 @@ class SDM_File_Protection_Handler {
 		
 	}
 
-	public static function get_protected_dirname(){
-		return self::$protected_dirname;
+	public static function get_protected_dir_name(){
+		return self::$protected_dir_name;
 	}
 
 	public static function get_protected_file_thumb_url(){
@@ -32,7 +32,7 @@ class SDM_File_Protection_Handler {
 	 * @return bool
 	 */
 	public static function contains_protected_dirname($uri){
-		$pattern = "/uploads\/". self::get_protected_dirname() ."/i";  // Using concatenation
+		$pattern = "/uploads\/". self::get_protected_dir_name() . "/i";  // Using concatenation
 		if (preg_match($pattern, $uri)) {
 			return true;
 		}
@@ -56,13 +56,13 @@ class SDM_File_Protection_Handler {
 	
 	public static function check_and_create_file_protection_folder(){
 		// Define the directory path
-		$uploads_dir = ABSPATH. '/wp-content/uploads/'. self::get_protected_dirname();
+		$uploads_dir = ABSPATH. '/wp-content/uploads/'. self::get_protected_dir_name();
 		// Check if the sdm_uploads directory exists
 		if ( !is_dir($uploads_dir) ) {
 			// Try to create the directory with correct permissions (0755)
 			try{
 				mkdir($uploads_dir, 0755, true);
-				SDM_Debug::log("The directory '".self::get_protected_dirname() . "' was successfully created.", true);
+				SDM_Debug::log("The directory '".self::get_protected_dir_name() . "' was successfully created.", true);
 			}catch(\Exception $e){
 				wp_die(esc_html($e->getMessage()));
 			}
@@ -74,7 +74,7 @@ class SDM_File_Protection_Handler {
 			try{
 				// Create the .htaccess file
 				$htaccess_content = "deny from all\n";
-				SDM_Debug::log("The .htaccess file was successfully created inside '".self::get_protected_dirname() . "'.", true);
+				SDM_Debug::log("The .htaccess file was successfully created inside '".self::get_protected_dir_name() . "'.", true);
 				file_put_contents($htaccess_file, $htaccess_content);
 			} catch (\Exception $e) {
 				wp_die(esc_html($e->getMessage()));
@@ -131,7 +131,7 @@ class SDM_File_Protection_Handler {
 		// Check if the custom sdm directory is set in the request
 		if (  isset($_POST['sdm_upload_to_protected_dir']) && !empty($_POST['sdm_upload_to_protected_dir']) ) {
 			// Use the custom sdm directory provided in the POST request
-			$dir = self::get_protected_dirname();
+			$dir = self::get_protected_dir_name();
 			
 			// Set the custom sdm upload directory path
 			$upload['path'] = $upload['basedir'] . '/' . $dir;
