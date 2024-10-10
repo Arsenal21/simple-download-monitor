@@ -107,9 +107,6 @@ function sdm_init_time_tasks() {
 	//Check if the redirect option is being used
 	sdm_check_redirect_query_and_settings();
 
-	// Check if security feature is being used
-	SDM_File_Protection_Handler::prepare_file_protection_environment();
-
 	if ( is_admin() ) {
 		//Register Google Charts library
 		wp_register_script( 'sdm_google_charts', 'https://www.gstatic.com/charts/loader.js', array(), null, true );
@@ -402,8 +399,8 @@ class simpleDownloadManager {
 
 		add_settings_field( 'admin_log_unique', __( 'Log Unique IP', 'simple-download-monitor' ), array( $this, 'admin_log_unique' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_do_not_capture_ip', __( 'Do Not Capture IP Address', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_ip' ), 'admin_options_section', 'admin_options' );
-				add_settings_field( 'admin_do_not_capture_user_agent', __( 'Do Not Capture User Agent', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_user_agent' ), 'admin_options_section', 'admin_options' );
-				add_settings_field( 'admin_do_not_capture_referrer_url', __( 'Do Not Capture Referrer URL', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_referrer_url' ), 'admin_options_section', 'admin_options' );
+		add_settings_field( 'admin_do_not_capture_user_agent', __( 'Do Not Capture User Agent', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_user_agent' ), 'admin_options_section', 'admin_options' );
+		add_settings_field( 'admin_do_not_capture_referrer_url', __( 'Do Not Capture Referrer URL', 'simple-download-monitor' ), array( $this, 'admin_do_not_capture_referrer_url' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_dont_log_bots', __( 'Do Not Count Downloads from Bots', 'simple-download-monitor' ), array( $this, 'admin_dont_log_bots' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin_no_logs', __( 'Disable Download Logs', 'simple-download-monitor' ), array( $this, 'admin_no_logs_cb' ), 'admin_options_section', 'admin_options' );
 		add_settings_field( 'admin-dashboard-access-permission', __( 'Admin Dashboard Access Permission', 'simple-download-monitor' ), array( $this, 'admin_dashboard_access_permission' ), 'admin_options_section', 'admin_options');
@@ -436,13 +433,6 @@ class simpleDownloadManager {
 		//Maps API section fields
 		add_settings_field( 'maps_api_key', __( 'API Key', 'simple-download-monitor' ), array( $this, 'maps_api_key_cb' ), 'maps_api_options_section', 'maps_api_options' );
 		
-		/*   * ************************** */
-		/* Security Settings Section */
-		/*   * ************************** */
-		// File Protection Section
-		add_settings_section( 'file_protection_options', __( 'File Protection Settings', 'simple-download-monitor' ), array( $this, 'file_protection_section_callback' ), 'file_protection_options_section' );
-		// File Protection fields
-		add_settings_field( 'file_protection_enable', __( 'Enable File Protection', 'simple-download-monitor' ), array( $this, 'file_protection_enable_cb' ), 'file_protection_options_section', 'file_protection_options' );
 	}
 
 	public function general_options_cb() {
@@ -692,17 +682,6 @@ class simpleDownloadManager {
 				),
 			)
 		) . '</p>';
-	}
-
-	public function file_protection_section_callback() {
-		esc_html_e( 'Manage your file protection settings in this section. ', 'simple-download-monitor' );
-		_e( 'Read <a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/" target="_blank">this guide</a> to learn more about the file protection feature.', 'simple-download-monitor' );
-	}
-
-	public function file_protection_enable_cb() {
-		$main_opts = get_option( 'sdm_advanced_options' );
-		echo '<input name="sdm_advanced_options[file_protection_enable]" id="file_protection_enable" type="checkbox" ' . checked( 1, isset( $main_opts['file_protection_enable'] ), false ) . ' /> ';
-		echo '<p class="description">' . __('Check this box to enable the file protection feature.', 'simple-download-monitor') . '</p>';
 	}
 
 	public function sdm_add_clone_record_btn( $action, $post ) {

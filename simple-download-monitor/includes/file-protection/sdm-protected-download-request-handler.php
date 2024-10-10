@@ -58,7 +58,6 @@ class SDM_Protected_Download_Request_Handler
 	}
 
 	public static function sdm_download_using_fopen($file_path, $chunk_blocks = 8, $session_close = false) {
-		SDM_Debug::log('Trying to dispatch file using fopen.', true);
 		$file_name = basename($file_path);
 		// Download methods #1, #2, #4 and #5.
 		// -- The Assurer, 2010-10-22.
