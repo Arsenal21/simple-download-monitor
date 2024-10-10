@@ -7,6 +7,7 @@ function sdm_search_form_shortcode( $args ) {
 			'class'                  => '', // wrapper class
 			'placeholder'            => 'Search...', // placeholder for search input
 			'description_max_length' => 50, // short description symbols count
+			'button_text'            => __('Search', 'simple-download-monitor'),
 		),
 		$args
 	);
@@ -74,7 +75,10 @@ function sdm_search_form_shortcode( $args ) {
 	$out  = '';
 	$out .= '<form id="sdm_search_form" class="' . sanitize_html_class( $atts['class'], '' ) . '" method="POST">';
 	$out .= '<input type="search" class="search-field" name="sdm_search_term" value="' . $s_term . '" placeholder="' . sdm_sanitize_text( $atts['placeholder'] ) . '">';
-	$out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="Search">';
+
+	$search_button_text = sanitize_text_field($atts['button_text']);
+
+	$out .= '<input type="submit" class="sdm_search_submit" name="sdm_search_submit" value="'.esc_attr($search_button_text).'">';
 	$out .= '</form>';
 	$out .= isset( $result_output ) ? $result_output : '';
 
