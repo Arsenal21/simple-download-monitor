@@ -40,7 +40,6 @@ function sdm_admin_menu_function_hook( $allowed_options = array() ) {
 	$allowed_options['termscond_options_section'] = array( 'sdm_advanced_options' );
 	$allowed_options['adsense_options_section']   = array( 'sdm_advanced_options' );
 	$allowed_options['maps_api_options_section']  = array( 'sdm_advanced_options' );
-	$allowed_options['file_protection_options_section']  = array( 'sdm_advanced_options' );
 
 	return $allowed_options;
 }
@@ -119,25 +118,26 @@ function sdm_create_settings_page() {
 	?>
 	<div class="sdm-settings-cont">
 		<div class="sdm-settings-grid sdm-main-cont">
-		<!-- settings page form -->
-		<form method="post" action="options.php">
 		<?php
 		if ( isset( $_GET['action'] ) ) {
-                        $action = isset( $_GET['action'] ) ? sanitize_text_field( stripslashes ( $_GET['action'] ) ) : '';
+            $action = isset( $_GET['action'] ) ? sanitize_text_field( stripslashes ( $_GET['action'] ) ) : '';
 			switch ( $action ) {
 				case 'advanced-settings':
+					echo '<form method="post" action="options.php">';
 					sdm_admin_menu_advanced_settings();
+					echo '</form>';
 					break;
 				case 'file-protection':
-					sdm_admin_menu_file_protection_settings();
+					include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-file-protection-settings-page.php';
+					new SDM_Admin_File_Protection_Settings_Page();
 					break;
 			}
 		} else {
+            echo '<form method="post" action="options.php">';
 			sdm_admin_menu_general_settings();
+            echo '</form>';
 		}
 		?>
-			<!-- End of settings page form -->
-		</form>
 		</div>
 		<div id="poststuff" class="sdm-settings-grid sdm-sidebar-cont">
 		<div class="postbox" style="min-width: inherit;">
@@ -363,35 +363,6 @@ function sdm_admin_menu_advanced_settings() {
 
 	do_settings_sections( 'maps_api_options_section' );
 	settings_fields( 'maps_api_options_section' );
-	submit_button();
-}
-
-function sdm_admin_menu_file_protection_settings(){
-	do_settings_sections( 'file_protection_options_section' );
-	settings_fields( 'file_protection_options_section' );
-	?>
-	<?php if( SDM_Utils_File_System_Related::is_nginx_server() ) { ?>
-		<div class=" notice inline notice-warning notice-alt">
-			<p>
-				<p>
-				<?php _e('Your website is using an Nginx server. To enable this file protection feature, please update the server configuration manually. ', 'simple-download-monitor')?>
-				</p>
-				<p>
-				<?php _e('Add the following rule to your virtual host configuration file:', 'simple-download-monitor')?>
-				</p>
-				
-				<textarea rows="3" cols="50" readonly class="" style="white-space: pre; font-family: monospace; overflow: hidden; padding: 5px 8px; resize:none;">
-location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_protected_dir_name() ?>/ {
-	deny all; 
-}
-				</textarea>
-				<p>
-					<?php _e('<a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/#server-configuration-requirements" target="_blank">Read the full documentation</a> on how to configure the file protection feature on an Nginx server.', 'simple-download-monitor'); ?>
-				</p>
-			</p>
-		</div>
-	<?php } ?>
-	<?php
 	submit_button();
 }
 
