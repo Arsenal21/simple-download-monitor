@@ -69,7 +69,7 @@ location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_prot
             <?php echo wp_nonce_field('sdm_file_protection_settings_nonce_action') ?>
 
             <p class="submit">
-                <input type="submit" name="sdm_file_protection_settings_submit" id="submit" class="button button-primary" value="Save Changes">
+                <input type="submit" name="sdm_file_protection_settings_submit" id="submit" class="button button-primary" value="<?php _e('Save Changes', 'simple-download-monitor') ?>">
             </p>
 
         </form>
