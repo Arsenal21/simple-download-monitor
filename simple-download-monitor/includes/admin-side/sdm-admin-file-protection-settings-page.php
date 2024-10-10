@@ -27,7 +27,7 @@ class SDM_Admin_File_Protection_Settings_Page {
         $enable_file_protection = isset($settings['file_protection_enable']) && !empty($settings['file_protection_enable']) ? $settings['file_protection_enable'] : '';
 
 		?>
-<!--        <pre>--><?php //echo print_r($settings, true) ?><!--</pre>-->
+
         <h2><?php _e('File Protection Settings', 'simple-download-monitor') ?></h2>
         <p>
             <?php _e('Manage your file protection settings in this section. Read ', 'simple-download-monitor') ?><a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/" target="_blank"><?php _e('this guide', 'simple-download-monitor') ?></a><?php _e(' to learn more about the file protection feature.', 'simple-download-monitor') ?>
