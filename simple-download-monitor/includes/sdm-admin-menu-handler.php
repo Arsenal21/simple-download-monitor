@@ -238,7 +238,7 @@ function sdm_create_settings_page() {
 		</div>
 	</div>
 
-	<div style="background: none repeat scroll 0 0 #FFF6D5;border: 1px solid #D1B655;color: #3F2502;margin: 10px 0;padding: 5px 5px 5px 10px;text-shadow: 1px 1px #FFFFFF;">
+	<div class="sdm_yellow_box">
 		<p>
 			<?php esc_html_e( 'If you need an easy to use and supported plugin for selling your digital items then check out our ', 'simple-download-monitor' ); ?>
 			<a href="https://wordpress.org/plugins/wp-express-checkout/" target="_blank"><?php esc_html_e( 'WP Express Checkout', 'simple-download-monitor' ); ?></a>

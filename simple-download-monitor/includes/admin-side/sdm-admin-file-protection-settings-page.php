@@ -28,10 +28,13 @@ class SDM_Admin_File_Protection_Settings_Page {
 
 		?>
 
-        <h2><?php _e('File Protection Settings', 'simple-download-monitor') ?></h2>
+        <div class="sdm_blue_box">
         <p>
-            <?php _e('Manage your file protection settings in this section. Read ', 'simple-download-monitor') ?><a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/" target="_blank"><?php _e('this guide', 'simple-download-monitor') ?></a><?php _e(' to learn more about the file protection feature.', 'simple-download-monitor') ?>
+            <a href="https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/" target="_blank"><?php _e('Refer to this guide', 'simple-download-monitor') ?></a><?php _e(' to learn more about the enhanced file protection feature.', 'simple-download-monitor') ?>
         </p>
+        </div>
+
+        <h2><?php _e('File Protection Settings (Beta)', 'simple-download-monitor') ?></h2>
 
         <form action="" method="post">
 	        <?php if ( SDM_Utils_File_System_Related::is_nginx_server() ) { ?>
@@ -57,10 +60,10 @@ location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_prot
             <table class="form-table" role="presentation">
                 <tbody>
                     <tr>
-                        <th scope="row"><?php _e('Enable File Protection', 'simple-download-monitor') ?></th>
+                        <th scope="row"><?php _e('Enable File Protection (Beta)', 'simple-download-monitor') ?></th>
                         <td>
                             <input name="file_protection_enable" id="file_protection_enable" type="checkbox" <?php echo esc_attr($enable_file_protection) ?>>
-                            <p class="description"><?php _e('Check this box to enable the file protection feature.', 'simple-download-monitor') ?></p>
+                            <p class="description"><?php _e('Check this box to enable the enhanced file protection feature.', 'simple-download-monitor') ?></p>
                         </td>
                     </tr>
                 </tbody>

@@ -69,7 +69,6 @@ border: 1px solid #D1B655;
 color: #3F2502;
 margin: 10px 0px 10px 0px;
 padding: 5px 5px 5px 10px;
-text-shadow: 1px 1px #FFFFFF;
 }
 
 .sdm_grey_box{
@@ -77,8 +76,7 @@ background: #ECECEC;
 border: 1px solid #CFCFCF;
 color: #363636;
 margin: 10px 0px 15px 0px;
-padding: 5px 5px 5px 10px;
-text-shadow: 1px 1px #FFFFFF;	
+padding: 5px 5px 5px 10px;	
 }
 
 .sdm_blue_box{
@@ -87,7 +85,6 @@ border: 1px solid #AACEE6;
 color: #1D263B;
 margin: 10px 0px 15px 0px;
 padding: 5px 5px 5px 10px;
-text-shadow: 1px 1px #FFFFFF;	
 }
 
 /********************************************/

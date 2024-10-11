@@ -927,7 +927,7 @@ function sdm_downloads_columns_content( $column_name, $post_ID ) {
 		$old_thumbnail = get_post_meta( $post_ID, 'sdm_upload_thumbnail', true );
 		//$old_value = isset($old_thumbnail) ? $old_thumbnail : '';
 		if ( $old_thumbnail ) {
-			echo '<p class="sdm_downloads_thumbnail_in_admin_listing"><img src="' . esc_url( $old_thumbnail ) . '" style="width:50px;height:50px;" /></p>';
+			echo '<p class="sdm_downloads_thumbnail_in_admin_listing"><img src="' . esc_url( $old_thumbnail ) . '" style="width:50px;height:50px;object-fit:cover;" /></p>';
 		}
 	}
 	if ( $column_name == 'sdm_downloads_id' ) {
