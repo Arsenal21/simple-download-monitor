@@ -174,6 +174,12 @@ function handle_sdm_download_via_direct_post() {
 		// Allow plugin extensions to hook into download request.
 		do_action( 'sdm_process_download_request', $download_id, $download_link );
 
+		// Check and process the download for Enhanced File Protection
+		// Note: if the download is for a protected file, the function will handle the download request and then terminate the script execution.
+		SDM_Protected_Download_Request_Handler::process_enhanced_protected_download_request( $download_id, $download_link );
+
+		// Continue with the standard download process.
+
 		// Should the item be dispatched using PHP dispatch?
 		$sdm_item_php_dispatch = get_post_meta( $download_id, 'sdm_item_dispatch', true );
 		

@@ -4,7 +4,7 @@ class SDM_File_Protection_Handler {
 
 	public static $protected_dir_name = 'sdm-uploads';
 
-	public static $protected_file_thumbnail = 'sdm-file-protected.png';
+	public static $protected_file_thumbnail = 'sdm-file-protected-thumbnail.png';
 
 	public function __construct() {
 		if(is_admin()) {
@@ -60,7 +60,7 @@ class SDM_File_Protection_Handler {
 	}
 
 	public static function get_protected_dir(){
-		return ABSPATH. '/wp-content/uploads/'. self::get_protected_dir_name();
+		return WP_CONTENT_DIR. '/uploads/'. self::get_protected_dir_name();
 	}
 
 	public static function get_protected_file_thumb_url(){

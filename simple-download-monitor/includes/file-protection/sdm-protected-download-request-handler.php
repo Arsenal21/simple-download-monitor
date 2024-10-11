@@ -3,13 +3,12 @@
 class SDM_Protected_Download_Request_Handler
 {
 	public function __construct() {
-		if(SDM_File_Protection_Handler::is_file_protection_enabled()){
-			add_action('sdm_process_download_request', array($this, 'handle_process_protected_download_request'), 10, 2);
-		}
+		//NOP
 	}
 
-	public function handle_process_protected_download_request($download_id, $download_link){
+	public static function process_enhanced_protected_download_request($download_id, $download_link){
 		if (!SDM_File_Protection_Handler::contains_protected_dirname($download_link)){
+			// This is not a download URL within our protected folder. Nothing to do here.
 			return;
 		}
 
@@ -121,5 +120,3 @@ class SDM_Protected_Download_Request_Handler
 	}
 	
 }
-
-new SDM_Protected_Download_Request_Handler();
