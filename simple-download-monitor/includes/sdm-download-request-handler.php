@@ -52,7 +52,7 @@ function handle_sdm_download_via_direct_post() {
 			$ipaddress = sdm_get_ip_address();
 		}
 
-				$user_agent = '';
+		$user_agent = '';
 		//Check if do not capture User Agent is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_user_agent'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
@@ -61,7 +61,7 @@ function handle_sdm_download_via_direct_post() {
 			}
 		}
 
-				$referrer_url = '';
+		$referrer_url = '';
 		//Check if do not capture Referer URL is enabled.
 		if ( ! isset( $main_option['admin_do_not_capture_referrer_url'] ) ) {
 			//Get the user agent data. The get_browser() function doesn't work on many servers. So use the HTTP var.
@@ -70,7 +70,7 @@ function handle_sdm_download_via_direct_post() {
 			}
 		}
 
-		$date_time       = current_time( 'mysql' );
+		$date_time = current_time( 'mysql' );
 		$visitor_country = ! empty( $ipaddress ) ? sdm_ip_info( $ipaddress, 'country' ) : '';
 
 		$visitor_name = sdm_get_logged_in_user();
@@ -111,7 +111,7 @@ function handle_sdm_download_via_direct_post() {
 		$unique_ips = isset( $main_option['admin_log_unique'] );
 
 		// Get post meta for individual disabling of download logging
-		$get_meta             = get_post_meta( $download_id, 'sdm_item_no_log', true );
+		$get_meta = get_post_meta( $download_id, 'sdm_item_no_log', true );
 		$item_logging_checked = isset( $get_meta ) && $get_meta === 'on' ? 'on' : 'off';
 
 		$dl_logging_needed = true;
