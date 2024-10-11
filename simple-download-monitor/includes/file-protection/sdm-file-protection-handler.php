@@ -26,7 +26,7 @@ class SDM_File_Protection_Handler {
 	}
 
 	/**
-	 * Add necessary post meta to the protected files when they gets uploaded.
+	 * Add necessary post meta to the protected files at upload time.
 	 *
 	 * @param $post_ID int uploaded attachment post ID.
 	 *
@@ -161,12 +161,13 @@ class SDM_File_Protection_Handler {
 	 * @return void
 	 */
 	public function check_and_create_protected_file_thumbnail(){
+
 		$settings = get_option( 'sdm_global_options' );
 
-		$thumbnail_created   = isset( $settings['protected_file_thumbnail_created'] ) && !empty($settings['protected_file_thumbnail_created']) ? sanitize_text_field($settings['protected_file_thumbnail_created']) : 'no';
-		$thumbnail_id   = isset( $settings['protected_file_thumbnail_id'] ) && !empty($settings['protected_file_thumbnail_id']) ? sanitize_text_field($settings['protected_file_thumbnail_id']) : '';
+		$thumbnail_created = isset( $settings['protected_file_thumbnail_created'] ) && !empty($settings['protected_file_thumbnail_created']) ? sanitize_text_field($settings['protected_file_thumbnail_created']) : 'no';
+		$thumbnail_id = isset( $settings['protected_file_thumbnail_id'] ) && !empty($settings['protected_file_thumbnail_id']) ? sanitize_text_field($settings['protected_file_thumbnail_id']) : '';
 
-		if($thumbnail_created === 'yes' && !empty($thumbnail_id) && self::does_attachment_exist($thumbnail_id)){
+		if( $thumbnail_created === 'yes' && !empty($thumbnail_id) && self::does_attachment_exist($thumbnail_id) ){
 			return;
 		}
 
@@ -177,11 +178,11 @@ class SDM_File_Protection_Handler {
 		$settings['protected_file_thumbnail_id'] = $thumbnail_id;
 		update_option('sdm_global_options', $settings );
 
-		SDM_Debug::log("The protected file attachment post was successfully created. Attachment ID: ". $thumbnail_id, true);
+		SDM_Debug::log("The protected file thumbnail attachment post was successfully created. Attachment ID: ". $thumbnail_id, true);
 	}
 
 	/**
-	 * Create a attachment post type for protected file custom thumbnail.
+	 * Create an attachment post type for protected file's custom thumbnail.
 	 *
 	 * @return int|WP_Error The ID of created attachment post.
 	 */
