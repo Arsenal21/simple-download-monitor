@@ -60,7 +60,7 @@ location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_prot
             <table class="form-table" role="presentation">
                 <tbody>
                     <tr>
-                        <th scope="row"><?php _e('Enable File Protection (Beta)', 'simple-download-monitor') ?></th>
+                        <th scope="row"><?php _e('Enable Enhanced File Protection (Beta)', 'simple-download-monitor') ?></th>
                         <td>
                             <input name="file_protection_enable" id="file_protection_enable" type="checkbox" <?php echo esc_attr($enable_file_protection) ?>>
                             <p class="description"><?php _e('Check this box to enable the enhanced file protection feature.', 'simple-download-monitor') ?></p>
