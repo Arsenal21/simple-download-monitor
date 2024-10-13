@@ -257,19 +257,26 @@ class SDM_File_Protection_Handler {
 
 		// Check if it has a customized thumbnail attachment.
 		if ( $attachment_post_thumbnail_id && isset($response['sizes']) && !empty($response['sizes'])) {
-			foreach ($response['sizes'] as $size_name => $size_info){
-				$thumbnail = wp_get_attachment_image_src($attachment_post_thumbnail_id, $size_name, true);
-				if (!empty($thumbnail)){
-					$thumbnail_url = $thumbnail[0];
-					$thumbnail_height = $thumbnail[2];
-					$thumbnail_width = $thumbnail[1];
-
-					$response['sizes'][$size_name]['url'] = $thumbnail_url;
-					$response['sizes'][$size_name]['height'] = $thumbnail_height;
-					$response['sizes'][$size_name]['width'] = $thumbnail_width;
-					$response['sizes'][$size_name]['orientation'] = 'portrait';
+			if(is_array($response['sizes'])){
+				foreach ($response['sizes'] as $size_name => $size_info){
+					$thumbnail = wp_get_attachment_image_src($attachment_post_thumbnail_id, $size_name, true);
+					if (!empty($thumbnail)){
+						$thumbnail_url = isset($thumbnail[0]) ? $thumbnail[0] : '';
+						$thumbnail_height = isset($thumbnail[2]) ? $thumbnail[2] : '';
+						$thumbnail_width = isset($thumbnail[1]) ? $thumbnail[1] : '';
+	
+						$response['sizes'][$size_name]['url'] = $thumbnail_url;
+						$response['sizes'][$size_name]['height'] = $thumbnail_height;
+						$response['sizes'][$size_name]['width'] = $thumbnail_width;
+						$response['sizes'][$size_name]['orientation'] = 'portrait';
+					}
 				}
+			} else {
+				// If the sizes is not an array, then it's a string. We can handle this case as well.
+				SDM_Debug::log("Could not override protected image file's thubmnail because the response['sizes'] is not an array.", false);
+
 			}
+
 		}
 
 		return $response;
