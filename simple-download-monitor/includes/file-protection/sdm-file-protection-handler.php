@@ -257,12 +257,18 @@ class SDM_File_Protection_Handler {
 
 		// Check if it has a customized thumbnail attachment.
 		if ( $attachment_post_thumbnail_id ) {
-			$thumbnail = wp_get_attachment_image_src($attachment_post_thumbnail_id, 'thumbnail', true);
-			if ($thumbnail && isset($thumbnail[0])){
-				$thumbnail_url = $thumbnail[0];
+			foreach ($response['sizes'] as $size_name => $size_info){
+				$thumbnail = wp_get_attachment_image_src($attachment_post_thumbnail_id, $size_name, true);
+				if (!empty($thumbnail)){
+					$thumbnail_url = $thumbnail[0];
+					$thumbnail_height = $thumbnail[2];
+					$thumbnail_width = $thumbnail[1];
 
-				$response['sizes']['thumbnail']['url'] = $thumbnail_url;
-				$response['sizes']['full']['url'] = $thumbnail_url;
+					$response['sizes'][$size_name]['url'] = $thumbnail_url;
+					$response['sizes'][$size_name]['height'] = $thumbnail_height;
+					$response['sizes'][$size_name]['width'] = $thumbnail_width;
+					$response['sizes'][$size_name]['orientation'] = 'portrait';
+				}
 			}
 		}
 
