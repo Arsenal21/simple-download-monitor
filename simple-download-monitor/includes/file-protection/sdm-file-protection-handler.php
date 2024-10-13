@@ -256,7 +256,7 @@ class SDM_File_Protection_Handler {
 		$attachment_post_thumbnail_id = get_post_thumbnail_id($attachment->ID);
 
 		// Check if it has a customized thumbnail attachment.
-		if ( $attachment_post_thumbnail_id ) {
+		if ( $attachment_post_thumbnail_id && isset($response['sizes']) && !empty($response['sizes'])) {
 			foreach ($response['sizes'] as $size_name => $size_info){
 				$thumbnail = wp_get_attachment_image_src($attachment_post_thumbnail_id, $size_name, true);
 				if (!empty($thumbnail)){
