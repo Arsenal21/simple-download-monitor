@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 5.5
-Tested up to: 6.4
-Stable tag: 3.9.24
+Tested up to: 6.6
+Stable tag: 3.9.25
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -196,7 +196,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
+= 3.9.25 =
 - New [Enhanced File Protection](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/) feature added.
 - Thumbnails in the Downloads menu's admin interface will no longer appear squished.
 - Added an isset check for the "download_id" variable in the download request handler.
