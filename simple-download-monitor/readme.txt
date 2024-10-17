@@ -196,6 +196,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= 3.9.26 WIP =
+- The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.
+
 = 3.9.25 =
 - New [Enhanced File Protection](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/) feature added.
 - Thumbnails in the Downloads menu's admin interface will no longer appear squished.

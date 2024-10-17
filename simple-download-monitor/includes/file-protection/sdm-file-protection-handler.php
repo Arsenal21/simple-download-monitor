@@ -15,13 +15,13 @@ class SDM_File_Protection_Handler {
 			add_filter('upload_dir', array($this, 'override_wp_media_upload_directory_path'));
 
 			// Add special post meta to protected files.
-			add_action( 'add_attachment', array($this, 'add_custom_meta_to_specific_directory_media') );
+			add_action('add_attachment', array($this, 'add_custom_meta_to_specific_directory_media') );
 
 			// Override protected file thumbnail in media library grid view.
 			add_filter('wp_prepare_attachment_for_js', array($this, 'override_media_library_protected_file_thumbnail'), 10, 3 );
 
 			// Exclude the custom thumbnail attachment in media library.
-			add_action( 'pre_get_posts', array($this, 'exclude_our_hidden_attachments_in_media_library' ) );
+			add_action('pre_get_posts', array($this, 'exclude_our_hidden_attachments_in_media_library' ) );
 		}
 	}
 
@@ -284,6 +284,13 @@ class SDM_File_Protection_Handler {
 
 	public function exclude_our_hidden_attachments_in_media_library( $query ) {
 		//Note: We only run this hook fom admin dashboard side. When is_admin() is true.
+
+		if( !self::is_file_protection_enabled() ){
+			// File protection is not enabled. Nothing to do here.
+			// We don't update/modify the query if the file protection is not enabled. Updating the query can cause conflict with plugins such as WP Fastest Cache.
+			return;
+		}
+
 		if ( $query->get('post_type') !== 'attachment' ) {
 			return;
 		}
