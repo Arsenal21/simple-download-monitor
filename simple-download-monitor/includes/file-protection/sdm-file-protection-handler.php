@@ -292,27 +292,30 @@ class SDM_File_Protection_Handler {
 		}
 
 		if ( $query->get('post_type') !== 'attachment' ) {
+			// This is not a media library query. Nothing to do here.
 			return;
 		}
 
-		$old_meta_queries = $query->get('meta_query');
+		// Get the existing meta query value that other plugins might have set using the 'pre_get_posts' hook.
+		$existing_meta_query_val = $query->get('meta_query');
+		// SDM_Debug::log_array_data($existing_meta_query_val); // Debug Purpose.
 
-		// SDM_Debug::log_array_data($old_meta_queries); // Debug Purpose.
-
+		// Prepare the meta query array.
 		$meta_query = array();
 
-		// Check for existing meta queries.
-		if (is_array($old_meta_queries) && !empty($old_meta_queries)){
-			$meta_query = array_merge($meta_query, $old_meta_queries);
+		if (is_array($existing_meta_query_val) && !empty($existing_meta_query_val)){
+			// Merge the existing meta query with our custom meta query.
+			$meta_query = array_merge($meta_query, $existing_meta_query_val);
 		}
 
-		// Only include attachment posts that does not have '_exclude_from_media_library' meta.
-		// That meta is only set to our protected file thumbnail attachment post, which we don't want to show it to users.
+		// Only include attachment posts that does not have the '_exclude_from_media_library' meta.
+		// That meta is only set to our protected file thumbnail attachment post (it should not be displayed in the media library).
 		$meta_query[] = array(
 			'key'     => '_exclude_from_media_library',
 			'compare' => 'NOT EXISTS',
 		);
 
+		// Update the meta query value.
 		$query->set( 'meta_query', $meta_query );
 	}
 
