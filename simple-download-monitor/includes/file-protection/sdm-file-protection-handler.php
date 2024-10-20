@@ -295,13 +295,22 @@ class SDM_File_Protection_Handler {
 			return;
 		}
 
+		$old_meta_queries = $query->get('meta_query');
+
+		// SDM_Debug::log_array_data($old_meta_queries); // Debug Purpose.
+
+		$meta_query = array();
+
+		// Check for existing meta queries.
+		if (is_array($old_meta_queries) && !empty($old_meta_queries)){
+			$meta_query = array_merge($meta_query, $old_meta_queries);
+		}
+
 		// Only include attachment posts that does not have '_exclude_from_media_library' meta.
 		// That meta is only set to our protected file thumbnail attachment post, which we don't want to show it to users.
-		$meta_query = array(
-			array(
-				'key'     => '_exclude_from_media_library',
-				'compare' => 'NOT EXISTS',
-			),
+		$meta_query[] = array(
+			'key'     => '_exclude_from_media_library',
+			'compare' => 'NOT EXISTS',
 		);
 
 		$query->set( 'meta_query', $meta_query );
