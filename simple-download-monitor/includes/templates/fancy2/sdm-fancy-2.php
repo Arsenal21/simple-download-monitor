@@ -119,9 +119,9 @@ function sdm_generate_fancy2_display_output( $args ) {
     }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
 
-    $homepage		 = get_bloginfo( 'url' );
-    $download_url		 = $homepage . '/?sdm_process_download=1&download_id=' . $id;
-    $download_button_code	 = '<a href="' . $download_url . '" class="sdm_fancy2_download_dl_link" target="' . $window_target . '">' . $button_text . '</a>';
+    // Get the download URL and generate the download button code.
+    $download_url = sdm_get_standard_download_url_from_id($id);
+    $download_button_code = '<a href="' . $download_url . '" class="sdm_fancy2_download_dl_link" target="' . $window_target . '">' . $button_text . '</a>';
 
     // Check to see if the download link cpt is password protected
     $get_cpt_object	 = get_post( $id );

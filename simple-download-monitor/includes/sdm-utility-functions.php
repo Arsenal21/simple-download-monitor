@@ -666,6 +666,12 @@ function get_dl_button_text($download_id = null){
 	return !empty($custom_button_text) ? $custom_button_text : $default_button_text;
 }
 
+function sdm_get_standard_download_url_from_id( $download_id ) {
+	$homepage = rtrim( get_bloginfo( 'url' ), '/' ); // Remove the trailing slash (if there is one)
+	$download_url = $homepage . '/?sdm_process_download=1&download_id=' . $download_id;
+	return $download_url;
+}
+
 /**
  * Get the capability settings for SDM admin sections.
  * Default 'manage_options', which is a admin capability. 
