@@ -334,7 +334,7 @@ function sdm_handle_category_shortcode( $args ) {
 				 * Show default button text if both are empty.
 				 */
 				if (empty($item_button_text)) {
-					$item_button_text = get_dl_button_text($id);
+					$item_button_text = sdm_get_dl_button_text($id);
 				}
 				
 				// Setup download button code

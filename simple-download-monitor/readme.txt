@@ -200,6 +200,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.
 - When using the 'pre_get_posts' hook, it will now check if another plugin has already modified the query and if so, it will append to it.
 - Removed the trailing slash from the download URL in the download now button shortcode to prevent double slashes in the URL. Thanks to @expforex for pointing this out.
+- Renamed a function to add the 'sdm' keyword to prevent a potential conflict with another plugin.
 
 = 3.9.25 =
 - New [Enhanced File Protection](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/) feature added.

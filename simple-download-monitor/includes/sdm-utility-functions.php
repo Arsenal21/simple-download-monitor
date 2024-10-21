@@ -655,7 +655,7 @@ function sdm_sanitize_allowed_tags_expanded() {
  * 
  * @return string Download button text.
  */
-function get_dl_button_text($download_id = null){
+function sdm_get_dl_button_text($download_id = null){
 	$default_button_text = __( 'Download Now!', 'simple-download-monitor' );
 	if (empty($download_id)) {
 		return $default_button_text;

@@ -42,7 +42,7 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
          * Prioritize category shortcode param over custom button text from edit page.
          */
         if (empty($args_fresh['button_text'])) {
-            $args_fresh['button_text'] = get_dl_button_text($item->ID);
+            $args_fresh['button_text'] = sdm_get_dl_button_text($item->ID);
         }
 
         $output .= sdm_generate_fancy1_display_output(
