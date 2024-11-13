@@ -3,7 +3,7 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 5.5
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 3.9.25
 License: GPLv2 or later
 
@@ -201,6 +201,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - When using the 'pre_get_posts' hook, it will now check if another plugin has already modified the query and if so, it will append to it.
 - Removed the trailing slash from the download URL in the download now button shortcode to prevent double slashes in the URL. Thanks to @expforex for pointing this out.
 - Renamed a function to add the 'sdm' keyword to prevent a potential conflict with another plugin.
+- Added an isset check to remove a PHP notice in the download count shortcode.
 
 = 3.9.25 =
 - New [Enhanced File Protection](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/) feature added.

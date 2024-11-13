@@ -62,6 +62,10 @@ function sdm_get_download_count_for_all_posts() {
 
     // Check post meta for offset count.
     for ($i = 0; $i < $wpdb->num_rows; $i++) {
+		if( !isset($result[$i]->ID) ){
+			// Skip if no ID.
+			continue;
+		}
         $get_offset = get_post_meta($result[$i]->ID, 'sdm_count_offset', true);
         if ($get_offset && $get_offset != '') {
             $db_count = $db_count + $get_offset;
