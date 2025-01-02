@@ -153,7 +153,11 @@ class sdm_List_Table extends WP_List_Table {
 			}
 
 			//Grab the row id
-                        $row_id = isset( $_GET['row_id'] ) ? sanitize_text_field( stripslashes ( $_GET['row_id'] ) ) : '';
+			$row_id = isset( $_GET['row_id'] ) ? sanitize_text_field( stripslashes ( $_GET['row_id'] ) ) : '';
+			$row_id = intval( $row_id );	
+			if ( ! is_numeric( $row_id ) ) {
+				wp_die( __( 'Error! The row id value of a log entry must be numeric.', 'simple-download-monitor' ) );
+			}
 
 			global $wpdb;
 			$del_row = $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"' );
