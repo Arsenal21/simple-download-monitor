@@ -132,8 +132,13 @@ class sdm_List_Table extends WP_List_Table {
 					wp_die( __( 'Error! The row id value of a log entry must be numeric.', 'simple-download-monitor' ) );
 				}
 
+				$row_id = intval( $row_id );
+				if ( ! is_numeric( $row_id ) ) {
+					wp_die( __( 'Error! The row id value of a log entry must be numeric.', 'simple-download-monitor' ) );
+				}
+
 				global $wpdb;
-				$del_row = $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"' );
+				$del_row = $wpdb->query( $wpdb->prepare( 'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = %d', $row_id ));
 			}
 			if ( $del_row ) {
 				echo '<div id="message" class="updated fade"><p><strong>' . __( 'Entries Deleted!', 'simple-download-monitor' ) . '</strong></p><p><em>' . __( 'Click to Dismiss', 'simple-download-monitor' ) . '</em></p></div>';
@@ -160,7 +165,7 @@ class sdm_List_Table extends WP_List_Table {
 			}
 
 			global $wpdb;
-			$del_row = $wpdb->query( 'DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = "' . $row_id . '"' );
+			$del_row = $wpdb->query( $wpdb->prepare('DELETE FROM ' . $wpdb->prefix . 'sdm_downloads WHERE id = %d', $row_id) );
 			if ( $del_row ) {
 				echo '<div id="message" class="updated fade"><p><strong>' . __( 'Entry Deleted!', 'simple-download-monitor' ) . '</strong></p><p><em>' . __( 'Click to Dismiss', 'simple-download-monitor' ) . '</em></p></div>';
 			} else {
@@ -217,9 +222,13 @@ class sdm_List_Table extends WP_List_Table {
 			$dl_id = sanitize_text_field( $_REQUEST['sdm_logs_dl_id'] );
 			$dl_id = intval( $dl_id );
 
-			$query       = "SELECT COUNT(*) FROM $table_name WHERE post_id = $dl_id";
+			if ( ! is_numeric( $dl_id ) ) {
+				wp_die( __( 'Error! The download id value of a log entry must be numeric.', 'simple-download-monitor' ) );
+			}
+
+			$query       = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE post_id = %d", $dl_id);
 			$total_items = $wpdb->get_var( $query );//For pagination requirement
-			$query       = "SELECT * FROM $table_name WHERE post_id = $dl_id ORDER BY $orderby_column $sort_order";
+			$query       = $wpdb->prepare("SELECT * FROM $table_name WHERE post_id = %d ORDER BY $orderby_column $sort_order", $dl_id);
 		} else {
 			//For all download logs
 			$query       = "SELECT COUNT(*) FROM $table_name";
