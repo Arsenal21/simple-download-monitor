@@ -202,6 +202,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Removed the trailing slash from the download URL in the download now button shortcode to prevent double slashes in the URL. Thanks to @expforex for pointing this out.
 - Renamed a function to add the 'sdm' keyword to prevent a potential conflict with another plugin.
 - Added an isset check to remove a PHP notice in the download count shortcode.
+- Added sanitization to the row_id variable in the log entry delete function.
 
 = 3.9.25 =
 - New [Enhanced File Protection](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/) feature added.
