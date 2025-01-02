@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 5.5
 Tested up to: 6.7
-Stable tag: 3.9.25
+Stable tag: 3.9.26
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -196,7 +196,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= 3.9.26 WIP =
+= 3.9.26 =
 - The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.
 - When using the 'pre_get_posts' hook, it will now check if another plugin has already modified the query and if so, it will append to it.
 - Removed the trailing slash from the download URL in the download now button shortcode to prevent double slashes in the URL. Thanks to @expforex for pointing this out.
