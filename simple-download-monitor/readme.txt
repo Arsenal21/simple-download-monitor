@@ -197,6 +197,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 == Changelog ==
 = WIP =
 - Isset check added to 'pass_text' for password protected downloads.
+- Search field added in logs table.
+- Exporting logs option added in logs table.
 
 = 3.9.26 =
 - The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.

@@ -118,6 +118,7 @@ function sdm_admin_init_time_tasks() {
 	//Register ajax handlers
 	add_action( 'wp_ajax_sdm_reset_log', 'sdm_reset_log_handler' );
 	add_action( 'wp_ajax_sdm_delete_data', 'sdm_delete_data_handler' );
+	add_action( 'wp_ajax_sdm_export_logs', 'sdm_export_logs_handler' );
 
 	if ( ! is_admin() || ! user_can( wp_get_current_user(), 'administrator' ) ) {
 		// user is not an admin
@@ -228,6 +229,71 @@ function sdm_delete_data_handler() {
 	wp_die();
 }
 
+function sdm_export_logs_handler(){
+	if (!isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'sdm-export-logs-nonce-action' ) ) {
+		wp_send_json_error(array(
+			'message' => __('Nonce verification failed!', 'simple-download-monitor')
+		));
+	}
+
+	// Set the maximum execution time to 2 minutes.
+	set_time_limit( 60 * 2 );
+
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'sdm_downloads';
+
+	$search_text = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+	$orderby_column = isset( $_POST['orderby'] ) ? sanitize_text_field( $_POST['orderby'] ) : 'id';
+	$sort_order     = isset( $_POST['order'] ) ? sanitize_text_field( $_POST['order'] ) : 'desc';
+
+	$select_cols = "id as 'Log ID', post_id as 'Download ID', post_title as 'Download Title', file_url as 'File URL',date_time as 'Date',visitor_ip as 'IP Address', visitor_country as 'Country', visitor_name as 'Name'";
+
+	if(empty($search_text)){
+		$total_items = $wpdb->get_var(  "SELECT COUNT(*) FROM $table_name" );
+		$query       = "SELECT $select_cols FROM $table_name ORDER BY $orderby_column $sort_order LIMIT %d, %d";
+	} else {
+		$columns = ['post_title', 'post_id', 'visitor_name', 'visitor_ip', 'visitor_country'];
+		$like_query = [];
+		foreach ($columns as $column) {
+			$like_query[] = "$column LIKE '%" . esc_sql($search_text) . "%'";
+		}
+		
+		$where_clause = implode(' OR ', $like_query);
+
+		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE $where_clause" );
+		$query       = "SELECT $select_cols FROM $table_name WHERE $where_clause ORDER BY $orderby_column $sort_order LIMIT %d, %d";
+	}
+
+	$records_per_page = 100;
+	$total_items   = intval( $total_items );
+	$total_pages   = ceil( $total_items / $records_per_page );
+
+	$logs = array();
+	
+	for ( $current_page = 1; $current_page <= $total_pages; $current_page++ ) {
+		$offset = ( $current_page - 1 ) * $records_per_page;
+
+		$query_prepared = $wpdb->prepare( $query,$offset,$records_per_page );
+		
+		$results = $wpdb->get_results( $query_prepared, ARRAY_A );
+
+		// Check if there were any error during query.
+		if ( ! empty( $wpdb->last_error ) ) {
+			wp_send_json_error(array(
+				'message' => $wpdb->last_error,
+			));
+		}
+
+		$logs = array_merge($logs, $results);
+	}
+
+	wp_send_json_success(array(
+		'message' => __('Successfully Retrieved Download Logs.', 'simple-download-monitor'),
+		'logs' => $logs,
+	));
+}
+
 /*
  * DB upgrade check
  */
@@ -291,6 +357,16 @@ class simpleDownloadManager {
 	}
 
 	public function sdm_admin_scripts() {
+		wp_register_script( 'sdm-admin-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'wp-i18n' ), WP_SIMPLE_DL_MONITOR_VERSION, array(
+			'strategy' => 'defer',
+			'in_footer' => true,
+		) );
+
+		wp_localize_script( 'sdm-admin-scripts', 'sdm_admin', array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+		) );
+
+		wp_enqueue_script('sdm-admin-scripts');
 
 		global $current_screen, $post;
 
@@ -299,7 +375,7 @@ class simpleDownloadManager {
 			// These scripts are needed for the media upload thickbox
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_script( 'thickbox' );
-			wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_admin_scripts.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
+			wp_register_script( 'sdm-upload', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_upload_handler.js', array( 'jquery', 'media-upload', 'thickbox' ), WP_SIMPLE_DL_MONITOR_VERSION );
 			if(SDM_File_Protection_Handler::is_file_protection_enabled()){
 				wp_localize_script('sdm-upload', 'sdm_file_protection', array(
 					'sdm_upload_to_protected_dir' => true,
