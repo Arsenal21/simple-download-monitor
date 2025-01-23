@@ -1,77 +1,91 @@
-jQuery(document).ready(function ($) {
-    var selectFileFrame;
-    var selectThumbFramel
-    // Run media uploader for file upload
-    $('#upload_image_button').click(function (e) {
-        e.preventDefault();
-        selectFileFrame = wp.media({
-            title: sdm_translations.select_file,
-            button: {
-                text: sdm_translations.insert,
-            },
-            multiple: false
-        });
+document.addEventListener('DOMContentLoaded', function () {
 
-        if(typeof sdm_file_protection !== 'undefined' && sdm_file_protection['sdm_upload_to_protected_dir'] == '1'){
-            selectFileFrame.on('open', function() {
-                selectFileFrame.uploader.uploader.param('sdm_upload_to_protected_dir', true);
-            });
-        }
-            
-        selectFileFrame.open();
+    const exportLogs = document.getElementById('sdm-export-logs-submit');
 
-        selectFileFrame.on('select', function () {
-            var attachment = selectFileFrame.state().get('selection').first().toJSON();
-
-            $('#sdm_upload').val(attachment.url);
-        });
-        return false;
-    });
-
-    // Run media uploader for thumbnail upload
-    $('#upload_thumbnail_button').click(function (e) {
-        e.preventDefault();
-        selectFileFrame = wp.media({
-            title: sdm_translations.select_thumbnail,
-            button: {
-                text: sdm_translations.insert,
-            },
-            multiple: false,
-            library: {type: 'image'},
-        });
-        selectFileFrame.open();
-        selectFileFrame.on('select', function () {
-            var attachment = selectFileFrame.state().get('selection').first().toJSON();
-
-            $('#sdm_thumbnail_image').remove();
-            $('#sdm_admin_thumb_preview').html('<img id="sdm_thumbnail_image" src="' + attachment.url + '" style="max-width:200px;" />');
-
-            $('#sdm_upload_thumbnail').val(attachment.url);
-        });
-        return false;
-    });
-
-    // Remove thumbnail image from CPT
-    $('#remove_thumbnail_button').click( function () {
-        if ($('#sdm_thumbnail_image').length === 0) {
+    exportLogs.addEventListener('click', async function (e) {
+        if (!confirm("Are you sure you want to export logs?")) {
             return;
         }
-        $.post(
-            sdm_admin.ajax_url,
-            {
-                action: 'sdm_remove_thumbnail_image',
-                post_id_del: sdm_admin.post_id,
-                _ajax_nonce: $('#sdm_remove_thumbnail_nonce').val()
-            },
-            function (response) {
-                if (response) {  // ** If response was successful
-                    $('#sdm_thumbnail_image').remove();
-                    $('#sdm_upload_thumbnail').val('');
-                    alert(sdm_translations.image_removed);
-                } else {  // ** Else response was unsuccessful
-                    alert(sdm_translations.ajax_error);
-                }
+
+        const search = document.getElementById('sdm-export-logs-search')?.value;
+        const order = document.getElementById('sdm-export-logs-order')?.value;
+        const orderBy = document.getElementById('sdm-export-logs-orderby')?.value;
+        const nonce = document.getElementById('sdm-export-logs-nonce')?.value;
+
+        const payload = new URLSearchParams({
+            action: 'sdm_export_logs',
+            search,
+            order,
+            orderBy,
+            nonce
+        })
+
+        try {
+            const response = await fetch(sdm_admin.ajax_url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: payload,
+            })
+
+            const result = await response.json();
+            // console.log(result);
+
+            if (!result.success) {
+                throw new Error(result.data.message);
             }
-        );
+
+            // Download the CSV file.
+            downloadCSV(result.data.logs);
+
+        } catch (error) {
+            console.log(error);
+            alert(error.message);
+        }
     });
-});
+
+    function downloadCSV(jsonArray) {
+        if (!jsonArray || jsonArray.length === 0) {
+            throw new Error('No data available to download.');
+        }
+
+        // Convert JSON to CSV
+
+        // Extract headers from the first object
+        const headers = Object.keys(jsonArray[0]).join(',');
+        const rows = jsonArray.map(row =>
+            Object.values(row)
+                .map(value => `"${String(value).replace(/"/g, '""')}"`) // Escape quotes
+                .join(',')
+        );
+        const csvContent = [headers, ...rows].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+        // Create a temporary link element to trigger the download
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.href = url;
+        link.download = getCSVFileName();
+
+        // Append link to the DOM
+        document.body.appendChild(link);
+        // Programmatically trigger the download
+        link.click();
+        // Clean up
+        document.body.removeChild(link); 
+        // Free up memory
+        URL.revokeObjectURL(url);
+    }
+
+    function getCSVFileName(){
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `sdm-download-logs-${year}-${month}-${day}.csv`;
+    }
+
+})

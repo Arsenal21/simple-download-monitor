@@ -229,6 +229,21 @@ class sdm_List_Table extends WP_List_Table {
 			$query       = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE post_id = %d", $dl_id);
 			$total_items = $wpdb->get_var( $query );//For pagination requirement
 			$query       = $wpdb->prepare("SELECT * FROM $table_name WHERE post_id = %d ORDER BY $orderby_column $sort_order", $dl_id);
+		} else if ( isset( $_REQUEST['s'] ) && !empty( $_REQUEST['s'] ) ) {
+			$search_text = sanitize_text_field($_REQUEST['s']);
+
+			$columns = ['post_title', 'post_id', 'visitor_name', 'visitor_ip' , 'visitor_country'];
+			$like_query = [];
+			foreach ($columns as $column) {
+				$like_query[] = "$column LIKE '%" . esc_sql($search_text) . "%'";
+			}
+			
+			$where_clause = implode(' OR ', $like_query);
+
+			$query       = "SELECT COUNT(*) FROM $table_name WHERE $where_clause";
+			$total_items = $wpdb->get_var( $query );//For pagination requirement
+			$query       = "SELECT * FROM $table_name WHERE $where_clause ORDER BY $orderby_column $sort_order";
+
 		} else {
 			//For all download logs
 			$query       = "SELECT COUNT(*) FROM $table_name";
@@ -271,4 +286,43 @@ class sdm_List_Table extends WP_List_Table {
 		);
 	}
 
+	protected function extra_tablenav( $which ) {
+		if ( $which == 'top' ) {
+			
+			if ( empty( $_REQUEST['s'] ) && ! $this->has_items() ) {
+				return;
+			}
+
+			if ( ! empty( $_REQUEST['orderby'] ) ) {
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '" />';
+			}
+			if ( ! empty( $_REQUEST['order'] ) ) {
+				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
+			}
+
+			$search_btn_text = __('Search', 'simple-download-monitor');
+			?>
+
+			<!-- Search logs -->
+			<div class="alignleft actions searchactions" style="margin-right: 8px;">
+				<label class="screen-reader-text" for="sdm-search-input"><?php echo $search_btn_text; ?>:</label>
+				<input type="search" id="sdm-search-input" name="s" value="<?php _admin_search_query(); ?>"/>
+				<?php submit_button( $search_btn_text, '', '', false, array( 'id' => 'search-submit' ) ); ?>
+			</div>
+			
+			<!-- Export logs -->
+			<div class="alignleft actions exportactions">
+				<fieldset id="sdm-export-logs-fieldset">
+					<button type="button" id="sdm-export-logs-submit" class="button">
+						<?php _e('Export Logs', 'simple-download-monitor') ?>
+					</button>
+					<input type="hidden" id="sdm-export-logs-search" value="<?php _admin_search_query(); ?>"/>
+					<input type="hidden" id="sdm-export-logs-order" value="<?php isset($_REQUEST['order']) ? esc_attr_e( $_REQUEST['order'] ) : '' ?>" />
+					<input type="hidden" id="sdm-export-logs-orderby" value="<?php isset($_REQUEST['orderby']) ? esc_attr_e( $_REQUEST['orderby'] ) : '' ?>" />
+					<input type="hidden" id="sdm-export-logs-nonce" value="<?php echo wp_create_nonce( 'sdm-export-logs-nonce-action' ) ?>" />
+				</fieldset>
+			</div>
+			<?php
+		}
+	}
 }
