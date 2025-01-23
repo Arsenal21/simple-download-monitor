@@ -40,6 +40,7 @@ require_once 'includes/file-protection/sdm-protected-download-request-handler.ph
 require_once 'sdm-post-type-and-taxonomy.php';
 require_once 'sdm-shortcodes.php';
 require_once 'sdm-post-type-content-handler.php';
+require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/integrations/class-sdm-swpm-integration.php';
 
 //Activation hook handler
 register_activation_hook( __FILE__, 'sdm_install_db_table' );

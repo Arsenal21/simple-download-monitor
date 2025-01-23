@@ -66,6 +66,9 @@ location ~ ^/wp-content/uploads/<?php echo SDM_File_Protection_Handler::get_prot
                             <p class="description"><?php _e('Check this box to enable the enhanced file protection feature.', 'simple-download-monitor') ?></p>
                         </td>
                     </tr>
+
+                    <?php do_action('sdm_after_file_protection_settings_fields'); ?>
+                    
                 </tbody>
             </table>
 
