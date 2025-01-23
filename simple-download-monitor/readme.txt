@@ -195,10 +195,11 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+
 = WIP =
-- Isset check added to 'pass_text' for password protected downloads.
-- Search field added in logs table.
-- Exporting logs option added in logs table.
+- Added a search field to the logs table, enabling users to search for specific log entries.
+- Introduced an option to export logs to a CSV file.
+- Removed a PHP warning from the 'pass_text' request parameter for password protected downloads.
 
 = 3.9.26 =
 - The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.
