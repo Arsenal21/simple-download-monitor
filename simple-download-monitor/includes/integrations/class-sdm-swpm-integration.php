@@ -3,6 +3,8 @@
 class SDM_SWPM_Integration
 {
 
+	public $error_msg = '';
+
 	public function __construct()
 	{
 		if (!function_exists('is_plugin_active')) {
@@ -26,7 +28,8 @@ class SDM_SWPM_Integration
 		if ($is_swpm_access_control_enabled) {
 			// Block download process request for unauthorized visitors.
 			add_action('sdm_process_download_request', array($this, 'check_sdm_download_process'), 10, 2);
-			
+			add_action('sdm_sf_process_download_request', array($this, 'check_sdm_download_process'), 10, 2);
+
 			// Override download button html for unauthorized visitor.
 			add_filter('sdm_download_button_code_html', array($this, 'disable_sdm_download_button'));
 		}
@@ -61,28 +64,45 @@ class SDM_SWPM_Integration
 
 	public function check_sdm_download_process($dl_id, $dl_link)
 	{
-		if (!class_exists('SwpmAccessControl')) {
-			return;
+		if (! $this->is_download_permitted($dl_id)) {
+			wp_die($this->error_msg);
+		}
+	}
+
+	public function is_download_permitted($dl_id) {
+		if (!class_exists('SwpmAccessControl') || !class_exists('SwpmProtection')) {
+			return false;
 		}
 
-		$access_control = \SwpmAccessControl::get_instance();
+		$swpm_protection = SwpmProtection::get_instance();
+		if($swpm_protection->post_in_parent_categories($dl_id) || $swpm_protection->post_in_categories($dl_id)){
+			$this->error_msg = __('You are not allowed to access this download item!', 'simple-download-monitor');
+			return false;
+		}
+
+		$swpm_access_control = \SwpmAccessControl::get_instance();
 
 		// Adjust the error messages for a downloadable item.
 		add_filter('swpm_not_logged_in_post_msg', array($this, "override_not_logged_in_post_msg"));
 		add_filter('swpm_restricted_post_msg_older_post', array($this, "override_restricted_post_msg_older_post"));
 		add_filter('swpm_restricted_post_msg', array($this, "override_post_msg"));
 
-		$is_permitted = $access_control->can_i_read_post_by_post_id($dl_id);
+		$is_permitted = $swpm_access_control->can_i_read_post_by_post_id($dl_id);
 
 		remove_filter('swpm_not_logged_in_post_msg',   array($this, "override_not_logged_in_post_msg"));
 		remove_filter('swpm_restricted_post_msg_older_post', array($this, "override_restricted_post_msg_older_post"));
 		remove_filter('swpm_restricted_post_msg',   array($this, "override_post_msg"));
 
-		if (! $is_permitted) {
+		if (!$is_permitted){
 			// Show authorized error message. If the 'get_lastError' isn't available (if user haven't updated swpm plugin yet) in swpm plugin, show a default message.
-			$message = method_exists($access_control, 'get_lastError') ? $access_control->get_lastError() : __('You are not allowed to access this download item!', 'simple-download-monitor');
-			wp_die($message);
+			if (method_exists($swpm_access_control, 'get_lastError')){
+				$this->error_msg = $swpm_access_control->get_lastError();
+			} else {
+				$this->error_msg = __('You are not allowed to access this download item!', 'simple-download-monitor');
+			}
 		}
+
+		return $is_permitted;
 	}
 
 	/**
@@ -97,7 +117,6 @@ class SDM_SWPM_Integration
 		libxml_clear_errors();
 
 		$links = $dom->getElementsByTagName('a');
-		$download_id = null;
 
 		foreach ($links as $link) {
 			$href = $link->getAttribute('href');
@@ -106,9 +125,7 @@ class SDM_SWPM_Integration
 			parse_str($query, $query_args);
 			if (isset($query_args['download_id'])) {
 				$download_id = $query_args['download_id'];
-				$access_control = \SwpmAccessControl::get_instance();
-				$is_permitted = $access_control->can_i_read_post_by_post_id($download_id);
-				if (!$is_permitted) {
+				if ( ! $this->is_download_permitted($download_id) ) {
 					$link->removeAttribute('href');
 					$link->setAttribute('class', 'sdm_download disabled');
 					$link->setAttribute('title', __('This download item is for authorized members only.'));
