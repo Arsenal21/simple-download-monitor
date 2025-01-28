@@ -41,7 +41,7 @@ require_once 'sdm-post-type-and-taxonomy.php';
 require_once 'sdm-shortcodes.php';
 require_once 'sdm-post-type-content-handler.php';
 require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/integrations/class-sdm-swpm-integration.php';
-require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/integrations/class-sdm-eMember-integration.php';
+require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/integrations/class-sdm-emember-integration.php';
 
 //Activation hook handler
 register_activation_hook( __FILE__, 'sdm_install_db_table' );
@@ -101,11 +101,9 @@ function sdm_plugins_loaded_tasks() {
  */
 add_action( 'init', 'sdm_init_time_tasks' );
 add_action( 'admin_init', 'sdm_admin_init_time_tasks' );
+add_action( 'wp', 'sdm_wp_time_tasks' );
 
 function sdm_init_time_tasks() {
-	//Handle download request if any
-	handle_sdm_download_via_direct_post();
-
 	//Check if the redirect option is being used
 	sdm_check_redirect_query_and_settings();
 
@@ -175,6 +173,11 @@ function sdm_admin_init_time_tasks() {
 			);
 		}
 	}
+}
+
+function sdm_wp_time_tasks() {
+	//Handle download request if any
+	handle_sdm_download_via_direct_post();
 }
 
 function sdm_reset_log_handler() {
