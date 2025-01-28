@@ -110,6 +110,10 @@ class SDM_SWPM_Integration {
 			$href = $link->getAttribute( 'href' );
 			// Parse the URL to get query parameters
 			$query = parse_url( $href, PHP_URL_QUERY );
+			if (empty($query)){
+				// No query args found.
+				break;
+			}
 			parse_str( $query, $query_args );
 			if ( isset( $query_args['download_id'] ) ) {
 				$download_id = $query_args['download_id'];
