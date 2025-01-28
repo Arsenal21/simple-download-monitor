@@ -66,13 +66,6 @@ class SDM_SWPM_Integration {
 			return false;
 		}
 
-		$swpm_protection = SwpmProtection::get_instance();
-		if ( $swpm_protection->post_in_parent_categories( $dl_id ) || $swpm_protection->post_in_categories( $dl_id ) ) {
-			$this->error_msg = __( 'You are not allowed to access this download item!', 'simple-download-monitor' );
-
-			return false;
-		}
-
 		$swpm_access_control = \SwpmAccessControl::get_instance();
 
 		// Adjust the error messages for a downloadable item.
