@@ -176,7 +176,9 @@ function sdm_admin_init_time_tasks() {
 }
 
 function sdm_wp_time_tasks() {
-	//Handle download request if any
+	//Handle download request if any.
+	//Note: we are handling the download request in the 'wp' action hook so that we can use addtional wordpress functions that are available at this time (if needed).
+	//This allows extensions or other integrations to add checks/conditions just before dispatching the file.
 	handle_sdm_download_via_direct_post();
 }
 

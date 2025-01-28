@@ -200,9 +200,8 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Added a search field to the logs table, enabling users to search for specific log entries.
 - Introduced an option to export logs to a CSV file.
 - Removed a PHP warning from the 'pass_text' request parameter for password protected downloads.
-- Simple Membership plugin's access control feature integrated.
-- WP eMember plugin's access control feature integrated.
-- Download process request now runs on 'wp' hook.
+- Added integration with the WP eMember plugin's access control to allow downloads to be restricted to members only.
+- Download process request is now handled using the 'wp' hook.
 
 = 3.9.26 =
 - The update for excluding hidden attachment media queries will not occur if the enhanced file protection feature is disabled.
