@@ -53,7 +53,7 @@ class SDM_eMember_Integration {
 		$output .= '<th scope="row">' . __( 'Enable eMember Access Control', 'simple-download-monitor' ) . '</th>';
 		$output .= '<td>';
 		$output .= '<input name="enable_eMember_access_control" id="enable_eMember_access_control" type="checkbox" ' . esc_attr( $enable_eMember_access_control ) . '/>';
-		$output .= '<p class="description">' . __( 'Check this to enable WP eMember access control', 'simple-download-monitor' ) . '</p>';
+		$output .= '<p class="description">' . __( 'Check this box to enable the access control feature of the WP eMember plugin.', 'simple-download-monitor' ) . '</p>';
 		$output .= '</td>';
 		$output .= '</tr>';
 		echo $output;
