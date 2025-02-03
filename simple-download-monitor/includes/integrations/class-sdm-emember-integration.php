@@ -119,7 +119,7 @@ class SDM_eMember_Integration {
 				if ( ! $this->is_download_permitted( $download_id ) ) {
 					$link->removeAttribute( 'href' );
 					$link->setAttribute( 'class', 'sdm_download disabled' );
-					$link->setAttribute( 'title', __( 'This download item is for authorized members only.' ) );
+					$link->setAttribute( 'title', __( 'This download is restricted to authorized members only.' ) );
 					$disabled_btn_html = $dom->saveHTML();
 
 					return $disabled_btn_html;

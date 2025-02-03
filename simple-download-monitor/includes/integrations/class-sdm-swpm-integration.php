@@ -83,7 +83,7 @@ class SDM_SWPM_Integration {
 		remove_filter( 'swpm_restricted_post_msg', array( $this, "override_post_msg" ) );
 
 		if ( ! $is_permitted ) {
-			// Show authorized error message. If the 'get_lastError' isn't available (if user haven't updated swpm plugin yet) in swpm plugin, show a default message.
+			// Show error message. If the 'get_lastError' function isn't available (due to the use of an older version of SWPM), show a default message.
 			if ( method_exists( $swpm_access_control, 'get_lastError' ) ) {
 				$this->error_msg = $swpm_access_control->get_lastError();
 			} else {
@@ -120,7 +120,7 @@ class SDM_SWPM_Integration {
 				if ( ! $this->is_download_permitted( $download_id ) ) {
 					$link->removeAttribute( 'href' );
 					$link->setAttribute( 'class', 'sdm_download disabled' );
-					$link->setAttribute( 'title', __( 'This download item is for authorized members only.' ) );
+					$link->setAttribute( 'title', __( 'This download is restricted to authorized members only.' ) );
 					$disabled_btn_html = $dom->saveHTML();
 
 					return $disabled_btn_html;
