@@ -1,1137 +1,1369 @@
-#, fuzzy
+# Copyright (C) 2025 Tips and Tricks HQ, Ruhul Amin, Josh Lobe
+# This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Simple Download Monitor\n"
-"POT-Creation-Date: 2019-10-25 18:15+1100\n"
-"PO-Revision-Date: 2019-10-25 18:14+1100\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: Simple Download Monitor 3.9.27\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/simple-download-monitor\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: main.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"POT-Creation-Date: 2025-02-09T04:55:05+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: simple-download-monitor\n"
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:5
-msgid "Specific Download Item Logs"
+#. Plugin Name of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "Simple Download Monitor"
 msgstr ""
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:22
-msgid "This menu allows you to view the download logs of individual items."
+#. Plugin URI of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "https://simple-download-monitor.com/"
 msgstr ""
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:28
-msgid "View Specific Item Logs"
+#. Description of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "Easily manage downloadable files and monitor downloads of your digital files from your WordPress site."
 msgstr ""
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:31
-msgid "Enter the Download ID of the item: "
+#. Author of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "Tips and Tricks HQ, Ruhul Amin, Josh Lobe"
 msgstr ""
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:34
-msgid ""
-"You can find the Download ID of an item from the Downloads menu of the "
-"plugin."
+#. Author URI of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "https://www.tipsandtricks-hq.com/development-center"
 msgstr ""
 
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:37
-msgid "View Logs"
-msgstr ""
-
-#: includes/admin-side/sdm-admin-individual-item-logs-page.php:54
-msgid ""
-"The following table shows the download logs of the item with Download ID: "
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:9
-msgid "Logs"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:10
-#: includes/sdm-admin-menu-handler.php:472
-msgid "Stats"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:11 main.php:187
-msgid "Settings"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:12
-#: includes/sdm-admin-menu-handler.php:129
-msgid "Add-ons"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:74
-msgid "Simple Download Monitor Settings Page"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:79
-msgid "General Settings"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:80
-msgid "Advanced Settings"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:123
-msgid "Plugin Documentation"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:125
-#, php-format
-msgid ""
-"Please read the <a target=\"_blank\" href=\"%s\">Simple Download Monitor</a> "
-"plugin setup instructions and tutorials to learn how to configure and use it."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:131
-#, php-format
-msgid ""
-"Want additional functionality? Check out our <a target=\"_blank\" href=\"%s"
-"\">Add-Ons!</a>"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:135
-msgid "Rate Us"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:137
-#, php-format
-msgid ""
-"Like the plugin? Please give us a <a href=\"%s\" target=\"_blank\">rating!</"
-"a>"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:150
-msgid "Our Other Plugins"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:152
-#, php-format
-msgid "Check out <a target=\"_blank\" href=\"%s\">our other plugins</a>"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:156
-msgid "Social"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:158
-#, php-format
-msgid "<a target=\"_blank\" href=\"%s\">Facebook</a>"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:159
-#, php-format
-msgid "<a target=\"_blank\" href=\"%s\">Twitter</a>"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:166
-msgid ""
-"If you need a feature rich and supported plugin for selling your digital "
-"items then checkout our"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:166
-msgid "WP eStore Plugin"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:239
-msgid "Are you sure want to delete all plugin's data and deactivate plugin?"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:244
-msgid ""
-"Data has been deleted and plugin deactivated. Click OK to go to Plugins page."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:248
-msgid "Error occurred."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:301
-msgid "Main Logs"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:302
-msgid "Specific Item Logs"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:349
-msgid "Log entries exported! Click on the following link to download the file."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:350
-msgid "Download Logs CSV File"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:360
-msgid "Download log entries deleted!"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:371
-msgid "Download Logs"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:374
-msgid "This page lists all tracked downloads."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:381
-msgid "Export Download Log Entries"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:385
-msgid "Export Log Entries to CSV File"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:393
-msgid "Reset Download Log Entries"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:397
-msgid "Reset Log Entries"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:476
-msgid "Choose Date Range (yyyy-mm-dd)"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:480
-msgid "Start Date: "
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:481
-msgid "End Date: "
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:483
-msgid "This Month"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:484
-msgid "Last Month"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:485
-msgid "This Year"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:486
-msgid "Last Year"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:487
-msgid "All Time"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:490
-msgid "View Stats"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:496
-msgid "Downloads by date"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:497
-msgid "Downloads by country"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:498
-msgid "Downloads by country list"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:508
-msgid ""
-"Enter your Google Maps API Key <a href=\"edit.php?"
-"post_type=sdm_downloads&page=sdm-settings&action=advanced-"
-"settings#maps_api_key\" target=\"_blank\">in the settings</a> to properly "
-"display the chart."
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:519
-#: includes/sdm-admin-menu-handler.php:539
-msgid "Country Name"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:520
-#: includes/sdm-admin-menu-handler.php:540
-msgid "Total Downloads"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:580 includes/sdm-logs-list-table.php:73
-msgid "Date"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:581
-msgid "Number of downloads"
-msgstr ""
-
-#: includes/sdm-admin-menu-handler.php:585
-msgid "Downloads by Date"
-msgstr ""
-
-#: includes/sdm-blocks.php:28
-msgid "Default"
-msgstr ""
-
-#: includes/sdm-blocks.php:37
-msgid "SDM Download"
-msgstr ""
-
-#: includes/sdm-blocks.php:38
-msgid "Download Item"
-msgstr ""
-
-#: includes/sdm-blocks.php:39
-msgid "Select download item."
-msgstr ""
-
-#: includes/sdm-blocks.php:40
-msgid "Button Text"
-msgstr ""
-
-#: includes/sdm-blocks.php:41
-msgid ""
-"Customized text for the download button. Leave it blank to use default text."
-msgstr ""
-
-#: includes/sdm-blocks.php:42
-msgid "Template"
-msgstr ""
-
-#: includes/sdm-blocks.php:43
-msgid "Select download item template."
-msgstr ""
-
-#: includes/sdm-blocks.php:44
-msgid "Open Download in a New Window"
-msgstr ""
-
-#: includes/sdm-blocks.php:45 main.php:268
-msgid "Button Color"
-msgstr ""
-
-#: includes/sdm-blocks.php:46
-msgid ""
-"Select button color. Note that this option may not work for some templates."
-msgstr ""
-
-#: includes/sdm-blocks.php:86
-msgid "Select item to view"
-msgstr ""
-
-#: includes/sdm-blocks.php:107
-msgid "(Select item)"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:13
-msgid "Error! Incorrect download item id."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:16
-#, php-format
-msgid ""
-"Error! This download item (%s) does not have any download link. Edit this "
-"item and specify a downloadable file URL for it."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:30
-msgid "Error! This download requires a password."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:32 main.php:890 main.php:892
-msgid "Click here"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:33
-msgid " and enter a valid password for this item"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:41
-msgid "Error! Incorrect password. This download requires a valid password."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:79
-msgid "__Click here__ to go to login page."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:82
-msgid "You need to be logged in to download this file."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:86
-msgid "Not Logged In"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:144
-msgid "Error! Failed to log the download request in the database table"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:216
-#: includes/sdm-download-request-handler.php:220
-msgid "ERROR:"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:216
-#: includes/sdm-download-request-handler.php:220
-msgid "Google reCAPTCHA verification failed."
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:216
-#: includes/sdm-download-request-handler.php:220
-msgid "Back"
-msgstr ""
-
-#: includes/sdm-download-request-handler.php:220
-msgid "Do you have JavaScript enabled?"
-msgstr ""
-
-#: includes/sdm-latest-downloads.php:43 includes/sdm-popular-downloads.php:43
-msgid "There are no download items matching this shortcode criteria."
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:19
-#: includes/templates/fancy1/sdm-fancy-1.php:140
-#: sdm-post-type-content-handler.php:98 sdm-shortcodes.php:172
-msgid "Download"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:20
-#: includes/templates/fancy1/sdm-fancy-1.php:140 main.php:1160
-#: sdm-post-type-and-taxonomy.php:7 sdm-post-type-and-taxonomy.php:8
-#: sdm-post-type-and-taxonomy.php:13 sdm-post-type-and-taxonomy.php:19
-#: sdm-post-type-content-handler.php:98 sdm-shortcodes.php:172
-msgid "Downloads"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:45
-msgid "Edit"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:46
-msgid "Delete"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:70 main.php:1154
-msgid "Title"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:71 main.php:1157
-msgid "File"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:72
-msgid "Visitor IP"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:74
-msgid "Country"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:75
-msgid "Username"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:96
-msgid "Delete Permanently"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:111 includes/sdm-logs-list-table.php:142
-msgid "Nope! Security check failed!"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:115
-msgid "No entries were selected."
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:115 includes/sdm-logs-list-table.php:129
-#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:151
-#: includes/sdm-logs-list-table.php:153
-msgid "Click to Dismiss"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:122
-msgid "Error! The row id value of a log entry must be numeric."
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:129
-msgid "Entries Deleted!"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:131 includes/sdm-logs-list-table.php:153
-msgid "Error"
-msgstr ""
-
-#: includes/sdm-logs-list-table.php:151
-msgid "Entry Deleted!"
-msgstr ""
-
-#: includes/sdm-search-shortcode-handler.php:65
-msgid "Showing search results for "
-msgstr ""
-
-#: includes/sdm-search-shortcode-handler.php:66
-msgid "Number of items found: "
-msgstr ""
-
-#: includes/sdm-search-shortcode-handler.php:67
-msgid "Keywords searched: "
-msgstr ""
-
-#: includes/sdm-search-shortcode-handler.php:70
-msgid "Nothing found for "
-msgstr ""
-
-#: includes/sdm-utility-functions.php:9
-msgid "Green"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:10
-msgid "Blue"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:11
-msgid "Purple"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:12
-msgid "Teal"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:13
-msgid "Dark Blue"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:14
-msgid "Black"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:15
-msgid "Grey"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:16
-msgid "Pink"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:17
-msgid "Orange"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:18
-msgid "White"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:57
-msgid "Enter Password to Download:"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:263
-msgid "I agree to the "
-msgstr ""
-
-#: includes/sdm-utility-functions.php:263
-msgid "terms and conditions"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:298
-#: includes/templates/fancy0/sdm-fancy-0.php:97
-#: includes/templates/fancy1/sdm-fancy-1.php:56
-#: includes/templates/fancy2/sdm-fancy-2.php:82 sdm-shortcodes.php:186
-msgid "Download Now!"
-msgstr ""
-
-#: includes/sdm-utility-functions.php:338
-msgid ""
-"Error! The URL value is empty. Please specify a correct URL value to "
-"redirect to!"
-msgstr ""
-
-#: includes/templates/fancy0/sdm-fancy-0.php:84
-#: sdm-post-type-content-handler.php:56
-msgid "green"
-msgstr ""
-
-#: includes/templates/fancy1/sdm-fancy-1.php:159
-#: includes/templates/fancy2/sdm-fancy-2.php:176
-#: sdm-post-type-content-handler.php:135
-msgid "Size: "
-msgstr ""
-
-#: includes/templates/fancy1/sdm-fancy-1.php:166
-#: includes/templates/fancy2/sdm-fancy-2.php:183 main.php:508
-#: sdm-post-type-content-handler.php:142
-msgid "Version: "
-msgstr ""
-
-#: includes/templates/fancy1/sdm-fancy-1.php:173
-#: includes/templates/fancy2/sdm-fancy-2.php:190
-#: sdm-post-type-content-handler.php:149
-msgid "Published: "
-msgstr ""
-
-#: includes/templates/fancy3/sdm-fancy-3.php:55
-#: includes/templates/fancy3/sdm-fancy-3.php:86
-msgid "View Details"
-msgstr ""
-
-#: main.php:249 main.php:345
-msgid "Select File"
-msgstr ""
-
-#: main.php:250
-msgid "Select Thumbnail"
-msgstr ""
-
-#: main.php:251
-msgid "Insert"
-msgstr ""
-
-#: main.php:252
-msgid "Image Successfully Removed"
-msgstr ""
-
-#: main.php:253
-msgid "Error with AJAX"
-msgstr ""
-
-#: main.php:264
-msgid "Please select a Download Item:"
-msgstr ""
-
-#: main.php:265
-msgid "Download Title"
-msgstr ""
-
-#: main.php:266
-msgid "Include Fancy Box"
-msgstr ""
-
-#: main.php:267
-msgid "Open New Window"
-msgstr ""
-
-#: main.php:269
-msgid "Insert SDM Shortcode"
-msgstr ""
-
-#: main.php:311
+#: includes/admin-side/sdm-admin-edit-download.php:17
 msgid "Description"
 msgstr ""
 
-#: main.php:312
+#: includes/admin-side/sdm-admin-edit-download.php:18
 msgid "Downloadable File (Visitors will download this item)"
 msgstr ""
 
-#: main.php:313
+#: includes/admin-side/sdm-admin-edit-download.php:19
 msgid "PHP Dispatch or Redirect"
 msgstr ""
 
-#: main.php:314
+#: includes/admin-side/sdm-admin-edit-download.php:20
 msgid "Miscellaneous Download Item Properties"
 msgstr ""
 
-#: main.php:315
+#: includes/admin-side/sdm-admin-edit-download.php:21
 msgid "File Thumbnail (Optional)"
 msgstr ""
 
-#: main.php:316
+#: includes/admin-side/sdm-admin-edit-download.php:22
 msgid "Statistics"
 msgstr ""
 
-#: main.php:318
+#: includes/admin-side/sdm-admin-edit-download.php:24
 msgid "Other Details (Optional)"
 msgstr ""
 
-#: main.php:319
+#: includes/admin-side/sdm-admin-edit-download.php:25
 msgid "Shortcodes"
 msgstr ""
 
-#: main.php:323
+#: includes/admin-side/sdm-admin-edit-download.php:60
 msgid "Add a description for this download item."
 msgstr ""
 
-#: main.php:337
-msgid ""
-"Manually enter a valid URL of the file in the text box below, or click "
-"\"Select File\" button to upload (or choose) the downloadable file."
+#: includes/admin-side/sdm-admin-edit-download.php:82
+msgid "Manually enter a valid URL of the file in the text box below, or click \"Select File\" button to upload (or choose) the downloadable file."
 msgstr ""
 
-#: main.php:348
+#: includes/admin-side/sdm-admin-edit-download.php:90
+#: main.php:396
+msgid "Select File"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:93
 msgid "Steps to upload a file or choose one from your media library:"
 msgstr ""
 
-#: main.php:350
+#: includes/admin-side/sdm-admin-edit-download.php:95
 msgid "Hit the \"Select File\" button."
 msgstr ""
 
-#: main.php:351
+#: includes/admin-side/sdm-admin-edit-download.php:96
 msgid "Upload a new file or choose an existing one from your media library."
 msgstr ""
 
-#: main.php:352
-msgid ""
-"Click the \"Insert\" button, this will populate the uploaded file's URL in "
-"the above text field."
+#: includes/admin-side/sdm-admin-edit-download.php:97
+msgid "Click the \"Insert\" button, this will populate the uploaded file's URL in the above text field."
 msgstr ""
 
-#: main.php:373
-msgid ""
-"Dispatch the file via PHP directly instead of redirecting to it. PHP "
-"Dispatching keeps the download URL hidden. Dispatching works only for local "
-"files (files that you uploaded to this site via this plugin or media "
-"library)."
+#: includes/admin-side/sdm-admin-edit-download.php:116
+msgid "Dispatch the file via PHP directly instead of redirecting to it. PHP Dispatching keeps the download URL hidden. Dispatching works only for local files (files that you uploaded to this site via this plugin or media library)."
 msgstr ""
 
-#: main.php:397
+#: includes/admin-side/sdm-admin-edit-download.php:138
 msgid "Open download in a new window."
 msgstr ""
 
-#: main.php:403
+#: includes/admin-side/sdm-admin-edit-download.php:144
 msgid "Hide the download button on the single download page of this item."
 msgstr ""
 
-#: main.php:409
+#: includes/admin-side/sdm-admin-edit-download.php:150
 msgid "Disable the single download page for this download item. "
 msgstr ""
 
-#: main.php:410
+#: includes/admin-side/sdm-admin-edit-download.php:151
 msgid "This can be useful if you are using an addon like the "
 msgstr ""
 
-#: main.php:421
-msgid ""
-"Manually enter a valid URL, or click \"Select Image\" to upload (or choose) "
-"the file thumbnail image."
+#: includes/admin-side/sdm-admin-edit-download.php:159
+msgid "Ignore \"Only Allow Logged-in Users to Download\" global setting for this item."
 msgstr ""
 
-#: main.php:426
+#: includes/admin-side/sdm-admin-edit-download.php:166
+msgid "Manually enter a valid URL, or click \"Select Image\" to upload (or choose) the file thumbnail image."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:171
 msgid "Select Image"
 msgstr ""
 
-#: main.php:427
+#: includes/admin-side/sdm-admin-edit-download.php:174
 msgid "Remove Image"
 msgstr ""
 
-#: main.php:441
-msgid ""
-"This thumbnail image will be used to create a fancy file download box if you "
-"want to use it."
+#: includes/admin-side/sdm-admin-edit-download.php:189
+msgid "This thumbnail image will be used to create a fancy file download box if you want to use it."
 msgstr ""
 
-#: main.php:455
+#: includes/admin-side/sdm-admin-edit-download.php:202
 msgid "These are the statistics for this download item."
 msgstr ""
 
-#: main.php:462
+#: includes/admin-side/sdm-admin-edit-download.php:209
 msgid "Number of Downloads:"
 msgstr ""
 
-#: main.php:467
+#: includes/admin-side/sdm-admin-edit-download.php:214
 msgid "Offset Count: "
 msgstr ""
 
-#: main.php:470
-msgid ""
-"Enter any positive or negative numerical value; to offset the download count "
-"shown to the visitors (when using the download counter shortcode)."
+#: includes/admin-side/sdm-admin-edit-download.php:217
+msgid "Enter any positive or negative numerical value; to offset the download count shown to the visitors (when using the download counter shortcode)."
 msgstr ""
 
-#: main.php:477
+#: includes/admin-side/sdm-admin-edit-download.php:224
 msgid "Disable download logging for this item."
 msgstr ""
 
-#: main.php:498
+#: includes/admin-side/sdm-admin-edit-download.php:244
 msgid "File Size: "
 msgstr ""
 
-#: main.php:501
+#: includes/admin-side/sdm-admin-edit-download.php:247
 msgid "Enter the size of this file (example value: 2.15 MB)."
 msgstr ""
 
-#: main.php:503
+#: includes/admin-side/sdm-admin-edit-download.php:249
 msgid "Show file size in fancy display."
 msgstr ""
 
-#: main.php:511
+#: includes/admin-side/sdm-admin-edit-download.php:254
+#: includes/templates/fancy1/sdm-fancy-1.php:197
+#: includes/templates/fancy2/sdm-fancy-2.php:205
+#: sdm-post-type-content-handler.php:171
+msgid "Version: "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:257
 msgid "Enter the version number for this item if any (example value: v2.5.10)."
 msgstr ""
 
-#: main.php:513
+#: includes/admin-side/sdm-admin-edit-download.php:259
 msgid "Show version number in fancy display."
 msgstr ""
 
-#: main.php:518
+#: includes/admin-side/sdm-admin-edit-download.php:264
 msgid "Publish Date: "
 msgstr ""
 
-#: main.php:520
+#: includes/admin-side/sdm-admin-edit-download.php:266
 msgid "Show download published date in fancy display."
 msgstr ""
 
-#: main.php:525
+#: includes/admin-side/sdm-admin-edit-download.php:271
 msgid "Download Button Text: "
 msgstr ""
 
-#: main.php:528
-msgid ""
-"You can use this field to customize the download now button text of this "
-"item."
+#: includes/admin-side/sdm-admin-edit-download.php:274
+msgid "You can use this field to customize the download now button text of this item."
 msgstr ""
 
-#: main.php:535
-msgid ""
-"The following shortcode can be used on posts or pages to embed a download "
-"now button for this file. You can also use the shortcode inserter (in the "
-"post editor) to add this shortcode to a post or page."
+#: includes/admin-side/sdm-admin-edit-download.php:280
+msgid "The following shortcode can be used on posts or pages to embed a download now button for this file. You can also use the shortcode inserter (in the post editor) to add this shortcode to a post or page."
 msgstr ""
 
-#: main.php:541
-msgid ""
-"The following shortcode can be used to show a download counter for this item."
+#: includes/admin-side/sdm-admin-edit-download.php:286
+msgid "The following shortcode can be used on posts or pages to embed a download now button that includes the title, description, thumbnail image and download counter."
 msgstr ""
 
-#: main.php:547
-msgid ""
-"Read the full shortcode usage documentation <a href=\"https://"
-"simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/\" target="
-"\"_blank\">here</a>."
+#: includes/admin-side/sdm-admin-edit-download.php:288
+msgid " <a href=\"https://simple-download-monitor.com/basic-usage-creating-a-simple-downloadable-item/\" target=\"_blank\">Click here for more documentation</a>."
 msgstr ""
 
-#: main.php:684
+#: includes/admin-side/sdm-admin-edit-download.php:301
+msgid "The following shortcode can be used to show a download counter for this item."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:307
+msgid "Direct Download URL."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:313
+msgid "Direct Download URL without Tracking Count (Ignore Logging)."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-edit-download.php:320
+msgid "Read the full shortcode <a href=\"https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/\" target=\"_blank\">usage documentation here</a>."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:25
+msgid "This menu allows you to export all the log entries to a CSV file that you can download. The download link will be shown at the top of this page."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:32
+#: includes/sdm-admin-menu-handler.php:592
+msgid "Choose Date Range (yyyy-mm-dd)"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:38
+#: includes/sdm-admin-menu-handler.php:596
+msgid "Start Date: "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:44
+#: includes/sdm-admin-menu-handler.php:597
+msgid "End Date: "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:55
+msgid "Today"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:58
+#: includes/sdm-admin-menu-handler.php:599
+msgid "This Month"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:61
+#: includes/sdm-admin-menu-handler.php:600
+msgid "Last Month"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:64
+#: includes/sdm-admin-menu-handler.php:601
+msgid "This Year"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:67
+#: includes/sdm-admin-menu-handler.php:602
+msgid "Last Year"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:70
+#: includes/sdm-admin-menu-handler.php:603
+msgid "All Time"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-export-logs.php:75
+msgid "Export Log Entries to CSV File"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:19
+msgid "File protection settings updated successfully."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:33
+msgid "Refer to this guide"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:33
+msgid " to learn more about the enhanced file protection feature."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:37
+msgid "File Protection Settings (Beta)"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:43
+msgid "Your website is using an Nginx server. To enable this file protection feature, please update the server configuration manually. "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:46
+msgid "Add the following rule to your virtual host configuration file:"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:55
+msgid "<a href=\"https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/#server-configuration-requirements\" target=\"_blank\">Read the full documentation</a> on how to configure the file protection feature on an Nginx server."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:63
+msgid "Enable File Protection (Beta)"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:66
+msgid "Check this box to enable the enhanced file protection feature."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:78
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:26
+msgid "This menu allows you to view the download logs of individual items."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:32
+msgid "View Specific Item Logs"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:36
+msgid "Enter the Download ID of the item: "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:39
+msgid "You can find the Download ID of an item from the Downloads menu of the plugin."
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:42
+msgid "View Logs"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:71
+msgid "The following table shows the download logs of the item with Download ID: "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:75
+msgid "Are you enjoying the Simple Download Monitor plugin?"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:77
+msgid "Yes"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:78
+msgid "Not Really"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:82
+msgid "We're sorry to hear you aren't enjoying the Simple Download Monitor plugin. We would love a chance to improve. Could you take a minute and let us know what we can do better by using our contact form? "
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:87
+msgid "Give Feedback"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:92
+msgid "No thanks"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:97
+msgid "That's great! Could you please do me a big favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:98
+msgid "~ Simple Download Monitor Team"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:101
+msgid "OK, you deserve it"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:103
+msgid "Nope, maybe later"
+msgstr ""
+
+#: includes/admin-side/sdm-admin-user-feedback.php:104
+msgid "I already did"
+msgstr ""
+
+#: includes/file-protection/sdm-protected-download-request-handler.php:38
+msgid "Hidden file or no extension filename detected. File could not be dispatched!"
+msgstr ""
+
+#: includes/file-protection/sdm-protected-download-request-handler.php:45
+msgid "Disallowed extension, file could not be dispatched!"
+msgstr ""
+
+#: includes/integrations/class-sdm-emember-integration.php:53
+msgid "Enable eMember Access Control"
+msgstr ""
+
+#: includes/integrations/class-sdm-emember-integration.php:56
+msgid "Check this box to enable the access control feature of the WP eMember plugin."
+msgstr ""
+
+#: includes/integrations/class-sdm-swpm-integration.php:49
+msgid "Enable SWPM Access Control"
+msgstr ""
+
+#: includes/integrations/class-sdm-swpm-integration.php:52
+msgid "Check this box to enable the access control feature of the Simple Membership plugin."
+msgstr ""
+
+#: includes/integrations/class-sdm-swpm-integration.php:90
+msgid "Error! Your account does not have permission to access this download item."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:11
+msgid "Logs"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:12
+#: includes/sdm-admin-menu-handler.php:588
+msgid "Stats"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:13
+#: main.php:329
+msgid "Settings"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:14
+#: includes/sdm-admin-menu-handler.php:161
+msgid "Add-ons"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:89
+msgid "Simple Download Monitor Settings Page"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:93
+msgid "General Settings"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:94
+msgid "Advanced Settings"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:95
+msgid "Enhanced File Protection"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:144
+msgid "Plugin Documentation"
+msgstr ""
+
+#. translators: %s = URL to documentation page
+#: includes/sdm-admin-menu-handler.php:149
+msgid "Please read the <a target=\"_blank\" href=\"%s\">Simple Download Monitor</a> plugin setup instructions and tutorials to learn how to configure and use it."
+msgstr ""
+
+#. translators: %s = URL to add-ons page
+#: includes/sdm-admin-menu-handler.php:166
+msgid "Want additional functionality? Check out our <a target=\"_blank\" href=\"%s\">Add-Ons!</a>"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:178
+msgid "Help Us Keep the Plugin Free & Maintained"
+msgstr ""
+
+#. translators: %s = URL to rating page
+#: includes/sdm-admin-menu-handler.php:183
+msgid "Like the plugin? Please give it a good <a href=\"%s\" target=\"_blank\">rating!</a>"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:204
+msgid "Our Other Plugins"
+msgstr ""
+
+#. translators: %s = URL to other plugins page
+#: includes/sdm-admin-menu-handler.php:209
+msgid "Check out <a target=\"_blank\" href=\"%s\">our other plugins</a>"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:221
+msgid "Want to Sell Digital Downloads?"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:224
+msgid "Check out the fast and simple "
+msgstr ""
+
+#. translators: %s = Twitter URL
+#: includes/sdm-admin-menu-handler.php:227
+msgid "<a target=\"_blank\" href=\"%s\">WP Express Checkout</a> plugin."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:243
+msgid "If you need an easy to use and supported plugin for selling your digital items then check out our "
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:244
+msgid "WP Express Checkout"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:245
+msgid "Stripe Payments"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:246
+msgid "WP eStore"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:319
+msgid "Are you sure want to delete all plugin's data and deactivate plugin?"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:324
+msgid "Data has been deleted and plugin deactivated. Click OK to go to Plugins page."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:328
+msgid "Error occurred."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:382
+msgid "Main Logs"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:383
+msgid "Download Logs"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:386
+msgid "Specific Item Logs"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:387
+msgid "Specific Download Item Logs"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:390
+msgid "Export"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:391
+msgid "Export Download Log Entries"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:456
+msgid "Download log entries deleted!"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:476
+msgid "Download log entries trimmed!"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:491
+msgid "This page lists all tracked downloads."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:498
+msgid "Reset Download Log Entries"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:502
+msgid "Reset Log Entries"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:503
+msgid "This button will reset all log entries. It can useful if you want to export all your log entries then reset them."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:510
+msgid "Delete Log Entries Older Than "
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:510
+msgid " Days"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:511
+msgid "Trim Log Entries"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:512
+msgid "This option can be useful if you want to delete older log entries. Enter a number of days value then click the Trim Log Entries button."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:606
+msgid "View Stats"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:612
+msgid "Downloads by date"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:613
+msgid "Downloads by country"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:614
+msgid "Downloads by country list"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:615
+msgid "Downloads by browser"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:616
+msgid "Downloads by OS"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:617
+msgid "Downloads by User"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:618
+msgid "Top Downloads"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:630
+msgid "Enter your Google Maps API Key <a href=\"edit.php?post_type=sdm_downloads&page=sdm-settings&action=advanced-settings#maps_api_key\" target=\"_blank\">in the settings</a> to properly display the chart."
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:649
+#: includes/sdm-admin-menu-handler.php:669
+msgid "Country Name"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:650
+#: includes/sdm-admin-menu-handler.php:670
+#: includes/sdm-admin-menu-handler.php:682
+#: includes/sdm-admin-menu-handler.php:697
+#: includes/sdm-admin-menu-handler.php:709
+#: includes/sdm-admin-menu-handler.php:724
+#: includes/sdm-admin-menu-handler.php:735
+#: includes/sdm-admin-menu-handler.php:750
+#: includes/sdm-admin-menu-handler.php:762
+#: includes/sdm-admin-menu-handler.php:777
+msgid "Total Downloads"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:681
+#: includes/sdm-admin-menu-handler.php:696
+msgid "Browser"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:708
+#: includes/sdm-admin-menu-handler.php:723
+msgid "Operating System"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:734
+#: includes/sdm-admin-menu-handler.php:749
+msgid "User"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:761
+#: includes/sdm-admin-menu-handler.php:776
+#: includes/sdm-blocks.php:60
+msgid "Download Item"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:797
+#: includes/sdm-logs-list-table.php:81
+msgid "Country"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:797
+#: includes/sdm-logs-list-table.php:21
+#: includes/templates/fancy1/sdm-fancy-1.php:161
+#: main.php:993
+#: sdm-post-type-and-taxonomy.php:7
+#: sdm-post-type-and-taxonomy.php:8
+#: sdm-post-type-and-taxonomy.php:13
+#: sdm-post-type-and-taxonomy.php:19
+#: sdm-post-type-content-handler.php:118
+#: sdm-shortcodes.php:195
+msgid "Downloads"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:812
+msgid "Downloads by Date"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:813
+#: includes/sdm-logs-list-table.php:80
+msgid "Date"
+msgstr ""
+
+#: includes/sdm-admin-menu-handler.php:814
+msgid "Number of downloads"
+msgstr ""
+
+#: includes/sdm-blocks.php:42
+msgid "Default"
+msgstr ""
+
+#: includes/sdm-blocks.php:59
+msgid "SDM Download"
+msgstr ""
+
+#: includes/sdm-blocks.php:61
+msgid "Select download item."
+msgstr ""
+
+#: includes/sdm-blocks.php:62
+msgid "Button Text"
+msgstr ""
+
+#: includes/sdm-blocks.php:63
+msgid "Customized text for the download button. Leave it blank to use default text."
+msgstr ""
+
+#: includes/sdm-blocks.php:64
+msgid "Template"
+msgstr ""
+
+#: includes/sdm-blocks.php:65
+msgid "Select download item template."
+msgstr ""
+
+#: includes/sdm-blocks.php:66
+msgid "Open Download in a New Window"
+msgstr ""
+
+#: includes/sdm-blocks.php:67
+msgid "Button Color"
+msgstr ""
+
+#: includes/sdm-blocks.php:68
+msgid "Select button color. Note that this option may not work for some templates."
+msgstr ""
+
+#: includes/sdm-blocks.php:112
+msgid "Select item to view"
+msgstr ""
+
+#: includes/sdm-blocks.php:137
+msgid "(Select item)"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:9
+msgid "Error! Incorrect download item id."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:15
+msgid "Error! This download item (%s) does not have any download link. Edit this item and specify a downloadable file URL for it."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:29
+msgid "Error! This download requires a password."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:31
+#: main.php:728
+#: main.php:730
+msgid "Click here"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:32
+msgid " and enter a valid password for this item"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:40
+msgid "Error! Incorrect password. This download requires a valid password."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:98
+msgid "__Click here__ to go to login page."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:101
+msgid "You need to be logged in to download this file."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:105
+#: includes/sdm-utility-functions.php:499
+msgid "Not Logged In"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:170
+msgid "Error! Failed to log the download request in the database table"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:195
+msgid "File not found."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "ERROR:"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "Google reCAPTCHA verification failed."
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "Back"
+msgstr ""
+
+#: includes/sdm-download-request-handler.php:279
+msgid "Do you have JavaScript enabled?"
+msgstr ""
+
+#: includes/sdm-latest-downloads.php:48
+#: includes/sdm-popular-downloads.php:48
+msgid "There are no download items matching this shortcode criteria."
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:20
+#: includes/templates/fancy1/sdm-fancy-1.php:161
+#: sdm-post-type-content-handler.php:118
+#: sdm-shortcodes.php:195
+msgid "Download"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:51
+msgid "Edit"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:52
+msgid "Delete"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:77
+#: main.php:987
+msgid "Title"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:78
+#: main.php:990
+msgid "File"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:79
+msgid "Visitor IP"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:82
+msgid "Username"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:83
+msgid "User Agent"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:84
+msgid "Referrer URL"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:106
+msgid "Delete Permanently"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:121
+#: includes/sdm-logs-list-table.php:157
+msgid "Nope! Security check failed!"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:125
+msgid "No entries were selected."
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:125
+#: includes/sdm-logs-list-table.php:144
+#: includes/sdm-logs-list-table.php:146
+#: includes/sdm-logs-list-table.php:170
+#: includes/sdm-logs-list-table.php:172
+msgid "Click to Dismiss"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:132
+#: includes/sdm-logs-list-table.php:137
+#: includes/sdm-logs-list-table.php:164
+msgid "Error! The row id value of a log entry must be numeric."
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:144
+msgid "Entries Deleted!"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:146
+#: includes/sdm-logs-list-table.php:172
+msgid "Error"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:170
+msgid "Entry Deleted!"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:226
+msgid "Error! The download id value of a log entry must be numeric."
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:303
+#: includes/sdm-search-shortcode-handler.php:10
+msgid "Search"
+msgstr ""
+
+#: includes/sdm-logs-list-table.php:317
+msgid "Export Logs"
+msgstr ""
+
+#: includes/sdm-search-shortcode-handler.php:67
+msgid "Showing search results for "
+msgstr ""
+
+#: includes/sdm-search-shortcode-handler.php:68
+msgid "Number of items found: "
+msgstr ""
+
+#: includes/sdm-search-shortcode-handler.php:69
+msgid "Keywords searched: "
+msgstr ""
+
+#: includes/sdm-search-shortcode-handler.php:72
+msgid "Nothing found for "
+msgstr ""
+
+#: includes/sdm-utility-functions.php:12
+msgid "Green"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:13
+msgid "Blue"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:14
+msgid "Purple"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:15
+msgid "Teal"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:16
+msgid "Dark Blue"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:17
+msgid "Black"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:18
+msgid "Grey"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:19
+msgid "Pink"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:20
+msgid "Orange"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:21
+msgid "White"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:93
+msgid "Enter Password to Download:"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:366
+msgid "I agree to the "
+msgstr ""
+
+#: includes/sdm-utility-functions.php:366
+msgid "terms and conditions"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:401
+#: includes/sdm-utility-functions.php:663
+#: includes/templates/fancy0/sdm-fancy-0.php:104
+#: includes/templates/fancy1/sdm-fancy-1.php:67
+#: includes/templates/fancy2/sdm-fancy-2.php:91
+msgid "Download Now!"
+msgstr ""
+
+#: includes/sdm-utility-functions.php:441
+msgid "Error! The URL value is empty. Please specify a correct URL value to redirect to!"
+msgstr ""
+
+#: includes/templates/fancy0/sdm-fancy-0.php:83
+#: sdm-post-type-content-handler.php:77
+msgid "green"
+msgstr ""
+
+#: includes/templates/fancy1/sdm-fancy-1.php:190
+#: includes/templates/fancy2/sdm-fancy-2.php:197
+#: sdm-post-type-content-handler.php:164
+msgid "Size: "
+msgstr ""
+
+#: includes/templates/fancy1/sdm-fancy-1.php:204
+#: includes/templates/fancy2/sdm-fancy-2.php:213
+#: sdm-post-type-content-handler.php:178
+msgid "Published: "
+msgstr ""
+
+#: includes/templates/fancy3/sdm-fancy-3.php:54
+#: includes/templates/fancy3/sdm-fancy-3.php:87
+msgid "View Details"
+msgstr ""
+
+#: main.php:170
+msgid "Please select a valid date range."
+msgstr ""
+
+#: main.php:242
+msgid "Nonce verification failed!"
+msgstr ""
+
+#: main.php:299
+msgid "Successfully Retrieved Download Logs."
+msgstr ""
+
+#: main.php:397
+msgid "Select Thumbnail"
+msgstr ""
+
+#: main.php:398
+msgid "Insert"
+msgstr ""
+
+#: main.php:399
+msgid "Image Successfully Removed"
+msgstr ""
+
+#: main.php:400
+msgid "Error with AJAX"
+msgstr ""
+
+#: main.php:465
 msgid "General Options"
 msgstr ""
 
-#: main.php:685
+#: main.php:466
 msgid "User Login Related"
 msgstr ""
 
-#: main.php:686
+#: main.php:467
 msgid "Admin Options"
 msgstr ""
 
-#: main.php:688
+#: main.php:469
 msgid "Colors"
 msgstr ""
 
-#: main.php:689
+#: main.php:470
 msgid "Debug"
 msgstr ""
 
-#: main.php:690
+#: main.php:471
 msgid "Delete Plugin Data"
 msgstr ""
 
-#: main.php:693
+#: main.php:474
 msgid "Hide Download Count"
 msgstr ""
 
-#: main.php:694
+#: main.php:475
 msgid "PHP Dispatching"
 msgstr ""
 
-#: main.php:696
+#: main.php:476
+msgid "Disallowed Extensions for PHP Dispatching"
+msgstr ""
+
+#: main.php:477
+msgid "Allow PHP Dispatching of Hidden Files"
+msgstr ""
+
+#: main.php:479
 msgid "Only Allow Logged-in Users to Download"
 msgstr ""
 
-#: main.php:697
+#: main.php:480
 msgid "Login Page URL"
 msgstr ""
 
-#: main.php:698
+#: main.php:481
 msgid "Redirect Users to Download Page"
 msgstr ""
 
-#: main.php:700
-msgid "Remove Tinymce Button"
-msgstr ""
-
-#: main.php:701
+#: main.php:483
 msgid "Log Unique IP"
 msgstr ""
 
-#: main.php:702
+#: main.php:484
 msgid "Do Not Capture IP Address"
 msgstr ""
 
-#: main.php:703
+#: main.php:485
+msgid "Do Not Capture User Agent"
+msgstr ""
+
+#: main.php:486
+msgid "Do Not Capture Referrer URL"
+msgstr ""
+
+#: main.php:487
 msgid "Do Not Count Downloads from Bots"
 msgstr ""
 
-#: main.php:704
+#: main.php:488
 msgid "Disable Download Logs"
 msgstr ""
 
-#: main.php:706
+#: main.php:489
+msgid "Admin Dashboard Access Permission"
+msgstr ""
+
+#: main.php:491
 msgid "Download Button Color"
 msgstr ""
 
-#: main.php:708
+#: main.php:493
 msgid "Enable Debug"
 msgstr ""
 
-#: main.php:714
+#: main.php:499
 msgid "Google Captcha (reCAPTCHA)"
 msgstr ""
 
-#: main.php:715
+#: main.php:500
 msgid "Terms and Conditions"
 msgstr ""
 
-#: main.php:716
+#: main.php:501
 msgid "Adsense/Ad Insertion"
 msgstr ""
 
-#: main.php:717
+#: main.php:502
 msgid "Google Maps API Key"
 msgstr ""
 
-#: main.php:720
+#: main.php:505
 msgid "Enable reCAPTCHA"
 msgstr ""
 
-#: main.php:721
+#: main.php:506
 msgid "Site Key"
 msgstr ""
 
-#: main.php:722
+#: main.php:507
 msgid "Secret Key"
 msgstr ""
 
-#: main.php:725
+#: main.php:510
 msgid "Enable Terms and Conditions"
 msgstr ""
 
-#: main.php:726
+#: main.php:511
 msgid "Terms Page URL"
 msgstr ""
 
-#: main.php:729
+#: main.php:514
 msgid "Below Download Description"
 msgstr ""
 
-#: main.php:732
+#: main.php:517
 msgid "API Key"
 msgstr ""
 
-#: main.php:737
+#: main.php:523
 msgid "General options settings"
 msgstr ""
 
-#: main.php:742
-msgid ""
-"Visitor login related settings (useful if you only want to allow logged-in "
-"users to be able to download files."
+#: main.php:528
+msgid "Visitor login related settings (useful if you only want to allow logged-in users to be able to download files."
 msgstr ""
 
-#: main.php:747
+#: main.php:533
 msgid "Admin options settings"
 msgstr ""
 
-#: main.php:752
+#: main.php:538
 msgid "Front End colors settings"
 msgstr ""
 
-#: main.php:757
+#: main.php:543
 msgid "Debug settings"
 msgstr ""
 
-#: main.php:762
-msgid ""
-"You can delete all the data related to this plugin from database using the "
-"button below. Useful when you're uninstalling the plugin and don't want any "
-"leftovers remaining."
+#: main.php:548
+msgid "You can delete all the data related to this plugin from database using the button below. Useful when you're uninstalling the plugin and don't want any leftovers remaining."
 msgstr ""
 
-#: main.php:763
+#: main.php:549
 msgid "Warning"
 msgstr ""
 
-#: main.php:763
-msgid ""
-"this can't be undone. All settings, download items, download logs will be "
-"deleted."
+#: main.php:549
+msgid "this can't be undone. All settings, download items, download logs will be deleted."
 msgstr ""
 
-#: main.php:764
+#: main.php:550
 msgid "Delete all data and deactivate plugin"
 msgstr ""
 
-#: main.php:770
+#: main.php:556
 msgid "Google Captcha (reCAPTCHA) options"
 msgstr ""
 
-#: main.php:779
-msgid ""
-"You can use this section to insert adsense or other ad code inside the "
-"download item output"
+#: main.php:565
+msgid "You can use this section to insert adsense or other ad code inside the download item output"
 msgstr ""
 
-#: main.php:783
-msgid ""
-"Google Maps API key is required to display the \"Downloads by Country\" "
-"chart."
+#: main.php:569
+msgid "Google Maps API key is required to display the \"Downloads by Country\" chart."
 msgstr ""
 
-#: main.php:789
-msgid ""
-"Check this box if you want to use <a href=\"https://www.google.com/recaptcha/"
-"admin\" target=\"_blank\">reCAPTCHA</a>. "
+#: main.php:576
+msgid "Check this box if you want to use <a href=\"https://simple-download-monitor.com/how-to-add-google-recaptcha-to-your-download-buttons/\" target=\"_blank\">reCAPTCHA</a>. "
 msgstr ""
 
-#: main.php:790
+#: main.php:584
 msgid "The captcha option adds a captcha to the download now buttons."
 msgstr ""
 
-#: main.php:797
+#: main.php:591
 msgid "The site key for the reCAPTCHA API"
 msgstr ""
 
-#: main.php:804
+#: main.php:598
 msgid "The secret key for the reCAPTCHA API"
 msgstr ""
 
-#: main.php:810
+#: main.php:604
 msgid "Hide the download count that is shown in some of the fancy templates."
 msgstr ""
 
-#: main.php:817
-msgid ""
-"When you create a new download item, The PHP Dispatching option should be "
-"enabled by default. PHP Dispatching keeps the URL of the downloadable files "
-"hidden."
+#: main.php:611
+msgid "The PHP Dispatching option serves the download using PHP. It keeps the URL of the main downloadable files hidden."
 msgstr ""
 
-#: main.php:824
-msgid ""
-"Enable this option if you want to allow downloads only for logged-in users. "
-"When enabled, anonymous users clicking on the download button will receive "
-"an error message."
+#: main.php:618
+msgid "Comma-separated list of file extensions that are disallowed for PHP dispatch. You can use this option to disallow PHP dispatching of certain file types for security reasons."
 msgstr ""
 
-#: main.php:831
-msgid ""
-"Only works if you have set a Login Page URL value above. Enable this option "
-"if you want to redirect the users to the download page after they log into "
-"the site."
+#: main.php:625
+msgid "Allow hidden files and files without any extensions to be dispatched via PHP Dispatch option."
 msgstr ""
 
-#: main.php:838
-msgid ""
-"(Optional) Specify a login page URL where users can login. This is useful if "
-"you only allow logged in users to be able to download. This link will be "
-"added to the message that is shown to anonymous users."
+#: main.php:626
+msgid "Note: It is recommended to keep this option disabled unless you know what you're doing."
 msgstr ""
 
-#: main.php:844
-msgid "Removes the SDM Downloads button from the WP content editor."
+#: main.php:633
+msgid "Enable this option if you want to allow downloads only for logged-in users. When enabled, anonymous users clicking on the download button will receive an error message."
 msgstr ""
 
-#: main.php:850
+#: main.php:640
+msgid "Only works if you have set a Login Page URL value above. Enable this option if you want to redirect the users to the download page after they log into the site."
+msgstr ""
+
+#: main.php:647
+msgid "(Optional) Specify a login page URL where users can login. This is useful if you only allow logged in users to be able to download. This link will be added to the message that is shown to anonymous users."
+msgstr ""
+
+#: main.php:653
 msgid "Only logs downloads from unique IP addresses."
 msgstr ""
 
-#: main.php:856
-msgid ""
-"Use this if you do not want to capture the IP address and Country of the "
-"visitors when they download an item."
+#: main.php:659
+msgid "Use this if you do not want to capture the IP address and Country of the visitors when they download an item."
 msgstr ""
 
-#: main.php:862
+#: main.php:665
+msgid "Use this if you do not want to capture the User Agent value of the browser when they download an item."
+msgstr ""
+
+#: main.php:671
+msgid "Use this if you do not want to capture the Referrer URL value when they download an item. The plugin only tries to capture this value if it is available."
+msgstr ""
+
+#: main.php:677
 msgid "When enabled, the plugin won't count and log downloads from bots."
 msgstr ""
 
-#: main.php:868
-msgid ""
-"Disables all download logs. (This global option overrides the individual "
-"download item option.)"
+#: main.php:683
+msgid "Disables all download logs. (This global option overrides the individual download item option.)"
 msgstr ""
 
-#: main.php:882
+#: main.php:696
+msgid "The SDM plugin's admin dashboard is accessible to administrator users only (just like any other plugin). You can allow users with other WP user roles to access the SDM admin dashboard by selecting a value here."
+msgstr ""
+
+#: main.php:720
 msgid "Adjusts the color of the \"Download Now\" button."
 msgstr ""
 
-#: main.php:888
+#: main.php:726
 msgid "Check this option to enable debug logging."
 msgstr ""
 
-#: main.php:891
+#: main.php:729
 msgid " to view log file."
 msgstr ""
 
-#: main.php:893
+#: main.php:731
 msgid " to reset log file."
 msgstr ""
 
-#: main.php:899
-msgid ""
-"You can use this option to make the visitors agree to your terms before they "
-"can download the item."
+#: main.php:737
+msgid "You can use this option to make the visitors agree to your terms before they can download the item."
 msgstr ""
 
-#: main.php:906
+#: main.php:744
 msgid "Enter the URL of your terms and conditions page."
 msgstr ""
 
-#: main.php:914
-msgid ""
-"Enter the Adsense or Ad code that you want to show below the download item "
-"description."
+#: main.php:752
+msgid "Enter the Adsense or Ad code that you want to show below the download item description."
 msgstr ""
 
-#: main.php:921
-msgid ""
-"Enter your Google Maps API key. You can create new API key using <a href="
-"\"https://developers.google.com/maps/documentation/javascript/get-api-key\" "
-"target=\"_blank\">this instruction</a>."
+#: main.php:760
+msgid "Enter your Google Maps API key. You can create new API key using <a href=\"https://developers.google.com/maps/documentation/javascript/get-api-key\" target=\"_blank\">this instruction</a>."
 msgstr ""
 
-#: main.php:928
+#: main.php:775
 msgid "Clone"
 msgstr ""
 
-#: main.php:954
+#: main.php:804
 msgid "No post to duplicate has been supplied!"
 msgstr ""
 
-#: main.php:1040
+#: main.php:891
 msgid "Post creation failed, could not find original post: "
 msgstr ""
 
-#: main.php:1079
-msgid "Permission denied!"
-msgstr ""
-
-#: main.php:1155
+#: main.php:988
 msgid "Image"
 msgstr ""
 
-#: main.php:1156
+#: main.php:989
 msgid "ID"
 msgstr ""
 
-#: main.php:1158 sdm-post-type-and-taxonomy.php:56
+#: main.php:991
+#: sdm-post-type-and-taxonomy.php:87
 msgid "Categories"
 msgstr ""
 
-#: main.php:1159 sdm-post-type-and-taxonomy.php:80
+#: main.php:992
+#: sdm-post-type-and-taxonomy.php:115
 msgid "Tags"
 msgstr ""
 
-#: main.php:1161
+#: main.php:994
 msgid "Date Posted"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:9 sdm-post-type-and-taxonomy.php:10
+#: sdm-post-type-and-taxonomy.php:9
+#: sdm-post-type-and-taxonomy.php:10
 msgid "Add New"
 msgstr ""
 
@@ -1163,138 +1395,118 @@ msgstr ""
 msgid "Parent Download"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:46
+#: sdm-post-type-and-taxonomy.php:77
 msgid "Download Categories"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:47
+#: sdm-post-type-and-taxonomy.php:78
 msgid "Download Category"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:48
+#: sdm-post-type-and-taxonomy.php:79
 msgid "Search Categories"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:49
+#: sdm-post-type-and-taxonomy.php:80
 msgid "All Categories"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:50
+#: sdm-post-type-and-taxonomy.php:81
 msgid "Categories Genre"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:51
+#: sdm-post-type-and-taxonomy.php:82
 msgid "Categories Genre:"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:52
+#: sdm-post-type-and-taxonomy.php:83
 msgid "Edit Category"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:53
+#: sdm-post-type-and-taxonomy.php:84
 msgid "Update Category"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:54
+#: sdm-post-type-and-taxonomy.php:85
 msgid "Add New Category"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:55
+#: sdm-post-type-and-taxonomy.php:86
 msgid "New Category"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:70
+#: sdm-post-type-and-taxonomy.php:105
 msgid "Download Tags"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:71
+#: sdm-post-type-and-taxonomy.php:106
 msgid "Download Tag"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:72
+#: sdm-post-type-and-taxonomy.php:107
 msgid "Search Tags"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:73
+#: sdm-post-type-and-taxonomy.php:108
 msgid "All Tags"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:74
+#: sdm-post-type-and-taxonomy.php:109
 msgid "Tags Genre"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:75
+#: sdm-post-type-and-taxonomy.php:110
 msgid "Tags Genre:"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:76
+#: sdm-post-type-and-taxonomy.php:111
 msgid "Edit Tag"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:77
+#: sdm-post-type-and-taxonomy.php:112
 msgid "Update Tag"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:78
+#: sdm-post-type-and-taxonomy.php:113
 msgid "Add New Tag"
 msgstr ""
 
-#: sdm-post-type-and-taxonomy.php:79
+#: sdm-post-type-and-taxonomy.php:114
 msgid "New Tag"
 msgstr ""
 
-#: sdm-post-type-content-handler.php:19
+#: sdm-post-type-content-handler.php:38
 msgid "The admin of this site has disabled this download item page."
 msgstr ""
 
-#: sdm-post-type-content-handler.php:126
+#: sdm-post-type-content-handler.php:147
 msgid "The admin of this site has disabled the download button for this page."
 msgstr ""
 
-#: sdm-shortcodes.php:82 sdm-shortcodes.php:152 sdm-shortcodes.php:166
+#: sdm-shortcodes.php:77
+msgid "More Details"
+msgstr ""
+
+#: sdm-shortcodes.php:87
+#: sdm-shortcodes.php:165
+#: sdm-shortcodes.php:184
 msgid "Error! Please enter an ID value with this shortcode."
 msgstr ""
 
-#: sdm-shortcodes.php:199
-msgid ""
-"Error! You must enter a category slug OR a category id with this shortcode. "
-"Refer to the documentation for usage instructions."
+#: sdm-shortcodes.php:227
+msgid "Error! You must enter a category slug OR a category id with this shortcode. Refer to the documentation for usage instructions."
 msgstr ""
 
-#: sdm-shortcodes.php:204
+#: sdm-shortcodes.php:232
 msgid "Error! Please enter a category slug OR id; not both."
 msgstr ""
 
-#: sdm-shortcodes.php:240
-msgid ""
-"Error! You must enter a numeric number for the \"pagination\" parameter of "
-"the shortcode. Refer to the usage documentation."
+#: sdm-shortcodes.php:276
+msgid "Error! You must enter a numeric number for the \"pagination\" parameter of the shortcode. Refer to the usage documentation."
 msgstr ""
 
-#: sdm-shortcodes.php:265
+#: sdm-shortcodes.php:300
 msgid "There are no download items matching this category criteria."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Simple Download Monitor"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://simple-download-monitor.com/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Easily manage downloadable files and monitor downloads of your digital files "
-"from your WordPress site."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Tips and Tricks HQ, Ruhul Amin, Josh Lobe"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://www.tipsandtricks-hq.com/development-center"
 msgstr ""
 
 ### Translation strings for the addons
@@ -1308,4 +1520,3 @@ msgstr ""
 
 msgid "Email"
 msgstr ""
-

@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 5.5
 Tested up to: 6.7
-Stable tag: 3.9.27
+Stable tag: 3.9.28
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -195,8 +195,10 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
-= WIP =
-- An admin-side JavaScript issue was fixed.
+
+= 3.9.28 =
+- Fixed a minor issue in the newly added admin-side JavaScript code for the logs export feature.
+- Updated the translation POT file.
 
 = 3.9.27 =
 - Added a search field to the logs table, enabling users to search for specific log entries.
