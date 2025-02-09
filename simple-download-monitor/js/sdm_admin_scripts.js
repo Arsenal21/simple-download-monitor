@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const exportLogs = document.getElementById('sdm-export-logs-submit');
 
-    exportLogs.addEventListener('click', async function (e) {
+    exportLogs?.addEventListener('click', async function (e) {
         if (!confirm("Are you sure you want to export the log entries displayed in the current table?")) {
             return;
         }

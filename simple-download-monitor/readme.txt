@@ -195,6 +195,8 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+= WIP =
+- An admin-side JavaScript issue was fixed.
 
 = 3.9.27 =
 - Added a search field to the logs table, enabling users to search for specific log entries.
