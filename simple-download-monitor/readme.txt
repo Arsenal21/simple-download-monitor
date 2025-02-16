@@ -196,6 +196,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Added a new filter hook 'sdm_download_button_text' to allow customization of the download button text via custom code.
+
 = 3.9.28 =
 - Fixed a minor issue in the newly added admin-side JavaScript code for the logs export feature.
 - Updated the translation POT file.

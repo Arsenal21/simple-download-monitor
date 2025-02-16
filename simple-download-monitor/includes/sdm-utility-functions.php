@@ -402,6 +402,9 @@ function sdm_get_default_download_button_text( $download_id ) {
 	$meta_text    = get_post_meta( $download_id, 'sdm_download_button_text', true );
 
 	$button_text = ! empty( $meta_text ) ? $meta_text : $default_text;
+
+	//Allow other plugins to filter the button text
+	$button_text = apply_filters( 'sdm_download_button_text', $button_text, $download_id );
 	return $button_text;
 }
 
