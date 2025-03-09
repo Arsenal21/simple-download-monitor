@@ -315,6 +315,12 @@ class SDM_Admin_Edit_Download {
 		$direct_download_url_ignore_logging = add_query_arg( array( 'sdm_ignore_logging' => '1' ), $direct_download_url );
 		echo "<input type='text' class='code' onfocus='this.select();' readonly='readonly' value='" . esc_attr( $direct_download_url_ignore_logging ) . "' size='40'>";
 
+		// Allow other plugins to add extra content to the shortcode meta box
+		$shortcode_meta_box_content = apply_filters( 'sdm_shortcode_meta_box_content', '', $post->ID );
+		if ( ! empty( $shortcode_meta_box_content ) ) {
+			echo $shortcode_meta_box_content;
+		}
+
 		echo '<br /><br />';
 		echo wp_kses(
 			__( 'Read the full shortcode <a href="https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/" target="_blank">usage documentation here</a>.', 'simple-download-monitor' ),
