@@ -342,11 +342,18 @@ class simpleDownloadManager {
 		add_action( 'init', 'sdm_register_post_type' );  // Create 'sdm_downloads' custom post type
 		add_action( 'init', 'sdm_create_taxonomies' );  // Register 'tags' and 'categories' taxonomies
 		add_action( 'init', 'sdm_register_shortcodes' ); //Register the shortcodes
-		add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );  // Register frontend scripts
-		include_once 'includes/sdm-blocks.php';
+
+		// Register frontend scripts (Note that the 'wp_enqueue_scripts' hook only runs on the front end).
+		add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );  
+
+		// Include the blocks related files.
+		include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/sdm-blocks.php';
 
 		if ( is_admin() ) {
-			add_action( 'admin_menu', array( $this, 'sdm_create_menu_pages' ) );  // Create admin pages
+			// Handle the admin side of things.
+
+			// Create admin menu pages.
+			add_action( 'admin_menu', array( $this, 'sdm_create_menu_pages' ) );  
 
 			require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-edit-download.php';
 
