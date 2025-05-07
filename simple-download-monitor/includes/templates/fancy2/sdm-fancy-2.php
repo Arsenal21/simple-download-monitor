@@ -222,8 +222,12 @@ function sdm_generate_fancy2_display_output( $args ) {
         $output .= '</div>';
     }
 
-    //Show the download button
-    //Apply filter on button HTML code
+    //Filter hook to allow other plugins to add their own HTML code before the download button.
+    $extra_html_before_button = apply_filters( 'sdm_before_download_button', '', $id, $args );
+    $output .= $extra_html_before_button;
+
+    //The download button section.
+    //Filter hook to allow other plugins to customize the download button code.
     $download_button_code = apply_filters( 'sdm_download_button_code_html', $download_button_code );    
     $output .= '<div class="sdm_fancy2_download_link">';
     $output .= $download_button_code;
