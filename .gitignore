@@ -5,3 +5,5 @@
 vendor
 
 .phpunit.result.cache
+
+simple-download-monitor.zip
