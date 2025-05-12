@@ -3,6 +3,9 @@
 //Handles the download request
 function handle_sdm_download_via_direct_post() {
 	if ( (isset( $_REQUEST['smd_process_download'] ) && $_REQUEST['smd_process_download'] == '1') || (isset( $_REQUEST['sdm_process_download'] ) && $_REQUEST['sdm_process_download'] == '1') ) {
+		
+		do_action('sdm_download_via_direct_post');
+		
 		global $wpdb;
 		$download_id = isset( $_REQUEST['download_id'] ) ? absint( $_REQUEST['download_id'] ) : 0;
 		if ( ! $download_id ) {

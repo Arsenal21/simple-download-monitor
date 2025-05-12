@@ -200,6 +200,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 - Added a new filter hook 'sdm_download_button_text' to allow customization of the download button text via custom code.
 - Added a new filter hook 'sdm_shortcode_meta_box_content' to allow addons to add content to the shortcode meta box.
 - Added a new filter hook 'sdm_before_download_button' to allow addons to add content before the download button.
+- Added a new action hook 'sdm_download_via_direct_post' to allow addons to do tasks when download request via direct post is received.
 
 = 3.9.28 =
 - Fixed a minor issue in the newly added admin-side JavaScript code for the logs export feature.
