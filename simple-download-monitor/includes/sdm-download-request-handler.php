@@ -264,8 +264,25 @@ function sdm_dispatch_file( $filename ) {
  */
 function sdm_recaptcha_verify() {
 	$main_advanced_opts = get_option( 'sdm_advanced_options' );
-	$recaptcha_enable   = isset( $main_advanced_opts['recaptcha_enable'] ) ? true : false;
-	if ( $recaptcha_enable ) {
+
+	if ( sdm_is_recaptcha_v3_enabled() ) {
+		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['g-recaptcha-response'] ) ) {
+			$recaptcha_secret_key = $main_advanced_opts['recaptcha_v3_secret_key'];
+			$recaptcha_response   = filter_input( INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+			$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$recaptcha_response}" );
+			$response             = json_decode( $response['body'], 1 );
+
+			if ( $response['success'] ) {
+				return true;
+			} else {
+				wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+				return false;
+			}
+		} else {
+			wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+			return false;
+		}
+	} else if ( sdm_is_recaptcha_v2_enabled() ) {
 		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['g-recaptcha-response'] ) ) {
 			$recaptcha_secret_key = $main_advanced_opts['recaptcha_secret_key'];
 			$recaptcha_response   = filter_input( INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
