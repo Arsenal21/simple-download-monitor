@@ -148,7 +148,7 @@ function sdm_generate_fancy1_display_output( $args ) {
     }
 
     //Check if reCAPTCHA enabled
-    $recaptcha_enable = isset( $main_advanced_opts[ 'recaptcha_enable' ] ) ? true : false;
+    $recaptcha_enable = sdm_is_any_recaptcha_enabled();
     if ( $recaptcha_enable && $cpt_is_password == 'no' ) {
 	$download_button_code = sdm_get_download_form_with_recaptcha( $id, $shortcode_atts, 'sdm_download ' . $color );
     }

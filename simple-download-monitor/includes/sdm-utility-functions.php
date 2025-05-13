@@ -337,7 +337,12 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . esc_attr($window_target) . '>';
 
 	$data .= '<div class="sdm-recaptcha-button">';
-	$data .= '<div class="g-recaptcha sdm-g-recaptcha"></div>';
+
+    if (sdm_is_recaptcha_v3_enabled()){
+	    $data .= sdm_get_recaptcha_v3_html();
+    } else {
+		$data .= '<div class="g-recaptcha sdm-g-recaptcha"></div>';
+    }
 
 	//Check if Terms & Condition enabled
 	$data .= sdm_get_checkbox_for_termsncond();
@@ -350,11 +355,11 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 }
 
 function sdm_get_download_with_recaptcha() {
-	$main_advanced_opts = get_option( 'sdm_advanced_options' );
-	$recaptcha_enable   = isset( $main_advanced_opts['recaptcha_enable'] ) ? true : false;
-	if ( $recaptcha_enable ) {
+	if ( sdm_is_recaptcha_v3_enabled() ) {
+        return sdm_get_recaptcha_v3_html();
+	} else if (sdm_is_recaptcha_v2_enabled()) {
 		return '<div class="g-recaptcha sdm-g-recaptcha"></div>';
-	}
+    }
 	return '';
 }
 
@@ -707,4 +712,26 @@ function is_sdm_admin_page() {
 		return true;
 	}
 	return false;
+}
+
+function sdm_is_any_recaptcha_enabled(){
+	return sdm_is_recaptcha_v2_enabled() || sdm_is_recaptcha_v3_enabled();
+}
+
+function sdm_is_recaptcha_v2_enabled(){
+	$advanced_settings = get_option( 'sdm_advanced_options' );
+
+	return isset( $advanced_settings[ 'recaptcha_enable' ] ) && $advanced_settings[ 'recaptcha_enable' ] == 'on';
+}
+
+function sdm_is_recaptcha_v3_enabled(){
+	$advanced_settings = get_option( 'sdm_advanced_options' );
+
+	return isset( $advanced_settings[ 'recaptcha_v3_enable' ] ) && $advanced_settings[ 'recaptcha_v3_enable' ] == 'on';
+}
+
+function sdm_get_recaptcha_v3_html(){
+	wp_enqueue_script('sdm-recaptcha-v3-scripts-lib');
+
+    return '<input type="hidden" class="sdm-g-recaptcha-v3-response" name="g-recaptcha-response"/>';
 }

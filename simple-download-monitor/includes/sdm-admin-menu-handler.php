@@ -36,6 +36,7 @@ function sdm_admin_menu_enqueue_scripts( $hook_suffix ) {
  * @return string
  */
 function sdm_admin_menu_function_hook( $allowed_options = array() ) {
+	$allowed_options['recaptcha_v3_options_section'] = array( 'sdm_advanced_options' );
 	$allowed_options['recaptcha_options_section'] = array( 'sdm_advanced_options' );
 	$allowed_options['termscond_options_section'] = array( 'sdm_advanced_options' );
 	$allowed_options['adsense_options_section']   = array( 'sdm_advanced_options' );
@@ -349,6 +350,10 @@ function sdm_admin_menu_general_settings() {
 function sdm_admin_menu_advanced_settings() {
 	//More advanced options will be added here in the future.
 	// This prints out all hidden setting fields
+	do_settings_sections( 'recaptcha_v3_options_section' );
+	settings_fields( 'recaptcha_v3_options_section' );
+	submit_button();
+
 	do_settings_sections( 'recaptcha_options_section' );
 	settings_fields( 'recaptcha_options_section' );
 	submit_button();

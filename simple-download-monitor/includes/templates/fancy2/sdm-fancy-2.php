@@ -137,11 +137,11 @@ function sdm_generate_fancy2_display_output( $args ) {
 	$download_button_code = sdm_get_download_form_with_termsncond( $id, $shortcode_atts, 'sdm_fancy2_download_dl_link' );
     }
 
-    //Check if reCAPTCHA enabled
-    $recaptcha_enable = isset( $main_advanced_opts[ 'recaptcha_enable' ] ) ? true : false;
-    if ( $recaptcha_enable && $cpt_is_password == 'no' ) {
-	$download_button_code = sdm_get_download_form_with_recaptcha( $id, $shortcode_atts, 'sdm_fancy2_download_dl_link' );
-    }
+	//Check if reCAPTCHA enabled
+	$recaptcha_enable = sdm_is_any_recaptcha_enabled();
+	if ( $recaptcha_enable && $cpt_is_password == 'no' ) {
+		$download_button_code = sdm_get_download_form_with_recaptcha( $id, $shortcode_atts, 'sdm_download ' );
+	}
 
     if ( $cpt_is_password !== 'no' ) {//This is a password protected download so replace the download now button with password requirement
 	$download_button_code = sdm_get_password_entry_form( $id, $shortcode_atts, 'sdm_fancy2_download_dl_link' );
