@@ -97,8 +97,7 @@ function filter_sdm_post_type_content( $content ) {
 		}
 
 		//Check if reCAPTCHA enabled
-		$recaptcha_enable = isset( $main_advanced_opts['recaptcha_enable'] ) ? true : false;
-		if ( $recaptcha_enable && $cpt_is_password == 'no' ) {
+		if ( sdm_is_any_recaptcha_enabled() && $cpt_is_password == 'no' ) {
 			$download_button_code = sdm_get_download_form_with_recaptcha( $id, array(), 'sdm_download ' . $def_color );
 		}
 

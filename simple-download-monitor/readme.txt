@@ -195,6 +195,8 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
+= WIP =
+- A small bug fixed for Google reCAPTCHA v3 feature.
 
 = 3.9.29 =
 - Added Google reCaptcha v3 support. It can be enabled from the advanced settings menu of the plugin.
