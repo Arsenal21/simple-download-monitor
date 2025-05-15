@@ -2,9 +2,9 @@
 Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfoxc
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
-Requires at least: 5.5
-Tested up to: 6.7
-Stable tag: 3.9.28
+Requires at least: 6.0
+Tested up to: 6.8
+Stable tag: 3.9.29
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -196,12 +196,13 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
-= WIP =
-- Added a new filter hook 'sdm_download_button_text' to allow customization of the download button text via custom code.
+= 3.9.29 =
+- Added Google reCaptcha v3 support. It can be enabled from the advanced settings menu of the plugin.
+- Added a new filter hook 'sdm_download_button_text_filter' to allow customization of the download button text via custom code.
 - Added a new filter hook 'sdm_shortcode_meta_box_content' to allow addons to add content to the shortcode meta box.
 - Added a new filter hook 'sdm_before_download_button' to allow addons to add content before the download button.
 - Added a new action hook 'sdm_download_via_direct_post' to allow addons to do tasks when download request via direct post is received.
-- New Google reCaptcha v3 feature added in advanced settings menu.
+- Added hooks that will allow us to add support for Cloudflare Turnstile in the future.
 
 = 3.9.28 =
 - Fixed a minor issue in the newly added admin-side JavaScript code for the logs export feature.
