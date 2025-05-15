@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 3.9.29
+Stable tag: 3.9.30
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -195,8 +195,9 @@ Yes
 For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
 
 == Changelog ==
-= WIP =
-- A small bug fixed for Google reCAPTCHA v3 feature.
+
+= 3.9.30 =
+- The Google reCAPTCHA v3 feature is now also available for single download posts.
 
 = 3.9.29 =
 - Added Google reCaptcha v3 support. It can be enabled from the advanced settings menu of the plugin.
