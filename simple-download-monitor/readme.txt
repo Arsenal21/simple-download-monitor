@@ -196,6 +196,9 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 == Changelog ==
 
+= WIP =
+- Added a new filter hook 'sdm_ip_address_header_order' to allow customization of the order of the IP address header.
+
 = 3.9.30 =
 - The Google reCAPTCHA v3 feature is now also available for single download posts.
 

@@ -125,8 +125,23 @@ function sdm_get_password_entry_form( $id, $args = array(), $class = '' ) {
  */
 function sdm_get_ip_address( $ignore_private_and_reserved = false ) {
 	$flags = $ignore_private_and_reserved ? ( FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) : 0;
-	foreach ( array( 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR' ) as $key ) {
+	$header_order = array(
+		'HTTP_X_REAL_IP', //Nginx/FastCGI
+		'HTTP_X_FORWARDED_FOR', //Most proxies
+		'HTTP_CLIENT_IP',
+		'HTTP_X_FORWARDED', 
+		'HTTP_X_CLUSTER_CLIENT_IP', 
+		'HTTP_FORWARDED_FOR', 
+		'HTTP_FORWARDED', 
+		'REMOTE_ADDR' //Fallback (might be proxy IP)
+	);
+	//Trigger the filter hook to allow other plugins to modify the header order.
+	$header_order = apply_filters('sdm_ip_address_header_order', $header_order);
+
+	//Loop through the headers and check for a valid IP address
+	foreach ( $header_order as $key ) {
 		if ( array_key_exists( $key, $_SERVER ) === true ) {
+			//X-Forwarded-For can contain multiple IPs, take the first one.
 			foreach ( explode( ',', $_SERVER[ $key ] ) as $ip ) {
 				$ip = trim( $ip ); // just to be safe
 
