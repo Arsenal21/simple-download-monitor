@@ -198,6 +198,7 @@ For screenshots please visit the [download monitor plugin page](https://www.tips
 
 = WIP =
 - Added a new filter hook 'sdm_ip_address_header_order' to allow customization of the order of the IP address header.
+- Cloudflare Turnstile CAPTCHA support added. View the [Cloudflare Turnstile CAPTCHA documentation](https://simple-download-monitor.com/using-cloudflare-turnstile-captcha-with-the-simple-download-monitor/) for more details.
 
 = 3.9.30 =
 - The Google reCAPTCHA v3 feature is now also available for single download posts.
