@@ -133,16 +133,16 @@ Example Shortcode Usage:
 
 You can check the download stats from the "Downloads->Logs" interface. It shows the number of downloads for each files, IP address of the user who downloaded it, date and time of the download.
 
-** 3rd Party or External Libraries/Services **
+== 3rd Party or External Libraries/Services ==
 
 The plugin uses the Google Charts library to show the download count charts in the admin interface (if you use the stats menu of the plugin). You can see more details about this library at the following URL:
 https://developers.google.com/chart/
 
-** Detailed Usage Documentation **
+== Detailed Usage Documentation ==
 
 View more usage instructions on the [Download Monitor Plugin](https://simple-download-monitor.com/) page.
 
-** Github Repository **
+== Github Repository ==
 
 https://github.com/Arsenal21/simple-download-monitor
 
@@ -197,6 +197,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+
+= WIP =
+- Readme file updated to fix formatting of some sections.
 
 = 3.9.31 =
 - Cloudflare Turnstile CAPTCHA support added. View the [Cloudflare Turnstile CAPTCHA documentation](https://simple-download-monitor.com/using-cloudflare-turnstile-captcha-with-the-simple-download-monitor/) for more details.
