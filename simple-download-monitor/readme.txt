@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 3.9.30
+Stable tag: 3.9.31
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -191,14 +191,17 @@ Yes.
 Yes
 
 == Screenshots ==
-
-For screenshots please visit the [download monitor plugin page](https://www.tipsandtricks-hq.com/simple-wordpress-download-monitor-plugin)
+1. The download item display shortcode in action with the fancy 1 template.
+2. The download item display shortcode in action with the fancy 2 template.
+3. The Downloads menu in the WordPress admin dashboard.
+4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
 
-= WIP =
-- Added a new filter hook 'sdm_ip_address_header_order' to allow customization of the order of the IP address header.
+= 3.9.31 =
 - Cloudflare Turnstile CAPTCHA support added. View the [Cloudflare Turnstile CAPTCHA documentation](https://simple-download-monitor.com/using-cloudflare-turnstile-captcha-with-the-simple-download-monitor/) for more details.
+- Updated the ip address retrieval method for better server compatibility.
+- Added a new filter hook 'sdm_ip_address_header_order' to allow customization of the order of the IP address header.
 
 = 3.9.30 =
 - The Google reCAPTCHA v3 feature is now also available for single download posts.
