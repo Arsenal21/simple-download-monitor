@@ -1,0 +1,1703 @@
+# Copyright (C) 2025 Tips and Tricks HQ, Ruhul Amin, Josh Lobe
+# This file is distributed under the GPL2.
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Download Monitor 3.9.27\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/simple-download-"
+"monitor\n"
+"POT-Creation-Date: 2025-02-09T04:55:05+00:00\n"
+"PO-Revision-Date: 2025-06-11 19:51+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he_IL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 : "
+"3);\n"
+"X-Domain: simple-download-monitor\n"
+"X-Generator: Poedit 3.6\n"
+
+#. Plugin Name of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "Simple Download Monitor"
+msgstr "מנהל הורדות פשוט"
+
+#. Plugin URI of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "https://simple-download-monitor.com/"
+msgstr "https://simple-download-monitor.com/"
+
+#. Description of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid ""
+"Easily manage downloadable files and monitor downloads of your digital files "
+"from your WordPress site."
+msgstr ""
+"נהל בקלות קבצים ניתנים להורדה ומעקב אחרי ההורדות של הקבצים הדיגיטליים שלך מאתר "
+"ה-WordPress שלך."
+
+#. Author of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "Tips and Tricks HQ, Ruhul Amin, Josh Lobe"
+msgstr "טיפים וטריקים HQ, רוחול אמין, ג'וש לובה"
+
+#. Author URI of the plugin
+#: D:/Tips and Tricks HQ/simple-download-monitor/simple-download-monitor/main.php
+msgid "https://www.tipsandtricks-hq.com/development-center"
+msgstr "https://www.tipsandtricks-hq.com/development-center"
+
+#: includes/admin-side/sdm-admin-edit-download.php:17
+msgid "Description"
+msgstr "תיאור"
+
+#: includes/admin-side/sdm-admin-edit-download.php:18
+msgid "Downloadable File (Visitors will download this item)"
+msgstr "קובץ להורדה (המשתמשים יוכלו להוריד פריט זה)"
+
+#: includes/admin-side/sdm-admin-edit-download.php:19
+msgid "PHP Dispatch or Redirect"
+msgstr "הפניה או העברה ב-PHP"
+
+#: includes/admin-side/sdm-admin-edit-download.php:20
+msgid "Miscellaneous Download Item Properties"
+msgstr "מאפייני פריט הורדה שונים"
+
+#: includes/admin-side/sdm-admin-edit-download.php:21
+msgid "File Thumbnail (Optional)"
+msgstr "תמונה ממוזערת של הקובץ (אופציונלי)"
+
+#: includes/admin-side/sdm-admin-edit-download.php:22
+msgid "Statistics"
+msgstr "סטטיסטיקות"
+
+#: includes/admin-side/sdm-admin-edit-download.php:24
+msgid "Other Details (Optional)"
+msgstr "פרטים נוספים (אופציונלי)"
+
+#: includes/admin-side/sdm-admin-edit-download.php:25
+msgid "Shortcodes"
+msgstr "קודים קצרים"
+
+#: includes/admin-side/sdm-admin-edit-download.php:60
+msgid "Add a description for this download item."
+msgstr "הוסף תיאור עבור פריט ההורדה הזה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:82
+msgid ""
+"Manually enter a valid URL of the file in the text box below, or click \"Select "
+"File\" button to upload (or choose) the downloadable file."
+msgstr ""
+"הזן ידנית כתובת URL תקינה של הקובץ בתיבת הטקסט למטה, או לחץ על כפתור \"בחר "
+"קובץ\" כדי להעלות (או לבחור) את הקובץ הניתן להורדה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:90 main.php:396
+msgid "Select File"
+msgstr "בחר קובץ"
+
+#: includes/admin-side/sdm-admin-edit-download.php:93
+msgid "Steps to upload a file or choose one from your media library:"
+msgstr "צעדים להעלאת קובץ או בחירה מקובץ המדיה שלך:"
+
+#: includes/admin-side/sdm-admin-edit-download.php:95
+msgid "Hit the \"Select File\" button."
+msgstr "לחץ על כפתור \"בחר קובץ\"."
+
+#: includes/admin-side/sdm-admin-edit-download.php:96
+msgid "Upload a new file or choose an existing one from your media library."
+msgstr "העלא קובץ חדש או בחר קובץ קיים מקובץ המדיה שלך."
+
+#: includes/admin-side/sdm-admin-edit-download.php:97
+msgid ""
+"Click the \"Insert\" button, this will populate the uploaded file's URL in the "
+"above text field."
+msgstr ""
+"לחץ על כפתור \"הוסף\", זה ימלא את כתובת ה-URL של הקובץ שהועלה בשדה הטקסט למעלה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:116
+msgid ""
+"Dispatch the file via PHP directly instead of redirecting to it. PHP "
+"Dispatching keeps the download URL hidden. Dispatching works only for local "
+"files (files that you uploaded to this site via this plugin or media library)."
+msgstr ""
+"שנע את הקובץ באמצעות PHP ישירות במקום להפנות אותו. הפעלת PHP שומרת על ה-URL של "
+"ההורדה חסוי. הפעלת PHP פועלת רק עבור קבצים מקומיים (קבצים שהעלית לאתר זה "
+"באמצעות תוסף זה או ספריית מדיה)."
+
+#: includes/admin-side/sdm-admin-edit-download.php:138
+msgid "Open download in a new window."
+msgstr "פתח הורדה בחלון חדש."
+
+#: includes/admin-side/sdm-admin-edit-download.php:144
+msgid "Hide the download button on the single download page of this item."
+msgstr "הסתר את כפתור ההורדה בעמוד ההורדה הבודד של פריט זה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:150
+msgid "Disable the single download page for this download item. "
+msgstr "נטרל את עמוד ההורדה הבודד עבור פריט ההורדה הזה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:151
+msgid "This can be useful if you are using an addon like the "
+msgstr "זה יכול להיות מועיל אם אתה משתמש בתוסף כמו ה-"
+
+#: includes/admin-side/sdm-admin-edit-download.php:159
+msgid ""
+"Ignore \"Only Allow Logged-in Users to Download\" global setting for this item."
+msgstr "התעלם מההגדרה הגלובלית \"לאפשר רק למשתמשים מחוברים להוריד\" עבור פריט זה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:166
+msgid ""
+"Manually enter a valid URL, or click \"Select Image\" to upload (or choose) the "
+"file thumbnail image."
+msgstr ""
+"הקלד ידנית URL תקין, או לחץ על \"בחר תמונה\" כדי להעלות (או לבחור) את תמונת "
+"התצוגה הממוזערת של הקובץ."
+
+#: includes/admin-side/sdm-admin-edit-download.php:171
+msgid "Select Image"
+msgstr "בחר תמונה"
+
+#: includes/admin-side/sdm-admin-edit-download.php:174
+msgid "Remove Image"
+msgstr "הסר תמונה"
+
+#: includes/admin-side/sdm-admin-edit-download.php:189
+msgid ""
+"This thumbnail image will be used to create a fancy file download box if you "
+"want to use it."
+msgstr ""
+"תמונה ממוזערת זו תשתמש כדי ליצור תיבה יפה להורדת קובץ אם אתה רוצה להשתמש בה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:202
+msgid "These are the statistics for this download item."
+msgstr "אלה הסטטיסטיקות עבור פריט ההורדה הזה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:209
+msgid "Number of Downloads:"
+msgstr "מספר ההורדות:"
+
+#: includes/admin-side/sdm-admin-edit-download.php:214
+msgid "Offset Count: "
+msgstr "ספירת שיפוט:"
+
+#: includes/admin-side/sdm-admin-edit-download.php:217
+msgid ""
+"Enter any positive or negative numerical value; to offset the download count "
+"shown to the visitors (when using the download counter shortcode)."
+msgstr ""
+"הכנס כל ערך מספרי חיובי או שלילי; כדי לטעון מחדש את ספירת ההורדות המוצגת "
+"למבקרים (כשמשתמשים בקוד הקצר של ספירת הורדות)."
+
+#: includes/admin-side/sdm-admin-edit-download.php:224
+msgid "Disable download logging for this item."
+msgstr "נטרל את רישום ההורדות עבור פריט זה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:244
+msgid "File Size: "
+msgstr "גודל קובץ:"
+
+#: includes/admin-side/sdm-admin-edit-download.php:247
+msgid "Enter the size of this file (example value: 2.15 MB)."
+msgstr "הקלד את גודל הקובץ הזה (ערך לדוגמה: 2.15 MB)."
+
+#: includes/admin-side/sdm-admin-edit-download.php:249
+msgid "Show file size in fancy display."
+msgstr "הצג את גודל הקובץ בתצוגה ייחודית."
+
+#: includes/admin-side/sdm-admin-edit-download.php:254
+#: includes/templates/fancy1/sdm-fancy-1.php:197
+#: includes/templates/fancy2/sdm-fancy-2.php:205
+#: sdm-post-type-content-handler.php:171
+msgid "Version: "
+msgstr "גרסה:"
+
+#: includes/admin-side/sdm-admin-edit-download.php:257
+msgid "Enter the version number for this item if any (example value: v2.5.10)."
+msgstr "הקלד את מספר הגרסה עבור פריט זה אם יש (ערך לדוגמה: v2.5.10)."
+
+#: includes/admin-side/sdm-admin-edit-download.php:259
+msgid "Show version number in fancy display."
+msgstr "הצג מספר גרסה בתצוגה ייחודית."
+
+#: includes/admin-side/sdm-admin-edit-download.php:264
+msgid "Publish Date: "
+msgstr "תאריך פרסום: "
+
+#: includes/admin-side/sdm-admin-edit-download.php:266
+msgid "Show download published date in fancy display."
+msgstr "הצג את תאריך הפרסום של ההורדה בתצוגה ייחודית."
+
+#: includes/admin-side/sdm-admin-edit-download.php:271
+msgid "Download Button Text: "
+msgstr "טקסט כפתור הורדה: "
+
+#: includes/admin-side/sdm-admin-edit-download.php:274
+msgid ""
+"You can use this field to customize the download now button text of this item."
+msgstr "אתה יכול להשתמש בשדה זה כדי להתאים אישית את טקסט כפתור ההורדה של פריט זה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:280
+msgid ""
+"The following shortcode can be used on posts or pages to embed a download now "
+"button for this file. You can also use the shortcode inserter (in the post "
+"editor) to add this shortcode to a post or page."
+msgstr ""
+"קוד הקיצור הבא ניתן לשימוש באנשים או בעמודים כדי להטמיע כפתור 'הורדה עכשיו' "
+"עבור קובץ זה. אתה יכול גם להשתמש במכניס קוד הקיצור (בעורך הפוסטים) כדי להוסיף "
+"את קוד הקיצור לפוסט או עמוד."
+
+#: includes/admin-side/sdm-admin-edit-download.php:286
+msgid ""
+"The following shortcode can be used on posts or pages to embed a download now "
+"button that includes the title, description, thumbnail image and download "
+"counter."
+msgstr ""
+"קוד הקיצור הבא ניתן לשימוש באנשים או בעמודים כדי להטמיע כפתור 'הורדה עכשיו' "
+"שמכיל את הכותרת, תיאור, תמונת קטן ומונה הורדות."
+
+#: includes/admin-side/sdm-admin-edit-download.php:288
+msgid ""
+" <a href=\"https://simple-download-monitor.com/basic-usage-creating-a-simple-"
+"downloadable-item/\" target=\"_blank\">Click here for more documentation</a>."
+msgstr ""
+" <a href=\"https://simple-download-monitor.com/basic-usage-creating-a-simple-"
+"downloadable-item/\" target=\"_blank\">לחץ כאן למידע נוסף</a>."
+
+#: includes/admin-side/sdm-admin-edit-download.php:301
+msgid ""
+"The following shortcode can be used to show a download counter for this item."
+msgstr "קוד הקיצור הבא ניתן לשימוש כדי להציג מונה הורדות עבור פריט זה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:307
+msgid "Direct Download URL."
+msgstr "כתובת URL להורדה ישירה."
+
+#: includes/admin-side/sdm-admin-edit-download.php:313
+msgid "Direct Download URL without Tracking Count (Ignore Logging)."
+msgstr "כתובת URL להורדה ישירה ללא מונה מעקב (התעלם מרישום)."
+
+#: includes/admin-side/sdm-admin-edit-download.php:320
+msgid ""
+"Read the full shortcode <a href=\"https://simple-download-monitor.com/"
+"miscellaneous-shortcodes-and-shortcode-parameters/\" target=\"_blank\">usage "
+"documentation here</a>."
+msgstr ""
+"קרא את הדוקומנטציה המלאה של <a href=\"https://simple-download-monitor.com/"
+"miscellaneous-shortcodes-and-shortcode-parameters/\" target=\"_blank\">שימוש "
+"בקוד הקיצור כאן</a>."
+
+#: includes/admin-side/sdm-admin-export-logs.php:25
+msgid ""
+"This menu allows you to export all the log entries to a CSV file that you can "
+"download. The download link will be shown at the top of this page."
+msgstr ""
+"תפריט זה מאפשר לך לייצא את כל הרשומות לקובץ CSV שניתן להורדה. הקישור להורדה "
+"יוצג בחלק העליון של העמוד הזה."
+
+#: includes/admin-side/sdm-admin-export-logs.php:32
+#: includes/sdm-admin-menu-handler.php:592
+msgid "Choose Date Range (yyyy-mm-dd)"
+msgstr "בחר טווח תאריכים (שנה-חודש-יום)"
+
+#: includes/admin-side/sdm-admin-export-logs.php:38
+#: includes/sdm-admin-menu-handler.php:596
+msgid "Start Date: "
+msgstr "תאריך התחלה: "
+
+#: includes/admin-side/sdm-admin-export-logs.php:44
+#: includes/sdm-admin-menu-handler.php:597
+msgid "End Date: "
+msgstr "תאריך סיום: "
+
+#: includes/admin-side/sdm-admin-export-logs.php:55
+msgid "Today"
+msgstr "היום"
+
+#: includes/admin-side/sdm-admin-export-logs.php:58
+#: includes/sdm-admin-menu-handler.php:599
+msgid "This Month"
+msgstr "החודש הזה"
+
+#: includes/admin-side/sdm-admin-export-logs.php:61
+#: includes/sdm-admin-menu-handler.php:600
+msgid "Last Month"
+msgstr "החודש שעבר"
+
+#: includes/admin-side/sdm-admin-export-logs.php:64
+#: includes/sdm-admin-menu-handler.php:601
+msgid "This Year"
+msgstr "השנה הזו"
+
+#: includes/admin-side/sdm-admin-export-logs.php:67
+#: includes/sdm-admin-menu-handler.php:602
+msgid "Last Year"
+msgstr "השנה שעברה"
+
+#: includes/admin-side/sdm-admin-export-logs.php:70
+#: includes/sdm-admin-menu-handler.php:603
+msgid "All Time"
+msgstr "כל הזמן"
+
+#: includes/admin-side/sdm-admin-export-logs.php:75
+msgid "Export Log Entries to CSV File"
+msgstr "יוצא לוגי רשומות לקובץ CSV"
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:19
+msgid "File protection settings updated successfully."
+msgstr "הגדרות הגנת הקובץ עודכנו בהצלחה."
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:33
+msgid "Refer to this guide"
+msgstr "הפנה למדריך זה"
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:33
+msgid " to learn more about the enhanced file protection feature."
+msgstr "כדי ללמוד עוד על תכונת הגנת הקובץ המשופרת."
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:37
+msgid "File Protection Settings (Beta)"
+msgstr "הגדרות הגנת הקובץ (בטא)"
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:43
+msgid ""
+"Your website is using an Nginx server. To enable this file protection feature, "
+"please update the server configuration manually. "
+msgstr ""
+"האתר שלך משתמש בשרת Nginx. כדי להפעיל תכונת הגנת הקובץ הזו, אנא עדכן את הגדרת "
+"השרת באופן ידני."
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:46
+msgid "Add the following rule to your virtual host configuration file:"
+msgstr "הוסף את הכלל הבא לקובץ הקונפיגורציה של הוירטואלי שלך:"
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:55
+msgid ""
+"<a href=\"https://simple-download-monitor.com/enhanced-file-protection-securing-"
+"your-downloads/#server-configuration-requirements\" target=\"_blank\">Read the "
+"full documentation</a> on how to configure the file protection feature on an "
+"Nginx server."
+msgstr ""
+"<a href=\"https://simple-download-monitor.com/enhanced-file-protection-securing-"
+"your-downloads/#server-configuration-requirements\" target=\"_blank\">קרא את "
+"המסמכים המלאים</a> על איך לקבוע את תכונת הגנת הקובץ על שרת Nginx."
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:63
+msgid "Enable File Protection (Beta)"
+msgstr "הפעלת הגנת הקובץ (בטא)"
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:66
+msgid "Check this box to enable the enhanced file protection feature."
+msgstr "סמן תיבה זו כדי להפעיל את תכונת הגנת הקובץ המשופרת."
+
+#: includes/admin-side/sdm-admin-file-protection-settings-page.php:78
+msgid "Save Changes"
+msgstr "שמור שינויים"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:26
+msgid "This menu allows you to view the download logs of individual items."
+msgstr "תפריט זה מאפשר לך לצפות בלוגי ההורדות של פריטים בודדים."
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:32
+msgid "View Specific Item Logs"
+msgstr "צפה בלוגים של פריט ספציפי"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:36
+msgid "Enter the Download ID of the item: "
+msgstr "הזן את מזהה ההורדה של הפריט: "
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:39
+msgid ""
+"You can find the Download ID of an item from the Downloads menu of the plugin."
+msgstr "אתה יכול למצוא את מזהה ההורדה של פריט בתפריט ההורדות של התוסף."
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:42
+msgid "View Logs"
+msgstr "צפה בלוגים"
+
+#: includes/admin-side/sdm-admin-individual-item-logs-page.php:71
+msgid "The following table shows the download logs of the item with Download ID: "
+msgstr "הטבלה הבאה מציגה את לוגי ההורדות של הפריט עם מזהה ההורדה: "
+
+#: includes/admin-side/sdm-admin-user-feedback.php:75
+msgid "Are you enjoying the Simple Download Monitor plugin?"
+msgstr "האם אתה נהנה מתוסף Simple Download Monitor?"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:77
+msgid "Yes"
+msgstr "כן"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:78
+msgid "Not Really"
+msgstr "לא באמת"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:82
+msgid ""
+"We're sorry to hear you aren't enjoying the Simple Download Monitor plugin. We "
+"would love a chance to improve. Could you take a minute and let us know what we "
+"can do better by using our contact form? "
+msgstr ""
+"אנחנו מצטערים לשמוע שאתה לא נהנה מהתוסף Simple Download Monitor. נשמח אם תוכל "
+"לתת לנו הזדמנות לשפר. האם תוכל לקחת דקה ול informar אותנו מה אנחנו יכולים לעשות "
+"טוב יותר באמצעות טופס הקשר שלנו?"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:87
+msgid "Give Feedback"
+msgstr "נותן משוב"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:92
+msgid "No thanks"
+msgstr "לא תודה"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:97
+msgid ""
+"That's great! Could you please do me a big favor and give it a 5-star rating on "
+"WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+"זה נהדר! האם תוכל בבקשה לעשות לי טובה גדולה ולתת לו דירוג של 5 כוכבים "
+"ב-WordPress כדי לעזור לנו להפיץ את הבשורה ולשפר את המוטיבציה שלנו?"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:98
+msgid "~ Simple Download Monitor Team"
+msgstr "~ צוות Simple Download Monitor"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:101
+msgid "OK, you deserve it"
+msgstr "אוקי, אתה מגיע לזה"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:103
+msgid "Nope, maybe later"
+msgstr "לא, אולי מאוחר יותר"
+
+#: includes/admin-side/sdm-admin-user-feedback.php:104
+msgid "I already did"
+msgstr "כבר עשיתי את זה"
+
+#: includes/file-protection/sdm-protected-download-request-handler.php:38
+msgid ""
+"Hidden file or no extension filename detected. File could not be dispatched!"
+msgstr "נתקלה בקובץ מוסתר או בשמות קבצים ללא סיומת. הקובץ לא יכול להיות נשלח!"
+
+#: includes/file-protection/sdm-protected-download-request-handler.php:45
+msgid "Disallowed extension, file could not be dispatched!"
+msgstr "סיומת שאינה מורשת, הקובץ לא יכול להיות נשלח!"
+
+#: includes/integrations/class-sdm-emember-integration.php:53
+msgid "Enable eMember Access Control"
+msgstr "אפשר גישה eMember"
+
+#: includes/integrations/class-sdm-emember-integration.php:56
+msgid ""
+"Check this box to enable the access control feature of the WP eMember plugin."
+msgstr "סמן תיבה זו כדי לאפשר את תכונת בקרת הגישה של תוסף WP eMember."
+
+#: includes/integrations/class-sdm-swpm-integration.php:49
+msgid "Enable SWPM Access Control"
+msgstr "אפשר גישה SWPM"
+
+#: includes/integrations/class-sdm-swpm-integration.php:52
+msgid ""
+"Check this box to enable the access control feature of the Simple Membership "
+"plugin."
+msgstr "סמן תיבה זו כדי לאפשר את תכונת בקרת הגישה של תוסף Simple Membership."
+
+#: includes/integrations/class-sdm-swpm-integration.php:90
+msgid "Error! Your account does not have permission to access this download item."
+msgstr "שגיאה! אין לך הרשאה לגשת לפריט ההורדה הזה."
+
+#: includes/sdm-admin-menu-handler.php:11
+msgid "Logs"
+msgstr "יומנים"
+
+#: includes/sdm-admin-menu-handler.php:12 includes/sdm-admin-menu-handler.php:588
+msgid "Stats"
+msgstr "סטטיסטיקות"
+
+#: includes/sdm-admin-menu-handler.php:13 main.php:329
+msgid "Settings"
+msgstr "הגדרות"
+
+#: includes/sdm-admin-menu-handler.php:14 includes/sdm-admin-menu-handler.php:161
+msgid "Add-ons"
+msgstr "תוספים"
+
+#: includes/sdm-admin-menu-handler.php:89
+msgid "Simple Download Monitor Settings Page"
+msgstr "דף ההגדרות של Simple Download Monitor"
+
+#: includes/sdm-admin-menu-handler.php:93
+msgid "General Settings"
+msgstr "הגדרות כלליות"
+
+#: includes/sdm-admin-menu-handler.php:94
+msgid "Advanced Settings"
+msgstr "הגדרות מתקדמות"
+
+#: includes/sdm-admin-menu-handler.php:95
+msgid "Enhanced File Protection"
+msgstr "הגנה משופרת על קבצים"
+
+#: includes/sdm-admin-menu-handler.php:144
+msgid "Plugin Documentation"
+msgstr "תיעוד תוסף"
+
+#. translators: %s = URL to documentation page
+#: includes/sdm-admin-menu-handler.php:149
+msgid ""
+"Please read the <a target=\"_blank\" href=\"%s\">Simple Download Monitor</a> "
+"plugin setup instructions and tutorials to learn how to configure and use it."
+msgstr ""
+"אנא קראו את הוראות ההגדרה והמדריכים של <a target=\"_blank\" "
+"href=\"__FMT0__\">Simple Download Monitor</a> כדי ללמוד כיצד להגדיר ולשימוש בו."
+
+#. translators: %s = URL to add-ons page
+#: includes/sdm-admin-menu-handler.php:166
+msgid ""
+"Want additional functionality? Check out our <a target=\"_blank\" "
+"href=\"%s\">Add-Ons!</a>"
+msgstr ""
+"רוצים פונקציונליות נוספת? בדקו את ה<a target=\"_blank\" "
+"href=\"__FMT0__\">תוספים שלנו!</a>"
+
+#: includes/sdm-admin-menu-handler.php:178
+msgid "Help Us Keep the Plugin Free & Maintained"
+msgstr "עזרו לנו לשמור על התוסף חינם ומעודכן"
+
+#. translators: %s = URL to rating page
+#: includes/sdm-admin-menu-handler.php:183
+msgid ""
+"Like the plugin? Please give it a good <a href=\"%s\" target=\"_blank\">rating!"
+"</a>"
+msgstr ""
+"אוהבים את התוסף? אנא תנו לו <a href=\"__FMT0__\" target=\"_blank\">דרוג טוב!</a>"
+
+#: includes/sdm-admin-menu-handler.php:204
+msgid "Our Other Plugins"
+msgstr "התוספים האחרים שלנו"
+
+#. translators: %s = URL to other plugins page
+#: includes/sdm-admin-menu-handler.php:209
+msgid "Check out <a target=\"_blank\" href=\"%s\">our other plugins</a>"
+msgstr "בדקו את <a target=\"_blank\" href=\"__FMT0__\">התוספים האחרים שלנו</a>"
+
+#: includes/sdm-admin-menu-handler.php:221
+msgid "Want to Sell Digital Downloads?"
+msgstr "רוצים למכור הורדות דיגיטליות?"
+
+#: includes/sdm-admin-menu-handler.php:224
+msgid "Check out the fast and simple "
+msgstr "בדקו את התוסף המהיר והפשוט "
+
+#. translators: %s = Twitter URL
+#: includes/sdm-admin-menu-handler.php:227
+msgid "<a target=\"_blank\" href=\"%s\">WP Express Checkout</a> plugin."
+msgstr "<a target=\"_blank\" href=\"__FMT0__\">WP Express Checkout</a>."
+
+#: includes/sdm-admin-menu-handler.php:243
+msgid ""
+"If you need an easy to use and supported plugin for selling your digital items "
+"then check out our "
+msgstr ""
+"אם אתם זקוקים לתוסף קל לשימוש ומצוין למכירת הפריטים הדיגיטליים שלכם, בדקו את ה "
+
+#: includes/sdm-admin-menu-handler.php:244
+msgid "WP Express Checkout"
+msgstr "WP Express Checkout"
+
+#: includes/sdm-admin-menu-handler.php:245
+msgid "Stripe Payments"
+msgstr "תשלומי Stripe"
+
+#: includes/sdm-admin-menu-handler.php:246
+msgid "WP eStore"
+msgstr "WP eStore"
+
+#: includes/sdm-admin-menu-handler.php:319
+msgid "Are you sure want to delete all plugin's data and deactivate plugin?"
+msgstr "האם אתם בטוחים שתרצו למחוק את כל נתוני התוסף ולנטרל את התוסף?"
+
+#: includes/sdm-admin-menu-handler.php:324
+msgid ""
+"Data has been deleted and plugin deactivated. Click OK to go to Plugins page."
+msgstr "הנתונים נמחקו ותוספים הופסקו. לחץ על אישור כדי לעבור לדף התוספים."
+
+#: includes/sdm-admin-menu-handler.php:328
+msgid "Error occurred."
+msgstr "שגיאה התרחשה."
+
+#: includes/sdm-admin-menu-handler.php:382
+msgid "Main Logs"
+msgstr "יומני מערכת ראשיים"
+
+#: includes/sdm-admin-menu-handler.php:383
+msgid "Download Logs"
+msgstr "הורדת יומנים"
+
+#: includes/sdm-admin-menu-handler.php:386
+msgid "Specific Item Logs"
+msgstr "יומני פריט ספציפי"
+
+#: includes/sdm-admin-menu-handler.php:387
+msgid "Specific Download Item Logs"
+msgstr "יומני פריט הורדה ספציפי"
+
+#: includes/sdm-admin-menu-handler.php:390
+msgid "Export"
+msgstr "ייצוא"
+
+#: includes/sdm-admin-menu-handler.php:391
+msgid "Export Download Log Entries"
+msgstr "ייצוא פריטי יומן ההורדות"
+
+#: includes/sdm-admin-menu-handler.php:456
+msgid "Download log entries deleted!"
+msgstr "פריטי יומן ההורדות נמחקו!"
+
+#: includes/sdm-admin-menu-handler.php:476
+msgid "Download log entries trimmed!"
+msgstr "פריטי יומן ההורדות קוצרו!"
+
+#: includes/sdm-admin-menu-handler.php:491
+msgid "This page lists all tracked downloads."
+msgstr "דף זה מציג את כל ההורדות שנעצרו."
+
+#: includes/sdm-admin-menu-handler.php:498
+msgid "Reset Download Log Entries"
+msgstr "איפוס פריטי יומן ההורדות"
+
+#: includes/sdm-admin-menu-handler.php:502
+msgid "Reset Log Entries"
+msgstr "איפוס פריטי יומן"
+
+#: includes/sdm-admin-menu-handler.php:503
+msgid ""
+"This button will reset all log entries. It can useful if you want to export all "
+"your log entries then reset them."
+msgstr ""
+"לחצן זה יאפס את כל פריטי היומן. זה יכול להיות שימושי אם אתה רוצה לייצא את כל "
+"פריטי היומן שלך ולאחר מכן לאפס אותם."
+
+#: includes/sdm-admin-menu-handler.php:510
+msgid "Delete Log Entries Older Than "
+msgstr "מחיקת פריטי יומן ישנים מ-"
+
+#: includes/sdm-admin-menu-handler.php:510
+msgid " Days"
+msgstr " ימים"
+
+#: includes/sdm-admin-menu-handler.php:511
+msgid "Trim Log Entries"
+msgstr "קיצור פריטי יומן"
+
+#: includes/sdm-admin-menu-handler.php:512
+msgid ""
+"This option can be useful if you want to delete older log entries. Enter a "
+"number of days value then click the Trim Log Entries button."
+msgstr ""
+"אפשרות זו יכולה להיות שימושית אם אתה רוצה למחוק פריטי יומן ישנים. הזן מספר של "
+"ערכי ימים ואז לחץ על לחצן קיצור פריטי היומן."
+
+#: includes/sdm-admin-menu-handler.php:606
+msgid "View Stats"
+msgstr "צפייה בסטטיסטיקות"
+
+#: includes/sdm-admin-menu-handler.php:612
+msgid "Downloads by date"
+msgstr "הורדות לפי תאריך"
+
+#: includes/sdm-admin-menu-handler.php:613
+msgid "Downloads by country"
+msgstr "הורדות לפי מדינה"
+
+#: includes/sdm-admin-menu-handler.php:614
+msgid "Downloads by country list"
+msgstr "רשימת הורדות לפי מדינה"
+
+#: includes/sdm-admin-menu-handler.php:615
+msgid "Downloads by browser"
+msgstr "הורדות לפי דפדפן"
+
+#: includes/sdm-admin-menu-handler.php:616
+msgid "Downloads by OS"
+msgstr "הורדות לפי מערכת הפעלה"
+
+#: includes/sdm-admin-menu-handler.php:617
+msgid "Downloads by User"
+msgstr "הורדות לפי משתמש"
+
+#: includes/sdm-admin-menu-handler.php:618
+msgid "Top Downloads"
+msgstr "ההורדות הטובות ביותר"
+
+#: includes/sdm-admin-menu-handler.php:630
+msgid ""
+"Enter your Google Maps API Key <a href=\"edit.php?"
+"post_type=sdm_downloads&page=sdm-settings&action=advanced-"
+"settings#maps_api_key\" target=\"_blank\">in the settings</a> to properly "
+"display the chart."
+msgstr ""
+"הזן את מפתח ה-API של Google Maps שלך <a href=\"edit.php?"
+"post_type=sdm_downloads&page=sdm-settings&action=advanced-"
+"settings#maps_api_key\" target=\"_blank\">בהגדרות</a> כדי להציג את הגרף כראוי."
+
+#: includes/sdm-admin-menu-handler.php:649 includes/sdm-admin-menu-handler.php:669
+msgid "Country Name"
+msgstr "שם המדינה"
+
+#: includes/sdm-admin-menu-handler.php:650 includes/sdm-admin-menu-handler.php:670
+#: includes/sdm-admin-menu-handler.php:682 includes/sdm-admin-menu-handler.php:697
+#: includes/sdm-admin-menu-handler.php:709 includes/sdm-admin-menu-handler.php:724
+#: includes/sdm-admin-menu-handler.php:735 includes/sdm-admin-menu-handler.php:750
+#: includes/sdm-admin-menu-handler.php:762 includes/sdm-admin-menu-handler.php:777
+msgid "Total Downloads"
+msgstr "סה\"כ הורדות"
+
+#: includes/sdm-admin-menu-handler.php:681 includes/sdm-admin-menu-handler.php:696
+msgid "Browser"
+msgstr "דפדפן"
+
+#: includes/sdm-admin-menu-handler.php:708 includes/sdm-admin-menu-handler.php:723
+msgid "Operating System"
+msgstr "מערכת הפעלה"
+
+#: includes/sdm-admin-menu-handler.php:734 includes/sdm-admin-menu-handler.php:749
+msgid "User"
+msgstr "משתמש"
+
+#: includes/sdm-admin-menu-handler.php:761 includes/sdm-admin-menu-handler.php:776
+#: includes/sdm-blocks.php:60
+msgid "Download Item"
+msgstr "פריט הורדה"
+
+#: includes/sdm-admin-menu-handler.php:797 includes/sdm-logs-list-table.php:81
+msgid "Country"
+msgstr "מדינה"
+
+#: includes/sdm-admin-menu-handler.php:797 includes/sdm-logs-list-table.php:21
+#: includes/templates/fancy1/sdm-fancy-1.php:161 main.php:993
+#: sdm-post-type-and-taxonomy.php:7 sdm-post-type-and-taxonomy.php:8
+#: sdm-post-type-and-taxonomy.php:13 sdm-post-type-and-taxonomy.php:19
+#: sdm-post-type-content-handler.php:118 sdm-shortcodes.php:195
+msgid "Downloads"
+msgstr "הורדות"
+
+#: includes/sdm-admin-menu-handler.php:812
+msgid "Downloads by Date"
+msgstr "הורדות לפי תאריך"
+
+#: includes/sdm-admin-menu-handler.php:813 includes/sdm-logs-list-table.php:80
+msgid "Date"
+msgstr "תאריך"
+
+#: includes/sdm-admin-menu-handler.php:814
+msgid "Number of downloads"
+msgstr "מספר ההורדות"
+
+#: includes/sdm-blocks.php:42
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: includes/sdm-blocks.php:59
+msgid "SDM Download"
+msgstr "הורדת SDM"
+
+#: includes/sdm-blocks.php:61
+msgid "Select download item."
+msgstr "בחר פריט להורדה."
+
+#: includes/sdm-blocks.php:62
+msgid "Button Text"
+msgstr "טקסט כפתור"
+
+#: includes/sdm-blocks.php:63
+msgid ""
+"Customized text for the download button. Leave it blank to use default text."
+msgstr "טקסט מותאם אישית לכפתור ההורדה. השאר ריק כדי להשתמש בטקסט ברירת המחדל."
+
+#: includes/sdm-blocks.php:64
+msgid "Template"
+msgstr "תבנית"
+
+#: includes/sdm-blocks.php:65
+msgid "Select download item template."
+msgstr "בחר תבנית פריט להורדה."
+
+#: includes/sdm-blocks.php:66
+msgid "Open Download in a New Window"
+msgstr "פתח הורדה בחלון חדש"
+
+#: includes/sdm-blocks.php:67
+msgid "Button Color"
+msgstr "צבע כפתור"
+
+#: includes/sdm-blocks.php:68
+msgid ""
+"Select button color. Note that this option may not work for some templates."
+msgstr "בחר צבע כפתור. שים לב שאפשרות זו עשויה לא לעבוד עבור כמה תבניות."
+
+#: includes/sdm-blocks.php:112
+msgid "Select item to view"
+msgstr "בחר פריט לצפייה"
+
+#: includes/sdm-blocks.php:137
+msgid "(Select item)"
+msgstr "(בחר פריט)"
+
+#: includes/sdm-download-request-handler.php:9
+msgid "Error! Incorrect download item id."
+msgstr "שגיאה! מזהה פריט ההורדה שגוי."
+
+#: includes/sdm-download-request-handler.php:15
+msgid ""
+"Error! This download item (%s) does not have any download link. Edit this item "
+"and specify a downloadable file URL for it."
+msgstr ""
+"שגיאה! פריט ההורדה (%s) אין לו קישור הורדה. ערוך פריט זה וציין כתובת URL של "
+"קובץ להורדה עבורו."
+
+#: includes/sdm-download-request-handler.php:29
+msgid "Error! This download requires a password."
+msgstr "שגיאה! ההורדה הזו דורשת סיסמה."
+
+#: includes/sdm-download-request-handler.php:31 main.php:728 main.php:730
+msgid "Click here"
+msgstr "לחץ כאן"
+
+#: includes/sdm-download-request-handler.php:32
+msgid " and enter a valid password for this item"
+msgstr " והזן סיסמה תקפה עבור פריט זה."
+
+#: includes/sdm-download-request-handler.php:40
+msgid "Error! Incorrect password. This download requires a valid password."
+msgstr "שגיאה! הסיסמה שגויה. ההורדה הזו דורשת סיסמה תקפה."
+
+#: includes/sdm-download-request-handler.php:98
+msgid "__Click here__ to go to login page."
+msgstr "__לחץ כאן__ כדי לעבור לדף ההתחברות."
+
+#: includes/sdm-download-request-handler.php:101
+msgid "You need to be logged in to download this file."
+msgstr "אתה צריך להתחבר כדי להוריד קובץ זה."
+
+#: includes/sdm-download-request-handler.php:105
+#: includes/sdm-utility-functions.php:499
+msgid "Not Logged In"
+msgstr "לא מחובר"
+
+#: includes/sdm-download-request-handler.php:170
+msgid "Error! Failed to log the download request in the database table"
+msgstr "שגיאה! נכשל בהקלטת בקשת ההורדה בטבלת המסד נתונים."
+
+#: includes/sdm-download-request-handler.php:195
+msgid "File not found."
+msgstr "הקובץ לא נמצא."
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "ERROR:"
+msgstr "שגיאה:"
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "Google reCAPTCHA verification failed."
+msgstr "אימות Google reCAPTCHA נכשל."
+
+#: includes/sdm-download-request-handler.php:275
+#: includes/sdm-download-request-handler.php:279
+msgid "Back"
+msgstr "חזרה"
+
+#: includes/sdm-download-request-handler.php:279
+msgid "Do you have JavaScript enabled?"
+msgstr "האם יש לך JavaScript מופעל?"
+
+#: includes/sdm-latest-downloads.php:48 includes/sdm-popular-downloads.php:48
+msgid "There are no download items matching this shortcode criteria."
+msgstr "אין פריטי הורדה התואמים לקריטריוני הקוד הזה."
+
+#: includes/sdm-logs-list-table.php:20
+#: includes/templates/fancy1/sdm-fancy-1.php:161
+#: sdm-post-type-content-handler.php:118 sdm-shortcodes.php:195
+msgid "Download"
+msgstr "הורדה"
+
+#: includes/sdm-logs-list-table.php:51
+msgid "Edit"
+msgstr "עריכה"
+
+#: includes/sdm-logs-list-table.php:52
+msgid "Delete"
+msgstr "מחיקה"
+
+#: includes/sdm-logs-list-table.php:77 main.php:987
+msgid "Title"
+msgstr "כותרת"
+
+#: includes/sdm-logs-list-table.php:78 main.php:990
+msgid "File"
+msgstr "קובץ"
+
+#: includes/sdm-logs-list-table.php:79
+msgid "Visitor IP"
+msgstr "כתובת IP של מבקר"
+
+#: includes/sdm-logs-list-table.php:82
+msgid "Username"
+msgstr "שם משתמש"
+
+#: includes/sdm-logs-list-table.php:83
+msgid "User Agent"
+msgstr "סוכן משתמש"
+
+#: includes/sdm-logs-list-table.php:84
+msgid "Referrer URL"
+msgstr "URL של מפנה"
+
+#: includes/sdm-logs-list-table.php:106
+msgid "Delete Permanently"
+msgstr "מחק לצמיתות"
+
+#: includes/sdm-logs-list-table.php:121 includes/sdm-logs-list-table.php:157
+msgid "Nope! Security check failed!"
+msgstr "לא! בדיקת אבטחה נכשלה!"
+
+#: includes/sdm-logs-list-table.php:125
+msgid "No entries were selected."
+msgstr "לא נבחרו פריטים."
+
+#: includes/sdm-logs-list-table.php:125 includes/sdm-logs-list-table.php:144
+#: includes/sdm-logs-list-table.php:146 includes/sdm-logs-list-table.php:170
+#: includes/sdm-logs-list-table.php:172
+msgid "Click to Dismiss"
+msgstr "לחץ כדי לדחות"
+
+#: includes/sdm-logs-list-table.php:132 includes/sdm-logs-list-table.php:137
+#: includes/sdm-logs-list-table.php:164
+msgid "Error! The row id value of a log entry must be numeric."
+msgstr "שגיאה! ערך מזהה השורה של רשומת לוג חייב להיות מספרי."
+
+#: includes/sdm-logs-list-table.php:144
+msgid "Entries Deleted!"
+msgstr "הכנסות נמחקו!"
+
+#: includes/sdm-logs-list-table.php:146 includes/sdm-logs-list-table.php:172
+msgid "Error"
+msgstr "שגיאה"
+
+#: includes/sdm-logs-list-table.php:170
+msgid "Entry Deleted!"
+msgstr "הכניסה נמחקה!"
+
+#: includes/sdm-logs-list-table.php:226
+msgid "Error! The download id value of a log entry must be numeric."
+msgstr "שגיאה! ערך ה-id להורדה של כניסת יומן חייב להיות מספרי."
+
+#: includes/sdm-logs-list-table.php:303
+#: includes/sdm-search-shortcode-handler.php:10
+msgid "Search"
+msgstr "חיפוש"
+
+#: includes/sdm-logs-list-table.php:317
+msgid "Export Logs"
+msgstr "ייצוא יומנים"
+
+#: includes/sdm-search-shortcode-handler.php:67
+msgid "Showing search results for "
+msgstr "מציג תוצאות חיפוש עבור "
+
+#: includes/sdm-search-shortcode-handler.php:68
+msgid "Number of items found: "
+msgstr "מספר הפריטים שנמצאו: "
+
+#: includes/sdm-search-shortcode-handler.php:69
+msgid "Keywords searched: "
+msgstr "מילות מפתח שחופשו: "
+
+#: includes/sdm-search-shortcode-handler.php:72
+msgid "Nothing found for "
+msgstr "לא נמצא דבר עבור "
+
+#: includes/sdm-utility-functions.php:12
+msgid "Green"
+msgstr "ירוק"
+
+#: includes/sdm-utility-functions.php:13
+msgid "Blue"
+msgstr "כחול"
+
+#: includes/sdm-utility-functions.php:14
+msgid "Purple"
+msgstr "סגול"
+
+#: includes/sdm-utility-functions.php:15
+msgid "Teal"
+msgstr "טורקיז"
+
+#: includes/sdm-utility-functions.php:16
+msgid "Dark Blue"
+msgstr "כחול כהה"
+
+#: includes/sdm-utility-functions.php:17
+msgid "Black"
+msgstr "שחור"
+
+#: includes/sdm-utility-functions.php:18
+msgid "Grey"
+msgstr "אפור"
+
+#: includes/sdm-utility-functions.php:19
+msgid "Pink"
+msgstr "ורוד"
+
+#: includes/sdm-utility-functions.php:20
+msgid "Orange"
+msgstr "כתום"
+
+#: includes/sdm-utility-functions.php:21
+msgid "White"
+msgstr "לבן"
+
+#: includes/sdm-utility-functions.php:93
+msgid "Enter Password to Download:"
+msgstr "הזן סיסמה להורדה:"
+
+#: includes/sdm-utility-functions.php:366
+msgid "I agree to the "
+msgstr "אני מסכים ל"
+
+#: includes/sdm-utility-functions.php:366
+msgid "terms and conditions"
+msgstr "תנאים והגבלות"
+
+#: includes/sdm-utility-functions.php:401 includes/sdm-utility-functions.php:663
+#: includes/templates/fancy0/sdm-fancy-0.php:104
+#: includes/templates/fancy1/sdm-fancy-1.php:67
+#: includes/templates/fancy2/sdm-fancy-2.php:91
+msgid "Download Now!"
+msgstr "להורדה"
+
+#: includes/sdm-utility-functions.php:441
+msgid ""
+"Error! The URL value is empty. Please specify a correct URL value to redirect "
+"to!"
+msgstr "שגיאה! ערך ה-URL ריק. אנא ציין ערך URL נכון עבור הפניה!"
+
+#: includes/templates/fancy0/sdm-fancy-0.php:83
+#: sdm-post-type-content-handler.php:77
+msgid "green"
+msgstr "ירוק"
+
+#: includes/templates/fancy1/sdm-fancy-1.php:190
+#: includes/templates/fancy2/sdm-fancy-2.php:197
+#: sdm-post-type-content-handler.php:164
+msgid "Size: "
+msgstr "גודל: "
+
+#: includes/templates/fancy1/sdm-fancy-1.php:204
+#: includes/templates/fancy2/sdm-fancy-2.php:213
+#: sdm-post-type-content-handler.php:178
+msgid "Published: "
+msgstr "פורסם: "
+
+#: includes/templates/fancy3/sdm-fancy-3.php:54
+#: includes/templates/fancy3/sdm-fancy-3.php:87
+msgid "View Details"
+msgstr "צפה בפרטים"
+
+#: main.php:170
+msgid "Please select a valid date range."
+msgstr "אנא בחר טווח תאריכים תקף."
+
+#: main.php:242
+msgid "Nonce verification failed!"
+msgstr "אימות nonce נכשל!"
+
+#: main.php:299
+msgid "Successfully Retrieved Download Logs."
+msgstr "נמנע הורדת יומנים בהצלחה."
+
+#: main.php:397
+msgid "Select Thumbnail"
+msgstr "בחר תמונה מקט miniature"
+
+#: main.php:398
+msgid "Insert"
+msgstr "הכנס"
+
+#: main.php:399
+msgid "Image Successfully Removed"
+msgstr "התמונה הוסרה בהצלחה"
+
+#: main.php:400
+msgid "Error with AJAX"
+msgstr "שגיאה עם AJAX"
+
+#: main.php:465
+msgid "General Options"
+msgstr "אפשרויות כלליות"
+
+#: main.php:466
+msgid "User Login Related"
+msgstr "קשור לכניסת משתמש"
+
+#: main.php:467
+msgid "Admin Options"
+msgstr "אפשרויות אדמין"
+
+#: main.php:469
+msgid "Colors"
+msgstr "צבעים"
+
+#: main.php:470
+msgid "Debug"
+msgstr "דיבוג"
+
+#: main.php:471
+msgid "Delete Plugin Data"
+msgstr "מחק נתוני פלאגין"
+
+#: main.php:474
+msgid "Hide Download Count"
+msgstr "הסתרת מספר ההורדות"
+
+#: main.php:475
+msgid "PHP Dispatching"
+msgstr "העברת PHP"
+
+#: main.php:476
+msgid "Disallowed Extensions for PHP Dispatching"
+msgstr "סוגי קבצים אסורים להעברת PHP"
+
+#: main.php:477
+msgid "Allow PHP Dispatching of Hidden Files"
+msgstr "אפשר העברת PHP של קבצים מוסתרים"
+
+#: main.php:479
+msgid "Only Allow Logged-in Users to Download"
+msgstr "אפשר רק למשתמשים מחוברים להוריד"
+
+#: main.php:480
+msgid "Login Page URL"
+msgstr "כתובת URL של דף ההתחברות"
+
+#: main.php:481
+msgid "Redirect Users to Download Page"
+msgstr "הפנה משתמשים לדף ההורדה"
+
+#: main.php:483
+msgid "Log Unique IP"
+msgstr "רשום כתובת IP ייחודית"
+
+#: main.php:484
+msgid "Do Not Capture IP Address"
+msgstr "אל תתפוס כתובת IP"
+
+#: main.php:485
+msgid "Do Not Capture User Agent"
+msgstr "אל תתפוס סוכן משתמש"
+
+#: main.php:486
+msgid "Do Not Capture Referrer URL"
+msgstr "אל תתפוס כתובת URL של מפנה"
+
+#: main.php:487
+msgid "Do Not Count Downloads from Bots"
+msgstr "אל תחשב הורדות מבוטים"
+
+#: main.php:488
+msgid "Disable Download Logs"
+msgstr "מחק יומני הורדות"
+
+#: main.php:489
+msgid "Admin Dashboard Access Permission"
+msgstr "הרשאת גישה לדשבורד הניהול"
+
+#: main.php:491
+msgid "Download Button Color"
+msgstr "צבע כפתור ההורדה"
+
+#: main.php:493
+msgid "Enable Debug"
+msgstr "אפשר דיבוג"
+
+#: main.php:499
+msgid "Google Captcha (reCAPTCHA)"
+msgstr "גוגל קפצ'ה (reCAPTCHA)"
+
+#: main.php:500
+msgid "Terms and Conditions"
+msgstr "תנאים והגבלות"
+
+#: main.php:501
+msgid "Adsense/Ad Insertion"
+msgstr "אדסנס/הכנסת מודעות"
+
+#: main.php:502
+msgid "Google Maps API Key"
+msgstr "מפתח API של Google Maps"
+
+#: main.php:505
+msgid "Enable reCAPTCHA"
+msgstr "אפשר reCAPTCHA"
+
+#: main.php:506
+msgid "Site Key"
+msgstr "מפתח אתר"
+
+#: main.php:507
+msgid "Secret Key"
+msgstr "מפתח סודי"
+
+#: main.php:510
+msgid "Enable Terms and Conditions"
+msgstr "אפשר תנאים והגבלות"
+
+#: main.php:511
+msgid "Terms Page URL"
+msgstr "כתובת URL של דף התנאים"
+
+#: main.php:514
+msgid "Below Download Description"
+msgstr "תיאור ההורדה מתחת"
+
+#: main.php:517
+msgid "API Key"
+msgstr "מפתח API"
+
+#: main.php:523
+msgid "General options settings"
+msgstr "הגדרות אפשרויות כלליות"
+
+#: main.php:528
+msgid ""
+"Visitor login related settings (useful if you only want to allow logged-in "
+"users to be able to download files."
+msgstr ""
+"הגדרות הקשורות להיכנס של מבקרים (מועיל אם אתה רק רוצה לאפשר למשתמשים מחוברים "
+"להוריד קבצים."
+
+#: main.php:533
+msgid "Admin options settings"
+msgstr "הגדרות אפשרויות מנהל"
+
+#: main.php:538
+msgid "Front End colors settings"
+msgstr "הגדרות צבעים בחזית"
+
+#: main.php:543
+msgid "Debug settings"
+msgstr "הגדרות ניפוי שגיאות"
+
+#: main.php:548
+msgid ""
+"You can delete all the data related to this plugin from database using the "
+"button below. Useful when you're uninstalling the plugin and don't want any "
+"leftovers remaining."
+msgstr ""
+"אתה יכול למחוק את כל הנתונים הקשורים לתוסף זה מהמאגר באמצעות הכפתור למטה. מועיל "
+"כאשר אתה מתקין מחדש את התוסף ואינך רוצה שיישארו שאריות."
+
+#: main.php:549
+msgid "Warning"
+msgstr "אזהרה"
+
+#: main.php:549
+msgid ""
+"this can't be undone. All settings, download items, download logs will be "
+"deleted."
+msgstr "זה לא ניתן לביצוע מחדש. כל ההגדרות, פריטי ההורדה, יומני ההורדה ימחקו."
+
+#: main.php:550
+msgid "Delete all data and deactivate plugin"
+msgstr "מחק את כל הנתונים והשבת את התוסף"
+
+#: main.php:556
+msgid "Google Captcha (reCAPTCHA) options"
+msgstr "האפשרויות של Google Captcha (reCAPTCHA)"
+
+#: main.php:565
+msgid ""
+"You can use this section to insert adsense or other ad code inside the download "
+"item output"
+msgstr ""
+"אתה יכול להשתמש בחלק זה כדי להכניס קוד אדסנס או קוד פרסומות אחר בתוך הפלט של "
+"פריט ההורדה"
+
+#: main.php:569
+msgid ""
+"Google Maps API key is required to display the \"Downloads by Country\" chart."
+msgstr "מפתח ה-API של Google Maps נדרש כדי להציג את הגרף \"הורדות לפי מדינה\"."
+
+#: main.php:576
+msgid ""
+"Check this box if you want to use <a href=\"https://simple-download-monitor.com/"
+"how-to-add-google-recaptcha-to-your-download-buttons/\" "
+"target=\"_blank\">reCAPTCHA</a>. "
+msgstr ""
+"סמן תיבה זו אם ברצונך להשתמש ב-<a href=\"https://simple-download-monitor.com/"
+"how-to-add-google-recaptcha-to-your-download-buttons/\" "
+"target=\"_blank\">reCAPTCHA</a>."
+
+#: main.php:584
+msgid "The captcha option adds a captcha to the download now buttons."
+msgstr "אפשרות ה-captcha מוסיפה captcha לכפתורי ההורדה עכשיו."
+
+#: main.php:591
+msgid "The site key for the reCAPTCHA API"
+msgstr "מפתח האתר עבור API של reCAPTCHA"
+
+#: main.php:598
+msgid "The secret key for the reCAPTCHA API"
+msgstr "המפתח הסודי עבור API של reCAPTCHA"
+
+#: main.php:604
+msgid "Hide the download count that is shown in some of the fancy templates."
+msgstr "הסתר את מספר ההורדות שמוצג במספר תבניות מפוארות."
+
+#: main.php:611
+msgid ""
+"The PHP Dispatching option serves the download using PHP. It keeps the URL of "
+"the main downloadable files hidden."
+msgstr ""
+"אפשרות ה-PHP Dispatching מגישה את ההורדה באמצעות PHP. היא שומרת את כתובת ה-URL "
+"של הקבצים הראשיים להורדה נסתרים."
+
+#: main.php:618
+msgid ""
+"Comma-separated list of file extensions that are disallowed for PHP dispatch. "
+"You can use this option to disallow PHP dispatching of certain file types for "
+"security reasons."
+msgstr ""
+"רשימה מופרדת באמצעות פסיקים של סיומות קבצים שאינן מורשות עבור PHP dispatch. אתה "
+"יכול להשתמש באפשרות זו כדי למנוע משלוח PHP של סוגי קבצים מסוימים מסיבות של "
+"אבטחה."
+
+#: main.php:625
+msgid ""
+"Allow hidden files and files without any extensions to be dispatched via PHP "
+"Dispatch option."
+msgstr ""
+"אפשר קבצים נסתרים וקבצים ללא סיומת כלשהי להת dispatched באמצעות אפשרות PHP "
+"Dispatch."
+
+#: main.php:626
+msgid ""
+"Note: It is recommended to keep this option disabled unless you know what "
+"you're doing."
+msgstr "הערה: מומלץ לשמור על אפשרות זו מושבתת אלא אם אתה יודע מה אתה עושה."
+
+#: main.php:633
+msgid ""
+"Enable this option if you want to allow downloads only for logged-in users. "
+"When enabled, anonymous users clicking on the download button will receive an "
+"error message."
+msgstr ""
+"אפשר אפשרות זו אם אתה רוצה לאפשר הורדות רק למשתמשים מחוברים. כאשר היא פעילה, "
+"משתמשים אנונימיים אשר לוחצים על כפתור ההורדה יקבלו הודעת שגיאה."
+
+#: main.php:640
+msgid ""
+"Only works if you have set a Login Page URL value above. Enable this option if "
+"you want to redirect the users to the download page after they log into the "
+"site."
+msgstr ""
+"פועל רק אם קבעת ערך ל-URL של דף הכניסה למעלה. הפעל אפשרות זו אם אתה רוצה להפנות "
+"את המשתמשים לדף ההורדה לאחר שהם נכנסו לאתר."
+
+#: main.php:647
+msgid ""
+"(Optional) Specify a login page URL where users can login. This is useful if "
+"you only allow logged in users to be able to download. This link will be added "
+"to the message that is shown to anonymous users."
+msgstr ""
+"(אופציונלי) ציין URL של דף כניסה שבו יכולים המשתמשים להיכנס. זה שימושי אם אתה "
+"מאפשר רק למשתמשים מחוברים להוריד. קישור זה יתווסף להודעה שמוצגת למשתמשים "
+"אנונימיים."
+
+#: main.php:653
+msgid "Only logs downloads from unique IP addresses."
+msgstr "מקליט רק הורדות מכתובות IP ייחודיות."
+
+#: main.php:659
+msgid ""
+"Use this if you do not want to capture the IP address and Country of the "
+"visitors when they download an item."
+msgstr ""
+"שימוש בזה אם אינך רוצה לתפוס את כתובת ה-IP ואת המדינה של המבקרים כאשר הם "
+"מורידים פריט."
+
+#: main.php:665
+msgid ""
+"Use this if you do not want to capture the User Agent value of the browser when "
+"they download an item."
+msgstr ""
+"שימוש בזה אם אינך רוצה לתפוס את ערך ה-User Agent של הדפדפן כאשר הם מורידים פריט."
+
+#: main.php:671
+msgid ""
+"Use this if you do not want to capture the Referrer URL value when they "
+"download an item. The plugin only tries to capture this value if it is "
+"available."
+msgstr ""
+"שימוש בזה אם אינך רוצה לתפוס את ערך ה-Referrer URL כאשר הם מורידים פריט. התוסף "
+"מנסה לתפוס ערך זה רק אם הוא זמין."
+
+#: main.php:677
+msgid "When enabled, the plugin won't count and log downloads from bots."
+msgstr "כאשר הוא פעיל, התוסף לא יספר ולא יקליט הורדות מבוטים."
+
+#: main.php:683
+msgid ""
+"Disables all download logs. (This global option overrides the individual "
+"download item option.)"
+msgstr ""
+"מאפשר את כל לוגי ההורדות. (אפשרות כללית זו גוברת על אפשרות הפריט של ההורדה "
+"الفردית.)"
+
+#: main.php:696
+msgid ""
+"The SDM plugin's admin dashboard is accessible to administrator users only "
+"(just like any other plugin). You can allow users with other WP user roles to "
+"access the SDM admin dashboard by selecting a value here."
+msgstr ""
+"הלוח המחוונים של תוסף SDM נגיש רק למשתמשי מנהל (כמו כל תוסף אחר). אתה יכול "
+"לאפשר למשתמשים עם תפקידי משתמשים אחרים ב-WP גישה ללוח המחוונים של SDM על ידי "
+"בחירת ערך כאן."
+
+#: main.php:720
+msgid "Adjusts the color of the \"Download Now\" button."
+msgstr "מתכוונן לצבע של כפתור \"הורד עכשיו\"."
+
+#: main.php:726
+msgid "Check this option to enable debug logging."
+msgstr "סמן את האפשרות הזו כדי להפעיל רישום בודק."
+
+#: main.php:729
+msgid " to view log file."
+msgstr "כדי להציג את קובץ הלוג."
+
+#: main.php:731
+msgid " to reset log file."
+msgstr "כדי לאפס את קובץ הלוג."
+
+#: main.php:737
+msgid ""
+"You can use this option to make the visitors agree to your terms before they "
+"can download the item."
+msgstr ""
+"אתה יכול להשתמש באפשרות זו כדי לגרום למבקרים להסכים לתנאים שלך לפני שהם יכולים "
+"להוריד את הפריט."
+
+#: main.php:744
+msgid "Enter the URL of your terms and conditions page."
+msgstr "הזן את כתובת ה-URL של דף התנאים וההגבלות שלך."
+
+#: main.php:752
+msgid ""
+"Enter the Adsense or Ad code that you want to show below the download item "
+"description."
+msgstr "הזן את קוד Adsense או קוד המודעות שברצונך להציג מתחת לתיאור פריט ההורדה."
+
+#: main.php:760
+msgid ""
+"Enter your Google Maps API key. You can create new API key using <a "
+"href=\"https://developers.google.com/maps/documentation/javascript/get-api-"
+"key\" target=\"_blank\">this instruction</a>."
+msgstr ""
+"הזן את מפתח ה-API של Google Maps שלך. אתה יכול ליצור מפתח API חדש באמצעות <a "
+"href=\"https://developers.google.com/maps/documentation/javascript/get-api-"
+"key\" target=\"_blank\">ההנחיה הזו</a>."
+
+#: main.php:775
+msgid "Clone"
+msgstr "שכפול"
+
+#: main.php:804
+msgid "No post to duplicate has been supplied!"
+msgstr "לא סופק פוסט כפול!"
+
+#: main.php:891
+msgid "Post creation failed, could not find original post: "
+msgstr "יצירת פוסט נכשלה, לא נמצאה פוסט מקורי: "
+
+#: main.php:988
+msgid "Image"
+msgstr "תמונה"
+
+#: main.php:989
+msgid "ID"
+msgstr "מספר זיהוי"
+
+#: main.php:991 sdm-post-type-and-taxonomy.php:87
+msgid "Categories"
+msgstr "קטגוריות"
+
+#: main.php:992 sdm-post-type-and-taxonomy.php:115
+msgid "Tags"
+msgstr "תגיות"
+
+#: main.php:994
+msgid "Date Posted"
+msgstr "תאריך פרסום"
+
+#: sdm-post-type-and-taxonomy.php:9 sdm-post-type-and-taxonomy.php:10
+msgid "Add New"
+msgstr "הוסף חדש"
+
+#: sdm-post-type-and-taxonomy.php:11
+msgid "Edit Download"
+msgstr "ערוך הורדה"
+
+#: sdm-post-type-and-taxonomy.php:12
+msgid "New Download"
+msgstr "הורדה חדשה"
+
+#: sdm-post-type-and-taxonomy.php:14
+msgid "View Download"
+msgstr "הצג הורדה"
+
+#: sdm-post-type-and-taxonomy.php:15
+msgid "Search Downloads"
+msgstr "חפש הורדות"
+
+#: sdm-post-type-and-taxonomy.php:16
+msgid "No Downloads found"
+msgstr "לא נמצאו הורדות"
+
+#: sdm-post-type-and-taxonomy.php:17
+msgid "No Downloads found in Trash"
+msgstr "לא נמצאו הורדות בפח"
+
+#: sdm-post-type-and-taxonomy.php:18
+msgid "Parent Download"
+msgstr "הורדה הורה"
+
+#: sdm-post-type-and-taxonomy.php:77
+msgid "Download Categories"
+msgstr "קטגוריות הורדה"
+
+#: sdm-post-type-and-taxonomy.php:78
+msgid "Download Category"
+msgstr "קטגוריית הורדה"
+
+#: sdm-post-type-and-taxonomy.php:79
+msgid "Search Categories"
+msgstr "חפש קטגוריות"
+
+#: sdm-post-type-and-taxonomy.php:80
+msgid "All Categories"
+msgstr "כל הקטגוריות"
+
+#: sdm-post-type-and-taxonomy.php:81
+msgid "Categories Genre"
+msgstr "ז'אנר הקטגוריות"
+
+#: sdm-post-type-and-taxonomy.php:82
+msgid "Categories Genre:"
+msgstr "ז'אנר הקטגוריות:"
+
+#: sdm-post-type-and-taxonomy.php:83
+msgid "Edit Category"
+msgstr "ערוך קטגוריה"
+
+#: sdm-post-type-and-taxonomy.php:84
+msgid "Update Category"
+msgstr "עדכן קטגוריה"
+
+#: sdm-post-type-and-taxonomy.php:85
+msgid "Add New Category"
+msgstr "הוסף קטגוריה חדשה"
+
+#: sdm-post-type-and-taxonomy.php:86
+msgid "New Category"
+msgstr "קטגוריה חדשה"
+
+#: sdm-post-type-and-taxonomy.php:105
+msgid "Download Tags"
+msgstr "תיוגי הורדה"
+
+#: sdm-post-type-and-taxonomy.php:106
+msgid "Download Tag"
+msgstr "תיוג הורדה"
+
+#: sdm-post-type-and-taxonomy.php:107
+msgid "Search Tags"
+msgstr "חפש תיוגים"
+
+#: sdm-post-type-and-taxonomy.php:108
+msgid "All Tags"
+msgstr "כל התיוגים"
+
+#: sdm-post-type-and-taxonomy.php:109
+msgid "Tags Genre"
+msgstr "ז'אנר התיוגים"
+
+#: sdm-post-type-and-taxonomy.php:110
+msgid "Tags Genre:"
+msgstr "ז'אנר התיוגים:"
+
+#: sdm-post-type-and-taxonomy.php:111
+msgid "Edit Tag"
+msgstr "ערוך תג"
+
+#: sdm-post-type-and-taxonomy.php:112
+msgid "Update Tag"
+msgstr "עדכן תג"
+
+#: sdm-post-type-and-taxonomy.php:113
+msgid "Add New Tag"
+msgstr "הוסף תג חדש"
+
+#: sdm-post-type-and-taxonomy.php:114
+msgid "New Tag"
+msgstr "תג חדש"
+
+#: sdm-post-type-content-handler.php:38
+msgid "The admin of this site has disabled this download item page."
+msgstr "המנהל של האתר הזה השבית את דף פריט ההורדה הזה."
+
+#: sdm-post-type-content-handler.php:147
+msgid "The admin of this site has disabled the download button for this page."
+msgstr "המנהל של האתר הזה השבית את כפתור ההורדה עבור דף זה."
+
+#: sdm-shortcodes.php:77
+msgid "More Details"
+msgstr "פרטים נוספים"
+
+#: sdm-shortcodes.php:87 sdm-shortcodes.php:165 sdm-shortcodes.php:184
+msgid "Error! Please enter an ID value with this shortcode."
+msgstr "שגיאה! אנא הזן ערך ID עם קוד קצר זה."
+
+#: sdm-shortcodes.php:227
+msgid ""
+"Error! You must enter a category slug OR a category id with this shortcode. "
+"Refer to the documentation for usage instructions."
+msgstr ""
+"שגיאה! עליך להזין סלאג קטגוריה או מזהה קטגוריה עם קוד קצר זה. עיין בתיעוד "
+"להנחיות שימוש."
+
+#: sdm-shortcodes.php:232
+msgid "Error! Please enter a category slug OR id; not both."
+msgstr "שגיאה! עליך להזין סלאג קטגוריה או מזהה; לא שניהם."
+
+#: sdm-shortcodes.php:276
+msgid ""
+"Error! You must enter a numeric number for the \"pagination\" parameter of the "
+"shortcode. Refer to the usage documentation."
+msgstr ""
+"שגיאה! עליך להזין מספר מספרי עבור параметер \"pagination\" של הקוד הקצר. עיין "
+"בתיעוד השימוש."
+
+#: sdm-shortcodes.php:300
+msgid "There are no download items matching this category criteria."
+msgstr "אין פריטי הורדה התואמים לקריטריוני קטגוריה אלו."
+
+# Translation strings for the addons
+# Squeeze form addon
+msgid "The download has been sent to your email. Please check your inbox."
+msgstr "ההורדה נשלחה לדוא\"ל שלך. אנא בדוק את תיבת הדואר הנכנס שלך."
+
+msgid "Name"
+msgstr "שם"
+
+msgid "Email"
+msgstr "אימייל"

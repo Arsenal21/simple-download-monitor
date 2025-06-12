@@ -94,6 +94,7 @@ The following language translations are already available for the download monit
 * Russian
 * Dutch
 * Portuguese (Brasil)
+* Hebrew
 
 = Simple Download Monitor Plugin Usage =
 
@@ -200,6 +201,7 @@ Yes
 
 = WIP =
 - Readme file updated to fix formatting of some sections.
+- Added Hebrew translation to the plugin.
 
 = 3.9.31 =
 - Cloudflare Turnstile CAPTCHA support added. View the [Cloudflare Turnstile CAPTCHA documentation](https://simple-download-monitor.com/using-cloudflare-turnstile-captcha-with-the-simple-download-monitor/) for more details.
