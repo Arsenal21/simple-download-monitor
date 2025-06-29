@@ -748,5 +748,35 @@ function sdm_is_recaptcha_v3_enabled(){
 function sdm_get_recaptcha_v3_html(){
 	wp_enqueue_script('sdm-recaptcha-v3-scripts-lib');
 
+	// This input field programmatically stores captcha token using js to send the token to the server with form submission.
     return '<input type="hidden" class="sdm-g-recaptcha-v3-response" name="g-recaptcha-response"/>';
+}
+
+function sdm_dl_request_intermediate_page($content) {
+	wp_enqueue_script( 'sdm-intermediate-page-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_intermediate_page.js' , array(), WP_SIMPLE_DL_MONITOR_VERSION);
+
+    // The redirect url when leaving this intermediate page.
+	$redirect_url = apply_filters('sdm_redirect_url_form_intermediate_page', '');
+	?>
+	<!DOCTYPE html>
+	<html <?php language_attributes(); ?>>
+	<head>
+		<meta charset="<?php bloginfo( 'charset' ); ?>" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<?php wp_head(); ?>
+	</head>
+	<body <?php body_class(); ?>>
+	<?php wp_body_open(); ?>
+
+	<main class="sdm_dl_request_intermediate_page_content">
+		<?php echo wp_kses_post($content) ?>
+
+		<input type="hidden" id="sdm_redirect_form_intermediate_page_url" value="<?php echo esc_attr($redirect_url) ?>">
+	</main>
+
+	<?php wp_footer(); ?>
+	</body>
+	</html>
+	<?php
+	exit;
 }

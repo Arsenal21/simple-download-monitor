@@ -110,7 +110,7 @@ function handle_sdm_download_via_direct_post() {
 		// Get option for global disabling of download logging
 		$no_logs = isset( $main_option['admin_no_logs'] );
 
-		// Get optoin for logging only unique IPs
+		// Get option for logging only unique IPs
 		$unique_ips = isset( $main_option['admin_log_unique'] );
 
 		// Get post meta for individual disabling of download logging
@@ -259,46 +259,77 @@ function sdm_dispatch_file( $filename ) {
 
 /**
  * If reCAPTCHA Enabled verify answer, send it to google API
- *
- * @return boolean
  */
 function sdm_recaptcha_verify() {
-	$main_advanced_opts = get_option( 'sdm_advanced_options' );
+    if ( ! sdm_is_any_recaptcha_enabled() ){
+        // Nothing to do here.
+        return;
+    }
 
-	if ( sdm_is_recaptcha_v3_enabled() ) {
-		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['g-recaptcha-response'] ) ) {
-			$recaptcha_secret_key = $main_advanced_opts['recaptcha_v3_secret_key'];
-			$recaptcha_response   = filter_input( INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-			$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$recaptcha_response}" );
-			$response             = json_decode( $response['body'], 1 );
+    if (!isset($_REQUEST['g-recaptcha-response'])){
+        if ( $_SERVER['REQUEST_METHOD'] == 'GET' ){
+            // Most probably is a download request via direct link. Visitor must validate captcha through a intermediate page.
+            SDM_Debug::log('This is a download request via direct download link. So captcha needs to be verified first through an intermediate page.', true);
+            sdm_show_intermediate_page_for_captcha_validation();
+        } else {
+            // Request method POST.
+            wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+        }
+    }
 
-			if ( $response['success'] ) {
-				return true;
-			} else {
-				wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
-				return false;
-			}
-		} else {
-			wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
-			return false;
-		}
-	} else if ( sdm_is_recaptcha_v2_enabled() ) {
-		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset( $_POST['g-recaptcha-response'] ) ) {
-			$recaptcha_secret_key = $main_advanced_opts['recaptcha_secret_key'];
-			$recaptcha_response   = filter_input( INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-			$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$recaptcha_response}" );
-			$response             = json_decode( $response['body'], 1 );
+    $token = sanitize_text_field( $_REQUEST['g-recaptcha-response'] );
 
-			if ( $response['success'] ) {
-				return true;
-			} else {
-				wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
-				return false;
-			}
-		} else {
-			wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
-			return false;
-		}
+    if ( sdm_is_recaptcha_v3_enabled() ) {
+        sdm_recaptcha_v3_verify($token);
+    } else if ( sdm_is_recaptcha_v2_enabled() ) {
+        sdm_recaptcha_v2_verify($token);
+    }
+}
+
+function sdm_recaptcha_v2_verify( $token ) {
+	$main_advanced_opts   = get_option( 'sdm_advanced_options' );
+	$recaptcha_secret_key = $main_advanced_opts['recaptcha_secret_key'];
+	$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$token}" );
+	$response             = json_decode( $response['body'], 1 );
+
+	if ( $response['success'] ) {
+		return true;
+	} else {
+		wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
 	}
-	return true;
+}
+
+function sdm_recaptcha_v3_verify( $token ) {
+	$main_advanced_opts   = get_option( 'sdm_advanced_options' );
+	$recaptcha_secret_key = $main_advanced_opts['recaptcha_v3_secret_key'];
+	$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$token}" );
+	$response             = json_decode( $response['body'], 1 );
+
+	if ( $response['success'] ) {
+		return true;
+	} else {
+		wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+	}
+}
+
+function sdm_show_intermediate_page_for_captcha_validation() {
+    $content = '';
+    $content .= '<div id="sdm_captcha_verifying_content">';
+    if ( sdm_is_recaptcha_v3_enabled() ) {
+        wp_enqueue_script('sdm-recaptcha-v3-scripts-lib');
+        $content .=  wpautop(esc_html__('Verifying that you are human...', 'simple-download-monitor'));
+        $content .= '<img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="Verifying Captcha Spinner" class="sdm_g_captcha_spinner">';
+    } else if (sdm_is_recaptcha_v2_enabled()) {
+        $content .=  wpautop(esc_html__('Please verify that you are human', 'simple-download-monitor'));
+        $content .= '<div class="g-recaptcha sdm-g-recaptcha" data-callback="sdm_on_intermediate_page_token_generation"></div>';
+    }
+    $content .= '</div>';
+
+	// The following renders when download fails to start automatically. (Hidden by default)
+	$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
+	$content .= wpautop(__('Verification Successful. Click the following button to continue download.', 'bot-protection-turnstile'));
+	$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
+	$content .= '</div>';
+
+	sdm_dl_request_intermediate_page($content);
 }
