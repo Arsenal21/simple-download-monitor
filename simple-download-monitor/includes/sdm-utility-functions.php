@@ -756,7 +756,8 @@ function sdm_dl_request_intermediate_page($content) {
 	wp_enqueue_script( 'sdm-intermediate-page-scripts', WP_SIMPLE_DL_MONITOR_URL . '/js/sdm_intermediate_page.js' , array(), WP_SIMPLE_DL_MONITOR_VERSION);
 
     // The redirect url when leaving this intermediate page.
-	$redirect_url = apply_filters('sdm_redirect_url_form_intermediate_page', '');
+    $download_id = isset($_REQUEST['download_id']) ? sanitize_text_field($_REQUEST['download_id']) : '';
+	$redirect_url = apply_filters('sdm_redirect_url_from_intermediate_page', '', $download_id);
 	?>
 	<!DOCTYPE html>
 	<html <?php language_attributes(); ?>>
@@ -771,7 +772,7 @@ function sdm_dl_request_intermediate_page($content) {
 	<main class="sdm_dl_request_intermediate_page_content">
 		<?php echo wp_kses_post($content) ?>
 
-		<input type="hidden" id="sdm_redirect_form_intermediate_page_url" value="<?php echo esc_attr($redirect_url) ?>">
+		<input type="hidden" id="sdm_redirect_form_intermediate_page_url" value="<?php echo esc_url_raw($redirect_url) ?>">
 	</main>
 
 	<?php wp_footer(); ?>
