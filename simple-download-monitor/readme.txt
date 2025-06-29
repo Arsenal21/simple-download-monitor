@@ -199,10 +199,10 @@ Yes
 
 == Changelog ==
 
-= WIP =
-- Readme file updated to fix formatting of some sections.
+= 3.9.32 =
+- Readme file updated to fix the formatting of some sections.
 - Added Hebrew translation to the plugin.
-- Download via direct link when captcha enabled issue fixed.
+- Download via direct link feature is now compatible with the various CAPTCHA options.
 
 = 3.9.31 =
 - Cloudflare Turnstile CAPTCHA support added. View the [Cloudflare Turnstile CAPTCHA documentation](https://simple-download-monitor.com/using-cloudflare-turnstile-captcha-with-the-simple-download-monitor/) for more details.

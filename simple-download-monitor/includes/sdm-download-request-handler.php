@@ -273,7 +273,7 @@ function sdm_recaptcha_verify() {
             sdm_show_intermediate_page_for_captcha_validation();
         } else {
             // Request method POST.
-            wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+            wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
         }
     }
 
@@ -308,7 +308,7 @@ function sdm_recaptcha_v3_verify( $token ) {
 	if ( $response['success'] ) {
 		return true;
 	} else {
-		wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+		wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
 	}
 }
 
@@ -327,7 +327,7 @@ function sdm_show_intermediate_page_for_captcha_validation() {
 
 	// The following renders when download fails to start automatically. (Hidden by default)
 	$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
-	$content .= wpautop(__('Verification Successful. Click the following button to continue download.', 'bot-protection-turnstile'));
+	$content .= wpautop(__('Verification successful. Click the button below to continue your download.', 'bot-protection-turnstile'));
 	$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
 	$content .= '</div>';
 
