@@ -14,14 +14,18 @@ var sdm_reCaptcha = function () {
  */
 function sdm_reCaptcha_v3(){
     grecaptcha.ready(function() {
-        const v3recaptchaInputs = document.querySelectorAll('.sdm-g-recaptcha-v3-response');
-        v3recaptchaInputs?.forEach(function(resp_input){
-            grecaptcha.execute(
-                sdm_recaptcha_opt.site_key,
-                { action: 'sdm_download' }
-            ).then(function(token) {
-                resp_input.value = token
-            });
-        });
+        document.dispatchEvent(new CustomEvent('sdm_reCaptcha_v3_ready'));
     });
 }
+
+document.addEventListener('sdm_reCaptcha_v3_ready', async function (){
+    const token = await grecaptcha.execute(
+        sdm_recaptcha_opt.site_key,
+        { action: 'sdm_download' }
+    );
+
+    const v3recaptchaInputs = document.querySelectorAll('.sdm-g-recaptcha-v3-response');
+    v3recaptchaInputs?.forEach(function(resp_input){
+        resp_input.value = token
+    });
+})
