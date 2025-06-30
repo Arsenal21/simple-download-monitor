@@ -325,11 +325,5 @@ function sdm_show_intermediate_page_for_captcha_validation() {
     }
     $content .= '</div>';
 
-	// The following renders when download fails to start automatically. (Hidden by default)
-	$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
-	$content .= wpautop(__('Verification successful. Click the button below to continue your download.', 'bot-protection-turnstile'));
-	$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
-	$content .= '</div>';
-
 	sdm_dl_request_intermediate_page($content);
 }
