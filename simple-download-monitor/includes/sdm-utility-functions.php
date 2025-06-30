@@ -772,6 +772,12 @@ function sdm_dl_request_intermediate_page($content) {
 	<main class="sdm_dl_request_intermediate_page_content">
 		<?php echo wp_kses_post($content) ?>
 
+        <?php // The following renders after captcha verification successful and download has started. ?>
+        <div id="sdm_after_captcha_verification_content" class="hidden">
+            <p><?php _e('Verification successful. When the download is complete, click this button to go back.', 'bot-protection-turnstile') ?></p>
+            <button id="sdm_intermediate_page_manual_redirection_btn" class="sdm_download white"><?php _e('Go Back', 'bot-protection-turnstile') ?></button>
+        </div>
+
 		<input type="hidden" id="sdm_redirect_form_intermediate_page_url" value="<?php echo esc_url_raw($redirect_url) ?>">
 	</main>
 

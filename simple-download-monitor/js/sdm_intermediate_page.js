@@ -8,6 +8,9 @@ function sdm_on_intermediate_page_token_generation(token){
 }
 
 function sdm_execute_download_in_intermediate_page(download_url){
+    // Downloads the file
+    window.location.href = download_url;
+
     // Prepare the redirect url when leaving intermediate page.
     const redirect_url = document.getElementById('sdm_redirect_form_intermediate_page_url');
     let after_download_redirect_url = '';
@@ -27,35 +30,22 @@ function sdm_execute_download_in_intermediate_page(download_url){
         }
     }
 
-    // Downloads the file
-    const isSuccess = window.open(download_url); // If the window with download url can open, download will be started automatically.
-
-    // Some browser may block automated window opening. This won't let the download start.
-    // If so, show a custom button which user can click to open the download window manually.
-
-    if (isSuccess) {
-        // Download operation executed, leave the sdm intermediate page.
-        setTimeout(function(){
-            window.location.href = after_download_redirect_url;
-        }, 1000);
-    } else {
-        // Download operation could not be executed automatically
-
+    setTimeout(function (){
         // Remove widgets
         const sdm_captcha_verifying_content = document.getElementById('sdm_captcha_verifying_content');
         sdm_captcha_verifying_content?.remove();
 
-        // Show manual download button.
+        // Show manual redirect button.
         const sdm_after_captcha_verification_content = document.getElementById('sdm_after_captcha_verification_content');
         sdm_after_captcha_verification_content?.classList.remove('hidden');
 
-        const custom_dl_btn = document.getElementById('sdm_intermediate_page_manual_dl_btn');
-        custom_dl_btn?.addEventListener('click', function(e){
+        const redirect_btn = document.getElementById('sdm_intermediate_page_manual_redirection_btn');
+        redirect_btn?.addEventListener('click', function(e){
             e.preventDefault();
-            window.open(download_url);
             window.location.href = after_download_redirect_url;
         })
-    }
+    }, 1000)
+
 }
 
 document.addEventListener('sdm_reCaptcha_v3_ready', function (){
