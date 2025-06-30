@@ -774,8 +774,8 @@ function sdm_dl_request_intermediate_page($content) {
 
         <?php // The following renders after captcha verification successful and download has started. ?>
         <div id="sdm_after_captcha_verification_content" class="hidden">
-            <p><?php _e('Verification successful. When the download is complete, click this button to go back.', 'bot-protection-turnstile') ?></p>
-            <button id="sdm_intermediate_page_manual_redirection_btn" class="sdm_download white"><?php _e('Go Back', 'bot-protection-turnstile') ?></button>
+            <p><?php _e('CAPTCHA verification successful. Once the download is complete, click the button below to return.', 'simple-download-monitor') ?></p>
+            <button id="sdm_intermediate_page_manual_redirection_btn" class="sdm_download white"><?php _e('Go Back', 'simple-download-monitor') ?></button>
         </div>
 
 		<input type="hidden" id="sdm_redirect_form_intermediate_page_url" value="<?php echo esc_url_raw($redirect_url) ?>">

@@ -199,7 +199,7 @@ Yes
 
 == Changelog ==
 
-= WIP 3.9.32 =
+= 3.9.32 =
 - Readme file updated to fix the formatting of some sections.
 - Added Hebrew translation to the plugin.
 - Download via direct link feature is now compatible with the various CAPTCHA options.
