@@ -536,7 +536,7 @@ function sdm_show_download_info_shortcode( $args ) {
 
 	if ( $download_info == 'thumbnail' ) {//download thumb
 		$download_thumbnail = get_post_meta( $id, 'sdm_upload_thumbnail', true );
-		$download_thumbnail = '<img class="sdm_download_thumbnail_image" src="' . $download_thumbnail . '" />';
+		$download_thumbnail = '<img class="sdm_download_thumbnail_image" src="' . esc_url($download_thumbnail) . '" />';
 		return $download_thumbnail;
 	}
 

@@ -165,24 +165,24 @@ class SDM_Admin_Edit_Download {
 		$old_value     = isset( $old_thumbnail ) ? $old_thumbnail : '';
 		esc_html_e( 'Manually enter a valid URL, or click "Select Image" to upload (or choose) the file thumbnail image.', 'simple-download-monitor' );
 		?>
-	<br /><br />
-	<input id="sdm_upload_thumbnail" type="text" style="width: 95%" name="sdm_upload_thumbnail" value="<?php echo esc_attr( $old_value ); ?>" placeholder="http://..." />
-	<br /><br />
-	<input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php esc_attr_e( 'Select Image', 'simple-download-monitor' ); ?>" />
-	<!--	Creating the nonce field for csrf protection-->
-	<input id="sdm_remove_thumbnail_nonce" type="hidden" value="<?php echo wp_create_nonce( 'sdm_remove_thumbnail_nonce_action' ); ?>"/>
-	<input id="remove_thumbnail_button" type="button" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>"/>
-	<br /><br />
+        <br /><br />
+        <input id="sdm_upload_thumbnail" type="text" style="width: 95%" name="sdm_upload_thumbnail" value="<?php echo esc_url_raw( $old_value ); ?>" placeholder="http://..." />
+        <br /><br />
+        <input id="upload_thumbnail_button" type="button" class="button-primary" value="<?php esc_attr_e( 'Select Image', 'simple-download-monitor' ); ?>" />
+        <!--	Creating the nonce field for csrf protection-->
+        <input id="sdm_remove_thumbnail_nonce" type="hidden" value="<?php echo wp_create_nonce( 'sdm_remove_thumbnail_nonce_action' ); ?>"/>
+        <input id="remove_thumbnail_button" type="button" class="button" value="<?php esc_attr_e( 'Remove Image', 'simple-download-monitor' ); ?>"/>
+        <br /><br />
 
-	<span id="sdm_admin_thumb_preview">
-		<?php
-		if ( ! empty( $old_value ) ) {
-			?>
-		<img id="sdm_thumbnail_image" src="<?php echo esc_url( $old_value ); ?>" style="max-width:200px;" />
-			<?php
-		}
-		?>
-	</span>
+        <span id="sdm_admin_thumb_preview">
+            <?php
+            if ( ! empty( $old_value ) ) {
+                ?>
+            <img id="sdm_thumbnail_image" src="<?php echo esc_url( $old_value ); ?>" style="max-width:200px;" />
+                <?php
+            }
+            ?>
+        </span>
 
 		<?php
 		echo '<p class="description">';
@@ -395,7 +395,7 @@ class SDM_Admin_Edit_Download {
 
 		// *** File Thumbnail ***
 		if ( isset( $_POST['sdm_upload_thumbnail'] ) ) {
-			update_post_meta( $post_id, 'sdm_upload_thumbnail', sanitize_text_field( wp_unslash( $_POST['sdm_upload_thumbnail'] ) ) );
+			update_post_meta( $post_id, 'sdm_upload_thumbnail', sanitize_url( $_POST['sdm_upload_thumbnail'] ) );
 		}
 
 		// *** Statistics ***
