@@ -198,6 +198,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- Fixed download thumbnail vulnerability issue.
 
 = 3.9.32 =
 - Readme file updated to fix the formatting of some sections.
