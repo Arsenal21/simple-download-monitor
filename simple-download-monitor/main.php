@@ -251,7 +251,7 @@ function sdm_export_logs_handler(){
 	$table_name = $wpdb->prefix . 'sdm_downloads';
 
 	$search_text = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
-	$orderby_column = isset( $_POST['orderby'] ) ? sanitize_text_field( $_POST['orderby'] ) : 'id';
+	$orderby_column = isset( $_POST['orderBy'] ) ? sanitize_text_field( $_POST['orderBy'] ) : 'id';
 	$sort_order     = isset( $_POST['order'] ) ? sanitize_text_field( $_POST['order'] ) : 'desc';
 
 	$order_by_clause = sanitize_sql_orderby("$orderby_column $sort_order");
