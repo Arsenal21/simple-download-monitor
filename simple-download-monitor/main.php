@@ -254,22 +254,24 @@ function sdm_export_logs_handler(){
 	$orderby_column = isset( $_POST['orderby'] ) ? sanitize_text_field( $_POST['orderby'] ) : 'id';
 	$sort_order     = isset( $_POST['order'] ) ? sanitize_text_field( $_POST['order'] ) : 'desc';
 
+	$order_by_clause = sanitize_sql_orderby("$orderby_column $sort_order");
+
 	$select_cols = "id as 'Log ID', post_id as 'Download ID', post_title as 'Download Title', file_url as 'File URL',date_time as 'Date',visitor_ip as 'IP Address', visitor_country as 'Country', visitor_name as 'Name'";
 
 	if(empty($search_text)){
 		$total_items = $wpdb->get_var(  "SELECT COUNT(*) FROM $table_name" );
-		$query       = "SELECT $select_cols FROM $table_name ORDER BY $orderby_column $sort_order LIMIT %d, %d";
+		$query       = "SELECT $select_cols FROM $table_name ORDER BY $order_by_clause LIMIT %d, %d";
 	} else {
 		$columns = ['post_title', 'post_id', 'visitor_name', 'visitor_ip', 'visitor_country'];
 		$like_query = [];
 		foreach ($columns as $column) {
 			$like_query[] = "$column LIKE '%" . esc_sql($search_text) . "%'";
 		}
-		
+
 		$where_clause = implode(' OR ', $like_query);
 
 		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE $where_clause" );
-		$query       = "SELECT $select_cols FROM $table_name WHERE $where_clause ORDER BY $orderby_column $sort_order LIMIT %d, %d";
+		$query       = "SELECT $select_cols FROM $table_name WHERE $where_clause ORDER BY $order_by_clause LIMIT %d, %d";
 	}
 
 	$records_per_page = 100;
@@ -277,12 +279,12 @@ function sdm_export_logs_handler(){
 	$total_pages   = ceil( $total_items / $records_per_page );
 
 	$logs = array();
-	
+
 	for ( $current_page = 1; $current_page <= $total_pages; $current_page++ ) {
 		$offset = ( $current_page - 1 ) * $records_per_page;
 
-		$query_prepared = $wpdb->prepare( $query,$offset,$records_per_page );
-		
+		$query_prepared = $wpdb->prepare( $query, $offset, $records_per_page );
+
 		$results = $wpdb->get_results( $query_prepared, ARRAY_A );
 
 		// Check if there were any error during query.
@@ -344,7 +346,7 @@ class simpleDownloadManager {
 		add_action( 'init', 'sdm_register_shortcodes' ); //Register the shortcodes
 
 		// Register frontend scripts (Note that the 'wp_enqueue_scripts' hook only runs on the front end).
-		add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );  
+		add_action( 'wp_enqueue_scripts', array( $this, 'sdm_frontend_scripts' ) );
 
 		// Include the blocks related files.
 		include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/sdm-blocks.php';
@@ -353,7 +355,7 @@ class simpleDownloadManager {
 			// Handle the admin side of things.
 
 			// Create admin menu pages.
-			add_action( 'admin_menu', array( $this, 'sdm_create_menu_pages' ) );  
+			add_action( 'admin_menu', array( $this, 'sdm_create_menu_pages' ) );
 
 			require_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/admin-side/sdm-admin-edit-download.php';
 
@@ -395,7 +397,7 @@ class simpleDownloadManager {
 					'sdm_upload_to_protected_dir' => true,
 				));
 			}
-			
+
 			wp_enqueue_script( 'sdm-upload' );
 
 			// Localize langauge strings used in js file
@@ -522,17 +524,17 @@ class simpleDownloadManager {
 		add_settings_field( 'recaptcha_enable', __( 'Enable reCAPTCHA v2', 'simple-download-monitor' ), array( $this, 'recaptcha_enable_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
 		add_settings_field( 'recaptcha_site_key', __( 'Site Key', 'simple-download-monitor' ), array( $this, 'recaptcha_site_key_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
 		add_settings_field( 'recaptcha_secret_key', __( 'Secret Key', 'simple-download-monitor' ), array( $this, 'recaptcha_secret_key_cb' ), 'recaptcha_options_section', 'recaptcha_options' );
-		
+
 		//Add Terms & Condition section fields
 		add_settings_field( 'termscond_enable', __( 'Enable Terms and Conditions', 'simple-download-monitor' ), array( $this, 'termscond_enable_cb' ), 'termscond_options_section', 'termscond_options' );
 		add_settings_field( 'termscond_url', __( 'Terms Page URL', 'simple-download-monitor' ), array( $this, 'termscond_url_cb' ), 'termscond_options_section', 'termscond_options' );
-		
+
 		//Add Adsense section fields
 		add_settings_field( 'adsense_below_description', __( 'Below Download Description', 'simple-download-monitor' ), array( $this, 'adsense_below_description_cb' ), 'adsense_options_section', 'adsense_options' );
-		
+
 		//Maps API section fields
 		add_settings_field( 'maps_api_key', __( 'API Key', 'simple-download-monitor' ), array( $this, 'maps_api_key_cb' ), 'maps_api_options_section', 'maps_api_options' );
-		
+
 	}
 
 	public function general_options_cb() {
@@ -747,9 +749,9 @@ class simpleDownloadManager {
 		);
 		$default  = 'manage_options';
 		$msg = __( 'The SDM plugin\'s admin dashboard is accessible to administrator users only (just like any other plugin). You can allow users with other WP user roles to access the SDM admin dashboard by selecting a value here.', 'simple-download-monitor' );
-		
+
 		$selected = isset($main_opts['admin-dashboard-access-permission']) && !empty($main_opts['admin-dashboard-access-permission']) ? sanitize_text_field($main_opts['admin-dashboard-access-permission']) : $default;
-		
+
 		echo "<select name='sdm_downloads_options[admin-dashboard-access-permission]' >";
 		foreach ( $options as $key => $value ) {
 			$is_selected = ( $key == $selected ) ? 'selected="selected"' : '';
