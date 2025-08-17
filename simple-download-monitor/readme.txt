@@ -120,7 +120,7 @@ You can view all of your existing downloads from the "Downloads->Downloads" inte
 
 **C) Create a download button**
 
-Create a new post/page and click the "SDM Downlaods" TinyMCE button to insert a shortcode (This button will only show up if you haven't unchecked it in the settings). You can choose to display your download with a nice looking box or just a plain download link/button. 
+Create a new post/page and click the "SDM Downlaods" TinyMCE button to insert a shortcode (This button will only show up if you haven't unchecked it in the settings). You can choose to display your download with a nice looking box or just a plain download link/button.
 
 Example Shortcode Usage:
 
@@ -167,13 +167,13 @@ Yes.
 = What file formats can I upload? =
 You can pretty much upload all common file types.
 
-= Can I use external file URLs? = 
+= Can I use external file URLs? =
 Yes, you can use both local paths and external URLs.
 
-= Can I password protect a downloadable file? = 
+= Can I password protect a downloadable file? =
 Yes.
 
-= Can I add additional security to protect my downloadable files? = 
+= Can I add additional security to protect my downloadable files? =
 You can add additional security to your downloadable files with the [Enhanced File Protection Feature](https://simple-download-monitor.com/enhanced-file-protection-securing-your-downloads/).
 
 = Can I show the file download counts to my visitors? =
@@ -198,6 +198,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- A sql vulnerability issue fixed.
 
 = 3.9.33 =
 - Added escaping to the download thumbnail field for better security.
@@ -253,7 +255,7 @@ Yes
 = 3.9.24 =
 - New settings added to allow the admin to specify if other WP User roles can view the plugin's admin dashboard.
 - Added a new shortcode parameter (more_detail_url) that can bused to show a link below the description section of the fancy 1 and 2 templates.
-- The 'more details' Shortcode usage example is available in the [documentation here](https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/#showing-a-more-details-link) 
+- The 'more details' Shortcode usage example is available in the [documentation here](https://simple-download-monitor.com/miscellaneous-shortcodes-and-shortcode-parameters/#showing-a-more-details-link)
 - Fixed an issue with the single entry log delete function.
 - Fixed the custom download button text issue with the fancy 1 & 2 templates.
 - Fixed an issue with the specific items logs menu now showing correctly.
@@ -298,7 +300,7 @@ Yes
 - The thumbnail alt filters now also passes the download ID as an argument.
 - Removed a PHP notice related to PHP8.
 
-= 3.9.15 = 
+= 3.9.15 =
 - Fixed an issue with the "Quick Edit" link in the downloads menu hanging.
 - Added a new utility function in the debug logging class.
 
