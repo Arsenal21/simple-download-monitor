@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 3.9.33
+Stable tag: 3.9.34
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -198,8 +198,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- A sql vulnerability issue fixed.
+
+= 3.9.34 =
+- Enhanced security by adding proper sanitization and escaping to the sort order and orderBy parameters in the export logs feature.
 
 = 3.9.33 =
 - Added escaping to the download thumbnail field for better security.
