@@ -73,7 +73,7 @@ function sdm_create_download_shortcode( $atts ) {
 				'css_class'    => '',
 				'show_size'    => '',
 				'show_version' => '',
-				'more_details_url' => "", 
+				'more_details_url' => "",
 				'more_details_anchor' => __('More Details', 'simple-download-monitor'),
 			),
 			$atts
@@ -152,20 +152,20 @@ function sdm_create_download_shortcode( $atts ) {
 }
 
 function sdm_create_simple_download_link( $atts ) {
-	extract(
-		shortcode_atts(
-			array(
-				'id' => '',
-			),
-			$atts
-		)
+	$atts = shortcode_atts(
+		array(
+			'id' => '',
+		),
+		$atts
 	);
 
-	if ( empty( $id ) ) {
+	$id = isset($atts['id']) ? sanitize_text_field($atts['id']) : '';
+
+	if ( empty( $id ) || !is_numeric($id) ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
-	return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . $id;
+	return WP_SIMPLE_DL_MONITOR_SITE_HOME_URL . '/?sdm_process_download=1&download_id=' . esc_js($id);
 }
 
 // Create Counter Shortcode
@@ -325,7 +325,7 @@ function sdm_handle_category_shortcode( $args ) {
 				if ( empty( $new_window ) ) {
 					$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
 				}
-	
+
 				$window_target = empty( $new_window ) ? '_self' : '_blank';
 
 				/**
@@ -336,7 +336,7 @@ function sdm_handle_category_shortcode( $args ) {
 				if (empty($item_button_text)) {
 					$item_button_text = sdm_get_dl_button_text($id);
 				}
-				
+
 				// Setup download button code
 				$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($item_title) . '" target="' . $window_target . '">' . esc_attr($item_button_text) . '</a>';
 

@@ -198,6 +198,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- A security issue fixed regarding sdm_download_link shortcode.
 
 = 3.9.34 =
 - Enhanced security by adding proper sanitization and escaping to the sort order and orderBy parameters in the export logs feature.
