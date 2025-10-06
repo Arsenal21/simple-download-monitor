@@ -198,6 +198,7 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= Amazon bot filter added.
 
 = 3.9.35 =
 - Added output escaping to a parameter in the sdm_download_link shortcode.
