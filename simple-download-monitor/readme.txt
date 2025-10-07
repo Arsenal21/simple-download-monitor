@@ -198,7 +198,10 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= Amazon bot filter added.
+
+= WIP =
+- Amazon bot filter added to the bot detection function.
+- Added a filter hook 'sdm_get_ip_address' to allow modification of the detected IP address.
 
 = 3.9.35 =
 - Added output escaping to a parameter in the sdm_download_link shortcode.

@@ -146,12 +146,16 @@ function sdm_get_ip_address( $ignore_private_and_reserved = false ) {
 				$ip = trim( $ip ); // just to be safe
 
 				if ( filter_var( $ip, FILTER_VALIDATE_IP, $flags ) !== false ) {
+					//Filter hook to allow modification of the detected IP address.
+					$ip = apply_filters('sdm_get_ip_address', $ip);
 					return $ip;
 				}
 			}
 		}
 	}
-	return null;
+	//No valid IP found. Filter hook.
+	$ip = apply_filters('sdm_get_ip_address', '');
+	return $ip;
 }
 
 /**
