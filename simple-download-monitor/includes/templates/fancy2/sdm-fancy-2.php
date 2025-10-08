@@ -122,6 +122,7 @@ function sdm_generate_fancy2_display_output( $args ) {
 	$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
     }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
+    $window_target = apply_filters('sdm_download_window_target', $window_target);
 
     // Get the download URL and generate the download button code.
     $download_url = sdm_get_standard_download_url_from_id($id);

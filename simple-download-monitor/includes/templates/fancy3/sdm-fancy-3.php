@@ -82,6 +82,7 @@ function sdm_generate_fancy3_display_output( $args ) {
 	$new_window = get_post_meta( $id, 'sdm_item_new_window', true );
     }
     $window_target = empty( $new_window ) ? '_self' : '_blank';
+    $window_target = apply_filters('sdm_download_window_target', $window_target);
 
     // Get CPT title
     $item_title = get_the_title( $id );
