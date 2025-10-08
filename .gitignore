@@ -1,6 +1,7 @@
 /nbproject/private/
 
 .idea
+.vscode/sftp.json
 
 vendor
 

@@ -40,28 +40,30 @@ function sdm_generate_fancy0_latest_downloads_display_output( $get_posts, $args 
     return $output;
 }
 
-/* * * TODO - Use this function in the category shortcode handler function ** */
+function sdm_generate_fancy0_category_display_output($get_posts, $args) {
 
-//function sdm_generate_fancy0_category_display_output($get_posts, $args) {
-//
-//    $output = "";
-//
-//    //TODO - when the CSS file is moved to the fancy1 folder, change it here
-//
-//    foreach ($get_posts as $item) {
-//        $id = $item->ID;  //Get the post ID
-//        //Create a args array
-//        $args = array(
-//            'id' => $id,
-//            'fancy' => '1',
-//            'button_text' => $args['button_text'],
-//            'new_window' => $args['new_window'],
-//        );
-//        $output .= sdm_generate_fancy0_display_output($args);
-//    }
-//    $output .= '<div class="sdm_clear_float"></div>';
-//    return $output;
-//}
+   $output = "";
+
+   //TODO - when the CSS file is moved to the fancy1 folder, change it here
+
+   foreach ($get_posts as $item) {
+        //Create a args array
+        $args = array(
+            'id' =>  $item->ID,
+            'fancy' => '1',
+            'button_text' => isset($args['button_text']) ? $args['button_text'] : '',
+            'new_window' => isset($args['new_window']) ? $args['new_window'] : '',
+        );
+
+        $tpl_data = $args;
+        $output .= sdm_load_template(0, $tpl_data, false);
+
+        // TODO: Old code, to be removed later.
+        // $output .= sdm_generate_fancy0_display_output($args);
+   }
+   $output .= '<div class="sdm_clear_float"></div>';
+   return $output;
+}
 
 /*
  * Generates the output of a single item using fancy2 sytle

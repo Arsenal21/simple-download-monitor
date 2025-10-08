@@ -87,9 +87,9 @@ function sdm_create_download_shortcode( $atts ) {
 		return '<p style="color: red;">' . __( 'Error! Please enter an ID value with this shortcode.', 'simple-download-monitor' ) . '</p>';
 	}
 
-		$id        = intval( $id );
-		$color     = sdm_sanitize_text( $color );
-		$css_class = sdm_sanitize_text( $css_class );
+	$id        = intval( $id );
+	$color     = sdm_sanitize_text( $color );
+	$css_class = sdm_sanitize_text( $css_class );
 
 	// Check to see if the download link cpt is password protected
 	$get_cpt_object  = get_post( $id );
@@ -126,27 +126,34 @@ function sdm_create_download_shortcode( $atts ) {
 	//End of download now button code generation
 
 	$output = '';
-	switch ( $fancy ) {
-		case '1':
-			include_once 'includes/templates/fancy1/sdm-fancy-1.php';
-			$output .= sdm_generate_fancy1_display_output( $shortcode_atts );
-			$output .= '<div class="sdm_clear_float"></div>';
-			break;
-		case '2':
-			include_once 'includes/templates/fancy2/sdm-fancy-2.php';
-                        wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
-			$output .= sdm_generate_fancy2_display_output( $shortcode_atts );
-			$output .= '<div class="sdm_clear_float"></div>';
-			break;
-		case '3':
-			include_once 'includes/templates/fancy3/sdm-fancy-3.php';
-			$output .= sdm_generate_fancy3_display_output( $shortcode_atts );
-			$output .= '<div class="sdm_clear_float"></div>';
-			break;
-		default: // Default output is the standard download now button (fancy 0)
-			include_once 'includes/templates/fancy0/sdm-fancy-0.php';
-			$output .= sdm_generate_fancy0_display_output( $shortcode_atts );
-	}
+
+	$output .= sdm_load_template($fancy, $shortcode_atts);
+	$output .= '<div class="sdm_clear_float"></div>';
+
+	// TODO: Old code, to be removed later.
+	// if (empty($output)) {
+	// 	switch ( $fancy ) {
+	// 		case '1':
+	// 			include_once 'includes/templates/fancy1/sdm-fancy-1.php';
+	// 			$output .= sdm_generate_fancy1_display_output( $shortcode_atts );
+	// 			$output .= '<div class="sdm_clear_float"></div>';
+	// 			break;
+	// 		case '2':
+	// 			include_once 'includes/templates/fancy2/sdm-fancy-2.php';
+	// 			wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
+	// 			$output .= sdm_generate_fancy2_display_output( $shortcode_atts );
+	// 			$output .= '<div class="sdm_clear_float"></div>';
+	// 			break;
+	// 		case '3':
+	// 			include_once 'includes/templates/fancy3/sdm-fancy-3.php';
+	// 			$output .= sdm_generate_fancy3_display_output( $shortcode_atts );
+	// 			$output .= '<div class="sdm_clear_float"></div>';
+	// 			break;
+	// 		default: // Default output is the standard download now button (fancy 0)
+	// 			include_once 'includes/templates/fancy0/sdm-fancy-0.php';
+	// 			$output .= sdm_generate_fancy0_display_output( $shortcode_atts );
+	// 	}
+	// }
 
 	return apply_filters( 'sdm_download_shortcode_output', $output, $atts );
 }
@@ -310,7 +317,11 @@ function sdm_handle_category_shortcode( $args ) {
 		$def_color = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : 'green';
 
 		if ( $fancy == '0' ) {
+			include_once 'includes/templates/fancy0/sdm-fancy-0.php';
+			$output .= sdm_generate_fancy0_category_display_output( $get_posts, $args );
 
+			// TODO: Old code, to be removed later.
+			/*
 			// Iterate Download CPTs
 			foreach ( $get_posts as $item ) {
 
@@ -328,11 +339,10 @@ function sdm_handle_category_shortcode( $args ) {
 
 				$window_target = empty( $new_window ) ? '_self' : '_blank';
 
-				/**
-				 * Get the download button text.
-				 * Prioritize category shortcode param over custom button text from edit page.
-				 * Show default button text if both are empty.
-				 */
+				// Get the download button text.
+				// Prioritize category shortcode param over custom button text from edit page.
+				// Show default button text if both are empty.
+
 				if (empty($item_button_text)) {
 					$item_button_text = sdm_get_dl_button_text($id);
 				}
@@ -356,7 +366,8 @@ function sdm_handle_category_shortcode( $args ) {
 
 				// Generate download buttons
 				$output .= '<div class="sdm_download_link">' . $download_button_code . '</div><br />';
-			}  // End foreach
+			}  // End foreach 
+			*/
 		}
 		// Fancy 1 and onwards handles the loop inside the template function
 		elseif ( $fancy == '1' ) {
