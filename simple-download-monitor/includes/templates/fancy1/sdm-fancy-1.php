@@ -45,9 +45,13 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
             $args_fresh['button_text'] = sdm_get_dl_button_text($item->ID);
         }
 
-        $output .= sdm_generate_fancy1_display_output(
-        array_merge( $args_fresh, array( 'id' => $item->ID ) )
-        );
+        $tpl_data = array_merge( $args_fresh, array( 'id' => $item->ID ) );
+        $output .= sdm_load_template(1, $tpl_data, false);
+
+        // TODO: Old code, to be removed later.
+        // $output .= sdm_generate_fancy1_display_output(
+        // array_merge( $args_fresh, array( 'id' => $item->ID ) )
+        // );
     }
     $output .= '<div class="sdm_clear_float"></div>';
     return $output;

@@ -63,9 +63,13 @@ function sdm_generate_fancy2_category_display_output( $get_posts, $args ) {
             $args_fresh['button_text'] = sdm_get_dl_button_text($item->ID);
         }
         
-        $output .= sdm_generate_fancy2_display_output(
-        array_merge( $args_fresh, array( 'id' => $item->ID ) )
-        );
+        $tpl_data = array_merge( $args_fresh, array( 'id' => $item->ID ) );
+        $output .= sdm_load_template(2, $tpl_data, false);
+
+        // TODO: Old code, to be removed later.
+        // $output .= sdm_generate_fancy2_display_output(
+        // array_merge( $args_fresh, array( 'id' => $item->ID ) )
+        // );
 
         if ( $count % 3 == 0 ) {//Clear after every 3 items in the grid
             $output .= '<div class="sdm_clear_float"></div>';

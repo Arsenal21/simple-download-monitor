@@ -202,6 +202,8 @@ Yes
 = WIP =
 - Amazon bot filter added to the bot detection function.
 - Added a filter hook 'sdm_get_ip_address' to allow modification of the detected IP address.
+- Template overriding functionality added.
+- Category shortcode output for fancy 0 has moved into a dedicated function.
 
 = 3.9.35 =
 - Added output escaping to a parameter in the sdm_download_link shortcode.

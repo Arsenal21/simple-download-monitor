@@ -791,3 +791,57 @@ function sdm_dl_request_intermediate_page($content) {
 	<?php
 	exit;
 }
+
+function sdm_load_template( $fancy, $args = array(), $load_once = true ) {
+	$fancy = strval( $fancy );
+	$template_name = 'fancy'.$fancy.'/sdm-fancy-' . $fancy . '.php';
+	$template_files = array(
+		'simple-download-monitor/'. $template_name,
+	);
+
+	//Filter hook to allow overriding of the template file path
+	$template_files = apply_filters( 'sdm_load_template_files', $template_files, $template_name);
+	
+	$located = locate_template($template_files);
+	
+	$output = '';
+
+	if ( ! empty( $located ) ) {
+		// Template file found in theme. Load it.
+		ob_start();
+		
+		if ($load_once) {
+			include_once $located;
+		} else {
+			include $located;
+		}
+
+		$output .= ob_get_clean();
+		return $output;
+	}
+
+	// Template file not found in theme. Load from plugin folder.
+
+	switch ( $fancy ) {
+		case '1':
+			include_once WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR . 'fancy1/sdm-fancy-1.php';
+			$output .= sdm_generate_fancy1_display_output( $args );
+			break;
+		case '2':
+			include_once WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR . 'fancy2/sdm-fancy-2.php';
+			wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
+			$output .= sdm_generate_fancy2_display_output( $args );
+			break;
+		case '3':
+			include_once WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR . 'fancy3/sdm-fancy-3.php';
+			$output .= sdm_generate_fancy3_display_output( $args );
+			break;
+		case '0':
+		default:
+			include_once WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR . 'fancy0/sdm-fancy-0.php';
+			$output .= sdm_generate_fancy0_display_output( $args );
+			break;
+	}
+
+	return $output;
+}

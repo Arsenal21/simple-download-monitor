@@ -32,9 +32,13 @@ function sdm_generate_fancy3_category_display_output( $get_posts, $args ) {
     //TODO - when the CSS file is moved to the fancy3 folder, change it here
 
     foreach ( $get_posts as $item ) {
-	$output .= sdm_generate_fancy3_display_output(
-	array_merge( $args, array( 'id' => $item->ID ) )
-	);
+        $tpl_data = array_merge( $args, array( 'id' => $item->ID ) );
+        $output .= sdm_load_template(3, $tpl_data, false);
+
+        // TODO: Old code, to be removed later.
+        // $output .= sdm_generate_fancy3_display_output(
+        // array_merge( $args, array( 'id' => $item->ID ) )
+        // );
     }
     $output .= '<div class="sdm_clear_float"></div>';
     return $output;

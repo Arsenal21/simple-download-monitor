@@ -19,6 +19,7 @@ define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) 
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url() );
+define( 'WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR', WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/' );
 define( 'WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt' );
 
 global $sdm_db_version;
