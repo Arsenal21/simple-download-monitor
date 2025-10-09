@@ -206,6 +206,7 @@ Yes
 - Added a filter hook 'sdm_get_ip_address' to allow modification of the detected IP address.
 - Category shortcode output for fancy 0 has been moved into a dedicated function.
 - Added {ip_address} email merge tag to the email notification addon.
+- Added a new filter hook 'sdm_download_window_target' to allow customization of the download link's window target.
 
 = 3.9.35 =
 - Added output escaping to a parameter in the sdm_download_link shortcode.
