@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 3.9.35
+Stable tag: 4.0.0
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -78,6 +78,7 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * Ability to easily clone/copy your existing download items.
 * Ability to insert Adsense or other Ad code inside the download item display.
 * Gutenberg block to insert download now buttons on a post or page.
+* Option to override the default template by placing a custom template file in the active theme’s directory.
 * The stats menu can show you the top downloads, downloads by date, country, browser etc.
 
 View more details on the [download monitor plugin](https://simple-download-monitor.com/) page.
@@ -199,11 +200,12 @@ Yes
 
 == Changelog ==
 
-= WIP =
+= 4.0.0 =
+- Added functionality to override the template by using a custom template file in the active theme's folder.
 - Amazon bot filter added to the bot detection function.
 - Added a filter hook 'sdm_get_ip_address' to allow modification of the detected IP address.
-- Template overriding functionality added.
-- Category shortcode output for fancy 0 has moved into a dedicated function.
+- Category shortcode output for fancy 0 has been moved into a dedicated function.
+- Added {ip_address} email merge tag to the email notification addon.
 
 = 3.9.35 =
 - Added output escaping to a parameter in the sdm_download_link shortcode.
