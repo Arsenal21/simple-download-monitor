@@ -98,7 +98,7 @@ function sdm_generate_fancy0_display_output( $args ) {
             $window_target = 'target="_blank"';
         }
     }
-
+    $window_target = apply_filters('sdm_download_window_target', $window_target);
 
     //Get the download button text
     $button_text = isset( $args[ 'button_text' ] ) ? $args[ 'button_text' ] : '';

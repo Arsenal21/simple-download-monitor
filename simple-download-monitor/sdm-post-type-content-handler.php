@@ -84,7 +84,8 @@ function filter_sdm_post_type_content( $content ) {
 		// See if new window parameter is set
 		$new_window    = get_post_meta( $id, 'sdm_item_new_window', true );
 		$window_target = empty( $new_window ) ? '_self' : '_blank';
-
+		$window_target = apply_filters('sdm_download_window_target', $window_target);
+		
 		$download_url = sdm_get_standard_download_url_from_id($id);
 		$download_button_code = '<a href="' . $download_url . '" class="sdm_download ' . $def_color . '" title="' . esc_html($isset_item_title) . '" target="' . $window_target . '">' . esc_attr($button_text_string) . '</a>';
 

@@ -97,6 +97,7 @@ function sdm_get_password_entry_form( $id, $args = array(), $class = '' ) {
 	//Check if new window is enabled
 	$new_window    = get_post_meta( $id, 'sdm_item_new_window', true );
 	$window_target = empty( $new_window ) ? '' : ' target="_blank"';
+	$window_target = apply_filters('sdm_download_window_target', $window_target);
 
 	//Form code
 	$data .= '<form action="' . $action_url . '" method="post" id="' . $uuid . '" class="sdm-download-form"' . $window_target . '>';
@@ -352,6 +353,7 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 
 	$new_window    = get_post_meta( $id, 'sdm_item_new_window', true );
 	$window_target = empty( $new_window ) ? '' : ' target="_blank"';
+	$window_target = apply_filters('sdm_download_window_target', $window_target);
 
 	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . esc_attr($window_target) . '>';
 
@@ -410,6 +412,7 @@ function sdm_get_download_form_with_termsncond( $id, $args = array(), $class = '
 
 	$new_window    = get_post_meta( $id, 'sdm_item_new_window', true );
 	$window_target = empty( $new_window ) ? '' : ' target="_blank"';
+	$window_target = apply_filters('sdm_download_window_target', $window_target);
 
 	$data  = '<form action="' . $action_url . '" method="post" class="sdm-download-form"' . $window_target . '>';
 	$data .= sdm_get_checkbox_for_termsncond();
