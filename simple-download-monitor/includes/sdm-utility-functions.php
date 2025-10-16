@@ -795,7 +795,7 @@ function sdm_dl_request_intermediate_page($content) {
 	exit;
 }
 
-function sdm_load_template( $fancy, $args = array(), $load_once = true ) {
+function sdm_load_template( $fancy, $args = array(), $load_once = false ) {
 	$fancy = strval( $fancy );
 	$template_name = 'fancy'.$fancy.'/sdm-fancy-' . $fancy . '.php';
 	$template_files = array(

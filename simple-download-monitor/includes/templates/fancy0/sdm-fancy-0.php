@@ -56,7 +56,7 @@ function sdm_generate_fancy0_category_display_output($get_posts, $args) {
         );
 
         $tpl_data = $args;
-        $output .= sdm_load_template(0, $tpl_data, false);
+        $output .= sdm_load_template(0, $tpl_data);
 
         // TODO: Old code, to be removed later.
         // $output .= sdm_generate_fancy0_display_output($args);

@@ -199,6 +199,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- A Template loading issue fixed.
 
 = 4.0.0 =
 - Added functionality to override the template by using a custom template file in the active theme's folder.
