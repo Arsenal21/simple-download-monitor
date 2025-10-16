@@ -33,7 +33,7 @@ function sdm_generate_fancy3_category_display_output( $get_posts, $args ) {
 
     foreach ( $get_posts as $item ) {
         $tpl_data = array_merge( $args, array( 'id' => $item->ID ) );
-        $output .= sdm_load_template(3, $tpl_data, false);
+        $output .= sdm_load_template(3, $tpl_data);
 
         // TODO: Old code, to be removed later.
         // $output .= sdm_generate_fancy3_display_output(

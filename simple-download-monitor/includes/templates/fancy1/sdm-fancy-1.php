@@ -46,7 +46,7 @@ function sdm_generate_fancy1_category_display_output( $get_posts, $args ) {
         }
 
         $tpl_data = array_merge( $args_fresh, array( 'id' => $item->ID ) );
-        $output .= sdm_load_template(1, $tpl_data, false);
+        $output .= sdm_load_template(1, $tpl_data);
 
         // TODO: Old code, to be removed later.
         // $output .= sdm_generate_fancy1_display_output(
