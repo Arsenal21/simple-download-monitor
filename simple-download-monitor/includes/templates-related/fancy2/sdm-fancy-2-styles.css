@@ -1,0 +1,84 @@
+
+.sdm_fancy2_item{     
+    margin: 5px 10px 5px 0;
+    border: 1px solid #BBBEC9;
+    float: left;
+    width: 220px;    
+}
+.sdm_fancy2_grid{
+    width: 30%;
+}
+
+.sdm_fancy2_wrapper{
+    margin: 15px;
+}
+
+.sdm_fancy2_download_thumbnail {
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.sdm_fancy2_download_title{
+    font-family: Bitter, Georgia, serif;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.sdm_fancy2_download_title a{
+    text-decoration: none !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sdm_fancy2_download_thumbnail img{
+    max-width: 100%;
+}
+
+.sdm_fancy2_more_details_link_section{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sdm_fancy2_download_link{
+    text-align: center;
+}
+
+.sdm_fancy2_download_dl_link, .sdm_fancy2_more_details_link{
+    border: 3px solid #2D3140;    
+    color: #2D3140;
+    padding: 5px 10px;
+    display: inline-block;
+    text-decoration: none !important;
+}
+
+.sdm_fancy2_download_dl_link:hover, .sdm_fancy2_more_details_link:hover{
+    color: #FFF;
+    background-color: #2D3140;
+}
+
+.sdm_fancy2_download_size{
+    margin: 5px 0;
+    text-align: center;
+}
+.sdm_fancy2_download_version{
+    margin: 5px 0;
+    text-align: center;
+}
+
+.sdm_fancy2_item .sdm-g-recaptcha{
+    transform:scale(0.60);
+    transform-origin:0 0;
+}
+/*** For smaller devices ***/
+@media only screen and (max-width : 480px)
+{
+    .sdm_fancy2_item{     
+        margin: 5px 10px 5px 0;
+        border: 1px solid #BBBEC9;
+        float: left;
+        width: 95%;
+    }    
+}

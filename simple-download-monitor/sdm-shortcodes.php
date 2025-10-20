@@ -128,33 +128,33 @@ function sdm_create_download_shortcode( $atts ) {
 
 	$output = '';
 
-	$output .= sdm_load_template($fancy, $shortcode_atts);
-	$output .= '<div class="sdm_clear_float"></div>';
+//	$output .= sdm_load_template($fancy, $shortcode_atts);
+//	$output .= '<div class="sdm_clear_float"></div>';
 
 	// TODO: Old code, to be removed later.
-	// if (empty($output)) {
-	// 	switch ( $fancy ) {
-	// 		case '1':
-	// 			include_once 'includes/templates/fancy1/sdm-fancy-1.php';
-	// 			$output .= sdm_generate_fancy1_display_output( $shortcode_atts );
-	// 			$output .= '<div class="sdm_clear_float"></div>';
-	// 			break;
-	// 		case '2':
-	// 			include_once 'includes/templates/fancy2/sdm-fancy-2.php';
-	// 			wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
-	// 			$output .= sdm_generate_fancy2_display_output( $shortcode_atts );
-	// 			$output .= '<div class="sdm_clear_float"></div>';
-	// 			break;
-	// 		case '3':
-	// 			include_once 'includes/templates/fancy3/sdm-fancy-3.php';
-	// 			$output .= sdm_generate_fancy3_display_output( $shortcode_atts );
-	// 			$output .= '<div class="sdm_clear_float"></div>';
-	// 			break;
-	// 		default: // Default output is the standard download now button (fancy 0)
-	// 			include_once 'includes/templates/fancy0/sdm-fancy-0.php';
-	// 			$output .= sdm_generate_fancy0_display_output( $shortcode_atts );
-	// 	}
-	// }
+	if (empty($output)) {
+		switch ( $fancy ) {
+		    case '1':
+		        include_once 'includes/templates-related/fancy1/sdm-fancy-1.php';
+		        $output .= sdm_generate_fancy1_display_output( $shortcode_atts );
+		        $output .= '<div class="sdm_clear_float"></div>';
+		        break;
+		    case '2':
+		        include_once 'includes/templates-related/fancy2/sdm-fancy-2.php';
+		        wp_enqueue_style( 'sdm_addons_listing', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates-related/fancy2/sdm-fancy-2-styles.css', array(), WP_SIMPLE_DL_MONITOR_VERSION );
+		        $output .= sdm_generate_fancy2_display_output( $shortcode_atts );
+		        $output .= '<div class="sdm_clear_float"></div>';
+		        break;
+		    case '3':
+		        include_once 'includes/templates-related/fancy3/sdm-fancy-3.php';
+		        $output .= sdm_generate_fancy3_display_output( $shortcode_atts );
+		        $output .= '<div class="sdm_clear_float"></div>';
+		        break;
+		    default: // Default output is the standard download now button (fancy 0)
+		        include_once 'includes/templates-related/fancy0/sdm-fancy-0.php';
+		        $output .= sdm_generate_fancy0_display_output( $shortcode_atts );
+		}
+	}
 
 	return apply_filters( 'sdm_download_shortcode_output', $output, $atts );
 }
@@ -318,7 +318,7 @@ function sdm_handle_category_shortcode( $args ) {
 		$def_color = isset( $color_opt ) ? str_replace( ' ', '', strtolower( $color_opt ) ) : 'green';
 
 		if ( $fancy == '0' ) {
-			include_once 'includes/templates/fancy0/sdm-fancy-0.php';
+			include_once 'includes/templates-related/fancy0/sdm-fancy-0.php';
 			$output .= sdm_generate_fancy0_category_display_output( $get_posts, $args );
 
 			// TODO: Old code, to be removed later.
@@ -372,13 +372,13 @@ function sdm_handle_category_shortcode( $args ) {
 		}
 		// Fancy 1 and onwards handles the loop inside the template function
 		elseif ( $fancy == '1' ) {
-			include_once 'includes/templates/fancy1/sdm-fancy-1.php';
+			include_once 'includes/templates-related/fancy1/sdm-fancy-1.php';
 			$output .= sdm_generate_fancy1_category_display_output( $get_posts, $args );
 		} elseif ( $fancy == '2' ) {
-			include_once 'includes/templates/fancy2/sdm-fancy-2.php';
+			include_once 'includes/templates-related/fancy2/sdm-fancy-2.php';
 			$output .= sdm_generate_fancy2_category_display_output( $get_posts, $args );
 		} elseif ( $fancy == '3' ) {
-			include_once 'includes/templates/fancy3/sdm-fancy-3.php';
+			include_once 'includes/templates-related/fancy3/sdm-fancy-3.php';
 			$output .= sdm_generate_fancy3_category_display_output( $get_posts, $args );
 		}
 
