@@ -201,6 +201,7 @@ Yes
 == Changelog ==
 = WIP =
 - A Template loading issue fixed.
+- Template code structure updated.
 
 = 4.0.0 =
 - Added functionality to override the template by using a custom template file in the active theme's folder.

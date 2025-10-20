@@ -90,13 +90,13 @@ function sdm_generate_search_result_using_template( $posts_collection, $args = a
 
 	if ( isset( $args['fancy'] ) && ! empty( $args['fancy'] ) ) {
 		if ( $args['fancy'] == '1' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy1/sdm-fancy-1.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy1/sdm-fancy-1.php';
 			$s_results .= sdm_generate_fancy1_category_display_output( $posts_collection, $args );
 		} elseif ( $args['fancy'] == '2' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy2/sdm-fancy-2.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy2/sdm-fancy-2.php';
 			$s_results .= sdm_generate_fancy2_category_display_output( $posts_collection, $args );
 		} elseif ( $args['fancy'] == '3' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy3/sdm-fancy-3.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy3/sdm-fancy-3.php';
 			$s_results .= sdm_generate_fancy3_category_display_output( $posts_collection, $args );
 		}
 	} else {

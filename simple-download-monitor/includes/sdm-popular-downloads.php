@@ -52,16 +52,16 @@ function sdm_show_popular_downloads( $args ) {
 
 		$output = '';
 		if ( $fancy == '0' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy0/sdm-fancy-0.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy0/sdm-fancy-0.php';
 			$output .= sdm_generate_fancy0_popular_downloads_display_output( $get_posts, $args );
 		} elseif ( $fancy == '1' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy1/sdm-fancy-1.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy1/sdm-fancy-1.php';
 			$output .= sdm_generate_fancy1_popular_downloads_display_output( $get_posts, $args );
 		} elseif ( $fancy == '2' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy2/sdm-fancy-2.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy2/sdm-fancy-2.php';
 			$output .= sdm_generate_fancy2_popular_downloads_display_output( $get_posts, $args );
 		} elseif ( $fancy == '3' ) {
-			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/fancy3/sdm-fancy-3.php';
+			include_once WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates-related/fancy3/sdm-fancy-3.php';
 			$output .= sdm_generate_fancy3_popular_downloads_display_output( $get_posts, $args );
 		}
 
