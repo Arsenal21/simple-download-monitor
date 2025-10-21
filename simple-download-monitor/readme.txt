@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -199,9 +199,10 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- A Template loading issue fixed.
-- Template code structure updated.
+
+= 4.0.1 =
+- Added a new filter hook 'sdm_load_template_files' to allow developers to modify/customize the fancy display templates.
+- Improved the new template loading code structure to make it easier to copy and modify templates.
 
 = 4.0.0 =
 - Added functionality to override the template by using a custom template file in the active theme's folder.
