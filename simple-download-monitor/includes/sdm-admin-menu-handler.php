@@ -348,8 +348,11 @@ function sdm_admin_menu_general_settings() {
 }
 
 function sdm_admin_menu_advanced_settings() {
-	//More advanced options will be added here in the future.
-	// This prints out all hidden setting fields
+	//This function prints out all the already registered but hidden setting sections and fields.
+	
+	do_settings_sections( 'cloudflare_turnstile_options_section' );
+	//At the moment, we don't have any fields under this section.
+
 	do_settings_sections( 'recaptcha_v3_options_section' );
 	settings_fields( 'recaptcha_v3_options_section' );
 	submit_button();

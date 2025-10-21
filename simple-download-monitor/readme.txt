@@ -200,6 +200,9 @@ Yes
 
 == Changelog ==
 
+= WIP =
+- Added help text in the Advanced settings to mention that we have Cloudflare Turnstile CAPTCHA support now.
+
 = 4.0.1 =
 - Added a new filter hook 'sdm_load_template_files' to allow developers to modify/customize the fancy display templates.
 - Improved the new template loading code structure to make it easier to copy and modify templates.
