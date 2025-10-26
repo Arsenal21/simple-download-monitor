@@ -47,15 +47,19 @@ function sdm_generate_fancy0_category_display_output($get_posts, $args) {
    //TODO - when the CSS file is moved to the fancy1 folder, change it here
 
    foreach ($get_posts as $item) {
-        //Create a args array
-        $args = array(
-            'id' =>  $item->ID,
-            'fancy' => '1',
-            'button_text' => isset($args['button_text']) ? $args['button_text'] : '',
-            'new_window' => isset($args['new_window']) ? $args['new_window'] : '',
-        );
+	    // Create a new array to prevent affecting the next item by the modified value of the current item in the loop.
+	    $args_fresh = array_merge([], $args);
 
-        $output .= sdm_generate_fancy0_display_output($args);
+	   /**
+	    * Get the download button text.
+	    * Prioritize category shortcode param over custom button text from edit page.
+	    */
+	   if (empty($args_fresh['button_text'])) {
+		   $args_fresh['button_text'] = sdm_get_dl_button_text($item->ID);
+	   }
+
+	   $args_fresh = array_merge( $args_fresh, array( 'id' => $item->ID ) );
+       $output .= sdm_generate_fancy0_display_output($args_fresh);
    }
    $output .= '<div class="sdm_clear_float"></div>';
    return $output;

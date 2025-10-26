@@ -202,6 +202,7 @@ Yes
 
 = WIP =
 - Added help text in the Advanced settings to mention that we have Cloudflare Turnstile CAPTCHA support now.
+- Button text display issue for category shortcode has fixed.
 
 = 4.0.1 =
 - Added a new filter hook 'sdm_load_template_files' to allow developers to modify/customize the fancy display templates.
