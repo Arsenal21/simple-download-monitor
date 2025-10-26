@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.8
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -74,7 +74,8 @@ https://www.youtube.com/watch?v=SjVaanbulRU
 * There is an option to show an ajax file tree browser so your visitors can browse all your files and download the ones they want.
 * Option to ignore download count from bots.
 * Option to add Google reCAPTCHA to your download buttons.
-* Option to add Terms and Condtions to your download buttons.
+* Option to add Cloudflare Turnstile CAPTCHA to your download buttons.
+* Option to add Terms and Conditions to your download buttons.
 * Ability to easily clone/copy your existing download items.
 * Ability to insert Adsense or other Ad code inside the download item display.
 * Gutenberg block to insert download now buttons on a post or page.
@@ -200,9 +201,9 @@ Yes
 
 == Changelog ==
 
-= WIP =
+= 4.0.2 =
 - Added help text in the Advanced settings to mention that we have Cloudflare Turnstile CAPTCHA support now.
-- Button text display issue for category shortcode has fixed.
+- Fixed an issue where the custom 'Button Text' field value from the download edit page was not being applied correctly when using the category shortcode.
 
 = 4.0.1 =
 - Added a new filter hook 'sdm_load_template_files' to allow developers to modify/customize the fancy display templates.
