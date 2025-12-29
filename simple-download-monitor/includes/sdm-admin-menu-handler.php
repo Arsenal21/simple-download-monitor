@@ -549,7 +549,7 @@ function sdm_create_stats_page() {
 
 	if ( isset( $main_opts['admin_no_logs'] ) ) {
 		?>
-	<div class="notice notice-warning"><p><b>Download Logs are disabled in <a href="?post_type=sdm_downloads&page=settings">plugin settings</a>. Please enable Download Logs to see current stats.</b></p></div>
+	    <div class="notice notice-warning"><p><b>Download Logs are disabled in <a href="?post_type=sdm_downloads&page=settings">plugin settings</a>. Please enable Download Logs to see current stats.</b></p></div>
 		<?php
 	}
 	wp_enqueue_script( 'sdm_google_charts' );
@@ -568,14 +568,21 @@ function sdm_create_stats_page() {
 	} else {
 		$end_date = date( 'Y-m-d', time() );
 	}
+
+	$dl_ids = isset( $_POST['sdm_stats_dl_ids'] ) ? sanitize_text_field($_POST['sdm_stats_dl_ids']) : '';
+	$dl_ids_arr = !empty( $dl_ids ) ? explode(',', $dl_ids ) : array();
+    $dl_ids_arr = array_map('intval', $dl_ids_arr ); // Convert to integers.
+    $dl_ids_arr = array_filter( $dl_ids_arr ); // Remove empty items
+	$dl_ids = implode( ', ', $dl_ids_arr );
+
 	if ( isset( $_REQUEST['sdm_active_tab'] ) && ! empty( $_REQUEST['sdm_active_tab'] ) ) {
 		$active_tab = sanitize_text_field( $_REQUEST['sdm_active_tab'] );
 	} else {
 		$active_tab = 'datechart';
 	}
-	$downloads_by_date = sdm_get_downloads_by_date( $start_date, $end_date, false );
+	$downloads_by_date = sdm_get_downloads_by_date( $start_date, $end_date, $dl_ids_arr, false );
 
-	$downloads_by_country = sdm_get_downloads_by_country( $start_date, $end_date, false );
+	$downloads_by_country = sdm_get_downloads_by_country( $start_date, $end_date, $dl_ids_arr, false );
 
 	$adv_opts = get_option( 'sdm_advanced_options' );
 
@@ -600,26 +607,29 @@ function sdm_create_stats_page() {
 			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
 			<div class="inside">
 				<form id="sdm_choose_date" method="post">
-				<input type="hidden" name="sdm_active_tab" value="<?php echo esc_attr( sdm_sanitize_text( $active_tab ) ); ?>">
-				<?php esc_html_e( 'Start Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
-				<?php esc_html_e( 'End Date: ', 'simple-download-monitor' ); ?><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
-				<p id="sdm_date_buttons">
-					<button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
-					<button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
-					<button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
-				</p>
-				<div class="submit">
-					<input type="submit" class="button-primary" value="<?php esc_html_e( 'View Stats', 'simple-download-monitor' ); ?>">
-				</div>
+                    <input type="hidden" name="sdm_active_tab" value="<?php echo esc_attr( sdm_sanitize_text( $active_tab ) ); ?>">
+                    <label for=""><?php esc_html_e( 'Start Date: ', 'simple-download-monitor' ); ?></label><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
+                    <label for=""><?php esc_html_e( 'End Date: ', 'simple-download-monitor' ); ?></label><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo esc_attr( sdm_sanitize_text( $end_date ) ); ?>">
+                    <p id="sdm_date_buttons">
+                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
+                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
+                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
+                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
+                        <button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
+                    </p>
+                    <div>
+                        <label for=""><?php esc_html_e( 'Download ID(s): ', 'simple-download-monitor' ); ?></label><input type="text" class="" name="sdm_stats_dl_ids" value="<?php echo esc_attr( $dl_ids ); ?>">
+                    </div>
+                    <div class="submit">
+                        <input type="submit" class="button-primary" value="<?php esc_html_e( 'View Stats', 'simple-download-monitor' ); ?>">
+                    </div>
 				</form>
 			</div>
 			</div>
 			<div class="nav-tab-wrapper sdm-tabs">
 			<a href="edit.php?post_type=sdm_downloads&page=sdm-stats&sdm_active_tab=datechart" class="nav-tab<?php echo ( $active_tab === 'datechart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="datechart"><?php esc_html_e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=geochart" href="" class="nav-tab<?php echo ( $active_tab === 'geochart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="geochart"><?php esc_html_e( 'Downloads by country', 'simple-download-monitor' ); ?></a>
-				<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ( $active_tab === 'countrylistchart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="countrylistchart"><?php esc_html_e( 'Downloads by country list', 'simple-download-monitor' ); ?></a>
+            <a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=countrylistchart" href="" class="nav-tab<?php echo ( $active_tab === 'countrylistchart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="countrylistchart"><?php esc_html_e( 'Downloads by country list', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=browserList" href="" class="nav-tab<?php echo ( $active_tab === 'browserList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="browserList"><?php esc_html_e( 'Downloads by browser', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=osList" href="" class="nav-tab<?php echo ( $active_tab === 'osList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="osList"><?php esc_html_e( 'Downloads by OS', 'simple-download-monitor' ); ?></a>
 			<a href="edit.php?post_type=sdm_downloads&page=stats&sdm_active_tab=userList" href="" class="nav-tab<?php echo ( $active_tab === 'userList' ? ' nav-tab-active' : '' ); ?>" data-tab-name="userList"><?php esc_html_e( 'Downloads by User', 'simple-download-monitor' ); ?></a>
@@ -646,147 +656,145 @@ function sdm_create_stats_page() {
 								?>
 						</div>
 					</div>
-
 				<div id="country_chart" style="width: auto; max-width: 700px; height:437px;"></div>
 			</div>
 
-				<div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ( $active_tab === 'countrylistchart' ? '' : ' style="display:none;"' ); ?>>
-					<div class="wrap">
-						<table class="widefat">
-							<thead>
-							<th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</thead>
-							<tbody>
-								<?php
-								//An array containing the downloads.
-								$downloads_by_country_array = sdm_get_downloads_by_country( $start_date, $end_date, false );
-								foreach ( $downloads_by_country_array as $item ) {
-									if ( empty( $item['country'] ) ) {
-										//Lets skip any unknown country rows
-										continue;
-									}
-									echo '<tr>';
-									echo '<td>' . esc_html( $item['country'] ) . '</td>';
-									echo '<td>' . esc_html( $item['cnt'] ) . '</td>';
-									echo '</tr>';
-								}
-								?>
-							</tbody>
-							<tfoot>
-							<th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</tfoot>
-						</table>
-					</div>
-				</div><!-- end of countrylistchart -->
+            <div data-tab-name="countrylistchart" class="sdm-tab"<?php echo ( $active_tab === 'countrylistchart' ? '' : ' style="display:none;"' ); ?>>
+                <div class="wrap">
+                    <table class="widefat">
+                        <thead>
+                        <th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            //An array containing the downloads.
+                            foreach ( $downloads_by_country as $item ) {
+                                if ( empty( $item['country'] ) ) {
+                                    //Lets skip any unknown country rows
+                                    continue;
+                                }
+                                echo '<tr>';
+                                echo '<td>' . esc_html( $item['country'] ) . '</td>';
+                                echo '<td>' . esc_html( $item['cnt'] ) . '</td>';
+                                echo '</tr>';
+                            }
+                            ?>
+                        </tbody>
+                        <tfoot>
+                        <th><strong><?php esc_html_e( 'Country Name', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><!-- end of countrylistchart -->
 
-				<div data-tab-name="browserList"
-					 class="sdm-tab"<?php echo( $active_tab === 'browserList' ? '' : ' style="display:none;"' ); ?>>
-					<div class="wrap">
-						<table class="widefat">
-							<thead>
-							<th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</thead>
-							<tbody>
-							<?php
-							$downloads_by_browser_array = sdm_get_all_downloads_by_browser( $start_date, $end_date );
-							foreach ( $downloads_by_browser_array as $name => $count ) {
-								?>
-								<tr>
-									<td><?php echo esc_html( $name ); ?></td>
-									<td><?php echo esc_html( $count ); ?></td>
-								</tr>
-							<?php } ?>
-							</tbody>
-							<tfoot>
-							<th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</tfoot>
-						</table>
-					</div>
-				</div><!-- end of browserList tab-->
+            <div data-tab-name="browserList"
+                 class="sdm-tab"<?php echo( $active_tab === 'browserList' ? '' : ' style="display:none;"' ); ?>>
+                <div class="wrap">
+                    <table class="widefat">
+                        <thead>
+                        <th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $downloads_by_browser_array = sdm_get_all_downloads_by_browser( $start_date, $end_date, $dl_ids_arr );
+                        foreach ( $downloads_by_browser_array as $name => $count ) {
+                            ?>
+                            <tr>
+                                <td><?php echo esc_html( $name ); ?></td>
+                                <td><?php echo esc_html( $count ); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                        <tfoot>
+                        <th><strong><?php esc_html_e( 'Browser', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><!-- end of browserList tab-->
 
-				<div data-tab-name="osList"
-					 class="sdm-tab"<?php echo( $active_tab === 'osList' ? '' : ' style="display:none;"' ); ?>>
-					<div class="wrap">
-						<table class="widefat">
-							<thead>
-							<th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</thead>
-							<tbody>
-							<?php
-							$downloads_by_os_array = sdm_get_all_downloads_by_os( $start_date, $end_date );
-							foreach ( $downloads_by_os_array as $name => $count ) {
-								?>
-								<tr>
-									<td><?php echo esc_html( $name ); ?></td>
-									<td><?php echo esc_html( $count ); ?></td>
-								</tr>
-							<?php } ?>
-							</tbody>
-							<tfoot>
-							<th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</tfoot>
-						</table>
-					</div>
-				</div><!-- end of osList tab-->
- 
-				<div data-tab-name="userList" class="sdm-tab"<?php echo( $active_tab === 'userList' ? '' : ' style="display:none;"' ); ?>>
-					<div class="wrap">
-						<table class="widefat">
-							<thead>
-							<th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</thead>
-							<tbody>
-							<?php
-							$downloads_by_count = sdm_get_top_users_by_download_count( $start_date, $end_date, 25 );
-							foreach ( $downloads_by_count as $item ) {
-								?>
-								<tr>
-									<td><?php echo esc_html( $item['visitor_name'] ); ?></td>
-									<td><?php echo esc_html( $item['cnt'] ); ?></td>
-								</tr>
-							<?php } ?>
-							</tbody>
-							<tfoot>
-							<th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</tfoot>
-						</table>
-					</div>
-				</div><!-- end of top userList tab-->
+            <div data-tab-name="osList"
+                 class="sdm-tab"<?php echo( $active_tab === 'osList' ? '' : ' style="display:none;"' ); ?>>
+                <div class="wrap">
+                    <table class="widefat">
+                        <thead>
+                        <th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $downloads_by_os_array = sdm_get_all_downloads_by_os( $start_date, $end_date, $dl_ids_arr );
+                        foreach ( $downloads_by_os_array as $name => $count ) {
+                            ?>
+                            <tr>
+                                <td><?php echo esc_html( $name ); ?></td>
+                                <td><?php echo esc_html( $count ); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                        <tfoot>
+                        <th><strong><?php esc_html_e( 'Operating System', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><!-- end of osList tab-->
 
-				<div data-tab-name="topDownloads"
-					 class="sdm-tab"<?php echo( $active_tab === 'topDownloads' ? '' : ' style="display:none;"' ); ?>>
-					<div class="wrap">
-						<table class="widefat">
-							<thead>
-							<th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</thead>
-							<tbody>
-							<?php
-							$downloads_by_count = sdm_get_top_downloads_by_count( $start_date, $end_date, 15 );
-							foreach ( $downloads_by_count as $item ) {
-								?>
-								<tr>
-									<td><?php echo esc_html( $item['post_title'] ); ?></td>
-									<td><?php echo esc_html( $item['cnt'] ); ?></td>
-								</tr>
-							<?php } ?>
-							</tbody>
-							<tfoot>
-							<th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
-							<th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
-							</tfoot>
-						</table>
-					</div>
-				</div><!-- end of top downloads tab-->
+            <div data-tab-name="userList" class="sdm-tab"<?php echo( $active_tab === 'userList' ? '' : ' style="display:none;"' ); ?>>
+                <div class="wrap">
+                    <table class="widefat">
+                        <thead>
+                        <th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $downloads_by_count = sdm_get_top_users_by_download_count( $start_date, $end_date, $dl_ids_arr, 25 );
+                        foreach ( $downloads_by_count as $item ) {
+                            ?>
+                            <tr>
+                                <td><?php echo esc_html( $item['visitor_name'] ); ?></td>
+                                <td><?php echo esc_html( $item['cnt'] ); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                        <tfoot>
+                        <th><strong><?php _e( 'User', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php _e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><!-- end of top userList tab-->
+
+            <div data-tab-name="topDownloads"
+                 class="sdm-tab"<?php echo( $active_tab === 'topDownloads' ? '' : ' style="display:none;"' ); ?>>
+                <div class="wrap">
+                    <table class="widefat">
+                        <thead>
+                        <th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $downloads_by_count = sdm_get_top_downloads_by_count( $start_date, $end_date, $dl_ids_arr, 15 );
+                        foreach ( $downloads_by_count as $item ) {
+                            ?>
+                            <tr>
+                                <td><?php echo esc_html( $item['post_title'] ); ?></td>
+                                <td><?php echo esc_html( $item['cnt'] ); ?></td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                        <tfoot>
+                        <th><strong><?php esc_html_e( 'Download Item', 'simple-download-monitor' ); ?></strong></th>
+                        <th><strong><?php esc_html_e( 'Total Downloads', 'simple-download-monitor' ); ?></strong></th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div><!-- end of top downloads tab-->
 
 			</div>
 		</div></div>

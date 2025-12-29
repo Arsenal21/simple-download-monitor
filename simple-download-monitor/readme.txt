@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- New 'download ids' filter input field added in the 'Stats' menu.
 
 = 4.0.2 =
 - Added help text in the Advanced settings to mention that we have Cloudflare Turnstile CAPTCHA support now.
