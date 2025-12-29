@@ -5,8 +5,8 @@ sdm.activeTab = sdmAdminStats.activeTab;
 sdm.apiKey = sdmAdminStats.apiKey;
 
 jQuery('#sdm_date_buttons button').click(function (e) {
-	jQuery('#sdm_choose_date').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
-	jQuery('#sdm_choose_date').find('input[name="sdm_stats_end_date"]').val(jQuery(this).attr('data-end-date'));
+	jQuery('#sdm_stats_filter_form').find('input[name="sdm_stats_start_date"]').val(jQuery(this).attr('data-start-date'));
+	jQuery('#sdm_stats_filter_form').find('input[name="sdm_stats_end_date"]').val(jQuery(this).attr('data-end-date'));
 });
 
 function sdm_init_chart(tab) {
@@ -63,7 +63,7 @@ jQuery(function () {
 		jQuery('div.sdm-tabs-content-wrapper').find('div.sdm-tab').hide();
 		jQuery('div.sdm-tabs-content-wrapper').find('div[data-tab-name="' + tab + '"]').fadeIn('fast');
 		sdm_init_chart(tab);
-		jQuery('#sdm_choose_date').find('input[name="sdm_active_tab"]').val(tab);
+		jQuery('#sdm_stats_filter_form').find('input[name="sdm_active_tab"]').val(tab);
 	});
 	jQuery('.datepicker').datepicker({
 		dateFormat: 'yy-mm-dd'

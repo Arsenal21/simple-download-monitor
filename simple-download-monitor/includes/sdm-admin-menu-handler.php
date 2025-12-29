@@ -602,29 +602,53 @@ function sdm_create_stats_page() {
 	<div class="wrap">
 		<h2><?php esc_html_e( 'Stats', 'simple-download-monitor' ); ?></h2>
 		<div id="poststuff"><div id="post-body">
-
 			<div class="postbox">
-			<h3 class="hndle"><label for="title"><?php esc_html_e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
-			<div class="inside">
-				<form id="sdm_choose_date" method="post">
-                    <input type="hidden" name="sdm_active_tab" value="<?php echo esc_attr( sdm_sanitize_text( $active_tab ) ); ?>">
-                    <label for=""><?php esc_html_e( 'Start Date: ', 'simple-download-monitor' ); ?></label><input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
-                    <label for=""><?php esc_html_e( 'End Date: ', 'simple-download-monitor' ); ?></label><input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo esc_attr( sdm_sanitize_text( $end_date ) ); ?>">
-                    <p id="sdm_date_buttons">
-                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
-                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
-                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
-                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
-                        <button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
-                    </p>
-                    <div>
-                        <label for=""><?php esc_html_e( 'Download ID(s): ', 'simple-download-monitor' ); ?></label><input type="text" class="" name="sdm_stats_dl_ids" value="<?php echo esc_attr( $dl_ids ); ?>">
-                    </div>
-                    <div class="submit">
-                        <input type="submit" class="button-primary" value="<?php esc_html_e( 'View Stats', 'simple-download-monitor' ); ?>">
-                    </div>
-				</form>
-			</div>
+                <h3 class="hndle"><label for="title"><?php esc_html_e( 'Choose Date Range (yyyy-mm-dd)', 'simple-download-monitor' ); ?></label></h3>
+                <div class="inside">
+                    <form id="sdm_stats_filter_form" method="post">
+                        <table class="form-table">
+                            <tr>
+                                <th>
+                                    <label><?php esc_html_e( 'Date Range', 'simple-download-monitor' ); ?></label>
+                                </th>
+                                <td>
+                                    <div style="display: flex; flex-wrap: wrap; width: 100%; margin-bottom: 10px;">
+                                        <div style="margin-right: 4px;">
+                                            <input type="text" class="datepicker" name="sdm_stats_start_date" value="<?php echo esc_attr( sdm_sanitize_text( $start_date ) ); ?>">
+                                            <p class="description"><?php esc_html_e( 'Start Date', 'simple-download-monitor' ); ?></p>
+                                        </div>
+                                        <div>
+                                            <input type="text" class="datepicker" name="sdm_stats_end_date" value="<?php echo esc_attr( sdm_sanitize_text( $end_date ) ); ?>">
+                                            <p class="description"><?php esc_html_e( 'End Date', 'simple-download-monitor' ); ?></p>
+                                        </div>
+                                    </div>
+                                    <p id="sdm_date_buttons">
+                                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Month', 'simple-download-monitor' ); ?></button>
+                                        <button type="button" data-start-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'first day of last month' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d', strtotime( 'last day of last month' ) ) ); ?>"><?php esc_html_e( 'Last Month', 'simple-download-monitor' ); ?></button>
+                                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01' ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'This Year', 'simple-download-monitor' ); ?></button>
+                                        <button button type="button" data-start-date="<?php echo esc_attr( date( 'Y-01-01', strtotime( '-1 year' ) ) ); ?>" data-end-date="<?php echo esc_attr( date( 'Y-12-31', strtotime( 'last year' ) ) ); ?>"><?php esc_html_e( 'Last Year', 'simple-download-monitor' ); ?></button>
+                                        <button button type="button" data-start-date="<?php echo '1970-01-01'; ?>" data-end-date="<?php echo esc_attr( date( 'Y-m-d' ) ); ?>"><?php esc_html_e( 'All Time', 'simple-download-monitor' ); ?></button>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label><?php esc_html_e( 'Download ID(s)', 'simple-download-monitor' ); ?></label>
+                                </th>
+                                <td>
+                                    <input type="text" class="" name="sdm_stats_dl_ids" value="<?php echo esc_attr( $dl_ids ); ?>" size="50">
+                                    <p class="description"><?php _e('Enter comma seperated download ids. Leave it blank to show all download items.', 'simple-download-monitor'); ?></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="sdm_active_tab" value="<?php echo esc_attr( sdm_sanitize_text( $active_tab ) ); ?>">
+                        <div>
+                   </div>
+                        <div class="submit">
+                            <input type="submit" class="button-primary" value="<?php esc_html_e( 'View Stats', 'simple-download-monitor' ); ?>">
+                        </div>
+                    </form>
+                </div>
 			</div>
 			<div class="nav-tab-wrapper sdm-tabs">
 			<a href="edit.php?post_type=sdm_downloads&page=sdm-stats&sdm_active_tab=datechart" class="nav-tab<?php echo ( $active_tab === 'datechart' ? ' nav-tab-active' : '' ); ?>" data-tab-name="datechart"><?php esc_html_e( 'Downloads by date', 'simple-download-monitor' ); ?></a>
