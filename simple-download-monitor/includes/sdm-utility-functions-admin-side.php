@@ -33,18 +33,22 @@ function sdm_export_download_logs_to_csv( $start_date, $end_date ) {
 	exit();
 }
 
-function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $returnStr = true ) {
+function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $ids = array(), $returnStr = true ) {
 	global $wpdb;
 
-	$q = $wpdb->prepare(
-		"SELECT COUNT(id) as cnt, DATE_FORMAT(`date_time`,'%%Y-%%m-%%d') as day
+	$post_ids_condition = '';
+	if (!empty($ids)) {
+		$post_ids_condition = ' AND post_id IN (' . implode( ',', $ids ) . ') ';
+	}
+
+	$query = "SELECT COUNT(id) as cnt, DATE_FORMAT(`date_time`,'%%Y-%%m-%%d') as day
             FROM " . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
             AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
-            GROUP BY day ORDER BY date_time",
-		$start_date,
-		$end_date
-	);
+            ". $post_ids_condition ."
+            GROUP BY day ORDER BY date_time";
+
+	$q = $wpdb->prepare( $query, $start_date, $end_date );
 
 	$res = $wpdb->get_results( $q, ARRAY_A );
 	if ( $returnStr ) {
@@ -58,18 +62,24 @@ function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $returnStr
 	}
 }
 
-function sdm_get_downloads_by_country( $start_date = '', $end_date = '', $returnStr = true ) {
+function sdm_get_downloads_by_country( $start_date = '', $end_date = '', $ids = array(), $returnStr = true ) {
+
 	global $wpdb;
 
-	$q   = $wpdb->prepare(
-		'SELECT COUNT(id) as cnt, visitor_country as country
-            FROM ' . $wpdb->prefix . "sdm_downloads
+	$post_ids_condition = '';
+	if (!empty($ids)) {
+		$post_ids_condition = ' AND post_id IN (' . implode( ',', $ids ) . ') ';
+	}
+
+	$query = "SELECT COUNT(id) as cnt, visitor_country as country
+            FROM " . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
             AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
-            GROUP BY visitor_country",
-		$start_date,
-		$end_date
-	);
+            ". $post_ids_condition ."
+            GROUP BY visitor_country";
+
+	$q   = $wpdb->prepare( $query, $start_date, $end_date );
+
 	$res = $wpdb->get_results( $q, ARRAY_A );
 
 	if ( $returnStr ) {
@@ -91,17 +101,21 @@ function sdm_get_downloads_by_country( $start_date = '', $end_date = '', $return
  *
  * @return array
  */
-function sdm_get_all_download_user_agent( $start_date = '', $end_date = '' ) {
+function sdm_get_all_download_user_agent( $start_date = '', $end_date = '', $ids = array() ) {
 	global $wpdb;
 
-	$q = $wpdb->prepare(
-		'SELECT user_agent
-            FROM ' . $wpdb->prefix . "sdm_downloads
+	$post_ids_condition = '';
+	if (!empty($ids)) {
+		$post_ids_condition = ' AND post_id IN (' . implode( ',', $ids ) . ')';
+	}
+
+	$query = "SELECT user_agent
+            FROM " . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
-            AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s",
-		$start_date,
-		$end_date
-	);
+            AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
+            ". $post_ids_condition;
+
+	$q = $wpdb->prepare( $query, $start_date, $end_date );
 
 	return $wpdb->get_results( $q, ARRAY_A );
 }
@@ -115,8 +129,8 @@ function sdm_get_all_download_user_agent( $start_date = '', $end_date = '' ) {
  * @return array
  */
 
-function sdm_get_all_downloads_by_browser( $start_date = '', $end_date = '' ) {
-	$user_agents = sdm_get_all_download_user_agent( $start_date, $end_date );
+function sdm_get_all_downloads_by_browser( $start_date = '', $end_date = '', $ids = array() ) {
+	$user_agents = sdm_get_all_download_user_agent( $start_date, $end_date, $ids );
 
 	$browsers = array();
 	foreach ( $user_agents as $agent ) {
@@ -155,8 +169,8 @@ function sdm_get_all_downloads_by_browser( $start_date = '', $end_date = '' ) {
  * @return array
  */
 
-function sdm_get_all_downloads_by_os( $start_date = '', $end_date = '' ) {
-	$user_agents = sdm_get_all_download_user_agent( $start_date, $end_date );
+function sdm_get_all_downloads_by_os( $start_date = '', $end_date = '', $ids = array() ) {
+	$user_agents = sdm_get_all_download_user_agent( $start_date, $end_date, $ids );
 
 	$operating_systems = array();
 	foreach ( $user_agents as $agent ) {
@@ -203,14 +217,20 @@ function sdm_get_all_downloads_by_os( $start_date = '', $end_date = '' ) {
  *
  * @return array
  */
-function sdm_get_top_users_by_download_count( $start_date = '', $end_date = '', $limit = 25 ) {
+function sdm_get_top_users_by_download_count( $start_date = '', $end_date = '', $ids = array(), $limit = 25 ) {
 	global $wpdb;
+
+	$post_ids_condition = '';
+	if (!empty($ids)) {
+		$post_ids_condition = ' AND post_id IN (' . implode( ',', $ids ) . ') ';
+	}
 
 	$q   = $wpdb->prepare(
 		'SELECT COUNT(id) as cnt, visitor_name
             FROM ' . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
             AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
+            ". $post_ids_condition ."
             GROUP BY visitor_name 
 			ORDER BY cnt DESC 
 			LIMIT $limit",
@@ -231,19 +251,23 @@ function sdm_get_top_users_by_download_count( $start_date = '', $end_date = '', 
  *
  * @return array
  */
-function sdm_get_top_downloads_by_count( $start_date = '', $end_date = '', $limit = 25 ) {
+function sdm_get_top_downloads_by_count( $start_date = '', $end_date = '', $ids = array(), $limit = 25 ) {
 	global $wpdb;
 
-	$q   = $wpdb->prepare(
-		'SELECT COUNT(id) as cnt, post_title
+	$post_ids_condition = '';
+	if (!empty($ids)) {
+		$post_ids_condition = ' AND post_id IN (' . implode( ',', $ids ) . ') ';
+	}
+
+	$query = 'SELECT COUNT(id) as cnt, post_title
             FROM ' . $wpdb->prefix . "sdm_downloads
             WHERE DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')>=%s
             AND DATE_FORMAT(`date_time`,'%%Y-%%m-%%d')<=%s
+            ". $post_ids_condition ."
             GROUP BY post_title 
-            ORDER BY cnt DESC LIMIT $limit",
-		$start_date,
-		$end_date
-	);
+            ORDER BY cnt DESC LIMIT $limit";
+
+	$q   = $wpdb->prepare($query, $start_date, $end_date );
 	$res = $wpdb->get_results( $q, ARRAY_A );
 
 	return $res;
