@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
-Tested up to: 6.8
-Stable tag: 4.0.2
+Tested up to: 6.9
+Stable tag: 4.0.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,8 +200,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- New 'download ids' filter input field added in the 'Stats' menu.
+
+= 4.0.3 =
+- Added filtering by Download ID option to the stats menu.
 
 = 4.0.2 =
 - Added help text in the Advanced settings to mention that we have Cloudflare Turnstile CAPTCHA support now.

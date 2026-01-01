@@ -637,7 +637,7 @@ function sdm_create_stats_page() {
                                 </th>
                                 <td>
                                     <input type="text" class="" name="sdm_stats_dl_ids" value="<?php echo esc_attr( $dl_ids ); ?>" size="50">
-                                    <p class="description"><?php _e('Enter comma seperated download ids. Leave it blank to show all download items.', 'simple-download-monitor'); ?></p>
+                                    <p class="description"><?php _e('To filter your stats, enter one or more Download IDs separated by commas. Leave blank for all items.', 'simple-download-monitor'); ?></p>
                                 </td>
                             </tr>
                         </table>
