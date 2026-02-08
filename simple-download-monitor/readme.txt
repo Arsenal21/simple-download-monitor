@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,8 +200,10 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- The button text issue of the 'sdm_search_form' shortcode is fixed.
+
+= 4.0.4 =
+- Updated the 'sdm_search_form' shortcode to have two parameters for customizing the button text. 
+- The new parameters are 'search_button_text' and 'button_text'. The 'search_button_text' parameter allows you to set the text of the search button, while the 'button_text' parameter allows you to set the text of the download buttons that are displayed after the search results. 
 
 = 4.0.3 =
 - Added filtering by Download ID option to the stats menu.
