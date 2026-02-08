@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- The button text issue of the 'sdm_search_form' shortcode is fixed.
 
 = 4.0.3 =
 - Added filtering by Download ID option to the stats menu.
