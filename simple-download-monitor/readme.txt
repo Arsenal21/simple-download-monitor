@@ -202,8 +202,8 @@ Yes
 == Changelog ==
 
 = 4.0.4 =
-- Updated the 'sdm_search_form' shortcode to have two parameters for customizing the button text. 
-- The new parameters are 'search_button_text' and 'button_text'. The 'search_button_text' parameter allows you to set the text of the search button, while the 'button_text' parameter allows you to set the text of the download buttons that are displayed after the search results. 
+- Added a new parameter 'search_button_text' to the 'sdm_search_form' shortcode. This parameter allows you to set the text of the search button in the search form.
+- The 'button_text' parameter of the search shortcode can be used with the fancy templates to set the download button text in the search results.
 
 = 4.0.3 =
 - Added filtering by Download ID option to the stats menu.
