@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- Some escaping functions added to 'sdm_show_download_info' shortcode.
 
 = 4.0.4 =
 - Added a new parameter 'search_button_text' to the 'sdm_search_form' shortcode. This parameter allows you to set the text of the search button in the search form.

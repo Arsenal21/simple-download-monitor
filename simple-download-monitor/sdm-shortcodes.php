@@ -533,43 +533,48 @@ function sdm_show_download_info_shortcode( $args ) {
 
 	if ( $download_info == 'title' ) {//download title
 		$item_title = get_the_title( $id );
-		return $item_title;
+		return esc_attr($item_title);
 	}
 
 	if ( $download_info == 'description' ) {//download description
 		$item_description = sdm_get_item_description_output( $id );
-		return $item_description;
+		return wp_kses_post($item_description);
 	}
 
 	if ( $download_info == 'download_url' ) {//download URL
 		$download_link = get_post_meta( $id, 'sdm_upload', true );
-		return $download_link;
+		return esc_url($download_link);
 	}
 
 	if ( $download_info == 'thumbnail' ) {//download thumb
 		$download_thumbnail = get_post_meta( $id, 'sdm_upload_thumbnail', true );
 		$download_thumbnail = '<img class="sdm_download_thumbnail_image" src="' . esc_url($download_thumbnail) . '" />';
-		return $download_thumbnail;
+		return wp_kses($download_thumbnail, array(
+				'img' => array(
+					'src'    => true,
+					'class'  => true,
+				),
+			));
 	}
 
 	if ( $download_info == 'thumbnail_url' ) {//download thumbnail raw URL
 		$download_thumbnail = get_post_meta( $id, 'sdm_upload_thumbnail', true );
-		return $download_thumbnail;
+		return esc_url($download_thumbnail);
 	}
 
 	if ( $download_info == 'file_size' ) {//download file size
 		$file_size = get_post_meta( $id, 'sdm_item_file_size', true );
-		return $file_size;
+		return esc_attr($file_size);
 	}
 
 	if ( $download_info == 'file_version' ) {//download file version
 		$file_version = get_post_meta( $id, 'sdm_item_version', true );
-		return $file_version;
+		return esc_attr($file_version);
 	}
 
 	if ( $download_info == 'download_count' ) {//download count
 		$dl_count = sdm_get_download_count_for_post( $id );
-		return $dl_count;
+		return esc_attr($dl_count);
 	}
 
 	return '<div class="sdm_shortcode_error">Error! The value of "download_info" field does not match any availalbe parameters.</div>';
