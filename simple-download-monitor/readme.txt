@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 6.9
-Stable tag: 4.0.4
+Stable tag: 4.0.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,8 +200,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- Some escaping functions added to 'sdm_show_download_info' shortcode.
+
+= 4.0.5 =
+- Added output escaping functions to the 'sdm_show_download_info' shortcode.
 
 = 4.0.4 =
 - Added a new parameter 'search_button_text' to the 'sdm_search_form' shortcode. This parameter allows you to set the text of the search button in the search form.
