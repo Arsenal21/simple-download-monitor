@@ -111,21 +111,21 @@ $output .= apply_filters( 'sdm_fancy1_below_download_description', '', $params )
 if ( ! empty( $isset_item_file_size ) ) {//Show file size info
 	$output .= '<div class="sdm_download_size">';
 	$output .= '<span class="sdm_download_size_label">' . __( 'Size: ', 'simple-download-monitor' ) . '</span>';
-	$output .= '<span class="sdm_download_size_value">' . $isset_item_file_size . '</span>';
+	$output .= '<span class="sdm_download_size_value">' . esc_attr($isset_item_file_size) . '</span>';
 	$output .= '</div>';
 }
 
 if ( ! empty( $isset_item_version ) ) {//Show version info
 	$output .= '<div class="sdm_download_version">';
 	$output .= '<span class="sdm_download_version_label">' . __( 'Version: ', 'simple-download-monitor' ) . '</span>';
-	$output .= '<span class="sdm_download_version_value">' . $isset_item_version . '</span>';
+	$output .= '<span class="sdm_download_version_value">' . esc_attr($isset_item_version) . '</span>';
 	$output .= '</div>';
 }
 
 if ( $show_date_fd ) {//Show date
 	$output .= '<div class="sdm_download_date">';
 	$output .= '<span class="sdm_download_date_label">' . __( 'Published: ', 'simple-download-monitor' ) . '</span>';
-	$output .= '<span class="sdm_download_date_value">' . $download_date . '</span>';
+	$output .= '<span class="sdm_download_date_value">' . esc_attr($download_date) . '</span>';
 	$output .= '</div>';
 }
 

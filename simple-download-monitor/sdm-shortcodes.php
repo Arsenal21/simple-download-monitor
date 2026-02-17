@@ -56,6 +56,10 @@ function sanitize_sdm_create_download_shortcode_atts( $atts ) {
 	// Remove spaces from color key to make a proper CSS class name.
 	$atts['color'] = str_replace( ' ', '', $atts['color'] );
 
+	if (isset($atts['button_text'])) {
+		$atts['button_text'] = sanitize_text_field($atts['button_text']);
+	}
+
 	return $atts;
 }
 

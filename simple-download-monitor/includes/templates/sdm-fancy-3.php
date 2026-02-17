@@ -23,7 +23,7 @@ $item_title = get_the_title( $id );
 // Get download details page URL
 $dl_post_url                = get_permalink( $id );
 $link_text                  = __( 'View Details', 'simple-download-monitor' );
-$download_details_link_code = '<a href="' . $dl_post_url . '" class="sdm_fancy3_view_details" title="' . esc_html( $item_title ) . '" target="' . $window_target . '">' . esc_attr( $link_text ) . '</a>';
+$download_details_link_code = '<a href="' . esc_url($dl_post_url) . '" class="sdm_fancy3_view_details" title="' . esc_html( $item_title ) . '" target="' . esc_attr($window_target) . '">' . esc_attr( $link_text ) . '</a>';
 
 $output = '';
 
