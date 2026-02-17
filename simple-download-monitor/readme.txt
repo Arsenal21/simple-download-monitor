@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- Added some escaping functions for improved security.
 
 = 4.0.5 =
 - Added output escaping functions to the 'sdm_show_download_info' shortcode.
