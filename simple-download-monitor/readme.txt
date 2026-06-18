@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
-Tested up to: 6.9
-Stable tag: 4.0.6
+Tested up to: 7.0
+Stable tag: 4.0.7
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,8 +200,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- User capability related issue for export logs has fixed.
+
+= 4.0.7 =
+- The 'Export Logs' option now works with the 'Admin Dashboard Access Control' feature.
 
 = 4.0.6 =
 - Added output escaping functions to the fancy display templates.
