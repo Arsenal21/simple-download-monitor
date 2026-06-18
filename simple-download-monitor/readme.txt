@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- User capability related issue for export logs has fixed.
 
 = 4.0.6 =
 - Added output escaping functions to the fancy display templates.

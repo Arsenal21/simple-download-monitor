@@ -121,8 +121,11 @@ function sdm_admin_init_time_tasks() {
 	add_action( 'wp_ajax_sdm_delete_data', 'sdm_delete_data_handler' );
 	add_action( 'wp_ajax_sdm_export_logs', 'sdm_export_logs_handler' );
 
-	if ( ! is_admin() || ! user_can( wp_get_current_user(), 'administrator' ) ) {
-		// user is not an admin
+	$sdm_admin_access_permission =  get_sdm_admin_access_permission();
+	$sdm_pages_capability = apply_filters("sdm_pages_capability", $sdm_admin_access_permission);
+
+	if ( ! is_admin() || ! user_can( wp_get_current_user(), $sdm_pages_capability ) ) {
+		// user does not have enough capability.
 		return;
 	}
 
