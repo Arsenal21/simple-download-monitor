@@ -830,3 +830,36 @@ function sdm_load_template( $fancy, $args = array(), $load_once = false ) {
 
 	return $tpl_html;
 }
+
+function sdm_check_if_download_item_available($post_object) {
+    $message = '';
+    $success = true;
+
+    if ( empty($post_object) || $post_object->post_type != 'sdm_downloads' ) {
+        $message = __( 'Error! Incorrect download item id.', 'simple-download-monitor' );
+        $success  = false;
+    } else if ( ! is_post_publicly_viewable( $post_object ) ) {
+        $message =  __( 'Error! This download item is not available! It may be unpublished, private, or you may not have permission to view it.', 'simple-download-monitor' );
+        $success  = false;
+    }
+
+    return compact( 'success', 'message' );
+}
+
+function sdm_check_and_die_if_download_unavailable($post_object){
+    $result = sdm_check_if_download_item_available($post_object);
+
+    if ( empty($result['success']) ){
+        wp_die($result['message']);
+    }
+}
+
+function sdm_download_unavailable_msg_box( $msg ) {
+    $output = '<div class="sdm_yellow_box">';
+    $output .= '<p class="description">';
+    $output .= !empty($msg) ? esc_html($msg) : __('The download item is unavailable!', 'simple-download-monitor');
+    $output .= '</p>';
+    $output .= '</div>';
+
+    return $output;
+}

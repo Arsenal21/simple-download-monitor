@@ -92,11 +92,20 @@ function sdm_create_download_shortcode( $atts ) {
 	}
 
 	$id        = intval( $id );
+
+	$get_cpt_object  = get_post( $id );
+
+	// Check if the download is available for current visitor.
+	$availability_check = sdm_check_if_download_item_available($get_cpt_object);
+	if ( empty($availability_check['success']) ){
+		$error_msg = isset($availability_check['message']) ? $availability_check['message'] : '';
+		return sdm_download_unavailable_msg_box($error_msg);
+	}
+
 	$color     = sdm_sanitize_text( $color );
 	$css_class = sdm_sanitize_text( $css_class );
 
 	// Check to see if the download link cpt is password protected
-	$get_cpt_object  = get_post( $id );
 	$cpt_is_password = ! empty( $get_cpt_object->post_password ) ? 'yes' : 'no';  // yes = download is password protected;
 	// Get CPT title
 	$item_title = get_the_title( $id );
@@ -295,6 +304,7 @@ function sdm_handle_category_shortcode( $args ) {
 	// Query cpt's based on arguments above
 	$get_posts_args = array(
 		'post_type'      => 'sdm_downloads',
+		'post_status'    => 'publish',
 		'show_posts'     => -1,
 		'posts_per_page' => $posts_per_page,
 		'tax_query'      => $tax_query,
