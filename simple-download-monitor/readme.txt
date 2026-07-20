@@ -200,6 +200,8 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- Guards added to prevent downloading unpublished items.
 
 = 4.0.7 =
 - The 'Export Logs' option now works with the 'Admin Dashboard Access Control' feature.

@@ -12,6 +12,11 @@ function handle_sdm_download_via_direct_post() {
 			wp_die( __( 'Error! Incorrect download item id.', 'simple-download-monitor' ) );
 		}
 
+		$post_object = get_post( $download_id ); // Get post object
+
+		// Check if the download is available for current visitor.
+		sdm_check_and_die_if_download_unavailable($post_object);
+
 		$download_title = get_the_title( $download_id );
 		$download_link = get_post_meta( $download_id, 'sdm_upload', true );		
 		if ( empty( $download_link ) ) {
@@ -21,7 +26,6 @@ function handle_sdm_download_via_direct_post() {
 		sdm_recaptcha_verify();
 
 		//Check download password (if applicable for this download)
-		$post_object = get_post( $download_id ); // Get post object
 		$post_pass   = $post_object->post_password; // Get post password
 		if ( ! empty( $post_pass ) ) {//This download item has a password. So validate the password.
 			$pass_val = isset($_REQUEST['pass_text']) ? $_REQUEST['pass_text'] : '';
