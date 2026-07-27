@@ -304,7 +304,6 @@ function sdm_handle_category_shortcode( $args ) {
 	// Query cpt's based on arguments above
 	$get_posts_args = array(
 		'post_type'      => 'sdm_downloads',
-		'post_status'    => 'publish',
 		'show_posts'     => -1,
 		'posts_per_page' => $posts_per_page,
 		'tax_query'      => $tax_query,
@@ -312,6 +311,10 @@ function sdm_handle_category_shortcode( $args ) {
 		'order'          => $order,
 		'paged'          => $paged,
 	);
+
+	if ( ! sdm_is_downloads_of_unpublished_items_allowed() ) {
+		$get_posts_args['post_status'] = 'publish';
+	}
 
 	$query = new WP_Query();
 
