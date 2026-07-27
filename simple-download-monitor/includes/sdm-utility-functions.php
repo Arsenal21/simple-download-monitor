@@ -831,6 +831,33 @@ function sdm_load_template( $fancy, $args = array(), $load_once = false ) {
 	return $tpl_html;
 }
 
+/**
+ * Checks if a download item can be viewed/downloaded by the current visitor.
+ *
+ * @param WP_Post $post_object The download item post object.
+ * @return bool
+ */
+function sdm_is_download_item_viewable( $post_object ) {
+
+    // Accept a post ID or a post object.
+    $post_object = get_post( $post_object );
+
+    if ( empty( $post_object ) ) {
+        return false;
+    }
+
+    // Published items with a publicly viewable status are allowed.
+    $viewable = is_post_publicly_viewable( $post_object );
+
+    // Allow a user who can edit this item (e.g. an admin previewing a draft) to access it.
+    if ( ! $viewable && current_user_can( 'edit_post', $post_object->ID ) ) {
+        $viewable = true;
+    }
+
+	//Filter to override the viewability check of a download item.
+    return apply_filters( 'sdm_is_download_item_viewable', $viewable, $post_object );
+}
+
 function sdm_check_if_download_item_available($post_object) {
     $message = '';
     $success = true;
@@ -838,7 +865,7 @@ function sdm_check_if_download_item_available($post_object) {
     if ( empty($post_object) || $post_object->post_type != 'sdm_downloads' ) {
         $message = __( 'Error! Incorrect download item id.', 'simple-download-monitor' );
         $success  = false;
-    } else if ( ! is_post_publicly_viewable( $post_object ) ) {
+    } else if ( ! sdm_is_download_item_viewable( $post_object ) ) {
         $message =  __( 'Error! This download item is not available! It may be unpublished, private, or you may not have permission to view it.', 'simple-download-monitor' );
         $success  = false;
     }

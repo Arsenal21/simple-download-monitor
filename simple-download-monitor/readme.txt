@@ -201,6 +201,9 @@ Yes
 
 == Changelog ==
 
+= WIP =
+- Added a new filter hook 'sdm_is_download_item_viewable' to allow developers to modify/customize the download item viewability check.
+
 = 4.0.8 =
 - Added checks/guards so unpublished items cannot be downloaded via direct link.
 
