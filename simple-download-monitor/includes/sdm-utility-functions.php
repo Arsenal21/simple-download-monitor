@@ -846,17 +846,29 @@ function sdm_is_download_item_viewable( $post_object ) {
         return false;
     }
 
-    // Published items with a publicly viewable status are allowed.
-    $viewable = is_post_publicly_viewable( $post_object );
+    $viewable = true;
 
-    // Allow a user who can edit this item (e.g. an admin previewing a draft) to access it.
-    if ( ! $viewable && current_user_can( 'edit_post', $post_object->ID ) ) {
-        $viewable = true;
+    if ( ! sdm_is_downloads_of_unpublished_items_allowed() ) {
+        // Published items with a publicly viewable status are allowed.
+        $viewable = is_post_publicly_viewable( $post_object );
+
+        // Allow a user who can edit this item (e.g. an admin previewing a draft) to access it.
+        if ( ! $viewable && current_user_can( 'edit_post', $post_object->ID ) ) {
+            $viewable = true;
+        }
     }
 
 	//Filter to override the viewability check of a download item.
     return apply_filters( 'sdm_is_download_item_viewable', $viewable, $post_object );
 }
+
+function sdm_is_downloads_of_unpublished_items_allowed() {
+    $main_opts = get_option( 'sdm_downloads_options' );
+    $allow_downloads_of_unpublished_items = empty( $main_opts['general_allow_downloads_of_unpublished_items'] ) ? false : true;
+
+    return $allow_downloads_of_unpublished_items;
+}
+
 
 function sdm_check_if_download_item_available($post_object) {
     $message = '';

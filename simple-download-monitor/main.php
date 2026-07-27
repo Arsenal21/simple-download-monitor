@@ -493,6 +493,7 @@ class simpleDownloadManager {
 		add_settings_field( 'general_default_dispatch_value', __( 'PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_default_dispatch_value_cb' ), 'general_options_section', 'general_options' );
 		add_settings_field( 'general_disallowed_file_ext_dispatch', __( 'Disallowed Extensions for PHP Dispatching', 'simple-download-monitor' ), array( $this, 'general_disallowed_file_ext_dispatch_cb' ), 'general_options_section', 'general_options' );
 		add_settings_field( 'general_allow_hidden_noext_dispatch', __( 'Allow PHP Dispatching of Hidden Files', 'simple-download-monitor' ), array( $this, 'general_allow_hidden_noext_dispatch_cb' ), 'general_options_section', 'general_options' );
+		add_settings_field( 'general_allow_downloads_of_unpublished_items', __( 'Allow Downloads of Unpublished Items', 'simple-download-monitor' ), array( $this, 'general_allow_downloads_of_unpublished_items_cb' ), 'general_options_section', 'general_options' );
 
 		add_settings_field( 'only_logged_in_can_download', __( 'Only Allow Logged-in Users to Download', 'simple-download-monitor' ), array( $this, 'general_only_logged_in_can_download_cb' ), 'user_login_options_section', 'user_login_options' );
 		add_settings_field( 'general_login_page_url', __( 'Login Page URL', 'simple-download-monitor' ), array( $this, 'general_login_page_url_cb' ), 'user_login_options_section', 'user_login_options' );
@@ -701,6 +702,13 @@ class simpleDownloadManager {
 		echo '<input name="sdm_downloads_options[general_allow_hidden_noext_dispatch]" id="general_allow_hidden_noext_dispatch" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
 		echo '<label for="general_allow_hidden_noext_dispatch">' . esc_html__( 'Allow hidden files and files without any extensions to be dispatched via PHP Dispatch option.', 'simple-download-monitor' ) . '</label>';
 		echo '<p class="description">' . esc_html__( 'Note: It is recommended to keep this option disabled unless you know what you\'re doing.', 'simple-download-monitor' ) . '</p>';
+	}
+
+	public function general_allow_downloads_of_unpublished_items_cb() {
+		$main_opts = get_option( 'sdm_downloads_options' );
+		$value     = empty( $main_opts['general_allow_downloads_of_unpublished_items'] ) ? false : true;
+		echo '<input name="sdm_downloads_options[general_allow_downloads_of_unpublished_items]" id="general_allow_downloads_of_unpublished_items" type="checkbox" value="1"' . checked( true, $value, false ) . ' />';
+		echo '<label for="general_allow_downloads_of_unpublished_items">' . esc_html__( 'When enabled, files associated with unpublished download items may still be accessed through their download links. Enable this only if your site relies on this behaviour and you understand that anyone with a valid link may be able to download the file.', 'simple-download-monitor' ) . '</label>';
 	}
 
 	public function general_only_logged_in_can_download_cb() {
