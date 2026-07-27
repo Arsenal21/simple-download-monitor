@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 4.0.8
+Stable tag: 4.0.9
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -201,9 +201,9 @@ Yes
 
 == Changelog ==
 
-= WIP =
+= 4.0.9 =
+- Added a new settings option 'Allow Downloads of Unpublished Items' that the admin can use to allow downloading of unpublished download items.
 - Added a new filter hook 'sdm_is_download_item_viewable' to allow developers to modify/customize the download item viewability check.
-- Added a new settings to allow download unpublished download items.
 
 = 4.0.8 =
 - Added checks/guards so unpublished items cannot be downloaded via direct link.
