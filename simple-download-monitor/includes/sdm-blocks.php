@@ -4,6 +4,12 @@ class SDMBlocks {
 
 	function __construct() {
 		add_action( 'init', array( $this, 'register_block' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'enqueue_block_assets' ) );
+	}
+
+	function enqueue_block_assets() {
+		wp_enqueue_style('sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css',array(), WP_SIMPLE_DL_MONITOR_VERSION );
+		wp_enqueue_style( 'sdm_fancy2_styles', WP_SIMPLE_DL_MONITOR_URL . '/includes/templates-related/fancy2/sdm-fancy-2-styles.css' , array(), WP_SIMPLE_DL_MONITOR_VERSION );
 	}
 
 	function register_block() {
@@ -11,8 +17,6 @@ class SDMBlocks {
 			// Gutenberg is not active.
 			return;
 		}
-
-		wp_enqueue_style( 'sdm-styles', WP_SIMPLE_DL_MONITOR_URL . '/css/sdm_wp_styles.css' );
 
 		wp_register_script(
 			'sdm-blocks-script',
@@ -72,6 +76,9 @@ class SDMBlocks {
 		register_block_type(
 			'simple-download-monitor/download-item',
 			array(
+				'api_version' => 3,
+				'editor_script'   => 'sdm-blocks-script',
+				'render_callback' => array( $this, 'render_item_block' ),
 				'attributes'      => array(
 					'itemId'     => array(
 						'type'    => 'string',
@@ -94,8 +101,6 @@ class SDMBlocks {
 						'default' => false,
 					),
 				),
-				'editor_script'   => 'sdm-blocks-script',
-				'render_callback' => array( $this, 'render_item_block' ),
 			)
 		);
 	}
