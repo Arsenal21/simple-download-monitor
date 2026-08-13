@@ -200,6 +200,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+= WIP =
+- A PHP deprecation warning issue fixed.
+- Gutenberg block compatibility update for WordPress v7.1.
 
 = 4.0.9 =
 - Added a new settings option 'Allow Downloads of Unpublished Items' that the admin can use to allow downloading of unpublished download items.

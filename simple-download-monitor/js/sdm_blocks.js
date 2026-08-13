@@ -1,3 +1,4 @@
+/* global wp */
 var el = wp.element.createElement,
 	registerBlockType = wp.blocks.registerBlockType,
 	ServerSideRender = wp.serverSideRender,
@@ -12,11 +13,17 @@ registerBlockType('simple-download-monitor/download-item', {
     category: 'common',
 
 	edit: function (props) {
+		const blockProps = wp.blockEditor.useBlockProps();
+
 		return [
-			el(ServerSideRender, {
-				block: 'simple-download-monitor/download-item',
-				attributes: props.attributes,
-			}),
+			el('div', blockProps,
+				el(ServerSideRender, {
+					key: 'sdm-download-item-serverSideRender-key',
+					block: 'simple-download-monitor/download-item',
+					attributes: props.attributes,
+				}),
+			),
+
 			el(InspectorControls, {}, el('div', {className: "sdm-download-block-ic-wrapper"}, [
 					el(SelectControl, {
 						label: sdmBlockDownloadItemStr.download,
