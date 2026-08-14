@@ -3,8 +3,8 @@ Contributors: Tips and Tricks HQ, Ruhul Amin, josh401, mbrsolution, alexanderfox
 Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
-Tested up to: 7.0
-Stable tag: 4.0.9
+Tested up to: 7.1
+Stable tag: 4.1.0
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,9 +200,10 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
-= WIP =
-- A PHP deprecation warning issue fixed.
-- Gutenberg block compatibility update for WordPress v7.1.
+
+= 4.1.0 =
+- Fixed a PHP 8.2+ deprecation warning by updating legacy parameter handling for better forward compatibility.
+- Updated Gutenberg block compatibility for WordPress 7.1.
 
 = 4.0.9 =
 - Added a new settings option 'Allow Downloads of Unpublished Items' that the admin can use to allow downloading of unpublished download items.
