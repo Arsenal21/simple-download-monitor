@@ -203,11 +203,11 @@ class SDM_Admin_Edit_Download {
 		echo '<br /><br />';
 
 		global $wpdb;
-		$wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID ) );
+		$download_count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%s', $post->ID ) );
 
 		echo '<div class="sdm-download-edit-dl-count">';
 		esc_html_e( 'Number of Downloads:', 'simple-download-monitor' );
-		echo ' <strong>' . esc_html( $wpdb->num_rows ) . '</strong>';
+		echo ' <strong>' . esc_html( $download_count ) . '</strong>';
 		echo '</div>';
 
 		echo '<div class="sdm-download-edit-offset-count">';

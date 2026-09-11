@@ -27,9 +27,7 @@ function sdm_get_download_count_for_post( $id ) {
 	// Get number of downloads by counting db columns matching postID
 	global $wpdb;
 	$table = $wpdb->prefix . 'sdm_downloads';
-	$wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table . ' WHERE post_id=%s', $id ) );
-	// Count database rows
-	$db_count = $wpdb->num_rows;
+	$db_count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $table . ' WHERE post_id=%s', $id ) );
 
 	// Check post meta to see if we need to offset the count before displaying to viewers
 	$get_offset = get_post_meta( $id, 'sdm_count_offset', true );

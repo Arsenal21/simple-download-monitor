@@ -130,10 +130,10 @@ function handle_sdm_download_via_direct_post() {
 
 		// Check if we are only logging unique ips
 		if ( $unique_ips === true ) {
-			$check_ip = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id="' . $download_id . '" AND visitor_ip = "' . $ipaddress . '"' );
+			$check_ip = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'sdm_downloads WHERE post_id=%d AND visitor_ip = %s', $download_id, $ipaddress ) );
 
 			//This IP is already logged for this download item. No need to log it again.
-			if ( $check_ip ) {
+			if ( $check_ip > 0 ) {
 				$dl_logging_needed = false;
 			}
 		}
