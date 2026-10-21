@@ -201,6 +201,9 @@ Yes
 
 == Changelog ==
 
+= WIP =
+- Improved the Enhanced File Protection .htaccess rules for compatibility with LiteSpeed/OpenLiteSpeed and Apache 2.4 servers. Existing default .htaccess files are upgraded automatically.
+
 = 4.1.1 =
 - Performance improvement by using COUNT queries instead of fetching full rows where download counts were needed.
 - Improved database query security by using prepared statements for the unique IP check during download logging.

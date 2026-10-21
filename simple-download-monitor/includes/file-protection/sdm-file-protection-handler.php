@@ -6,10 +6,20 @@ class SDM_File_Protection_Handler {
 
 	public static $protected_file_thumbnail = 'sdm-file-protected-thumbnail.png';
 
+	/**
+	 * Option name that stores the plugin version for which the protected directory's .htaccess file was last checked.
+	 *
+	 * @var string
+	 */
+	public static $htaccess_checked_version_option = 'sdm_file_protection_htaccess_checked_version';
+
 	public function __construct() {
 		if(is_admin()) {
 			// Listen to file protection settings update event.
 			add_action('sdm_file_protection_settings_updated', array($this, 'prepare_file_protection_environment'));
+
+			// Check (once per plugin version) that the protected directory's .htaccess file is up to date.
+			add_action('admin_init', array($this, 'maybe_upgrade_htaccess_file'));
 
 			// Upload protected files to custom directory
 			add_filter('upload_dir', array($this, 'override_wp_media_upload_directory_path'));
@@ -126,6 +136,87 @@ class SDM_File_Protection_Handler {
 		$this->check_and_create_protected_file_thumbnail();
 	}
 	
+	/**
+	 * Run the protected directory and .htaccess check once per plugin version on existing installs.
+	 *
+	 * Hooked to 'admin_init'. This makes sure sites that already have file protection enabled get their
+	 * legacy .htaccess file upgraded without the admin having to re-save the file protection settings.
+	 *
+	 * @return void
+	 */
+	public function maybe_upgrade_htaccess_file(){
+		if ( wp_doing_ajax() || wp_doing_cron() ) {
+			// Don't run this during ajax or cron requests.
+			return;
+		}
+
+		if( !self::is_file_protection_enabled() ){
+			// File protection is not enabled. Nothing to do here.
+			return;
+		}
+
+		$checked_version = get_option( self::$htaccess_checked_version_option );
+		if ( $checked_version == WP_SIMPLE_DL_MONITOR_VERSION ) {
+			// Already checked for this plugin version.
+			return;
+		}
+
+		$sdm_admin_access_permission = get_sdm_admin_access_permission();
+		if ( ! current_user_can( $sdm_admin_access_permission ) ) {
+			// Only run it when an admin user loads the dashboard.
+			return;
+		}
+
+		// Update the flag first so a failed write can't trigger the check (and the wp_die) on every admin request.
+		update_option( self::$htaccess_checked_version_option, WP_SIMPLE_DL_MONITOR_VERSION );
+
+		SDM_Debug::log("Checking the file protection .htaccess file for plugin version " . WP_SIMPLE_DL_MONITOR_VERSION . ".", true);
+
+		$this->check_and_create_file_protection_folder();
+	}
+
+	/**
+	 * Get the content of the .htaccess file that is placed inside the protected directory.
+	 *
+	 * Covers Apache 2.2 (Deny), Apache 2.4 (Require) and LiteSpeed/OpenLiteSpeed (mod_rewrite).
+	 *
+	 * @return string
+	 */
+	public static function get_htaccess_content(){
+		$htaccess_content = "# BEGIN SDM File Protection\n";
+		$htaccess_content .= "<IfModule mod_rewrite.c>\n";
+		$htaccess_content .= "RewriteEngine On\n";
+		$htaccess_content .= "RewriteRule ^ - [F,L]\n";
+		$htaccess_content .= "</IfModule>\n";
+		$htaccess_content .= "<IfModule mod_authz_core.c>\n";
+		$htaccess_content .= "Require all denied\n";
+		$htaccess_content .= "</IfModule>\n";
+		$htaccess_content .= "<IfModule !mod_authz_core.c>\n";
+		$htaccess_content .= "Deny from all\n";
+		$htaccess_content .= "</IfModule>\n";
+		$htaccess_content .= "# END SDM File Protection\n";
+
+		return $htaccess_content;
+	}
+
+	/**
+	 * Check whether the given .htaccess file is the legacy default one created by older versions of the plugin.
+	 *
+	 * Only an exact (case-insensitive, trimmed) "deny from all" counts as legacy. Anything else may have been customized by the site owner.
+	 *
+	 * @param string $htaccess_file Path to the .htaccess file.
+	 *
+	 * @return bool
+	 */
+	public static function is_legacy_htaccess_file( $htaccess_file ){
+		$existing_content = file_get_contents( $htaccess_file );
+		if ( $existing_content === false ) {
+			return false;
+		}
+
+		return strcasecmp( trim( $existing_content ), 'deny from all' ) === 0;
+	}
+
 	public function check_and_create_file_protection_folder(){
 		// Define the directory path
 		$uploads_dir = self::get_protected_dir();
@@ -139,15 +230,28 @@ class SDM_File_Protection_Handler {
 				wp_die(esc_html($e->getMessage()));
 			}
 		}
-	
+
 		// Define the directory path
 		$htaccess_file = $uploads_dir . '/.htaccess';
 		if ( !file_exists($htaccess_file) ) {
 			try{
 				// Create the .htaccess file
-				$htaccess_content = "deny from all\n";
+				if ( file_put_contents($htaccess_file, self::get_htaccess_content()) === false ) {
+					SDM_Debug::log("The .htaccess file could not be created inside '".self::get_protected_dir_name() . "'.", false);
+					wp_die(esc_html("The .htaccess file could not be created inside '".self::get_protected_dir_name() . "'. Please check the directory permissions."));
+				}
 				SDM_Debug::log("The .htaccess file was successfully created inside '".self::get_protected_dir_name() . "'.", true);
-				file_put_contents($htaccess_file, $htaccess_content);
+			} catch (\Exception $e) {
+				wp_die(esc_html($e->getMessage()));
+			}
+		} else if ( self::is_legacy_htaccess_file($htaccess_file) ) {
+			try{
+				// Upgrade the legacy "deny from all" .htaccess file created by older versions of the plugin.
+				if ( file_put_contents($htaccess_file, self::get_htaccess_content()) === false ) {
+					SDM_Debug::log("The legacy .htaccess file inside '".self::get_protected_dir_name() . "' could not be upgraded.", false);
+					wp_die(esc_html("The .htaccess file inside '".self::get_protected_dir_name() . "' could not be upgraded. Please check the file permissions."));
+				}
+				SDM_Debug::log("The legacy .htaccess file inside '".self::get_protected_dir_name() . "' was successfully upgraded.", true);
 			} catch (\Exception $e) {
 				wp_die(esc_html($e->getMessage()));
 			}
