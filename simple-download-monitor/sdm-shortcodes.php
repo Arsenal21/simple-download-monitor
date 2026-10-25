@@ -548,6 +548,13 @@ function sdm_show_download_info_shortcode( $args ) {
 	$id             = absint( $id );
 	$get_cpt_object = get_post( $id );
 
+	// Check if the download is available for current visitor.
+	$availability_check = sdm_check_if_download_item_available($get_cpt_object);
+	if ( empty($availability_check['success']) ){
+		$error_msg = isset($availability_check['message']) ? $availability_check['message'] : '';
+		return sdm_download_unavailable_msg_box($error_msg);
+	}
+
 	if ( $download_info == 'title' ) {//download title
 		$item_title = get_the_title( $id );
 		return esc_attr($item_title);
@@ -559,6 +566,10 @@ function sdm_show_download_info_shortcode( $args ) {
 	}
 
 	if ( $download_info == 'download_url' ) {//download URL
+		if ( sdm_download_url_requires_handler_checks( $get_cpt_object ) ) {
+			// Return the standard download URL so the download request handler's checks (password, login, captcha, terms) apply.
+			return esc_url( sdm_get_standard_download_url_from_id( $id ) );
+		}
 		$download_link = get_post_meta( $id, 'sdm_upload', true );
 		return esc_url($download_link);
 	}
@@ -595,6 +606,37 @@ function sdm_show_download_info_shortcode( $args ) {
 	}
 
 	return '<div class="sdm_shortcode_error">Error! The value of "download_info" field does not match any availalbe parameters.</div>';
+}
+
+/**
+ * Check if the raw file URL of a download item must not be exposed to the current visitor.
+ *
+ * @param WP_Post $post_object The download item.
+ *
+ * @return bool True if the download must go through the download request handler.
+ */
+function sdm_download_url_requires_handler_checks( $post_object ) {
+	// Password protected item.
+	if ( ! empty( $post_object->post_password ) ) {
+		return true;
+	}
+
+	// Only logged-in users can download, and this item doesn't allow anonymous downloads.
+	$main_opts = get_option( 'sdm_downloads_options' );
+	if ( ! empty( $main_opts['only_logged_in_can_download'] ) && sdm_get_logged_in_user() === false ) {
+		$anonymous_can_download = get_post_meta( $post_object->ID, 'sdm_item_anonymous_can_download', true );
+		if ( ! $anonymous_can_download ) {
+			return true;
+		}
+	}
+
+	// reCAPTCHA or Terms & Conditions must be completed before downloading.
+	$main_advanced_opts = get_option( 'sdm_advanced_options' );
+	if ( sdm_is_any_recaptcha_enabled() || isset( $main_advanced_opts['termscond_enable'] ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 function sdm_handle_show_all_dl_shortcode( $args ) {
