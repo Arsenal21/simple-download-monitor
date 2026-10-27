@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 4.1.2
+Stable tag: 4.1.3
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -201,7 +201,7 @@ Yes
 
 == Changelog ==
 
-= WIP =
+= 4.1.3 =
 - The [sdm_show_download_info] shortcode now applies the same availability check as the download button shortcode, so it no longer shows details of private, draft or unpublished download items to users who can't access them.
 - The "download_url" option of the [sdm_show_download_info] shortcode now returns the standard download link (instead of the direct file URL) for items that are password protected, restricted to logged-in users, or that require reCAPTCHA or Terms and Conditions. Thanks to WellKnown for reporting this.
 
