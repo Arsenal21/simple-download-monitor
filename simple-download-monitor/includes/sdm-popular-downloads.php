@@ -18,11 +18,21 @@ function sdm_show_popular_downloads( $args ) {
 	);
 
 	global $wpdb;
+
+	// Only include download items that are available to visitors.
+	$status_clause = " AND posts.post_type='sdm_downloads'";
+	if ( sdm_is_downloads_of_unpublished_items_allowed() ) {
+		$status_clause .= " AND posts.post_status NOT IN ('trash', 'auto-draft')";
+	} else {
+		$status_clause .= " AND posts.post_status='publish'";
+	}
+
 	//Check if the query needs to be for a category
 	if ( ! empty( $category_slug ) ) {
 		$q = 'SELECT posts.*, downloads.id, downloads.post_id, terms.*, termrel.*, postmeta.*, (COUNT(downloads.post_id) + postmeta.meta_value) AS cnt'
 		. ' FROM ' . $wpdb->prefix . 'posts as posts, ' . $wpdb->prefix . 'sdm_downloads as downloads, ' . $wpdb->prefix . 'terms as terms, ' . $wpdb->prefix . 'term_relationships as termrel, ' . $wpdb->prefix . 'postmeta as postmeta WHERE'
 		. ' posts.id=downloads.post_id'
+		. $status_clause
 		. " AND (postmeta.meta_key='sdm_count_offset' AND postmeta.post_id=downloads.post_id)"
 		. ' AND (terms.slug= %s AND termrel.object_id=downloads.post_id AND termrel.term_taxonomy_id=terms.term_id)'
 		. ' GROUP BY downloads.post_id'
@@ -34,6 +44,7 @@ function sdm_show_popular_downloads( $args ) {
 		$q = 'SELECT posts.*, downloads.id, downloads.post_id, postmeta.*, (COUNT(downloads.post_id) + postmeta.meta_value) AS cnt'
 		. ' FROM ' . $wpdb->prefix . 'posts as posts, ' . $wpdb->prefix . 'sdm_downloads as downloads, ' . $wpdb->prefix . 'postmeta as postmeta WHERE'
 		. ' posts.id=downloads.post_id'
+		. $status_clause
 		. " AND (postmeta.meta_key='sdm_count_offset' AND postmeta.post_id=downloads.post_id)"
 		. ' GROUP BY downloads.post_id'
 		. ' ORDER BY cnt DESC, %s %s'

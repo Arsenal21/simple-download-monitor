@@ -201,6 +201,9 @@ Yes
 
 == Changelog ==
 
+= 4.1.4 =
+- The [sdm_popular_downloads] shortcode now only lists published download items (unless the "Allow downloads of unpublished items" option is enabled), so it no longer shows private or draft items to visitors. Thanks to Zackary Loevseth for reporting this.
+
 = 4.1.3 =
 - The [sdm_show_download_info] shortcode now applies the same availability check as the download button shortcode, so it no longer shows details of private, draft or unpublished download items to users who can't access them.
 - The "download_url" option of the [sdm_show_download_info] shortcode now returns the standard download link (instead of the direct file URL) for items that are password protected, restricted to logged-in users, or that require reCAPTCHA or Terms and Conditions. Thanks to WellKnown for reporting this.
