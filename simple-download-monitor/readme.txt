@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 4.1.4
+Stable tag: 4.1.5
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,6 +200,9 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+
+= 4.1.5 =
+- The debug log file is now stored in the plugin's "logs" folder, which is protected from direct web access, and its file name has a random prefix that is unique to each site. This prevents the debug log from being viewed publicly. The old debug log file in the plugin's main folder is deleted automatically.
 
 = 4.1.4 =
 - The [sdm_popular_downloads] shortcode now only lists published download items (unless the "Allow downloads of unpublished items" option is enabled), so it no longer shows private or draft items to visitors. Thanks to Zackary Loevseth for reporting this.

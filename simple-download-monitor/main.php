@@ -3,7 +3,7 @@
  * Plugin Name: Simple Download Monitor
  * Plugin URI: https://simple-download-monitor.com/
  * Description: Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
- * Version: 4.1.4
+ * Version: 4.1.5
  * Author: Tips and Tricks HQ, Ruhul Amin, Josh Lobe
  * Author URI: https://www.tipsandtricks-hq.com/development-center
  * License: GPL2
@@ -14,19 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WP_SIMPLE_DL_MONITOR_VERSION', '4.1.4' );
+define( 'WP_SIMPLE_DL_MONITOR_VERSION', '4.1.5' );
 define( 'WP_SIMPLE_DL_MONITOR_DIR_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WP_SIMPLE_DL_MONITOR_URL', plugins_url( '', __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_SIMPLE_DL_MONITOR_SITE_HOME_URL', home_url() );
 define( 'WP_SIMPLE_DL_MONITOR_TEMPLATE_DIR', WP_SIMPLE_DL_MONITOR_PATH . 'includes/templates/' );
-define( 'WP_SDM_LOG_FILE', WP_SIMPLE_DL_MONITOR_PATH . 'sdm-debug-log.txt' );
 
 global $sdm_db_version;
 $sdm_db_version = '1.4';
 
 //File includes
 require_once 'includes/sdm-debug.php';
+//The debug log is stored in the "logs" folder with a per-site random prefix in the file name. Use SDM_Debug::get_log_file_path() in new code.
+define( 'WP_SDM_LOG_FILE', SDM_Debug::get_log_file_path() );
 require_once 'includes/sdm-utility-functions.php';
 require_once 'includes/sdm-utility-functions-admin-side.php';
 require_once 'includes/sdm-utility-file-system-related.php';
@@ -121,6 +122,9 @@ function sdm_admin_init_time_tasks() {
 	add_action( 'wp_ajax_sdm_delete_data', 'sdm_delete_data_handler' );
 	add_action( 'wp_ajax_sdm_export_logs', 'sdm_export_logs_handler' );
 
+	//Remove the web-accessible debug log file left in the plugin's root folder by older versions.
+	SDM_Debug::delete_legacy_log_file();
+
 	$sdm_admin_access_permission =  get_sdm_admin_access_permission();
 	$sdm_pages_capability = apply_filters("sdm_pages_capability", $sdm_admin_access_permission);
 
@@ -134,9 +138,15 @@ function sdm_admin_init_time_tasks() {
 	if ( ! empty( $action ) ) {
 		if ( $action === 'view_log' ) {
 			check_admin_referer( 'sdm_view_log_nonce' );
-			$logfile = fopen( WP_SDM_LOG_FILE, 'rb' );
 			header( 'Content-Type: text/plain' );
-			fpassthru( $logfile );
+			$log_file_path = SDM_Debug::get_log_file_path();
+			$logfile       = file_exists( $log_file_path ) ? fopen( $log_file_path, 'rb' ) : false;
+			if ( $logfile ) {
+				fpassthru( $logfile );
+				fclose( $logfile );
+			} else {
+				echo 'The debug log file is empty or does not exist yet.';
+			}
 			die;
 		}
 	}
@@ -226,6 +236,9 @@ function sdm_delete_data_handler() {
 	//let's delete options
 	delete_option( 'sdm_downloads_options' );
 	delete_option( 'sdm_db_version' );
+	//delete the debug log file and its file name prefix
+	SDM_Debug::delete_log_file();
+	delete_option( SDM_Debug::LOG_FILE_PREFIX_OPTION );
 	//remove post type and taxonomies
 	unregister_post_type( 'sdm_downloads' );
 	unregister_taxonomy( 'sdm_categories' );
