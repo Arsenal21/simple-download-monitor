@@ -202,7 +202,7 @@ Yes
 == Changelog ==
 
 = 4.1.5 =
-- The debug log file is now stored in the plugin's "logs" folder, which is protected from direct web access, and its file name has a random prefix that is unique to each site. This prevents the debug log from being viewed publicly. The old debug log file in the plugin's main folder is deleted automatically.
+- The debug log file is now stored in the plugin's "logs" folder, which is protected from direct web access, and its file name has a random prefix that is unique to each site.
 
 = 4.1.4 =
 - The [sdm_popular_downloads] shortcode now only lists published download items (unless the "Allow downloads of unpublished items" option is enabled), so it no longer shows private or draft items to visitors. Thanks to Zackary Loevseth for reporting this.
