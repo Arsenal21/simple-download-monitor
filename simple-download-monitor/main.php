@@ -260,6 +260,12 @@ function sdm_export_logs_handler(){
 		));
 	}
 
+	if ( ! current_user_can( get_sdm_admin_access_permission() ) ) {
+		wp_send_json_error(array(
+			'message' => __('You do not have permission to export the download logs.', 'simple-download-monitor')
+		));
+	}
+
 	// Set the maximum execution time to 2 minutes.
 	set_time_limit( 60 * 2 );
 
@@ -267,27 +273,39 @@ function sdm_export_logs_handler(){
 
 	$table_name = $wpdb->prefix . 'sdm_downloads';
 
-	$search_text = isset( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
-	$orderby_column = isset( $_POST['orderBy'] ) ? sanitize_text_field( $_POST['orderBy'] ) : 'id';
-	$sort_order     = isset( $_POST['order'] ) ? sanitize_text_field( $_POST['order'] ) : 'desc';
+	$search_text    = isset( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '';
+	$orderby_column = isset( $_POST['orderBy'] ) ? strtolower( sanitize_text_field( wp_unslash( $_POST['orderBy'] ) ) ) : '';
+	$sort_order     = isset( $_POST['order'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_POST['order'] ) ) ) : '';
 
-	$order_by_clause = sanitize_sql_orderby("$orderby_column $sort_order");
+	// Only allow sorting by the columns that the download logs table can be sorted by.
+	$allowed_orderby_columns = array( 'id', 'post_title', 'file_url', 'visitor_ip', 'date_time', 'visitor_country', 'visitor_name', 'user_agent', 'referrer_url' );
+	if ( ! in_array( $orderby_column, $allowed_orderby_columns, true ) ) {
+		$orderby_column = 'id';
+	}
+	if ( ! in_array( $sort_order, array( 'ASC', 'DESC' ), true ) ) {
+		$sort_order = 'DESC';
+	}
+
+	$order_by_clause = "$orderby_column $sort_order";
 
 	$select_cols = "id as 'Log ID', post_id as 'Download ID', post_title as 'Download Title', file_url as 'File URL',date_time as 'Date',visitor_ip as 'IP Address', visitor_country as 'Country', visitor_name as 'Name'";
 
+	$where_args = array();
 	if(empty($search_text)){
 		$total_items = $wpdb->get_var(  "SELECT COUNT(*) FROM $table_name" );
 		$query       = "SELECT $select_cols FROM $table_name ORDER BY $order_by_clause LIMIT %d, %d";
 	} else {
-		$columns = ['post_title', 'post_id', 'visitor_name', 'visitor_ip', 'visitor_country'];
-		$like_query = [];
+		$columns     = array( 'post_title', 'post_id', 'visitor_name', 'visitor_ip', 'visitor_country' );
+		$search_like = '%' . $wpdb->esc_like( $search_text ) . '%';
+		$like_query  = array();
 		foreach ($columns as $column) {
-			$like_query[] = "$column LIKE '%" . esc_sql($search_text) . "%'";
+			$like_query[] = "$column LIKE %s";
+			$where_args[] = $search_like;
 		}
 
 		$where_clause = implode(' OR ', $like_query);
 
-		$total_items = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name WHERE $where_clause" );
+		$total_items = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $table_name WHERE $where_clause", $where_args ) );
 		$query       = "SELECT $select_cols FROM $table_name WHERE $where_clause ORDER BY $order_by_clause LIMIT %d, %d";
 	}
 
@@ -300,14 +318,15 @@ function sdm_export_logs_handler(){
 	for ( $current_page = 1; $current_page <= $total_pages; $current_page++ ) {
 		$offset = ( $current_page - 1 ) * $records_per_page;
 
-		$query_prepared = $wpdb->prepare( $query, $offset, $records_per_page );
+		$query_prepared = $wpdb->prepare( $query, array_merge( $where_args, array( $offset, $records_per_page ) ) );
 
 		$results = $wpdb->get_results( $query_prepared, ARRAY_A );
 
-		// Check if there were any error during query.
+		// Check if there were any error during query. Log the database error and show a generic message (don't send the database error to the browser).
 		if ( ! empty( $wpdb->last_error ) ) {
+			SDM_Debug::log( 'Export logs query failed. Database error: ' . $wpdb->last_error, false );
 			wp_send_json_error(array(
-				'message' => $wpdb->last_error,
+				'message' => __('Error! The download logs could not be retrieved.', 'simple-download-monitor'),
 			));
 		}
 
