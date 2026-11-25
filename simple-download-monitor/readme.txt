@@ -202,7 +202,7 @@ Yes
 == Changelog ==
 
 = 4.1.6 =
-- Fixed a path traversal issue where a crafted "Downloadable File" URL containing "../" could be used to download files from outside the intended folder. The file path is now validated to stay inside the expected folder, and such URLs can no longer be saved. PHP-type file extensions are now always blocked from PHP dispatch. Thanks to Wordfence PRISM for responsibly reporting this.
+- Fixed a path traversal issue where a crafted "Downloadable File" URL containing "../" could be used to download files from outside the intended folder. The file path is now validated to stay inside the expected folder, and such URLs can no longer be saved. PHP-type file extensions are now always blocked from PHP dispatch.
 - The export logs feature now checks the user's permission, only accepts valid sort columns, and no longer shows database error messages in the browser.
 
 = 4.1.5 =
