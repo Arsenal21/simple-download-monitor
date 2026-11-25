@@ -7,6 +7,7 @@ class SDM_Admin_Edit_Download {
 		add_action( 'save_post_sdm_downloads', array( $this, 'save_post_handler' ), 10, 3 );
 		// Grabs the inserted post data so we can sanitize/modify it.
 		add_filter( 'wp_insert_post_data' , array( $this, 'insert_post_sdm_post_title' ), '99', 1 );
+		add_action( 'admin_notices', array( $this, 'show_rejected_upload_url_notice' ) );
 
 		if ( wp_doing_ajax() ) {
 			add_action( 'wp_ajax_sdm_remove_thumbnail_image', array( $this, 'remove_thumbnail_image_ajax_handler' ) );
@@ -346,6 +347,17 @@ class SDM_Admin_Edit_Download {
 		return $data; // Returns the modified data.
 	}
 
+	public function show_rejected_upload_url_notice() {
+		$transient_key = 'sdm_upload_url_rejected_' . get_current_user_id();
+		if ( ! get_transient( $transient_key ) ) {
+			return;
+		}
+		delete_transient( $transient_key );
+		echo '<div class="notice notice-error is-dismissible"><p>';
+		esc_html_e( 'The Downloadable File URL was not saved because it contains "../" (path traversal), which is not allowed. Please enter the direct URL of the file.', 'simple-download-monitor' );
+		echo '</p></div>';
+	}
+
 	public function save_post_handler( $post_id, $post, $update ) {
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! $update || empty( $post_id ) ) {
 			return;
@@ -373,7 +385,13 @@ class SDM_Admin_Edit_Download {
 
 		// *** File Upload ***
 		if ( isset( $_POST['sdm_upload'] ) ) {
-			update_post_meta( $post_id, 'sdm_upload', esc_url_raw( $_POST['sdm_upload'], array( 'http', 'https', 'dropbox' ) ) );
+			$sdm_upload_url = esc_url_raw( wp_unslash( $_POST['sdm_upload'] ), array( 'http', 'https', 'dropbox' ) );
+			if ( SDM_Utils_File_System_Related::path_has_traversal( wp_parse_url( $sdm_upload_url, PHP_URL_PATH ) ) ) {
+				// Don't save a file URL that contains "../" (path traversal). Keep the previous value and show an error notice.
+				set_transient( 'sdm_upload_url_rejected_' . get_current_user_id(), 1, 60 );
+			} else {
+				update_post_meta( $post_id, 'sdm_upload', $sdm_upload_url );
+			}
 		}
 
 		// *** PHP Dispatch or Redirect ***

@@ -51,12 +51,12 @@ class SDM_Utils_File_System_Related {
 	 * @param string $file_url File URL
 	 * @param array $sub_dirs  Subdirectory. Use multiple items for nested directories.
 	 * 
-	 * @return string|false File Path. FALSE if path couldn't be resolved.
+	 * @return string|false File Path. FALSE if path couldn't be resolved, or if it resolves to a location outside the expected directory.
 	 */
 	public static function get_uploaded_file_path_from_url($file_url, $sub_dirs = array()){
 		if(!empty($sub_dirs)){
-			$sub_dirs = implode(DIRECTORY_SEPARATOR, $sub_dirs);
-			$sub_dirs = trim(trim($sub_dirs), DIRECTORY_SEPARATOR);
+			$sub_dirs = implode('/', $sub_dirs);
+			$sub_dirs = trim(trim($sub_dirs), '/\\');
 
 			$wp_content_dir = path_join(WP_CONTENT_DIR, $sub_dirs);
 			$wp_content_url = rtrim(WP_CONTENT_URL, '/') . '/' . $sub_dirs;
@@ -65,10 +65,74 @@ class SDM_Utils_File_System_Related {
 			$wp_content_url = WP_CONTENT_URL;
 		}
 
-		$file_path = path_join( $wp_content_dir, ltrim( substr( $file_url, strlen( $wp_content_url ) ), '/' ) );
-		$file_path = realpath( $file_path );
+		if ( ! is_string( $file_url ) || $file_url === '' ) {
+			return false;
+		}
 
-		return $file_path;
+		// The file URL must start with the expected base URL. The scheme is ignored so that URLs saved before a site moved from http to https keep working.
+		$file_url_no_scheme = self::remove_url_scheme( trim( $file_url ) );
+		$base_url_no_scheme = rtrim( self::remove_url_scheme( $wp_content_url ), '/' ) . '/';
+		if ( stripos( $file_url_no_scheme, $base_url_no_scheme ) !== 0 ) {
+			return false;
+		}
+
+		$relative_path = substr( $file_url_no_scheme, strlen( $base_url_no_scheme ) );
+
+		// Reject path traversal ("." or ".." path segments).
+		if ( self::path_has_traversal( $relative_path ) ) {
+			return false;
+		}
+
+		$file_path = realpath( path_join( $wp_content_dir, ltrim( $relative_path, '/\\' ) ) );
+		if ( false === $file_path ) {
+			return false;
+		}
+
+		// Make sure the resolved path is still inside the expected directory.
+		$allowed_base_dirs = array( $wp_content_dir );
+		if ( empty( $sub_dirs ) && function_exists( 'wp_upload_dir' ) ) {
+			// The uploads folder is sometimes a symlink to a location outside wp-content. Files in it are allowed too.
+			$upload_dir = wp_upload_dir( null, false );
+			if ( ! empty( $upload_dir['basedir'] ) ) {
+				$allowed_base_dirs[] = $upload_dir['basedir'];
+			}
+		}
+
+		foreach ( $allowed_base_dirs as $base_dir ) {
+			$base_dir = realpath( $base_dir );
+			if ( false !== $base_dir && strpos( $file_path, rtrim( $base_dir, '/\\' ) . DIRECTORY_SEPARATOR ) === 0 ) {
+				return $file_path;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Removes the scheme (for example "https:") from a URL. The result starts with "//" for absolute URLs.
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public static function remove_url_scheme( $url ) {
+		return preg_replace( '#^[a-z][a-z0-9+.\-]*:#i', '', $url );
+	}
+
+	/**
+	 * Checks if a path or URL contains path traversal segments ("." or ".."), including URL-encoded ones.
+	 *
+	 * @param string $path
+	 *
+	 * @return bool TRUE if the path contains traversal segments, FALSE otherwise.
+	 */
+	public static function path_has_traversal( $path ) {
+		// Ignore the query string and fragment (if any).
+		$path = preg_replace( '/[?#].*$/s', '', (string) $path );
+		// Decode twice to catch double-encoded sequences, and treat backslashes as path separators.
+		$path = str_replace( '\\', '/', rawurldecode( rawurldecode( $path ) ) );
+
+		return (bool) preg_match( '#(^|/)\.{1,2}(/|$)#', $path );
 	}
 
 	/**
@@ -105,7 +169,8 @@ class SDM_Utils_File_System_Related {
 
 		$disallowed_ext_arr_raw = explode( ',', strtolower( $disallowed_ext_opt ) );
 
-		$disallowed_ext_arr = array();
+		// These PHP and script extensions are always blocked, regardless of the settings.
+		$disallowed_ext_arr = array( 'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phps', 'phtml', 'phar', 'pht' );
 
 		foreach ( $disallowed_ext_arr_raw as $item ) {
 			array_push( $disallowed_ext_arr, sanitize_text_field( $item ) );
