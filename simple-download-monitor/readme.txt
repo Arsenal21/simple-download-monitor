@@ -4,7 +4,7 @@ Donate link: https://www.tipsandtricks-hq.com
 Tags: download, downloads, count, counter, tracker
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 4.1.5
+Stable tag: 4.1.6
 License: GPLv2 or later
 
 Easily manage downloadable files and monitor downloads of your digital files from your WordPress site.
@@ -200,6 +200,10 @@ Yes
 4. The download item add/edit page in the WordPress admin dashboard.
 
 == Changelog ==
+
+= 4.1.6 =
+- Fixed a path traversal issue where a crafted "Downloadable File" URL containing "../" could be used to download files from outside the intended folder. The file path is now validated to stay inside the expected folder, and such URLs can no longer be saved. PHP-type file extensions are now always blocked from PHP dispatch. Thanks to Wordfence PRISM for responsibly reporting this.
+- The export logs feature now checks the user's permission, only accepts valid sort columns, and no longer shows database error messages in the browser.
 
 = 4.1.5 =
 - The debug log file is now stored in the plugin's "logs" folder, which is protected from direct web access, and its file name has a random prefix that is unique to each site.
