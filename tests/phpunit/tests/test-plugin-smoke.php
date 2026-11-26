@@ -79,7 +79,7 @@ class Test_Plugin_Smoke extends WP_UnitTestCase {
 			'sdm_download_link',
 			'sdm_show_all_dl',
 			'sdm_show_dl_from_category',
-			// Note: [sdm_download_categories] is left out of this list. Its handler declares a nested function, so it can only run once per request (see TESTS.md).
+			'sdm_download_categories',
 			'sdm_download_categories_list',
 			'sdm_search_form',
 			'sdm_show_download_info',

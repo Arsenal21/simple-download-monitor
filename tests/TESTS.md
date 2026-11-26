@@ -41,6 +41,50 @@ The test files must stay PHP 7.4-compatible (the oldest PHP version in the workf
 - The single download page shows the download button, or the "disabled" message when the page is disabled.
 - The download description is formatted (`wpautop`).
 
+**File path resolver** (test-file-path-resolver.php, `SDM_Utils_File_System_Related`). The path traversal report of November 2026 (CVE-2026-135625, fixed in 4.1.6).
+- A file in the protected folder (`uploads/sdm-uploads`, also in a subfolder) and a file in the uploads folder resolve to their path; http and https URLs both work.
+- Rejected (`false`): path traversal to the WordPress root or out of the protected folder (`../`, URL-encoded and double URL-encoded dots,
+  URL-encoded slashes, backslashes, a `./` segment), a URL that doesn't start with the folder's URL (another site, another folder ending with
+  `uploads/sdm-uploads`), an external URL, a missing file, the folder itself, an empty or invalid value.
+- `path_has_traversal()`: `.` and `..` segments (also encoded, double encoded, with backslashes) are found; dots inside file names,
+  hidden files and `../` in the query string are not.
+- PHP-type extensions (`php`, `php3`–`php8`, `phps`, `phtml`, `phar`, `pht`, in any case) are always blocked from PHP dispatch, even with a saved list
+  of blocked extensions; the default list (`php, config, bak`) is used when none is saved; the saved list is used otherwise.
+- Hidden files and files without an extension are detected.
+
+**Debug log** (test-debug-log.php, `SDM_Debug`). The debug log report of November 2026 (fixed in 4.1.5).
+- The log file is in the plugin's `logs/` folder and its name has a random prefix; the prefix is saved and stays the same; `WP_SDM_LOG_FILE` points to it.
+- A new prefix is made when none is saved, or when the saved one isn't valid; two sites get different prefixes.
+- Nothing is written when debug is off; messages and arrays are written when it is on.
+- Writing the log creates `.htaccess` (Apache 2.2 and 2.4 rules) and an empty `index.html` when they are missing; the plugin ships them too.
+- Reset replaces the content; the log file can be deleted.
+- The old `sdm-debug-log.txt` in the plugin's main folder is deleted (also on `admin_init`).
+
+**Export logs** (test-export-logs.php, `sdm_export_logs_handler()`). GitHub issue #150 (fixed in 4.1.6).
+The WordPress test library skips the `ajax` test group, so the handler is called directly (with `wp_doing_ajax()` on and `wp_die()` throwing).
+- Rejected: a wrong nonce, and a user without the plugin's admin permission (even with a valid nonce).
+- The logs are exported with all the columns, newest first by default; more than 100 entries (the export reads 100 at a time).
+- Sorting by every sortable column of the Logs table, both directions.
+- An unknown column (the report), SQL in the column or the direction, and empty values fall back to the default order, without an error.
+- A database error isn't sent to the browser (a generic message is); it is written to the debug log.
+- The search finds by name and IP address; `%` and `_` are searched as characters; quotes work.
+
+**Download item editor** (test-edit-download-save.php, `SDM_Admin_Edit_Download::save_post_handler()`). CVE-2026-135625 (fixed in 4.1.6).
+- A normal file URL is saved.
+- A file URL with `../` (the report), URL-encoded dots or a `./` segment isn't saved: the previous URL stays and the error notice is set.
+- `../` in the query string is allowed.
+- The error notice is shown once.
+- A save without the nonce is rejected.
+
+**Shortcode availability** (test-shortcode-availability.php). Fixed in 4.1.3 and 4.1.4.
+- `[sdm_download]` shows a published item, and hides a private, draft, pending or scheduled one (unless the user can edit it,
+  or "Allow downloads of unpublished items" is on); an ID that isn't a download item shows an error.
+- `[sdm_show_download_info]` shows a published item's info, and hides the title, description and download URL of an unavailable item;
+  `download_url` is the standard download URL for a password-protected item, and the file URL otherwise.
+- `[sdm_popular_downloads]` and `[sdm_latest_downloads]` list only published items; with the option on, the popular downloads
+  also list unpublished items, but not trashed ones.
+- `[sdm_download_categories]` can be used twice on a page, shows nested categories, and shows an empty tree without categories.
+
 ---
 
 ## Known issues (tests that report without failing)
@@ -49,25 +93,18 @@ A test for a known or suspected bug runs, but doesn't fail the workflow, so the 
 the test calls `markTestIncomplete()` when the bug happens (shown as incomplete, with the reason); any other wrong result fails.
 The commit that fixes an issue removes the `markTestIncomplete()` part, so its test becomes a normal test.
 
-Not tested yet:
-- `[sdm_download_categories]` declares the function `custom_taxonomy_walker()` inside the shortcode handler, so a second
-  `[sdm_download_categories]` on the same page (or a second call in the same request) is a PHP fatal error ("Cannot redeclare").
-  It is left out of the smoke test's shortcode list until it is fixed (a fatal error would stop the whole test run).
+There are none at the moment.
 
 Fixed while adding the tests:
 - `[sdm_download]` without attributes read `$atts['id']` from the attributes WordPress passes: an empty array (WordPress 6.5+, a PHP warning)
   or an empty string (WordPress 6.0 to 6.4, a PHP fatal error on PHP 8).
+- `[sdm_download_categories]` declared the function `custom_taxonomy_walker()` inside the shortcode handler, so a second
+  `[sdm_download_categories]` on the same page was a PHP fatal error ("Cannot redeclare"). It is the top-level function
+  `sdm_download_categories_tree_walker()` now (it also escapes the category name and slug).
 
 ---
 
 ## Not covered yet (ideas for new tests)
-
-Phase B: PHPUnit tests for the recent security fixes
-- The file path resolver (`get_uploaded_file_path_from_url()`): path traversal, the base URL check (http and https), the always-blocked extensions.
-- The debug log: the `logs/` folder, the per-site file name prefix, `.htaccess` and `index.html`, removal of the old log file.
-- The export logs AJAX handler: the permission check, the sort column check, no database error in the response.
-- The download item editor doesn't save a file URL with `../`.
-- The shortcodes don't show private, draft or unpublished items (4.1.3 and 4.1.4 fixes).
 
 Phase C: Endpoint tests (a real WordPress site started with `php -S`, requests sent over HTTP)
 - The download request: redirect and PHP dispatch, the protected folder, password-protected items, the logged-in-only option,

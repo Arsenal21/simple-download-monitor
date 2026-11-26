@@ -430,36 +430,45 @@ function sdm_handle_category_shortcode( $args ) {
 
 // Create category tree shortcode
 function sdm_download_categories_shortcode() {
+	return '<div class="sdm_object_tree">' . sdm_download_categories_tree_walker( 'sdm_categories' ) . '</div>';
+}
 
-	function custom_taxonomy_walker( $taxonomy, $parent = 0 ) {
+/**
+ * Return the HTML category tree of the `sdm_download_categories` shortcode for the terms under $parent.
+ *
+ * Note: this used to be a function declared inside the shortcode handler, which made a second use of the shortcode
+ * on the same page a PHP fatal error ("Cannot redeclare").
+ *
+ * @param string $taxonomy
+ * @param int $parent
+ * @return string
+ */
+function sdm_download_categories_tree_walker( $taxonomy, $parent = 0 ) {
 
-		// Get terms (check if has parent)
-		$terms = get_terms(
-			$taxonomy,
-			array(
-				'parent'     => $parent,
-				'hide_empty' => false,
-			)
-		);
+	// Get terms (check if has parent)
+	$terms = get_terms(
+		array(
+			'taxonomy'   => $taxonomy,
+			'parent'     => $parent,
+			'hide_empty' => false,
+		)
+	);
 
-		// If there are terms, start displaying
-		if ( count( $terms ) > 0 ) {
-			// Displaying as a list
-			$out = '<ul>';
-			// Cycle though the terms
-			foreach ( $terms as $term ) {
-				// Secret sauce. Function calls itself to display child elements, if any
-				$out .= '<li class="sdm_cat" id="' . $term->slug . '"><span id="' . $term->term_id . '" class="sdm_cat_title" style="cursor:pointer;">' . $term->name . '</span>';
-				$out .= '<p class="sdm_placeholder" style="margin-bottom:0;"></p>' . custom_taxonomy_walker( $taxonomy, $term->term_id );
-				$out .= '</li>';
-			}
-			$out .= '</ul>';
-			return $out;
-		}
-		return;
+	if ( empty( $terms ) || is_wp_error( $terms ) ) {
+		return '';
 	}
 
-	return '<div class="sdm_object_tree">' . custom_taxonomy_walker( 'sdm_categories' ) . '</div>';
+	// Displaying as a list
+	$out = '<ul>';
+	// Cycle though the terms
+	foreach ( $terms as $term ) {
+		// The function calls itself to display child elements, if any
+		$out .= '<li class="sdm_cat" id="' . esc_attr( $term->slug ) . '"><span id="' . esc_attr( $term->term_id ) . '" class="sdm_cat_title" style="cursor:pointer;">' . esc_html( $term->name ) . '</span>';
+		$out .= '<p class="sdm_placeholder" style="margin-bottom:0;"></p>' . sdm_download_categories_tree_walker( $taxonomy, $term->term_id );
+		$out .= '</li>';
+	}
+	$out .= '</ul>';
+	return $out;
 }
 
 /**
