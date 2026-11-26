@@ -20,7 +20,7 @@ function handle_sdm_download_via_direct_post() {
 		$download_title = get_the_title( $download_id );
 		$download_link = get_post_meta( $download_id, 'sdm_upload', true );		
 		if ( empty( $download_link ) ) {
-			wp_die( printf( __( 'Error! This download item (%s) does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor' ), $download_id ) );
+			wp_die( sprintf( __( 'Error! This download item (%s) does not have any download link. Edit this item and specify a downloadable file URL for it.', 'simple-download-monitor' ), $download_id ) );
 		}
 
 		sdm_recaptcha_verify();
