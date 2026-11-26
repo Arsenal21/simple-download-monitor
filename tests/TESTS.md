@@ -65,7 +65,8 @@ The WordPress test library skips the `ajax` test group, so the handler is called
 - Rejected: a wrong nonce, and a user without the plugin's admin permission (even with a valid nonce).
 - The logs are exported with all the columns, newest first by default; more than 100 entries (the export reads 100 at a time).
 - Sorting by every sortable column of the Logs table, both directions.
-- An unknown column (the report), SQL in the column or the direction, and empty values fall back to the default order, without an error.
+- An unknown column (the report), SQL in the column or the direction, and empty values don't cause an error: an invalid column
+  falls back to `id`, and an invalid direction to `DESC` (a valid direction is kept, so an unknown column with `ASC` is sorted by `id ASC`).
 - A database error isn't sent to the browser (a generic message is); it is written to the debug log.
 - The search finds by name and IP address; `%` and `_` are searched as characters; quotes work.
 

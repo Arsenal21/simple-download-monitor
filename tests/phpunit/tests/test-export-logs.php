@@ -110,10 +110,12 @@ class Test_Export_Logs extends WP_UnitTestCase {
 
 	/**
 	 * The report: an unknown column name made a database error that was sent to the browser.
+	 * An invalid column falls back to "id", and an invalid direction falls back to "DESC". A valid value is kept,
+	 * so an invalid column with the direction "ASC" is sorted by "id ASC".
 	 *
 	 * @dataProvider data_invalid_sort_values
 	 */
-	public function test_an_invalid_sort_value_falls_back_to_the_default_order( $order_by, $order ) {
+	public function test_an_invalid_sort_value_falls_back_to_the_default( $order_by, $order, $expected_direction ) {
 		$this->log_in_as( 'administrator' );
 		$first_id  = $this->add_log_entry();
 		$second_id = $this->add_log_entry();
@@ -121,18 +123,26 @@ class Test_Export_Logs extends WP_UnitTestCase {
 		$response = $this->call_export( array( 'orderBy' => $order_by, 'order' => $order ) );
 
 		$this->assertTrue( $response['success'] );
-		$this->assertSame( array( $second_id, $first_id ), $this->exported_ids( $response ), 'The default order (newest first) was not used.' );
+		if ( 'ASC' === $expected_direction ) {
+			$this->assertSame( array( $first_id, $second_id ), $this->exported_ids( $response ), 'The logs are not sorted by "id ASC".' );
+		} else {
+			$this->assertSame( array( $second_id, $first_id ), $this->exported_ids( $response ), 'The logs are not sorted by "id DESC" (the default order).' );
+		}
 		$this->assertStringNotContainsString( 'Unknown column', wp_json_encode( $response ) );
 	}
 
 	public static function data_invalid_sort_values() {
 		return array(
-			'unknown column (the report)'     => array( 'does_not_exist', 'ASC' ),
-			'column with SQL'                 => array( 'id; DROP TABLE x', 'ASC' ),
-			'expression'                      => array( '(SELECT 1)', 'ASC' ),
-			'column with a direction'         => array( 'post_title DESC', '' ),
-			'invalid direction'               => array( 'id', 'DESC; DROP TABLE x' ),
-			'empty'                           => array( '', '' ),
+			// Invalid column, valid direction: sorted by "id" in the given direction.
+			'unknown column (the report)'     => array( 'does_not_exist', 'ASC', 'ASC' ),
+			'column with SQL'                 => array( 'id; DROP TABLE x', 'ASC', 'ASC' ),
+			'expression'                      => array( '(SELECT 1)', 'ASC', 'ASC' ),
+			'unknown column, direction DESC'  => array( 'does_not_exist', 'DESC', 'DESC' ),
+			// Invalid or empty direction: "DESC".
+			'column with a direction'         => array( 'post_title DESC', '', 'DESC' ),
+			'invalid direction'               => array( 'id', 'DESC; DROP TABLE x', 'DESC' ),
+			'invalid direction ASC with SQL'  => array( 'id', 'ASC; DROP TABLE x', 'DESC' ),
+			'empty'                           => array( '', '', 'DESC' ),
 		);
 	}
 
