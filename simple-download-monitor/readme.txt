@@ -201,6 +201,20 @@ Yes
 
 == Changelog ==
 
+= WIP 4.1.7 =
+- The visitor country lookup for the download logs now uses HTTPS, so the visitor's IP address is no longer sent unencrypted.
+- The values shown in the download logs table (such as the country, user agent and referrer) are now escaped.
+- The logs table search now treats "%" and "_" as normal characters and works with search terms that contain quotes.
+- The reCAPTCHA verification no longer causes a PHP fatal error when Google's verification service can't be reached. The verification request now sends the keys correctly encoded.
+- The [sdm_search_form] shortcode now uses a prepared database query, finds search terms that contain quotes, and escapes the search results. Fixed a PHP warning for items without a description.
+- The CSV export of the download logs now has the missing "User Agent" column name, and values that could be read as spreadsheet formulas are now made safe. Both the start date and the end date of the export are now validated.
+- Fixed the total download count ([sdm_download_counter id="all"]) so it includes the count offsets of all download items, and made it faster on sites with a lot of download logs.
+- Fixed a PHP fatal error with the [sdm_download] and [sdm_show_all_dl] shortcodes when they are used without any attributes on WordPress 6.0 to 6.4 with PHP 8.
+- Fixed a PHP fatal error when the [sdm_download_categories] shortcode is used more than once on the same page.
+- Fixed the error message for a download item without a file URL being shown outside the error page.
+- The category names and links in the [sdm_download_categories_list] shortcode and the Terms and Conditions page link are now escaped.
+- Fixed the "open in a new window" option for download buttons with reCAPTCHA.
+
 = 4.1.6 =
 - Fixed a path traversal issue where a crafted "Downloadable File" URL containing "../" could be used to download files from outside the intended folder. The file path is now validated to stay inside the expected folder, and such URLs can no longer be saved. PHP-type file extensions are now always blocked from PHP dispatch.
 - The export logs feature now checks the user's permission, only accepts valid sort columns, and no longer shows database error messages in the browser.

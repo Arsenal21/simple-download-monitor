@@ -224,6 +224,8 @@ function sdm_create_counter_shortcode( $atts ) {
 
 // Create Category Shortcode
 function sdm_handle_category_shortcode( $args ) {
+	// WordPress passes an empty string (older versions) or an empty array when the shortcode has no attributes.
+	$args = is_array( $args ) ? $args : array();
 
 	extract(
 		shortcode_atts(
@@ -495,7 +497,7 @@ function sdm_download_categories_list_walker( $atts, $parent = 0 ) {
 	);
 
 	// Return empty string, if no terms found.
-	if ( empty( $terms ) ) {
+	if ( empty( $terms ) || is_wp_error( $terms ) ) {
 		return '';
 	}
 
@@ -503,8 +505,9 @@ function sdm_download_categories_list_walker( $atts, $parent = 0 ) {
 	$out = '<' . $list_tag . '>';
 
 	foreach ( $terms as $term ) {
+		$term_link = get_term_link( $term );
 		$out .= '<li>'
-		. '<a href="' . get_term_link( $term ) . '">' . $term->name . '</a>' // link
+		. '<a href="' . ( is_wp_error( $term_link ) ? '' : esc_url( $term_link ) ) . '">' . esc_html( $term->name ) . '</a>' // link
 		. ( $count ? ( ' <span>(' . $term->count . ')</span>' ) : '' ) // count
 		. ( $hierarchical ? sdm_download_categories_list_walker( $atts, $term->term_id ) : '' ) // subcategories
 		. '</li>';
@@ -651,6 +654,10 @@ function sdm_download_url_requires_handler_checks( $post_object ) {
 }
 
 function sdm_handle_show_all_dl_shortcode( $args ) {
+	// WordPress passes an empty string (older versions) or an empty array when the shortcode has no attributes.
+	// Adding "show_all" to the empty string was a PHP fatal error on PHP 8 (WordPress 6.0 to 6.4).
+	$args = is_array( $args ) ? $args : array();
+
 	if ( isset( $args['category_id'] ) ) {
 		unset( $args['category_id'] );
 	}

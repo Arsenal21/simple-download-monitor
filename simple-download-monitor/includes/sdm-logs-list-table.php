@@ -26,21 +26,18 @@ class sdm_List_Table extends WP_List_Table {
 
 	function column_default( $item, $column_name ) {
 
+		//The values come from the download request (the User-Agent, the referrer) and from the country lookup service, so they are escaped.
 		switch ( $column_name ) {
 			case 'URL':
 			case 'visitor_ip':
 			case 'date':
-				return $item[ $column_name ];
 			case 'visitor_country':
-				return $item[ $column_name ];
 			case 'visitor_name':
-				return $item[ $column_name ];
 			case 'user_agent':
-				return $item[ $column_name ];
 			case 'referrer_url':
-				return $item[ $column_name ];
+				return esc_html( $item[ $column_name ] );
 			default:
-				return print_r( $item, true ); //Show the whole array for troubleshooting purposes
+				return esc_html( print_r( $item, true ) ); //Show the whole array for troubleshooting purposes
 		}
 	}
 
@@ -230,15 +227,19 @@ class sdm_List_Table extends WP_List_Table {
 			$total_items = $wpdb->get_var( $query );//For pagination requirement
 			$query       = $wpdb->prepare("SELECT * FROM $table_name WHERE post_id = %d ORDER BY $orderby_column $sort_order", $dl_id);
 		} else if ( isset( $_REQUEST['s'] ) && !empty( $_REQUEST['s'] ) ) {
-			$search_text = sanitize_text_field($_REQUEST['s']);
+			//WordPress adds slashes to the request data ("Bob's" is "Bob\'s"), so they are removed.
+			$search_text = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
 
-			$columns = ['post_title', 'post_id', 'visitor_name', 'visitor_ip' , 'visitor_country'];
-			$like_query = [];
-			foreach ($columns as $column) {
-				$like_query[] = "$column LIKE '%" . esc_sql($search_text) . "%'";
+			$columns    = array( 'post_title', 'post_id', 'visitor_name', 'visitor_ip', 'visitor_country' );
+			$like_query = array();
+			$like_args  = array();
+			foreach ( $columns as $column ) {
+				$like_query[] = "$column LIKE %s";
+				//"%" and "_" in the search text are searched for as characters, not as wildcards.
+				$like_args[] = '%' . $wpdb->esc_like( $search_text ) . '%';
 			}
-			
-			$where_clause = implode(' OR ', $like_query);
+
+			$where_clause = $wpdb->prepare( implode( ' OR ', $like_query ), $like_args );
 
 			$query       = "SELECT COUNT(*) FROM $table_name WHERE $where_clause";
 			$total_items = $wpdb->get_var( $query );//For pagination requirement

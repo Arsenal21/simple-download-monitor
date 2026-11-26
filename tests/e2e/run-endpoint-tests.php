@@ -23,7 +23,10 @@ const E2E_USER_AGENT = 'SDM-E2E-Tests/1.0';
 //the output shows "KNOWN ISSUE (still happens)" or "KNOWN ISSUE NOW PASSES". The commit that fixes one removes it from this list,
 //so its check becomes a normal check. There are none at the moment. Example: 'short-issue-id' => 'What is wrong and what it affects.',
 //and in the test: check_known( 'short-issue-id', $label, $condition, $details );
-const KNOWN_ISSUES = array();
+const KNOWN_ISSUES = array(
+	'terms-not-checked-by-server' => 'Terms and Conditions are only checked in the browser (the checkbox has no name, so it is not sent): '
+		. 'the download request (a direct download link) works without agreeing to the terms.',
+);
 
 // -------------------------------------------------------------------------------------------------
 // Helpers
@@ -237,6 +240,11 @@ function set_site_option_value( $name, $value ) {
 /** Sets the plugin settings (sdm_downloads_options) to the base settings (debug logging on) plus these. */
 function set_plugin_settings( $settings = array() ) {
 	set_site_option_value( 'sdm_downloads_options', array_merge( array( 'enable_debug' => 'on' ), $settings ) );
+}
+
+/** Sets the advanced settings (sdm_advanced_options: reCAPTCHA, Terms and Conditions). */
+function set_advanced_settings( $settings = array() ) {
+	set_site_option_value( 'sdm_advanced_options', $settings );
 }
 
 function log_count( $download_id ) {
@@ -502,6 +510,88 @@ function run_path_traversal_tests( $ids, $contents, $urls ) {
 	check( 'A file outside the protected folder is not sent for a protected folder URL with "../"', ! contains( $response['body'], $contents['outside_protected'] ), response_text( $response ) );
 }
 
+/**
+ * reCAPTCHA v2 and v3. The must-use plugin answers Google's verification request (see mu-plugin-e2e-helpers.php):
+ * the token "e2e-valid-token" with the secret key "e2e-secret&key" is valid.
+ */
+function run_recaptcha_tests( $ids, $urls ) {
+	$versions = array(
+		'v2' => array(
+			'settings'     => array(
+				'recaptcha_enable'     => 'on',
+				'recaptcha_site_key'   => 'e2e-site-key',
+				'recaptcha_secret_key' => 'e2e-secret&key',
+			),
+			'page_text'    => 'Please verify that you are human',
+			'failure_text' => 'Google reCAPTCHA verification failed',
+		),
+		'v3' => array(
+			'settings'     => array(
+				'recaptcha_v3_enable'     => 'on',
+				'recaptcha_v3_site_key'   => 'e2e-site-key',
+				'recaptcha_v3_secret_key' => 'e2e-secret&key',
+			),
+			'page_text'    => 'Verifying that you are human',
+			'failure_text' => 'Google reCAPTCHA v3 verification failed',
+		),
+	);
+	set_plugin_settings();
+	$id = $ids['redirect'];
+
+	foreach ( $versions as $version => $case ) {
+		echo "--- reCAPTCHA {$version} ---\n";
+		set_advanced_settings( $case['settings'] );
+		$before = log_count( $id );
+
+		//A direct download link (GET without a token) shows the page that asks for the captcha.
+		$response = download( $id );
+		check( "reCAPTCHA {$version}: a download link without a token shows the captcha page", 200 === $response['status'] && contains( $response['body'], $case['page_text'] ) && '' === $response['location'], response_text( $response ) );
+
+		$response = http_request( 'POST', '/?sdm_process_download=1&download_id=' . $id, array( 'download_id' => $id ) );
+		check( "reCAPTCHA {$version}: a POST request without a token is refused", 403 === $response['status'] && contains( $response['body'], 'Google reCAPTCHA verification failed' ), response_text( $response ) );
+
+		$response = download( $id, array( 'g-recaptcha-response' => 'wrong-token' ) );
+		check( "reCAPTCHA {$version}: a wrong token is refused", 403 === $response['status'] && contains( $response['body'], $case['failure_text'] ) && '' === $response['location'], response_text( $response ) );
+
+		//It was a PHP fatal error (the response of the failed request was read as an array).
+		$response = download( $id, array( 'g-recaptcha-response' => 'e2e-network-error' ) );
+		check( "reCAPTCHA {$version}: the download is refused when Google can't be reached", 403 === $response['status'] && contains( $response['body'], $case['failure_text'] ), response_text( $response ) );
+
+		check( "reCAPTCHA {$version}: the refused downloads are not logged", log_count( $id ) === $before, 'Log entries added: ' . ( log_count( $id ) - $before ) );
+
+		//The secret key has a "&": it was added to the verification URL without encoding, so Google got another key.
+		$response = http_request( 'POST', '/?sdm_process_download=1&download_id=' . $id, array( 'download_id' => $id, 'g-recaptcha-response' => 'e2e-valid-token' ) );
+		check( "reCAPTCHA {$version}: a valid token is accepted and the file is downloaded", is_redirect_to( $response, $urls['public'] ), response_text( $response ) );
+		check( "reCAPTCHA {$version}: the download with a valid token is logged", log_count( $id ) === $before + 1 );
+	}
+
+	set_advanced_settings();
+}
+
+function run_terms_tests( $ids, $urls ) {
+	echo "--- Terms and Conditions ---\n";
+	set_plugin_settings();
+	set_advanced_settings(
+		array(
+			'termscond_enable' => 'on',
+			'termscond_url'    => 'http://127.0.0.1:8080/e2e-terms/',
+		)
+	);
+
+	//The single download page shows the terms checkbox with the link to the terms page.
+	$response = http_request( 'GET', '/?post_type=sdm_downloads&p=' . $ids['redirect'] );
+	check(
+		'The download page shows the terms checkbox and the link to the terms page',
+		200 === $response['status'] && contains( $response['body'], 'agree_termscond' ) && contains( $response['body'], 'http://127.0.0.1:8080/e2e-terms/' ),
+		response_text( $response )
+	);
+
+	$response = download( $ids['redirect'] );
+	check_known( 'terms-not-checked-by-server', 'A download link without agreeing to the terms is refused', ! is_redirect_to( $response, $urls['public'] ), response_text( $response ) );
+
+	set_advanced_settings();
+}
+
 // -------------------------------------------------------------------------------------------------
 // Run
 // -------------------------------------------------------------------------------------------------
@@ -526,6 +616,8 @@ run_logged_in_only_tests( $ids, $urls );
 run_logging_option_tests( $ids );
 run_file_check_tests( $ids, $contents, $urls );
 run_path_traversal_tests( $ids, $contents, $urls );
+run_recaptcha_tests( $ids, $urls );
+run_terms_tests( $ids, $urls );
 
 //PHP errors on the test site (WP_DEBUG_LOG). A fatal error fails the tests; warnings and notices from the plugin are listed.
 echo "--- PHP errors ---\n";

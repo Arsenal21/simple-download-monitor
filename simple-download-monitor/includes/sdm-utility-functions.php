@@ -34,7 +34,7 @@ function sdm_get_download_count_for_post( $id ) {
 
 	if ( $get_offset && $get_offset != '' ) {
 
-		$db_count = $db_count + $get_offset;
+		$db_count = $db_count + (int) $get_offset;
 	}
 	return $db_count;
 }
@@ -45,31 +45,24 @@ function sdm_get_download_count_for_post( $id ) {
  * @return number
  */
 function sdm_get_download_count_for_all_posts() {
-    global $wpdb;
+	global $wpdb;
 
-	// For total count
-    $table = $wpdb->prefix . 'sdm_downloads';
-	$query1 = 'SELECT * FROM ' . $table;
-    $wpdb->get_results($query1);
-    $db_count = $wpdb->num_rows;
+	// For total count (COUNT(*): all the log rows were loaded to count them).
+	$table    = $wpdb->prefix . 'sdm_downloads';
+	$db_count = (int) $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $table );
 
 	// For offset count
-    $table2 = $wpdb->prefix . 'posts';
-	$query2 = ' SELECT * FROM ' . $table2 . ' WHERE post_type="sdm_downloads"';
-    $result = $wpdb->get_results($query2);
+	$post_ids = $wpdb->get_col( 'SELECT ID FROM ' . $wpdb->posts . " WHERE post_type = 'sdm_downloads'" );
 
-    // Check post meta for offset count.
-    for ($i = 0; $i < $wpdb->num_rows; $i++) {
-		if( !isset($result[$i]->ID) ){
-			// Skip if no ID.
-			continue;
+	// Check post meta for offset count.
+	// Note: the loop used $wpdb->num_rows as its end, which get_post_meta() changes (it runs queries), so it could stop early.
+	foreach ( $post_ids as $post_id ) {
+		$get_offset = get_post_meta( $post_id, 'sdm_count_offset', true );
+		if ( $get_offset && $get_offset != '' ) {
+			$db_count = $db_count + (int) $get_offset;
 		}
-        $get_offset = get_post_meta($result[$i]->ID, 'sdm_count_offset', true);
-        if ($get_offset && $get_offset != '') {
-            $db_count = $db_count + $get_offset;
-        }
-    }
-    return $db_count;
+	}
+	return $db_count;
 }
 
 function sdm_get_password_entry_form( $id, $args = array(), $class = '' ) {
@@ -189,7 +182,8 @@ function sdm_ip_info( $ip, $purpose = 'location' ) {
  * @return array|string|null*
  */
 function sdm_get_ip_info_by_ipwhois( $ip, $purpose, $continents ) {
-	$ipdat = @json_decode( wp_remote_retrieve_body( wp_remote_get( 'http://ipwhois.app/json/' . $ip ) ) );
+	//HTTPS, so the visitor's IP address and the answer aren't sent in plain text.
+	$ipdat = @json_decode( wp_remote_retrieve_body( wp_remote_get( 'https://ipwhois.app/json/' . rawurlencode( $ip ) ) ) );
 
 	if ( @strlen( trim( $ipdat->country_code ) ) === 2 ) {
 		switch ( $purpose ) {
@@ -353,7 +347,8 @@ function sdm_get_download_form_with_recaptcha( $id, $args = array(), $class = ''
 	$window_target = empty( $new_window ) ? '' : ' target="_blank"';
 	$window_target = apply_filters('sdm_download_window_target', $window_target);
 
-	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . esc_attr($window_target) . '>';
+	//Note: $window_target is the whole attribute (' target="_blank"'), so it isn't escaped with esc_attr() (that broke its quotes).
+	$data = '<form action="' . $action_url . '" method="post" class="sdm-g-recaptcha-form sdm-download-form"' . $window_target . '>';
 
 	$data .= '<div class="sdm-recaptcha-button">';
 
@@ -387,7 +382,7 @@ function sdm_get_checkbox_for_termsncond() {
 	$termscond_enable   = isset( $main_advanced_opts['termscond_enable'] ) ? true : false;
 	if ( $termscond_enable ) {
 		$data  = '<div class="sdm-termscond-checkbox">';
-		$data .= '<input type="checkbox" class="agree_termscond" value="1"/> ' . __( 'I agree to the ', 'simple-download-monitor' ) . '<a href="' . $main_advanced_opts['termscond_url'] . '" target="_blank">' . __( 'terms and conditions', 'simple-download-monitor' ) . '</a>';
+		$data .= '<input type="checkbox" class="agree_termscond" value="1"/> ' . __( 'I agree to the ', 'simple-download-monitor' ) . '<a href="' . esc_url( isset( $main_advanced_opts['termscond_url'] ) ? $main_advanced_opts['termscond_url'] : '' ) . '" target="_blank">' . __( 'terms and conditions', 'simple-download-monitor' ) . '</a>';
 		$data .= '</div>';
 		return $data;
 	}

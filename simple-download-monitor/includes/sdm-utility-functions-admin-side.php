@@ -1,6 +1,31 @@
 <?php
 
 function sdm_export_download_logs_to_csv( $start_date, $end_date ) {
+	$csv_file_name = sprintf( 'sdm-download-logs-%s_%s.csv', $start_date, $end_date );
+	header( 'Content-Type: text/csv' );
+	header( 'Content-Disposition: attachment; filename="' . $csv_file_name . '"' );
+	header( 'Pragma: no-cache' );
+	header( 'Expires: 0' );
+
+	$fp = fopen( 'php://output', 'w' );
+
+	foreach ( sdm_get_download_logs_csv_rows( $start_date, $end_date ) as $row ) {
+		fputcsv( $fp, $row );
+	}
+
+	exit();
+}
+
+/**
+ * The rows of the download logs CSV file (the Export tab of the Logs page): the column names, then the log entries
+ * of the date range, newest first.
+ *
+ * @param string $start_date The first day (yyyy-mm-dd).
+ * @param string $end_date The last day (yyyy-mm-dd).
+ *
+ * @return array
+ */
+function sdm_get_download_logs_csv_rows( $start_date, $end_date ) {
 	//appending time to start and end date
 	$start_date_time = $start_date . ' 00:00:00';
 	$end_date_time   = $end_date . ' 23:59:59';
@@ -10,27 +35,33 @@ function sdm_export_download_logs_to_csv( $start_date, $end_date ) {
 	$resultset_query = $wpdb->prepare( "SELECT * FROM $table_name WHERE date_time BETWEEN %s AND %s ORDER BY id DESC", $start_date_time, $end_date_time );
 	$resultset       = $wpdb->get_results( $resultset_query, OBJECT );
 
-	$csv_file_name = sprintf( 'sdm-download-logs-%s_%s.csv', $start_date, $end_date );
-	header( 'Content-Type: text/csv' );
-	header( 'Content-Disposition: attachment; filename="' . $csv_file_name . '"' );
-	header( 'Pragma: no-cache' );
-	header( 'Expires: 0' );
-
-	$fp = fopen( 'php://output', 'w' );
-
-	$header_names = array( 'Log ID', 'Download ID', 'Download Title', 'File URL', 'Date', 'IP Address', 'Country', 'Name' );
-	fputcsv( $fp, $header_names );
+	//The rows have the User Agent too (its column name was missing).
+	$rows = array(
+		array( 'Log ID', 'Download ID', 'Download Title', 'File URL', 'Date', 'IP Address', 'Country', 'Name', 'User Agent' ),
+	);
 
 	foreach ( $resultset as $result ) {
-		if ( empty( $result->purchase_qty ) ) {
-			$result->purchase_qty = 1;
-		}
-
 		$fields = array( $result->id, $result->post_id, $result->post_title, $result->file_url, $result->date_time, $result->visitor_ip, $result->visitor_country, $result->visitor_name, $result->user_agent );
-		fputcsv( $fp, $fields );
+		$rows[] = array_map( 'sdm_csv_safe_cell', $fields );
 	}
 
-	exit();
+	return $rows;
+}
+
+/**
+ * Makes a CSV cell safe to open in a spreadsheet: a value that starts with =, +, -, @, a tab or a carriage return
+ * is read as a formula by Excel and similar apps, so a ' is added in front of it.
+ * Some values come from the visitor (the User-Agent of the download request).
+ *
+ * @param mixed $value
+ *
+ * @return mixed
+ */
+function sdm_csv_safe_cell( $value ) {
+	if ( is_string( $value ) && '' !== $value && false !== strpos( "=+-@\t\r", $value[0] ) ) {
+		return "'" . $value;
+	}
+	return $value;
 }
 
 function sdm_get_downloads_by_date( $start_date = '', $end_date = '', $ids = array(), $returnStr = true ) {
@@ -282,17 +313,18 @@ function sdm_get_top_downloads_by_count( $start_date = '', $end_date = '', $ids 
  */
 function sdm_validate_date_field( $data ) {
 	if ( is_array( $data ) ) {
-		foreach ( $data as $date ) {
-			$date_elements = explode( '-', $date );
-
-			$year  = isset( $date_elements[0] ) ? $date_elements[0] : null;
-			$month = isset( $date_elements[1] ) ? $date_elements[1] : null;
-			$day   = isset( $date_elements[2] ) ? $date_elements[2] : null;
-
-			return checkdate( (int) $month, (int) $day, (int) $year );
+		//Every date must be valid (only the first one was checked).
+		if ( empty( $data ) ) {
+			return false;
 		}
+		foreach ( $data as $date ) {
+			if ( ! sdm_validate_date_field( (string) $date ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
-	$date_elements = explode( '-', $data );
+	$date_elements = explode( '-', (string) $data );
 
 	$year  = isset( $date_elements[0] ) ? $date_elements[0] : null;
 	$month = isset( $date_elements[1] ) ? $date_elements[1] : null;

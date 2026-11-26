@@ -277,7 +277,7 @@ function sdm_recaptcha_verify() {
             sdm_show_intermediate_page_for_captcha_validation();
         } else {
             // Request method POST.
-            wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+            wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . ' ' . __( 'Do you have JavaScript enabled?', 'simple-download-monitor' ) . "</p>\n\n<p><a href=\"" . esc_url( wp_get_referer() ) . '">&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
         }
     }
 
@@ -292,28 +292,55 @@ function sdm_recaptcha_verify() {
 
 function sdm_recaptcha_v2_verify( $token ) {
 	$main_advanced_opts   = get_option( 'sdm_advanced_options' );
-	$recaptcha_secret_key = $main_advanced_opts['recaptcha_secret_key'];
-	$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$token}" );
-	$response             = json_decode( $response['body'], 1 );
+	$recaptcha_secret_key = isset( $main_advanced_opts['recaptcha_secret_key'] ) ? $main_advanced_opts['recaptcha_secret_key'] : '';
 
-	if ( $response['success'] ) {
+	if ( sdm_recaptcha_siteverify( $recaptcha_secret_key, $token ) ) {
 		return true;
 	} else {
-		wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+		wp_die( '<p><strong>' . __( 'ERROR:', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=\"" . esc_url( wp_get_referer() ) . '">&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
 	}
 }
 
 function sdm_recaptcha_v3_verify( $token ) {
 	$main_advanced_opts   = get_option( 'sdm_advanced_options' );
-	$recaptcha_secret_key = $main_advanced_opts['recaptcha_v3_secret_key'];
-	$response             = wp_remote_get( "https://www.google.com/recaptcha/api/siteverify?secret={$recaptcha_secret_key}&response={$token}" );
-	$response             = json_decode( $response['body'], 1 );
+	$recaptcha_secret_key = isset( $main_advanced_opts['recaptcha_v3_secret_key'] ) ? $main_advanced_opts['recaptcha_v3_secret_key'] : '';
 
-	if ( $response['success'] ) {
+	if ( sdm_recaptcha_siteverify( $recaptcha_secret_key, $token ) ) {
 		return true;
 	} else {
-		wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
+		wp_die( '<p><strong>' . __( 'Error! ', 'simple-download-monitor' ) . '</strong> ' . __( 'Google reCAPTCHA v3 verification failed.', 'simple-download-monitor' ) . "</p>\n\n<p><a href=\"" . esc_url( wp_get_referer() ) . '">&laquo; ' . __( 'Back', 'simple-download-monitor' ) . '</a>', '', 403 );
 	}
+}
+
+/**
+ * Sends the reCAPTCHA token to Google's verification API.
+ *
+ * The secret key and the token are sent in the POST body (they were added to the URL without encoding), and a failed request
+ * (Google can't be reached) counts as a failed verification (it was a PHP fatal error).
+ *
+ * @param string $secret_key The reCAPTCHA secret key.
+ * @param string $token The token from the reCAPTCHA widget.
+ *
+ * @return bool True if Google confirms the token.
+ */
+function sdm_recaptcha_siteverify( $secret_key, $token ) {
+	$response = wp_remote_post(
+		'https://www.google.com/recaptcha/api/siteverify',
+		array(
+			'body' => array(
+				'secret'   => $secret_key,
+				'response' => $token,
+			),
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		SDM_Debug::log( 'The reCAPTCHA verification request failed: ' . $response->get_error_message(), false );
+		return false;
+	}
+
+	$result = json_decode( wp_remote_retrieve_body( $response ), true );
+	return is_array( $result ) && ! empty( $result['success'] );
 }
 
 function sdm_show_intermediate_page_for_captcha_validation() {
