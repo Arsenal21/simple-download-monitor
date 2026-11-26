@@ -65,13 +65,15 @@ function sanitize_sdm_create_download_shortcode_atts( $atts ) {
 
 // Create Download Shortcode
 function sdm_create_download_shortcode( $atts ) {
+	// WordPress passes an empty string (older versions) or an empty array when the shortcode has no attributes.
+	$atts = is_array( $atts ) ? $atts : array();
 
 	$shortcode_atts = sanitize_sdm_create_download_shortcode_atts(
 		shortcode_atts(
 			array(
 				'id'           => '',
 				'fancy'        => '0',
-				'button_text'  => sdm_get_default_download_button_text( $atts['id'] ),
+				'button_text'  => sdm_get_default_download_button_text( isset( $atts['id'] ) ? $atts['id'] : '' ),
 				'new_window'   => '',
 				'color'        => '',
 				'css_class'    => '',

@@ -10,3 +10,8 @@ vendor
 simple-download-monitor.zip
 # Debug log files
 simple-download-monitor/logs/*.txt
+
+# PHPUnit tests (tests/phpunit)
+/tests/phpunit/vendor
+/tests/phpunit/composer.lock
+/tests/phpunit/.phpunit.result.cache
