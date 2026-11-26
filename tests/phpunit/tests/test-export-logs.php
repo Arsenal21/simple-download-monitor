@@ -13,12 +13,12 @@ class Test_Export_Logs extends WP_UnitTestCase {
 	public function set_up() {
 		parent::set_up();
 		add_filter( 'wp_doing_ajax', '__return_true' );
-		add_filter( 'wp_die_ajax_handler', array( $this, 'get_wp_die_handler' ) );
+		add_filter( 'wp_die_ajax_handler', array( $this, 'get_sdm_ajax_die_handler' ) );
 	}
 
 	public function tear_down() {
 		remove_filter( 'wp_doing_ajax', '__return_true' );
-		remove_filter( 'wp_die_ajax_handler', array( $this, 'get_wp_die_handler' ) );
+		remove_filter( 'wp_die_ajax_handler', array( $this, 'get_sdm_ajax_die_handler' ) );
 		$_POST = array();
 		SDM_Debug::delete_log_file();
 		parent::tear_down();
@@ -224,13 +224,14 @@ class Test_Export_Logs extends WP_UnitTestCase {
 	// ---------------------------------------------------------------------------------------------
 
 	/**
-	 * wp_die() handler for these tests: throws instead of ending the test run.
+	 * wp_die() handler for these tests (for AJAX requests): throws instead of ending the test run.
+	 * Note: the names must not be the same as the WP_UnitTestCase methods get_wp_die_handler() and wp_die_handler().
 	 */
-	public function get_wp_die_handler() {
-		return array( $this, 'wp_die_handler' );
+	public function get_sdm_ajax_die_handler() {
+		return array( $this, 'sdm_ajax_die_handler' );
 	}
 
-	public function wp_die_handler( $message ) {
+	public function sdm_ajax_die_handler( $message ) {
 		throw new WPDieException( is_string( $message ) ? $message : '' );
 	}
 
